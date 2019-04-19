@@ -43,19 +43,19 @@
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label class="col-md-3 col-form-label">First Name: </label>
+                        <label class="col-md-3 col-form-label">Name: </label>
                         <div class="col-md-9">
                           <?php echo form_input(array('id' => 'first_name', 'name' => 'first_name','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off')); ?>
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label class="col-md-3 col-form-label">Middle Name: </label>
+                        <label class="col-md-3 col-form-label"></label>
                         <div class="col-md-9">
                           <?php echo form_input(array('id' => 'middle_name', 'name' => 'middle_name','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'off')); ?>
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label class="col-md-3 col-form-label">Last Name: </label>
+                        <label class="col-md-3 col-form-label"></label>
                         <div class="col-md-9">
                           <?php echo form_input(array('id' => 'last_name', 'name' => 'last_name','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'off')); ?>
                         </div>
