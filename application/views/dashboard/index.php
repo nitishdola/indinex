@@ -106,7 +106,7 @@
              <li>
               <div class="panel">
                 <figure class="overlay overlay-hover animation-hover">
-                  <img class="caption-figure overlay-figure dashboard-icon" src="<?php echo base_url();?>assets/images/indianex_images/promotion_sales-512.png">
+                  <img class="caption-figure overlay-figure dashboard-icon" src="<?php echo base_url();?>assets/images/indianex_images/pos.png">
                   <figcaption class="overlay-panel overlay-background overlay-fade text-center vertical-align">
                     <div class="btn-group">
                       <div class="dropdown float-left">
@@ -114,10 +114,11 @@
                         </div>
                       </div>
                     </div>
-                     <a href="<?php echo site_url('pos/dashboard'); ?>" class="btn btn-inverse project-button">Sales</a>
+                     <a href="<?php echo site_url('pos/dashboard'); ?>" class="btn btn-inverse project-button">POINT OF SALE</a>
                   </figcaption>
                 </figure>
-                <div class="text-truncate">SALES</div>
+                <div class="text-truncate">
+                  <a href="<?php echo site_url('pos/dashboard'); ?>" class="dashboard-links">POINT OF SALE</a></div>
               </div>
             </li>     
       
@@ -140,6 +141,25 @@
                 <div class="text-truncate">STOCK MOVEMENT</div>
               </div>
             </li>
+
+
+            <li>
+              <div class="panel">
+                <figure class="overlay overlay-hover animation-hover">
+                  <img class="caption-figure overlay-figure dashboard-icon" src="<?php echo base_url();?>assets/images/indianex_images/promotion_sales-512.png">
+                  <figcaption class="overlay-panel overlay-background overlay-fade text-center vertical-align">
+                    <div class="btn-group">
+                      <div class="dropdown float-left">
+                        <div class="dropdown-menu" role="menu">
+                        </div>
+                      </div>
+                    </div>
+                     <a href="<?php echo site_url('orders/dashboard'); ?>" class="btn btn-inverse project-button">Sales</a>
+                  </figcaption>
+                </figure>
+                <div class="text-truncate"><a href="<?php echo site_url('orders/dashboard'); ?>" class="dashboard-links">SALES</a></div>
+              </div>
+            </li> 
 
 
       <li>
