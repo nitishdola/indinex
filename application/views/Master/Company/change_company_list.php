@@ -56,13 +56,14 @@
                         }
                       }
                       ?></td> 
-                      <td><?php if(!empty($row->email)) {
+                      <td><?php 
+                      
                         $email=unserialize($row->email);
                         $cnt2= count($email);
                         for($j=1;$j<$cnt2;$j++){
                         echo ($email[$j]).'<br>';
                         }
-                      }
+                     
                       ?></td> 
                       <td><?php echo  $row->fax;?></td>
                       <td><a href="<?php echo site_url('Setup/edit_company?id='.$row->id);?>" class="btn btn-info btn-sm"  style="margin: 5px">Change</a>
