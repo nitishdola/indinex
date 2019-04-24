@@ -1,6 +1,6 @@
-<?php $this->load->view('layout/header'); ?>
-  <body class="animsition app-projects">
-    <?php $this->load->view('layout/nav_menu'); ?>
+<?php $this->load->view('layout/admin/header'); ?>
+<body class="animsition app-projects">
+   <?php $this->load->view('layout/admin/nav_menu'); ?>
     <?php 
     if(!empty($checkrecord))
     {     
@@ -18,10 +18,9 @@
     <div class="page">
       <div class="page-header">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-          <li class="breadcrumb-item"><a href="<?php echo site_url('Welcome/master');?>">Master</a></li>
-          <li class="breadcrumb-item"><a href="<?php echo site_url('Vendors/vendor_main');?>">Vendor</a></li>
-          <li class="breadcrumb-item"><a href="<?php echo site_url('Vendors/vendor_account_sub');?>">Account Group</a></li>
+          <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard');?>">Dashboard</a></li>
+          <li class="breadcrumb-item"><a href="<?php echo site_url('Setup');?>">Setup</a></li>          
+          <li class="breadcrumb-item"><a href="<?php echo site_url('Customers/Customer_account_sub');?>">Account Group</a></li>
           <li class="breadcrumb-item active">Create</li>
         </ol>
         <div class="page-content">
@@ -41,7 +40,7 @@
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label">Account Group Id </label>
                               <div class="col-md-8">
-                              <?php echo form_input(array('type' =>'text', 'name' => 'vendor_group_id','id'=>'vendor_group_id','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off','readonly'=>'readonly','value'=>$vendor_group_id)); ?>
+                              <?php echo form_input(array('type' =>'text', 'name' => 'customer_group_id','id'=>'customer_group_id','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off')); ?>
                               </div>
                             </div>                      
                             <div class="form-group row">
@@ -83,7 +82,7 @@
         </div>
       </div>
     </div>
-<?php $this->load->view('layout/footer'); ?>
+<?php $this->load->view('layout/admin/footer'); ?>
     
 
     

@@ -11,9 +11,30 @@ class Main_Storage_Model extends CI_Model
 
 	public function select()  
 	{  
-   	$query = $this->db->get('storage_type');  
-   	return $query;  
+    $this->db->select('*');
+    $this->db->from('storage_type');
+    $this->db->join('states','states.id = storage_type.region','left');
+    $this->db->order_by("storage_type.id", "DESC");
+    $this->db->limit('100');
+
+    $query = $this->db->get();  
+    return $query;  
 	} 
+  public function filterData($code=null)  
+  {  
+    if($code!=''){
+      $where=$this->db->where('storage_type.pcode',$code); 
+    } 
+    $this->db->select('*');
+    $this->db->from('storage_type');
+    $this->db->join('states','states.id = storage_type.region','left');
+    $this->db->join('company_setup','company_setup.id = storage_type.company_id','left');
+    $where;
+    $this->db->order_by("storage_type.id", "DESC");
+    
+    $query = $this->db->get();  
+    return $query;  
+  } 
 
 	public function getAllPlant()
   {
@@ -27,6 +48,13 @@ class Main_Storage_Model extends CI_Model
     $res = $this->db->query($query);
     return $res->result();
   }   
+  public function ifAlreadyExist($pcode)
+  { 
+    $query ="select pcode from storage_type where pcode='$pcode'";
+    $res = $this->db->query($query);
+    return $res->result();
+  }  
+
 } 
 
 ?>

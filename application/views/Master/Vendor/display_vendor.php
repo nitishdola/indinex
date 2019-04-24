@@ -351,12 +351,13 @@
                       <tr>  
                         <td><?php echo  $i;?> </td>   
                         <td><?php echo  $row->group_name;?></td>  
-                        <td><?php echo  $row->vendor_name;?></td>    
+                        <td><?php echo  ucwords($row->first_name).'&nbsp;'.$row->middle_name.'&nbsp;'.$row->last_name;?></td>    
                         <td><?php echo  str_pad($row->vendor_code, 4, '0', STR_PAD_LEFT);?></td> 
                          
                         <td><?php echo  $row->company_code;?></td>                        
                         
-                        <td><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal" data-id="<?php echo $row->vendor_code; ?>" >Details</button></td>
+                        <td><a href="<?php echo site_url('vendors/display_vendor_details?id='.$row->vendor_id);?>" class="btn btn-info btn-sm"  style="margin: 5px">Display</a>
+                        </td>
                       </tr>  
                      <?php }  ?>
                      

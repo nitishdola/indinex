@@ -77,7 +77,8 @@ class Vendors extends CI_Controller {
 	{
 		$this->load->model('vendor_model');        
 		$data['groups'] = $this->vendor_model->select_vendor_group();	
-		
+		$this->load->model('company_model');        
+		$data['company'] = $this->company_model->fetch_all_data();
 
 		if($this->input->post('sub'))
  		{
@@ -200,6 +201,24 @@ class Vendors extends CI_Controller {
 		$this->load->model('vendor_model'); 
 		$data['vendor_details']=$this->vendor_model->select_vendor_details();
 		$this->load->view('Master/Vendor/display_vendor',$data);	
+	}
+	public function display_vendor_details()
+	{
+		$vendor_id = $this->input->get('id');
+	
+		$this->load->model('vendor_model');
+		$data['vendors']=$this->vendor_model->fetch_vendor_details($vendor_id);
+		
+		$this->load->model('country_model'); 
+		$data['states'] = $this->country_model->getAllStates();
+
+		$this->load->model('city_model'); 
+		$data['city'] = $this->city_model->getAllCity();
+
+		$this->load->model('bank_list_model');        
+		$data['bank_list'] = $this->bank_list_model->select_bank_list();
+
+		$this->load->view('Master/Vendor/display_vendor_details',$data);		
 	}
 
 	public function ajax_vendor_details()
@@ -352,9 +371,8 @@ public function edit_vendor($id=null){
 	$this->load->model('bank_list_model');        
 		$data['bank_list'] = $this->bank_list_model->select_bank_list();
 
-	$this->load->model('country_model'); 
-	$data['states'] = $this->country_model->getAllStates();	
-
+	$this->load->model('city_model'); 
+	$data['city'] = $this->city_model->getAllCity();
 	
 	$this->load->view('Master/Vendor/edit_vendor',$data);		
 
@@ -375,7 +393,9 @@ public function edit_vendor($id=null){
 		$fax 					= $this->input->post('fax');
 		$postal_address 		= $this->input->post('postal_address');
 		
-		$this->vendor_model->change_vendor_general_data($firstname,$middlename,$lastname,$contact_person,$contact_person_mobile,$country,$region,$city,$email,$fax,$postal_address,$vendor_id);
+		//var_dump($_POST);
+		//exit();
+		$this->vendor_model->change_vendor_general_data($title,$firstname,$middlename,$lastname,$mobile,$contact_person,$contact_person_mobile,$country,$region,$city,$email,$fax,$postal_address,$vendor_id);
 		$this->session->set_flashdata('response',"<div class='alert alert-success'><strong>Success!</strong>&nbsp;&nbsp;General Data Changed</div>");	
 		 
 		redirect(site_url('Vendors/edit_vendor?id='.$vendor_id));

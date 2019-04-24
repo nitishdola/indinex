@@ -24,7 +24,7 @@ class Masters extends CI_Controller {
 	}
 	public function create_company(){
 
-		$this->load->view('Master/create_company');
+		$this->load->view('Master/Company/create_company');
 
 	}
 	public function line_of_business_sub(){
@@ -44,7 +44,9 @@ class Masters extends CI_Controller {
     public function storage_location_sub(){
     	$this->load->view('Master/storage_location_sub');
     }
-    
+     public function sub_storage_location_sub(){
+        $this->load->view('Master/sub_storage_location/sub_storage_location_sub');
+    }
     public function product_category_sub(){
     	$this->load->view('Master/product_category_sub');
     }
@@ -59,6 +61,7 @@ class Masters extends CI_Controller {
     	$this->load->database();          
         $this->load->model('line_of_business_model'); 
         $data['record'] = $this->line_of_business_model->check_last_record();
+        
 		if($this->input->post('sub'))
  		{
  			
@@ -73,6 +76,83 @@ class Masters extends CI_Controller {
 
  		}
     	$this->load->view('Master/Line_of_business/create_line_of_business',$data);
+    }
+
+    public function ajax_line_of_business(){
+
+        $bcode=$this->input->get('bcode');
+        $this->load->model('Line_Of_Business_Model'); 
+        $arr['res']=$this->Line_Of_Business_Model->ifAlreadyExist($bcode);
+        
+        if(!empty($this->Line_Of_Business_Model->ifAlreadyExist($bcode))){
+            echo 1;
+        }  else {
+            echo 0;
+        }
+    }
+
+    public function ajax_plant_code(){
+
+        $bcode=$this->input->get('pcode');
+        $this->load->model('Main_Storage_Model'); 
+        $arr['res']=$this->Main_Storage_Model->ifAlreadyExist($bcode);
+        
+        if(!empty($this->Main_Storage_Model->ifAlreadyExist($bcode))){
+            echo 1;
+        }  else {
+            echo 0;
+        }
+    }
+
+    public function ajax_storage_code(){
+
+        $scode=$this->input->get('scode');
+        $this->load->model('Sub_Storage_Model'); 
+        $arr['res']=$this->Sub_Storage_Model->ifAlreadyExist($scode);
+        
+        if(!empty($this->Sub_Storage_Model->ifAlreadyExist($scode))){
+            echo 1;
+        }  else {
+            echo 0;
+        }
+    }
+    public function ajax_account_group(){
+
+        $vendor_group_id=$this->input->get('vendor_group_id');
+        $this->load->model('vendor_model'); 
+        $arr['res']=$this->vendor_model->ifAlreadyExist($vendor_group_id);
+        
+        if(!empty($this->vendor_model->ifAlreadyExist($vendor_group_id))){
+            echo 1;
+        }  else {
+            echo 0;
+        }
+    }
+
+     public function ajax_check_range(){
+
+        $range_from=$this->input->get('range_from');
+        $this->load->model('vendor_model'); 
+        $arr['res']=$this->vendor_model->checkRange($range_from);
+        
+        if(!empty($this->vendor_model->checkRange($range_from))){
+            echo 1;
+        }  else {
+            echo 0;
+        }
+    }
+
+    public function ajax_company_code(){
+
+        $ccode=$this->input->get('ccode');
+        $this->load->model('Company_Model'); 
+        $arr['res']=$this->Company_Model->ifAlreadyExist($ccode);
+        
+        if(!empty($this->Company_Model->ifAlreadyExist($ccode))){
+            echo 1;
+        }  else {
+            echo 0;
+        }
     }
 
     public function change_line_of_business()
@@ -96,11 +176,14 @@ class Masters extends CI_Controller {
     }
     public function create_plant()
     {
-    	$this->load->model('country_model'); 
-		$data['states'] = $this->country_model->getAllStates();	
+    	$this->load->model('company_model'); 
+		$data['company'] = $this->company_model->getCompanyCode();	
 
-		$this->load->model('company_model'); 
-		$data['res'] = $this->company_model->select();	
+        $this->load->model('country_model'); 
+        $data['states'] = $this->country_model->getAllStates(); 
+
+		//$this->load->model('company_model'); 
+		//$data['res'] = $this->company_model->select();	
 		
 		$this->load->model('product_variants_model'); 
         $data['variants']=$this->product_variants_model->select_uom();
@@ -121,6 +204,7 @@ class Masters extends CI_Controller {
  			 			
  			$data = array(
 				'pcode' => $this->input->post('pcode'),
+                'company_id' => $this->input->post('company_id'),
 				'first_name' => $this->input->post('first_name'),
 				'middle_name' => $this->input->post('middle_name'),	
 				'last_name' => $this->input->post('last_name'),				
@@ -143,7 +227,14 @@ class Masters extends CI_Controller {
 
         $this->load->model('country_model'); 
 		$data['states'] = $this->country_model->getAllStates();
-
+        if($this->input->post('search'))
+        {
+            //var_dump($_POST);exit();
+            $code=$this->input->post('code');
+            $data['result'] = $this->main_storage_model->filterData($code);
+        } else {
+            $data['result'] = $this->main_storage_model->filterData();
+        }
        	$this->load->view('Master/Plant/change_plant',$data);
     }
 
@@ -155,6 +246,15 @@ class Masters extends CI_Controller {
         $this->load->model('country_model'); 
 		$data['states'] = $this->country_model->getAllStates();
 
+        if($this->input->post('search'))
+        {
+            //var_dump($_POST);exit();
+            $code=$this->input->post('code');
+            $data['result'] = $this->main_storage_model->filterData($code);
+        } else {
+            $data['result'] = $this->main_storage_model->filterData();
+        }
+
        	$this->load->view('Master/Plant/display_plant',$data);
     }
 
@@ -163,7 +263,7 @@ class Masters extends CI_Controller {
 		$data['states'] = $this->country_model->getAllStates();	
 
 		$this->load->model('company_model'); 
-		$data['res'] = $this->company_model->select();	
+		//$data['res'] = $this->company_model->select();	
 		
 		$this->load->model('main_storage_model'); 		
 		$data['plant'] = $this->main_storage_model->getAllPlant();
@@ -201,6 +301,14 @@ class Masters extends CI_Controller {
 
         $this->load->model('main_storage_model'); 		
 		$data['plant'] = $this->main_storage_model->getAllPlant();
+        if($this->input->post('search'))
+        {
+            var_dump($_POST);exit();
+            $code=$this->input->post('code');
+            $data['result'] = $this->sub_storage_model->filterData($code);
+        } else {
+            $data['result'] = $this->sub_storage_model->filterData();
+        }
     	$this->load->view('Master/Storage_location/change_storage_location',$data);
     }
 
@@ -213,7 +321,41 @@ class Masters extends CI_Controller {
 		$data['plant'] = $this->main_storage_model->getAllPlant();
     	$this->load->view('Master/Storage_location/display_storage_location',$data);
     }
+    public function create_sub_storage_location(){
+        $this->load->model('country_model'); 
+        $data['states'] = $this->country_model->getAllStates(); 
 
+        $this->load->model('company_model'); 
+        $data['res'] = $this->company_model->select();  
+        
+        $this->load->model('main_storage_model');       
+        $data['plant'] = $this->main_storage_model->getAllPlant();
+        
+        $this->load->model('sub_storage_model'); 
+        $data['record'] = $this->sub_storage_model->check_last_record();
+
+        if($this->input->post('sub'))
+        {
+                    
+            $data = array(
+                'scode'         => $this->input->post('scode'),
+                'plant_id'      => $this->input->post('plant_id'),
+                'first_name'    => $this->input->post('first_name'),
+                'middle_name'   => $this->input->post('middle_name'),   
+                'last_name'     => $this->input->post('last_name'),             
+                'country'       => $this->input->post('country'),
+                'region'        => $this->input->post('region'),
+                'city'          => $this->input->post('city'),  
+                'postal_address'=> $this->input->post('postal_address')             
+            );
+            
+            
+            $this->sub_storage_model->form_insert($data);
+            $this->session->set_flashdata('response',"<div class='alert alert-success'><strong>Success!</strong>&nbsp;&nbsp;record inserted</div>");
+            redirect(site_url('Masters/create_storage_location'));          
+        }
+        $this->load->view('Master/Storage_location/create_storage_location',$data);
+    }
     ////////// Product Master ////////////////
     public function product_master_sub(){
     	$this->load->view('Master/Product_master/product_master_sub');
@@ -430,7 +572,7 @@ class Masters extends CI_Controller {
 
         $this->load->model('holiday_model'); 
         $data['res']=$this->holiday_model->select();
-        var_dump($this->holiday_model->select());
+        //var_dump($this->holiday_model->select());
 		$this->load->view('Master/Holiday_list/display_holiday_list',$data);
 	}
 

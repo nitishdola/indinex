@@ -11,11 +11,11 @@
         <li class="breadcrumb-item active">Change</li>
       </ol>
      <!-- Modal -->
-      <div id="myModal" class="modal fade" role="dialog">
+     <!-- <div id="myModal" class="modal fade" role="dialog">
         <div class="modal-dialog modal-lg">
 
           <!-- Modal content-->
-          <form id="formid">
+        <!--  <form id="formid">
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -45,40 +45,41 @@
                       //{ ?> 
                     <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
                       <!-- Example Horizontal Form -->
-                      <div class="example-wrap">
+                   <!--   <div class="example-wrap">
                       <h4 class="example-title"></h4> 
                       
                         <div class="example">
+
                             <div class="form-group row">
                               <label class="col-md-6 col-form-label">First Name: </label>
                               <div class="col-md-6">
-                                  <?php echo form_input(array('type' =>'text', 'name' => 'first_name','id'=>'first_name','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off')); ?>
+                                  <?php //echo form_input(array('type' =>'text', 'name' => 'first_name','id'=>'first_name','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off')); ?>
                               </div>
                             </div> 
                             <div class="form-group row">
                               <label class="col-md-6 col-form-label">Middle Name: </label>
                               <div class="col-md-6">
-                                 <?php echo form_input(array('type' => 'text','id' => 'middle_name', 'name' =>'middle_name','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'false','maxlength'=>'10')); ?>
+                                 <?php //echo form_input(array('type' => 'text','id' => 'middle_name', 'name' =>'middle_name','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'false','maxlength'=>'10')); ?>
                               </div>
                             </div>
 
                             <div class="form-group row">
                               <label class="col-md-6 col-form-label">Last Name: </label>
                               <div class="col-md-6">
-                              <?php echo form_input(array('type' => 'text','id' => 'last_name', 'name' => 'last_name','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'false','maxlength'=>'10')); ?>
+                              <?php //echo form_input(array('type' => 'text','id' => 'last_name', 'name' => 'last_name','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'false','maxlength'=>'10')); ?>
                               </div>
                             </div>
 
                             <div class="form-group row">
                               <label class="col-md-6 col-form-label">Contact Person: </label>
                               <div class="col-md-6">
-                                <?php echo form_input(array('type' => 'text','id' => 'contact_person', 'name' => 'contact_person','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'false','maxlength'=>'10')); ?>
+                                <?php //echo form_input(array('type' => 'text','id' => 'contact_person', 'name' => 'contact_person','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'false','maxlength'=>'10')); ?>
                               </div>
                             </div>
                             <div class="form-group row">
                               <label class="col-md-6 col-form-label">Contact Person Mobile:: </label>
                               <div class="col-md-6">
-                                 <?php echo form_input(array('type' => 'text','id' => 'contact_person_mobile', 'name' => 'contact_person_mobile','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'false','maxlength'=>'10')); ?>
+                                 <?php //echo form_input(array('type' => 'text','id' => 'contact_person_mobile', 'name' => 'contact_person_mobile','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'false','maxlength'=>'10')); ?>
                               </div>
                             </div>                                                                    
                         </div>
@@ -86,7 +87,7 @@
                     </div>
                     <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
                       <!-- Example Horizontal Form -->
-                      <div class="example-wrap">                  
+                     <!-- <div class="example-wrap">                  
                         <div class="example">                    
                             
                             <div class="form-group row">
@@ -121,13 +122,13 @@
                             <div class="form-group row">
                               <label class="col-md-6 col-form-label">Email: </label>
                               <div class="col-md-6">
-                                <?php echo form_input(array('type' => 'text','id' => 'email', 'name' => 'email','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'false','maxlength'=>'10')); ?>
+                                <?php// echo form_input(array('type' => 'text','id' => 'email', 'name' => 'email','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'false','maxlength'=>'10')); ?>
                               </div>
                             </div>
                             <div class="form-group row">
                               <label class="col-md-6 col-form-label">Fax: </label>
                               <div class="col-md-6">
-                                <?php echo form_input(array('type' => 'text','id' => 'fax', 'name' => 'fax','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'false','maxlength'=>'10')); ?>
+                                <?php //echo form_input(array('type' => 'text','id' => 'fax', 'name' => 'fax','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'false','maxlength'=>'10')); ?>
                               </div>                             
                             </div> 
 
@@ -149,27 +150,27 @@
                       //{ ?> 
                     <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
                       <!-- Example Horizontal Form -->
-                      <div class="example-wrap">
+                      <!--<div class="example-wrap">
                       <h4 class="example-title"></h4> 
                       
                         <div class="example">
                             <div class="form-group row">
                               <label class="col-md-6 col-form-label">GST No: </label>
                               <div class="col-md-6">
-                                 <?php echo form_input(array('type' =>'text', 'name' => 'gst_no','id'=>'gst_no','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off')); ?>
+                                 <?php //echo form_input(array('type' =>'text', 'name' => 'gst_no','id'=>'gst_no','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off')); ?>
                               </div>
                             </div> 
                             <div class="form-group row">
                               <label class="col-md-6 col-form-label">PAN No: </label>
                               <div class="col-md-6">
-                                 <?php echo form_input(array('type' => 'text','id' => 'pan_no', 'name' =>'pan_no','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'false','maxlength'=>'10')); ?>
+                                 <?php //echo form_input(array('type' => 'text','id' => 'pan_no', 'name' =>'pan_no','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'false','maxlength'=>'10')); ?>
                               </div>
                             </div>
 
                             <div class="form-group row">
                               <label class="col-md-6 col-form-label">Type Of Business: </label>
                               <div class="col-md-6">
-                               <?php echo form_input(array('type' => 'text','id' => 'type_of_business', 'name' => 'type_of_business','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'false','maxlength'=>'10')); ?>
+                               <?php //echo form_input(array('type' => 'text','id' => 'type_of_business', 'name' => 'type_of_business','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'false','maxlength'=>'10')); ?>
                               </div>
                             </div>                                                                                            
                         </div>
@@ -185,7 +186,7 @@
                       //{ ?> 
                     <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
                       <!-- Example Horizontal Form -->
-                      <div class="example-wrap">
+                     <!-- <div class="example-wrap">
                       <h4 class="example-title"></h4> 
                       
                         <div class="example">
@@ -202,27 +203,27 @@
                             <div class="form-group row">
                               <label class="col-md-6 col-form-label">Account Holder Name: </label>
                               <div class="col-md-6">
-                                  <?php echo form_input(array('type' =>'text', 'name' => 'account_holder_name','id'=>'account_holder_name','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off')); ?>
+                                  <?php //echo form_input(array('type' =>'text', 'name' => 'account_holder_name','id'=>'account_holder_name','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off')); ?>
                               </div>
                             </div>
 
                             <div class="form-group row">
                               <label class="col-md-6 col-form-label">Account Number: </label>
                               <div class="col-md-6">
-                               <?php echo form_input(array('type' => 'text','id' => 'account_number', 'name' => 'account_number','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'false','maxlength'=>'10')); ?>
+                               <?php //echo form_input(array('type' => 'text','id' => 'account_number', 'name' => 'account_number','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'false','maxlength'=>'10')); ?>
                               </div>
                             </div>
 
                             <div class="form-group row">
                               <label class="col-md-6 col-form-label">IFSC Code: </label>
                               <div class="col-md-6">
-                                 <?php echo form_input(array('type' => 'text','id' => 'ifsc_code', 'name' => 'ifsc_code','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'false','maxlength'=>'10')); ?>
+                                 <?php //echo form_input(array('type' => 'text','id' => 'ifsc_code', 'name' => 'ifsc_code','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'false','maxlength'=>'10')); ?>
                               </div>
                             </div>
                             <div class="form-group row">
                               <label class="col-md-6 col-form-label">Bank Name: </label>
                               <div class="col-md-6">
-                                <?php echo form_input(array('type' => 'text','id' => 'bank_name', 'name' =>'bank_name','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'false','maxlength'=>'')); ?>
+                                <?php //echo form_input(array('type' => 'text','id' => 'bank_name', 'name' =>'bank_name','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'false','maxlength'=>'')); ?>
                               </div>
                             </div>                                                                    
                         </div>
@@ -230,19 +231,19 @@
                     </div>
                     <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
                       <!-- Example Horizontal Form -->
-                      <div class="example-wrap">                  
+                      <!--<div class="example-wrap">                  
                         <div class="example">                    
                             
                             <div class="form-group row">
                               <label class="col-md-6 col-form-label">Branch Name: </label>
                               <div class="col-md-6">
-                                 <?php echo form_input(array('type' => 'text','id' => 'branch_name', 'name' => 'branch_name','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'false')); ?>
+                                 <?php //echo form_input(array('type' => 'text','id' => 'branch_name', 'name' => 'branch_name','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'false')); ?>
                               </div>
                             </div>
                             <div class="form-group row">
                               <label class="col-md-6 col-form-label">MICR Code: </label>
                               <div class="col-md-6">
-                                 <?php echo form_input(array('type' => 'text','id' => 'micr_code', 'name' => 'micr_code','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'false',)); ?>
+                                 <?php //echo form_input(array('type' => 'text','id' => 'micr_code', 'name' => 'micr_code','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'false',)); ?>
                               </div>
                             </div>                            
                             <div class="form-group row">
@@ -286,14 +287,14 @@
                 //{ ?> 
               <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
                 <!-- Example Horizontal Form -->
-                <div class="example-wrap">
+                <!--<div class="example-wrap">
                 <h4 class="example-title"></h4> 
                 
                   <div class="example">
                       <div class="form-group row">
                         <label class="col-md-6 col-form-label">Recon Acc: </label>
                         <div class="col-md-6">
-                           <?php echo form_input(array('type' =>'text', 'name' => 'recon_acc','id'=>'recon_acc','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off')); ?>
+                           <?php //echo form_input(array('type' =>'text', 'name' => 'recon_acc','id'=>'recon_acc','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off')); ?>
                         </div>
                       </div> 
                     </div>
@@ -309,14 +310,14 @@
                 //{ ?> 
               <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
                 <!-- Example Horizontal Form -->
-                <div class="example-wrap">
+                <!--<div class="example-wrap">
                 <h4 class="example-title"></h4> 
                 
                   <div class="example">
                       <div class="form-group row">
                         <label class="col-md-6 col-form-label">Payment Term: </label>
                         <div class="col-md-6">
-                           <?php echo form_input(array('type' =>'text', 'name' => 'payment_term','id'=>'payment_term','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off')); ?>
+                           <?php //echo form_input(array('type' =>'text', 'name' => 'payment_term','id'=>'payment_term','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off')); ?>
                         </div>
                       </div> 
                     </div>
@@ -324,7 +325,7 @@
                       <div class="form-group row">
                         <label class="col-md-6 col-form-label">CR Memo Term: </label>
                         <div class="col-md-6">
-                           <?php echo form_input(array('type' =>'text', 'name' => 'cr_memo_term','id'=>'cr_memo_term','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off')); ?>
+                           <?php //echo form_input(array('type' =>'text', 'name' => 'cr_memo_term','id'=>'cr_m/emo_term','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off')); ?>
                         </div>
                       </div> 
                     </div>
@@ -332,7 +333,7 @@
                       <div class="form-group row">
                         <label class="col-md-6 col-form-label">Payment Method: </label>
                         <div class="col-md-6">
-                            <?php echo form_input(array('type' =>'text', 'name' => 'payment_method','id'=>'payment_method','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off')); ?>
+                            <?php //echo form_input(array('type' =>'text', 'name' => 'payment_method','id'=>'payment_method','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off')); ?>
                         </div>
                       </div> 
                     </div>
@@ -360,7 +361,7 @@
     </div>
   </div>
 </div>
-
+-->
 
       <div class="page-content">
         <div class="projects-wrap">
@@ -372,7 +373,19 @@
                 <div class="example-wrap">
                   <h4 class="example-title">Change Product Master</h4>
                   
-                  <div class="example">                    
+                  <div class="example"> 
+                  <?php echo form_open(); ?>
+                        <div class="form-group row">                                                    
+                          <div class="col-md-2">                       
+                            <?php echo form_input(array('type' =>'number', 'name' => 'code','id'=>'ccode','class'=>'form-control','style'=>'margin-bottom:5px','placeholder'=>'Product Code','autocomplete'=>'off')); ?>  
+                          </div>
+
+                           <input type="hidden" name="search" value="1">
+                            <button type="submit" class="btn btn-primary">Search </button>
+                            
+                        </div> 
+                      </div>   
+                       <?php echo form_close(); ?>                     
                     <table class="table table-bordered">
                     <tr>
                      <th>Sl</th><th>Picture</th><th>Product Code</th><th>Category Code</th><th>Product Description</th><th>Product Group</th><th>Size</th><th>Color</th><th>Change</th>
@@ -386,7 +399,7 @@
                       <td><?php echo  $i;?> </td>
                       <td><img width="50" src='<?php echo base_url();?>uploads/images/<?php echo $row->picture;?>'</td>                       
                       <td><?php echo  str_pad($row->product_code, 4, '0', STR_PAD_LEFT);?></td> 
-                      <td><?php //echo  $row->product_category;?></td>  
+                      <td><?php echo  $row->product_category;?></td>  
                       <td><?php echo  $row->product_description;?></td>                        
                       <td><?php echo  $row->product_group;?></td>
                       <td><?php echo  $row->size;?></td> 

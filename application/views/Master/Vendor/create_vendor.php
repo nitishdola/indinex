@@ -65,7 +65,13 @@
                             <div class="form-group row"> 
                               <label class="col-md-4 col-form-label">Company Code: </label> 
                               <div class="col-md-8"> 
-                                <?php echo form_input(array('type' => 'text','id' => 'company_code', 'name' => 'company_code','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'false','maxlength'=>'10')); ?> 
+                                <select class="form-control" name="company_code" id="company_code">
+                                  <option value="">Select</option>
+                                  <?php foreach($company as $row)
+                                    {
+                                      echo '<option value="'.$row->id.'">'.$row->title.''.$row->company_name.''.$row->company_name2.''.$row->company_name3.'</option>';
+                                    } ?>  
+                                </select>
                               </div> 
                             </div>                        
                         </div> 

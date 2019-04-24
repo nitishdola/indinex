@@ -24,7 +24,7 @@
                         </div>
                       </div>
                     </div>
-                    <a class="btn btn-inverse project-button" href="<?php echo site_url('Masters/line_of_business_sub');?>">COMPANY</a>                    
+                    <a class="btn btn-inverse project-button" href="<?php echo site_url('Setup/company_sub');?>">COMPANY</a>                    
                   </figcaption>
                 </figure>
                 <div class="text-truncate">COMPANY</div>
@@ -82,6 +82,9 @@
                 </figure>
                 <div class="text-truncate">STORAGE LOCATION</div>
               </div>
+            </li>
+
+             
             </li>
             <li>
               <div class="panel">

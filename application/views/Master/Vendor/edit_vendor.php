@@ -126,18 +126,18 @@
                               <label class="col-md-6 col-form-label">Country: </label>
                               <div class="col-md-6">
                                 <select id="country" name="country" class="form-control" >
-                                  <option>INDIA</option>
+                                  <option value="India">India</option>
                                 </select>
                               </div>
                             </div>
                             <div class="form-group row">
                               <label class="col-md-6 col-form-label">Region: </label>
                               <div class="col-md-6">
-                                 <select class="form-control" id="region" name="region" required="true">
+                                 <select class="form-control" id="region_id" name="region" required="true">
                                 <option value="">Select</option>  
                                   <?php foreach($states as $st2)     
                                     { ?>
-                                    <option <?php if($st2->name == $row->region){ echo 'selected="selected"'; } ?> value="<?php echo $st2->name; ?>"><?php echo $st2->name?> </option>
+                                    <option <?php if($st2->id == $row->region){ echo 'selected="selected"'; } ?> value="<?php echo $st2->id; ?>"><?php echo $st2->TIN_no.'-'.$st2->name; ?> </option>
                                     <?php }  ?>  
                                 </select>
                               </div>
@@ -145,17 +145,19 @@
                             <div class="form-group row">
                               <label class="col-md-6 col-form-label">City: </label>
                               <div class="col-md-6">
-                                  <select id="city" name="city" class="form-control" required="true">
-                                  <option <?php if($row->city == 'Guwahati'){ echo 'selected="selected"'; } ?> value="Guwahati">Guwahati</option>
-                                  <option <?php if($row->city == 'Shillong'){ echo 'selected="selected"'; } ?> value="Shillong">Shillong</option>
-                                  </select>
+                                   <select id="city_id" name="city" class="form-control">
+                                <?php foreach($city as $ct)     
+                                    { ?>
+                                    <option <?php if($ct->city_name == $row->city){ echo 'selected="selected"'; } ?> value="<?php echo $ct->city_name; ?>"><?php echo $ct->city_name?> </option>
+                                    <?php }  ?>
+                                </select>
                               </div>
                             </div>                            
 
                             <div class="form-group row">
                               <label class="col-md-6 col-form-label">Postal Address: </label>
                               <div class="col-md-6">
-                                <textarea class="form-control" placeholder="Address" autocomplete="off" id="postal_address" name="postal_address" required="true"><?php echo $row->postal_address; ?></textarea>
+                                <textarea class="form-control" placeholder="Address" autocomplete="off" id="postal_address" name="postal_address" required="true" rows="5"><?php echo $row->postal_address; ?></textarea>
                               </div>                             
                             </div> 
                     </div>                    
@@ -300,19 +302,19 @@
                             <div class="form-group row">
                               <label class="col-md-6 col-form-label">Country: </label>
                               <div class="col-md-6">
-                               <select id="country" name="country" class="form-control">
-                                  <option>INDIA</option>
+                               <select id="bank_region" name="bank_region" class="form-control">
+                                  <option value="India">India</option>
                                 </select>
                               </div>
                             </div>
                             <div class="form-group row">
                               <label class="col-md-6 col-form-label">Region: </label>
                               <div class="col-md-6">
-                                 <select class="form-control" id="region" name="region" >
+                                 <select class="form-control" id="bank_region" name="bank_region" >
                                 <option value="">Select</option>  
-                                  <?php foreach($states as $st)     
+                                 <?php foreach($states as $st3)     
                                     { ?>
-                                    <option <?php if($st->name == $row->region){ echo 'selected="selected"'; } ?> value="<?php echo $st->name; ?>"><?php echo $st->name?> </option>
+                                    <option <?php if($st3->id == $row->bank_region){ echo 'selected="selected"'; } ?> value="<?php echo $st3->id; ?>"><?php echo $st3->TIN_no.'-'.$st3->name; ?> </option>
                                     <?php }  ?>  
                                 </select>
                               </div>
@@ -320,11 +322,11 @@
                             <div class="form-group row">
                               <label class="col-md-6 col-form-label">City: </label>
                               <div class="col-md-6">
-                               <select id="city" name="city" class="form-control">
-                                 
-                                  <option <?php if($row->city == 'Guwahati'){ echo 'selected="selected"'; } ?> value="Guwahati">Guwahati</option>
-                                  <option <?php if($row->city == 'Shillong'){ echo 'selected="selected"'; } ?> value="Shillong">Shillong</option>
-
+                               <select id="bank_city" name="bank_city" class="form-control">
+                                <?php foreach($city as $ct)     
+                                    { ?>
+                                    <option <?php if($ct->city_name == $row->bank_city){ echo 'selected="selected"'; } ?> value="<?php echo $ct->city_name; ?>"><?php echo $ct->city_name?> </option>
+                                    <?php }  ?>
                                 </select>
                               </div>                             
                             </div>
@@ -437,6 +439,34 @@
 <?php $this->load->view('layout/admin/footer'); ?>
 <script>
 $(function(){
+  $('#region_id').change(function(){
+    var region_id       =$('#region_id').val();
+    //alert(region_id);
+    $('#city_id').empty(); 
+    var city=$('#city_id').val(); 
+    alert(city);
+      var url= "<?php echo base_url(); ?>" + "index.php/Masters/ajax_get_cities";       
+        jQuery.ajax({
+          type: 'GET',        
+          url: url,
+          dataType: 'json',
+          data: {region_id: region_id},
+          success: function (jsonArray) {      
+              $.each(jsonArray, function(index,jsonObject){
+                  $('#city_id')
+                  .append($("<option></option>")
+                  .attr("value",jsonObject['city_name'])
+                  .text(jsonObject['city_name']));               
+            });        
+          },
+
+          error: function (jqXhr, textStatus, errorMessage) {
+            // $.unblockUI();
+             $('p').append('Error' + errorMessage);
+          }
+       });
+  });
+
 
   $('#mobile_id').blur(function(){
     var mobile_no=$('#mobile_id').val(); 

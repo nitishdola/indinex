@@ -6,22 +6,21 @@
     {     
       foreach($record as $row)
       {     
-          $pcode=$row->pcode;
-          $pcode++;
-          $pcode=str_pad($pcode, 4, '0', STR_PAD_LEFT);
+          $scode=$row->scode;
+          $scode++;
+          $scode=str_pad($scode, 4, '0', STR_PAD_LEFT);
       } 
     } else {      
-      $pcode=1;
-      $pcode=str_pad($pcode, 4, '0', STR_PAD_LEFT);
+      $scode=1;
+      $scode=str_pad($scode, 4, '0', STR_PAD_LEFT);
     }
     ?>
-
     <div class="page">
       <div class="page-header">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard');?>">Dashboard</a></li>
+         <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard');?>">Dashboard</a></li>
         <li class="breadcrumb-item"><a href="<?php echo site_url('Setup');?>">Setup</a></li>
-        <li class="breadcrumb-item"><a href="<?php echo site_url('Masters/plant_sub');?>">Plant</a></li>
+        <li class="breadcrumb-item"><a href="<?php echo site_url('Masters/sub_storage_location_sub');?>">Sub Storage Location</a></li>
         <li class="breadcrumb-item active">Create</li>
       </ol>
       <div class="page-content">
@@ -33,25 +32,25 @@
               <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
                 <!-- Example Horizontal Form -->
                 <div class="example-wrap">
-                  <h4 class="example-title">Create Plant</h4>                  
-                  <?php echo $this->session->flashdata('response'); ?>
-                  <div class="example">                   
+                  <h4 class="example-title">Create Storage Location</h4>  
+                  <?php echo $this->session->flashdata('response'); ?>                
+                  <div class="example">                    
                       <div class="form-group row">
-                        <label class="col-md-4 col-form-label">Plant Code: </label>
+                        <label class="col-md-4 col-form-label">Storage Location Code: </label>
                         <div class="col-md-8">
-                          <?php echo form_input(array('id' => 'pcode', 'name' => 'pcode','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off','value'=>'')); ?>
-                          <span><p  id="code_div" style="color:red;display:none">Code already exist</p></span>
+                          <?php echo form_input(array('id' => 'scode', 'name' => 'scode','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off')); ?>
+                           <span><p  id="code_div" style="color:red;display:none">Code already exist</p></span>
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label class="col-md-4 col-form-label">Company: </label>
+                        <label class="col-md-4 col-form-label">Plant: </label>
                         <div class="col-md-8">
-                          <select name="company_id" class="form-control" required="true">
-                            <option value="">Select</option>
-                            <?php foreach($company->result() as $rw)     
+                          <select class="form-control" id="plant_id" name="plant_id">
+                            <option value="">Select</option> 
+                            <?php foreach($plant as $row)
                               {
-                                echo '<option value="'.$rw->id.'">'.$rw->company_name.'</option>';
-                              }   ?>  
+                                echo '<option value="'.$row->id.'">'.$row->first_name.' '.$row->middle_name.' '.$row->last_name.'</option>';
+                              } ?>   
                           </select>
                         </div>
                       </div>
@@ -61,14 +60,18 @@
                           <?php echo form_input(array('id' => 'first_name', 'name' => 'first_name','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off')); ?>
                         </div>
                       </div>
+
+
                       <div class="form-group row">
-                        <label class="col-md-4 col-form-label"></label>
+                        <label class="col-md-4 col-form-label"> </label>
                         <div class="col-md-8">
-                          <?php echo form_input(array('id' => 'middle_name', 'name' => 'middle_name','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'off')); ?>
+                           <?php echo form_input(array('id' => 'middle_name', 'name' => 'middle_name','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'off')); ?>
                         </div>
                       </div>
+
+
                       <div class="form-group row">
-                        <label class="col-md-4 col-form-label"></label>
+                        <label class="col-md-4 col-form-label"> </label>
                         <div class="col-md-8">
                           <?php echo form_input(array('id' => 'last_name', 'name' => 'last_name','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'off')); ?>
                         </div>
@@ -79,12 +82,12 @@
               <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
                 <!-- Example Horizontal Form -->
                 <div class="example-wrap">
-                  <h4 class="example-title">Communication</h4>                  
+                 <h4 class="example-title">Communication</h4>                  
                   <div class="example">                    
                       <div class="form-group row">
                         <label class="col-md-4 col-form-label">Country: </label>
                         <div class="col-md-8">
-                          <select id="country" name="country"   class="form-control">
+                          <select id="country" name="country" class="form-control">
                             <option value="India">India</option>
                           </select>
                         </div>
@@ -92,28 +95,28 @@
                       <div class="form-group row">
                         <label class="col-md-4 col-form-label">Region: </label>
                         <div class="col-md-8">
-                          <select id="region_id" name="region" class="form-control">
-                            <option value="">Select</option>                      
-                              <?php foreach($states as $row)     
+                          <select class="form-control" id="region" name="region" >
+                          <option value="">Select</option>  
+                            <?php foreach($states as $row)     
                               {
-                                echo '<option value="'.$row->id.'">'.$row->TIN_no.'-'.$row->name.'</option>';
+                                echo '<option value="'.$row->name.'">'.$row->name.'</option>';
                               }   ?>  
                           </select>
                         </div>
                       </div>
                       <div class="form-group row">
                         <label class="col-md-4 col-form-label">City: </label>
-                          <div class="col-md-8">
-                            <select id="city_id" name="city" class="form-control">
-                              <option value="" =" ">Select</option>
-                              
-                            </select>
-                          </div>
+                        <div class="col-md-8">
+                          <select id="city" name="city" class="form-control">
+                            <option>Guwahati</option>
+                            <option>Shillong</option>
+                          </select>
+                        </div>
                       </div>
                       <div class="form-group row">
                         <label class="col-md-4 col-form-label">Postal Address: </label>
                         <div class="col-md-8">
-                          <textarea class="form-control" id="postal_address" name="postal_address" placeholder="Address" autocomplete="off" rows="5"></textarea>
+                          <textarea class="form-control" placeholder="Address" autocomplete="off" id="postal_address" name="postal_address" rows="5" ></textarea>
                         </div>
                       </div>
                   </div>
@@ -130,60 +133,34 @@
                 </div>
               </div>
             </div>
-           <?php echo form_close(); ?>
+          <?php echo form_close(); ?>
           </div>
           </div>
         <!-- End Panel Controls Sizing -->
         </div>
       </div>
+    </div></div>
     </div>
-    </div>
-<?php $this->load->view('layout/admin/footer'); ?>
     
+<?php $this->load->view('layout/admin/footer'); ?>
 <script>
 $(function(){  
-
-  $('#region_id').change(function(){
-    var region_id       =$('#region_id').val();
-      $('#city_id').empty();
-      var url= "<?php echo base_url(); ?>" + "index.php/Masters/ajax_get_cities";       
-        jQuery.ajax({
-          type: 'GET',        
-          url: url,
-          dataType: 'json',
-          data: {region_id: region_id},
-          success: function (jsonArray) {      
-              $.each(jsonArray, function(index,jsonObject){
-                  $('#city_id')
-                  .append($("<option></option>")
-                  .attr("value",jsonObject['city_name'])
-                  .text(jsonObject['city_name']));               
-            });        
-          },
-
-          error: function (jqXhr, textStatus, errorMessage) {
-            // $.unblockUI();
-             $('p').append('Error' + errorMessage);
-          }
-       });
-  });
-
-   $('#pcode').click(function(){ 
+   $('#scode').click(function(){ 
     $('#code_div').hide();  
    });
-  $('#pcode').blur(function(){ 
-    var pcode=$('#pcode').val();      
-    var url= "<?php echo base_url(); ?>" + "index.php/Masters/ajax_plant_code";  
+  $('#scode').blur(function(){
+    var scode=$('#scode').val();      
+    var url= "<?php echo base_url(); ?>" + "index.php/Masters/ajax_storage_code";  
       jQuery.ajax({ 
         type: 'GET',         
         url: url, 
         //dataType: 'json', 
-        data: {pcode: pcode}, 
+        data: {scode: scode}, 
         success: function (response) {  
             
           if(response==1){
             $('#code_div').show();  
-            $('#pcode').val('');  
+            $('#scode').val('');  
           }
                  
         }, 
@@ -195,4 +172,3 @@ $(function(){
 }); 
 
 </script>
-    

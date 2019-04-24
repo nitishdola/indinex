@@ -40,12 +40,18 @@ class product_masters extends CI_Controller {
 
 		if($this->input->post('sub'))
  		{
- 			var_dump($_FILES['picture']['name']);
-
- 			if(!empty($_FILES['picture']['name'])){
+ 			//var_dump($_POST);
+ 			//exit();
+ 			if(isset($_FILES['picture']['name'])){
+ 				
+ 				$new_name = 'PRODUCT_'.uniqid().time().$_FILES["file"]['name'];
+                $_FILES['file']['name'] = $new_name;
+                
+                // File upload configuration
+               
                 $config['upload_path'] = 'uploads/images/';
                 $config['allowed_types'] = 'jpg|jpeg|png|gif';
-                $config['file_name'] = $_FILES['picture']['name'];
+                //$config['file_name'] = $_FILES['picture']['name'];
                 
                 //Load upload library and initialize configuration
                 $this->load->library('upload',$config);
@@ -60,8 +66,8 @@ class product_masters extends CI_Controller {
             }else{
                 $picture = '';
             }
-            echo 'hi'.$picture;
-            exit();
+            //echo 'hi'.$picture;
+            //exit();
 
             $product_code= $this->input->post('product_code');
 	        
@@ -97,7 +103,9 @@ class product_masters extends CI_Controller {
 				'min_order_qty' 			=> $this->input->post('min_order_qty'),
 				'min_order_qty_uom' 		=> $this->input->post('min_order_qty_uom'),
 				'manufacture_part_no' 		=> $this->input->post('manufacture_part_no'),
-				'manufacturer_name' 		=> $this->input->post('manufacturer_name')
+				'manufacturer_name' 		=> $this->input->post('manufacturer_name'),
+				'sale_item' 				=> $this->input->post('sale_item'),
+				'purchase_item' 			=> $this->input->post('purchase_item')
 			);
 			$manufacturer_data = array(
 				'product_code' 				=> $this->input->post('product_code'),
@@ -106,7 +114,10 @@ class product_masters extends CI_Controller {
 				'product_purchase' 			=> $this->input->post('product_purchase'),
 				'product_make_to_order' 	=> $this->input->post('product_make_to_order'),
 				'in_house_production' 		=> $this->input->post('in_house_production'),
-				'in_house_manufacturing' 	=> $this->input->post('in_house_manufacturing')
+				'in_house_manufacturing' 	=> $this->input->post('in_house_manufacturing'),
+				'purchase_from_outside' 	=> $this->input->post('purchase_from_outside'),
+				'ok_to_purchase' 			=> $this->input->post('ok_to_purchase'),
+				'cannot_be_purchase' 		=> $this->input->post('cannot_be_purchase')
 			);
 
 			$storage_data = array(
@@ -117,7 +128,8 @@ class product_masters extends CI_Controller {
 				'storage_condition' 		=> $this->input->post('storage_condition'),
 				'special_condition' 		=> $this->input->post('special_condition'),
 				'max_storage_period'		=> $this->input->post('max_storage_period'),
-				'remaining_period' 			=> $this->input->post('remaining_period')
+				'remaining_period' 			=> $this->input->post('remaining_period'),
+				'batch' 					=> $this->input->post('batch')
 			);
 			$accounting_data = array(
 				'product_code' 				=> $this->input->post('product_code'),
@@ -129,9 +141,10 @@ class product_masters extends CI_Controller {
 
 			);
 
-	               	
+	         // var_dump($manufacturer_data)  	;
+	          //exit();
 			$this->product_master_model->form_insert($general_data,$purchase_data,$manufacturer_data,$storage_data,$accounting_data);
-			$this->session->set_flashdata('response',"<div class='alert alert-success'><strong>Success!</strong>&nbsp;&nbsp;Prosuct master saved</div>");
+			$this->session->set_flashdata('response',"<div class='alert alert-success'><strong>Success!</strong>&nbsp;&nbsp;Product master saved</div>");
  			redirect(site_url('product_masters/create_product_master'));
 		}
     }
@@ -139,7 +152,7 @@ class product_masters extends CI_Controller {
 
 public function change_product_master(){
     	$this->load->model('product_master_model');   
-    	$data['product_details'] 	= $this->product_master_model->select_product_details();      
+    	$data['product_details'] 	= $this->product_master_model->select();      
         
 		$this->load->model('product_category_model'); 
         $data['cat']=$this->product_category_model->select();  
@@ -165,7 +178,7 @@ public function change_product_master(){
     	$product_code 				= $this->input->get('product_code');
 
     	$this->load->model('product_master_model');   
-    	$data['product_details'] 	= $this->product_master_model->edit_product_details($product_code);      
+    	$data['product_details'] 	= $this->product_master_model->product_details($product_code);      
         
 		$this->load->model('product_category_model'); 
         $data['cat'] 				=$this->product_category_model->select();  
@@ -288,4 +301,6 @@ public function change_product_master(){
     		}
     
     }
+
+    
 }

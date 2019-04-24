@@ -5,8 +5,8 @@
     <div class="page">
       <div class="page-header">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-        <li class="breadcrumb-item"><a href="<?php echo site_url('Welcome/master');?>">Master</a></li>
+         <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard');?>">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="<?php echo site_url('Setup');?>">Setup</a></li>
         <li class="breadcrumb-item"><a href="<?php echo site_url('Masters/plant_sub');?>">Plant</a></li>
         <li class="breadcrumb-item active">Display</li>
       </ol>
@@ -22,10 +22,21 @@
                   <h4 class="example-title">Display Plant</h4>
                   
                   <div class="example">
-                    
+                    <?php echo form_open(); ?>
+                        <div class="form-group row">                                                    
+                          <div class="col-md-2">                       
+                            <?php echo form_input(array('type' =>'number', 'name' => 'code','id'=>'code','class'=>'form-control','style'=>'margin-bottom:5px','placeholder'=>'Plant Code','autocomplete'=>'off','required'=>'true')); ?>  
+                          </div>
+
+                            <input type="hidden" name="search" value="1">
+                            <button type="submit" class="btn btn-primary">Search </button>
+                            
+                        </div> 
+                      </div>   
+                       <?php echo form_close(); ?>   
                       <table class="table table-bordered" style="width:100%">
                       <tr>
-                       <th>Sl</th><th>Product Code</th><th>First Name</th><th>Middle Name</th><th>Last Name</th><th>Region</th><th>Country</th><th>City</th><th>Postal address</th>
+                       <th>Sl</th><th>Plant Code</th><th>Plant Name</th><th>Company</th><th>Country</th><th>Region</th><th>City</th><th>Postal address</th>
                       </tr>
                       <tbody>
                   <?php 
@@ -36,13 +47,12 @@
                     <tr>  
                       <td><?php echo  $i;?>    </td>                       
                       <td><?php echo  $row->pcode;?></td> 
-                      <td><?php echo  $row->first_name;?></td> 
-                      <td><?php echo  $row->middle_name;?></td> 
-                      <td><?php echo  $row->last_name;?></td> 
-                      <td><?php echo  $row->region;?></td> 
+                      <td><?php echo  $row->first_name.''.$row->middle_name.''.$row->last_name;?></td>
+                      <td><?php echo  $row->company_name.''.$row->company_name2.''.$row->company_name3;?></td> 
                       <td><?php echo  $row->country;?></td>
+                      <td><?php echo  $row->name;?></td>
                       <td><?php echo  $row->city;?></td>
-                      <td><?php echo  $row->postal_address;?></td> 
+                      <td width="20%"><?php echo  $row->postal_address;?></td> 
                       </tr>  
                    <?php }  ?>
                 </tbody>

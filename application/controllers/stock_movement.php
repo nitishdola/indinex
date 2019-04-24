@@ -80,8 +80,8 @@ class stock_movement extends CI_Controller {
 
 		if($this->input->post('search'))
  		{
- 			$transfer_type=$this->input->post('transfer_type');
- 			$data['res'] = $this->stock_movement_model->select($transfer_type);
+ 			$code=$this->input->post('code');
+ 			$data['res'] = $this->stock_movement_model->select($code);
  		} else {
  			$data['res'] = $this->stock_movement_model->select();
  		}

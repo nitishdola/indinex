@@ -43,6 +43,126 @@
                           <?php echo form_input(array('id' => 'tracking_slip_no', 'name' => 'tracking_slip_no','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off','value'=>$tracking_slip_no,'readonly'=>'readonly')); ?>
                         </div>
                       </div>
+                      <div class="form-group row">
+                        <label class="col-md-3 col-form-label">Transfer Type: </label>
+                        <div class="col-md-9">
+                          <select name="transfer_type" id="transfer_type_id" class="form-control" required="required">
+                            <option value="0">Select</option>
+                            <option value="1">Storage Location To Storage Location</option>
+                            <option value="2">Plant to Plant</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div id="loc_to_loc" style="display:none">
+                      <div class="form-group row">
+                        <label class="col-md-3 col-form-label">Plant Name: </label>
+                        <div class="col-md-9">
+                           <select class="form-control" id="plant_loc" name="plant_loc">
+                            <option value="">Select</option> 
+                            <?php foreach($plant as $row)
+                              {
+                                echo '<option value="'.$row->id.'">'.$row->first_name.' '.$row->middle_name.' '.$row->last_name.'</option>';
+                              } ?>   
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-md-3 col-form-label">Storage Location: </label>
+                        <div class="col-md-9">
+                          <select class="form-control" id="loc_storage_from" name="loc_storage_from">
+                            <option value="1">Select</option> 
+                          </select>
+                        </div>
+                      </div>
+                       <div class="form-group row">
+                          <label class="col-md-3 col-form-label">Product Name : </label>
+                          <div class="col-md-9">
+                            <select class="form-control" id="product" name="product">
+                              <option value="">Select</option> 
+                            </select>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-md-3 col-form-label">Current Stock : </label>
+                          <div class="col-md-9">
+                            <?php echo form_input(array('id' => 'current_stock', 'name' => 'current_stock','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off')); ?>
+                          </div>
+                        </div>
+                      <div class="form-group row">
+                        <label class="col-md-3 col-form-label">Transfer to: </label>
+                        <div class="col-md-9">
+                          <select class="form-control" id="loc_storage_to" name="loc_storage_to">
+                            <option value="1">Storage Location</option> 
+                          </select>
+                        </div>
+                      </div>
+                                           
+                      </div>
+                      <div id="plant_to_plant" style="display:none">
+
+                        <div class="form-group row">
+                        <label class="col-md-3 col-form-label">Plant: </label>
+                        <div class="col-md-9">
+                           <select class="form-control" id="plant_loc_from" name="plant_loc_from">
+                            <option value="">Select</option> 
+                            <?php foreach($plant as $row)
+                              {
+                                echo '<option value="'.$row->id.'">'.$row->first_name.' '.$row->middle_name.' '.$row->last_name.'</option>';
+                              } ?>   
+                          </select>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-md-3 col-form-label">Storage Location : </label>
+                          <div class="col-md-9">
+                            <select class="form-control" id="plant_storage_from" name="plant_storage_from">
+                              <option value="">Select</option> 
+                            </select>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-md-3 col-form-label">Product Name : </label>
+                          <div class="col-md-9">
+                            <select class="form-control" id="product" name="product">
+                              <option value="">Select</option> 
+                            </select>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-md-3 col-form-label">Current Stock : </label>
+                          <div class="col-md-9">
+                            <?php echo form_input(array('id' => 'current_stock', 'name' => 'current_stock','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off')); ?>
+                          </div>
+                        </div>
+                      <div class="form-group row">
+                        <label class="col-md-3 col-form-label">Transfer Plant: </label>
+                        <div class="col-md-9">
+                           <select class="form-control" id="plant_loc_to" name="plant_loc_to">
+                            <option value="">Plant</option> 
+                            <?php foreach($plant as $row)
+                              {
+                                echo '<option value="'.$row->id.'">'.$row->first_name.' '.$row->middle_name.' '.$row->last_name.'</option>';
+                              } ?>   
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                          <label class="col-md-3 col-form-label">Transfer Storage : </label>
+                          <div class="col-md-9">
+                            <select class="form-control" id="plant_storage_to" name="plant_storage_to">
+                              <option value="">Storage Location</option> 
+                            </select>
+                          </div>
+                        </div>
+                         <div class="form-group row">
+                          <label class="col-md-3 col-form-label">Received By: </label>
+                          <div class="col-md-9">
+                            <?php echo form_input(array('type'=>'text','id' => 'received_by', 'name' => 'received_by','class'=>'form-control')); ?> 
+                          </div>
+                        </div>
+                      </div> 
+                                            
+                     
                       
                       <div class="form-group row">
                         <label class="col-md-3 col-form-label">Quantity: </label>
@@ -84,101 +204,7 @@
                         <div class="col-md-9">
                           <?php echo form_input(array('type'=>'date','id' => 'requested_date', 'name' => 'requested_date','class'=>'form-control','required'=>'required')); ?> 
                         </div>
-                      </div>                      
-                      </div>                             
                       </div>
-                      </div>
-                      <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-                            <div class="form-group row">
-                        <label class="col-md-3 col-form-label">Transfer Type: </label>
-                        <div class="col-md-9">
-                          <select name="transfer_type" id="transfer_type_id" class="form-control" required="required">
-                            <option value="0">Select</option>
-                            <option value="1">Storage Location To Storage Location</option>
-                            <option value="2">Plant to Plant</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div id="loc_to_loc" style="display:none">
-                      <div class="form-group row">
-                        <label class="col-md-3 col-form-label">Plant Name: </label>
-                        <div class="col-md-9">
-                           <select class="form-control" id="plant_loc" name="plant_loc">
-                            <option value="">Select</option> 
-                            <?php foreach($plant as $row)
-                              {
-                                echo '<option value="'.$row->id.'">'.$row->first_name.' '.$row->middle_name.' '.$row->last_name.'</option>';
-                              } ?>   
-                          </select>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="col-md-3 col-form-label">Storage Location from: </label>
-                        <div class="col-md-9">
-                          <select class="form-control" id="loc_storage_from" name="loc_storage_from">
-                            <option value="1">Select</option> 
-                          </select>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="col-md-3 col-form-label">Storage Location to: </label>
-                        <div class="col-md-9">
-                          <select class="form-control" id="loc_storage_to" name="loc_storage_to">
-                            <option value="1">Select</option> 
-                          </select>
-                        </div>
-                      </div>
-                                           
-                      </div>
-                      <div id="plant_to_plant" style="display:none">
-
-                        <div class="form-group row">
-                        <label class="col-md-3 col-form-label">Plant From: </label>
-                        <div class="col-md-9">
-                           <select class="form-control" id="plant_loc_from" name="plant_loc_from">
-                            <option value="">Select</option> 
-                            <?php foreach($plant as $row)
-                              {
-                                echo '<option value="'.$row->id.'">'.$row->first_name.' '.$row->middle_name.' '.$row->last_name.'</option>';
-                              } ?>   
-                          </select>
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label class="col-md-3 col-form-label">Storage Location From : </label>
-                          <div class="col-md-9">
-                            <select class="form-control" id="plant_storage_from" name="plant_storage_from">
-                              <option value="">Select</option> 
-                            </select>
-                          </div>
-                        </div>
-                      <div class="form-group row">
-                        <label class="col-md-3 col-form-label">Plant To: </label>
-                        <div class="col-md-9">
-                           <select class="form-control" id="plant_loc_to" name="plant_loc_to">
-                            <option value="">Select</option> 
-                            <?php foreach($plant as $row)
-                              {
-                                echo '<option value="'.$row->id.'">'.$row->first_name.' '.$row->middle_name.' '.$row->last_name.'</option>';
-                              } ?>   
-                          </select>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                          <label class="col-md-3 col-form-label">Storage Location To : </label>
-                          <div class="col-md-9">
-                            <select class="form-control" id="plant_storage_to" name="plant_storage_to">
-                              <option value="">Select</option> 
-                            </select>
-                          </div>
-                        </div>
-                         <div class="form-group row">
-                          <label class="col-md-3 col-form-label">Received By: </label>
-                          <div class="col-md-9">
-                            <?php echo form_input(array('type'=>'text','id' => 'received_by', 'name' => 'received_by','class'=>'form-control')); ?> 
-                          </div>
-                        </div>
-                      </div> 
                       </div>
                       <div class="col-md-12">
                         <div class="form-group row">

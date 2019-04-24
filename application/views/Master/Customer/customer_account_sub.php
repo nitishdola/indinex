@@ -6,9 +6,8 @@
       <div class="page-header">
       <ol class="breadcrumb">
         
-        <li class="breadcrumb-item"><a href="<?php echo site_url('Welcome/');?>">Dashboard</a></li>
-        <li class="breadcrumb-item"><a href="<?php echo site_url('Welcome/master');?>">Master</a></li>
-        <li class="breadcrumb-item"><a href="<?php echo site_url('Vendors/vendor_main');?>">Vendor</a></li>
+        <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard');?>">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="<?php echo site_url('Setup');?>">Setup</a></li>
         <li class="breadcrumb-item active">Account Group</li>
       </ol>
       <div class="page-content">
@@ -27,7 +26,7 @@
                         </div>
                       </div>
                     </div>
-                    <a href="<?php echo site_url('Vendors/create_acount_group');?>" class="btn btn-inverse project-button">CREATE</a>
+                    <a href="<?php echo site_url('Customers/create_acount_group');?>" class="btn btn-inverse project-button">CREATE</a>
                   </figcaption>
                 </figure>
                 <div class="text-truncate">CREATE</div>
@@ -44,7 +43,7 @@
                         </div>
                       </div>
                     </div>
-                     <a href="<?php echo site_url('Vendors/change_acount_group');?>" class="btn btn-inverse project-button">CHANGE</a>
+                     <a href="<?php echo site_url('Customers/change_acount_group');?>" class="btn btn-inverse project-button">CHANGE</a>
                     
                   </figcaption>
                 </figure>
@@ -64,7 +63,7 @@
                         </div>
                       </div>
                     </div>
-                     <a href="<?php echo site_url('Vendors/display_acount_group');?>" class="btn btn-inverse project-button">DISPLAY</a>                    
+                     <a href="<?php echo site_url('Customers/display_acount_group');?>" class="btn btn-inverse project-button">DISPLAY</a>                    
                   </figcaption>
                 </figure>
                 <div class="text-truncate">DISPLAY</div>

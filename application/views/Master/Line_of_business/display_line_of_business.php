@@ -5,8 +5,8 @@
     <div class="page">
       <div class="page-header">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-        <li class="breadcrumb-item"><a href="<?php echo site_url('Welcome/master');?>">Master</a></li>
+        <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard');?>">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="<?php echo site_url('Setup');?>">Setup</a></li>
         <li class="breadcrumb-item"><a href="<?php echo site_url('Masters/line_of_business_sub');?>">Line of Business</a></li>
         <li class="breadcrumb-item active">Display</li>
       </ol>
@@ -32,7 +32,7 @@
                           ?>
                           <tr>  
                             <td><?php echo  $i;?> </td>                          
-                            <td><?php echo  $row->bcode;?></td> 
+                            <td><?php echo  str_pad($row->bcode, 4, '0', STR_PAD_LEFT);?></td>
                             <td><?php echo  $row->description;?></td> 
                             </tr>  
                          <?php }  ?>

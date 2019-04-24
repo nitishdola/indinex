@@ -25,6 +25,12 @@ class Line_Of_Business_Model extends CI_Model
     $res = $this->db->query($query);
     return $res->result();
   }  
+  public function ifAlreadyExist($bcode)
+  { 
+    $query ="select bcode from  business_type where bcode='$bcode'";
+    $res = $this->db->query($query);
+    return $res->result();
+  }  
   	
 } 
 

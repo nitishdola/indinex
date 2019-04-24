@@ -60,21 +60,28 @@ class Customers extends CI_Controller {
 	}
 	public function change_acount_group()
 	{
-		$this->load->view('Master/Customer/change_acount_group');	
+		$this->load->model('customer_model');
+		$data['customer_group']=$this->customer_model->fetchCustomerGroup();
+		$this->load->view('Master/Customer/change_acount_group',$data);	
 	}
 	public function display_acount_group()
 	{
-		$this->load->view('Master/Customer/display_acount_group');	
+		$this->load->model('customer_model');
+		$data['customer_group']=$this->customer_model->fetchCustomerGroup();
+		$this->load->view('Master/Customer/display_acount_group',$data);	
 	}
 	public function create_customer()
 	{
 		$this->load->model('customer_model');        
 		$data['groups'] = $this->customer_model->select_customer_group();
-		
+		$this->load->model('company_model');        
+		$data['company'] = $this->company_model->fetch_all_data();
+
 		if($this->input->post('sub'))
  		{
+
  			$customer_code 			= $this->input->post('customer_code');
- 			$customer_group_id		= $this->input->post('vendor_account_group_id');
+ 			$customer_group_id		= $this->input->post('customer_account_group_id');
  			$company_code 			= $this->input->post('company_code');
 
  			redirect(site_url('Customers/customer_details?vcode='.$customer_code.'&group_id='.$customer_group_id.'&ccode='.$company_code));
@@ -197,9 +204,29 @@ class Customers extends CI_Controller {
 	}
 	public function display_customer()
 	{
-		$this->load->view('Master/Customer/display_customer');	
+		$this->load->model('customer_model'); 
+		$data['customer_details']=$this->customer_model->select_customer_details();
+		$this->load->view('Master/Customer/display_customer',$data);		
 	}
+	
+	public function display_customer_details()
+	{
+		$customer_id = $this->input->get('id');
+	
+		$this->load->model('customer_model');
+		$data['customers']=$this->customer_model->customer_details($customer_id);
+		
+		$this->load->model('country_model'); 
+		$data['states'] = $this->country_model->getAllStates();
 
+		$this->load->model('city_model'); 
+		$data['city'] = $this->city_model->getAllCity();
+
+		$this->load->model('bank_list_model');        
+		$data['bank_list'] = $this->bank_list_model->select_bank_list();
+
+		$this->load->view('Master/Customer/display_customer_details',$data);		
+	}
 	public function ajax_get_customer_code()
 	{
 		$customer_group_id=$this->input->get('customer_group_id');
@@ -209,9 +236,9 @@ class Customers extends CI_Controller {
         if(!empty($this->customer_model->select_customer_code($customer_group_id))){
 	        foreach($arr['res'] as $row){
 	        	$range_to= $row->range_to;        	
-	        	$vendor_code= ($row->vendor_code)+1; 
-	        	if($vendor_code<=$range_to){
-	        		echo str_pad($vendor_code, 4, '0', STR_PAD_LEFT);      
+	        	$customer_code= ($row->customer_code)+1; 
+	        	if($customer_code<=$range_to){
+	        		echo str_pad($customer_code, 4, '0', STR_PAD_LEFT);      
 	        	} else {
 	        		echo "Out of Range";
 	        	}
@@ -234,6 +261,9 @@ class Customers extends CI_Controller {
 	$this->load->model('country_model'); 
 	$data['states'] = $this->country_model->getAllStates();
 
+	$this->load->model('city_model'); 
+	$data['city'] = $this->city_model->getAllCity();
+
 	$this->load->model('bank_list_model');        
 	$data['bank_list'] = $this->bank_list_model->select_bank_list();
 
@@ -241,7 +271,7 @@ class Customers extends CI_Controller {
 
 	if($this->input->post('sub_1'))
 	{
-		var_dump($_POST);
+		//var_dump($_POST);
 		// /exit();
 		$customer_id 			= $this->input->post('customer_id');
 		$title 					= $this->input->post('title');		
@@ -334,6 +364,8 @@ class Customers extends CI_Controller {
 		}
 
 	}
+
+	
 
 }
 

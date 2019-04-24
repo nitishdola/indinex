@@ -13,6 +13,13 @@ class city_model extends CI_Model
     $query = $this->db->get(); 
     return $query->result();
   }
+  public function getAllCity()  
+  {  
+    $this->db->select('*');
+    $this->db->from('cities');    
+    $query = $this->db->get(); 
+    return $query->result();
+  }
 } 
 
 ?>

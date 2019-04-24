@@ -42,6 +42,18 @@ class Vendor_Model extends CI_Model
     $query = $this->db->get('vendor_group');  
     return $query->result();
   }
+  public function ifAlreadyExist($vendor_group_id)
+  { 
+    $query ="select vendor_group_id from  vendor_group where vendor_group_id='$vendor_group_id'";
+    $res = $this->db->query($query);
+    return $res->result();
+  }
+  public function checkRange($range_from)
+  { 
+    $query ="select vendor_group_id from  vendor_group where vendor_group_id='$vendor_group_id'";
+    $res = $this->db->query($query);
+    return $res->result();
+  }    
   public function check_last_record()
   { 
     $query ="select id,vendor_group_id from vendor_group order by id DESC limit 1";
@@ -50,7 +62,11 @@ class Vendor_Model extends CI_Model
   }
   public function select_vendor_group()  
   { 
-    $query = $this->db->get('vendor_group');  
+    $this->db->select('vendor_group.*,vendor_details.vendor_group_id,COUNT(vendor_details.vendor_id) as total');
+    $this->db->from('vendor_group');
+    $this->db->join('vendor_details','vendor_details.vendor_group_id = vendor_group.id','left');
+    $this->db->group_by('vendor_group.id');
+    $query = $this->db->get();  
     return $query->result();
   }
   function insert_vendor($data){  
@@ -87,6 +103,18 @@ class Vendor_Model extends CI_Model
     return $query->result();     
 
   }  
+
+  public function fetch_vendor_details($vendor_id)  
+  {  
+    $this->db->select('*');
+    $this->db->from('vendor_details');
+    $this->db->join('vendor_group', 'vendor_group.id = vendor_details.vendor_group_id'); 
+    $this->db->where('vendor_id',$vendor_id);    
+    $query = $this->db->get();      
+    return $query->result();     
+
+  }  
+
   public function vendor_details($vendor_id)  
   {  
     $this->db->select('*');
@@ -112,31 +140,31 @@ class Vendor_Model extends CI_Model
     return $query->result();     
 
   }  
-  public function change_vendor_general_data($firstname,$middlename,$lastname,$contact_person,$contact_person_mobile,$country,$region,$city,$email,$fax,$postal_address,$vendor_code) 
+  public function change_vendor_general_data($title,$firstname,$middlename,$lastname,$mobile,$contact_person,$contact_person_mobile,$country,$region,$city,$email,$fax,$postal_address,$vendor_id) 
   {
 
-    $query=$this->db->query("update vendor_general_data SET first_name='$firstname',middle_name='$middlename',last_name='$lastname',contact_person='$contact_person',contact_person_mobile='$contact_person_mobile',vcountry='$country',vregion='$region',vcity='$city',email='$email',fax='$fax' where vendor_code='$vendor_code'");
+    $query=$this->db->query("update vendor_details SET title='$title',first_name='$firstname',middle_name='$middlename',last_name='$lastname',mobile='$mobile',contact_person='$contact_person',contact_person_mobile='$contact_person_mobile',country='$country',region='$region',city='$city',email='$email',fax='$fax' where vendor_id='$vendor_id'");
     return true;
   }
-  public function change_vendor_account_control($vendor_code,$gst_no,$pan_no,$type_of_business)
+  public function change_vendor_account_control($vendor_id,$gst_no,$pan_no,$type_of_business)
   {
-    $query=$this->db->query("update vendor_account_control SET gst_no='$gst_no',pan_no='$pan_no',type_of_business='$type_of_business' where vendor_code='$vendor_code'");
+    $query=$this->db->query("update vendor_details SET gst_no='$gst_no',pan_no='$pan_no',type_of_business='$type_of_business' where vendor_id='$vendor_id'");
     return true;
   }
 
-  public function change_vendor_bank_details($vendor_code,$account_type,$account_holder_name,$account_number,$ifsc_code,$bank_name,$branch_name,$micr_code,$country,$region,$city)
+  public function change_vendor_bank_details($vendor_id,$account_type,$account_holder_name,$account_number,$ifsc_code,$bank_name,$branch_name,$micr_code,$country,$region,$city)
   {
-    $query=$this->db->query("update vendor_bank_details SET account_type='$account_type',account_holder_name='$account_holder_name',account_number='$account_number',ifsc_code='$ifsc_code',bank_name='$bank_name',branch_name='$branch_name',micr_code='$micr_code',country='$country',region='$region',city='$city' where vendor_code='$vendor_code'");
+    $query=$this->db->query("update vendor_details SET account_type='$account_type',account_holder_name='$account_holder_name',account_number='$account_number',ifsc_code='$ifsc_code',bank_name='$bank_name',branch_name='$branch_name',micr_code='$micr_code',country='$country',region='$region',city='$city' where vendor_id='$vendor_id'");
     return true;
   }
-  public function change_vendor_recon_account($vendor_code,$recon_acc)     
+  public function change_vendor_recon_account($vendor_id,$recon_acc)     
   {
-    $query=$this->db->query("update  vendor_accounting_information SET recon_acc='$recon_acc' where vendor_code='$vendor_code'");
+    $query=$this->db->query("update  vendor_details SET recon_acc='$recon_acc' where vendor_id='$vendor_id'");
     return true;
   }
-  public function change_vendor_payment($vendor_code,$payment_term,$cr_memo_term,$payment_method)
+  public function change_vendor_payment($vendor_id,$payment_term,$cr_memo_term,$payment_method)
   {
-    $query=$this->db->query("update vendor_paymeny_details SET payment_term='$payment_term',cr_memo_term='$cr_memo_term',payment_method='$payment_method' where vendor_code='$vendor_code'");
+    $query=$this->db->query("update vendor_details SET payment_term='$payment_term',cr_memo_term='$cr_memo_term',payment_method='$payment_method' where vendor_id='$vendor_id'");
     return true;
   }
 

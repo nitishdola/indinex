@@ -18,9 +18,8 @@
     <div class="page">
       <div class="page-header">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-          <li class="breadcrumb-item"><a href="<?php echo site_url('Welcome/master');?>">Master</a></li>
-          <li class="breadcrumb-item"><a href="<?php echo site_url('Vendors/vendor_main');?>">Vendor</a></li>
+          <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard');?>">Dashboard</a></li>
+          <li class="breadcrumb-item"><a href="<?php echo site_url('Setup');?>">Setup</a></li>
           <li class="breadcrumb-item"><a href="<?php echo site_url('Vendors/vendor_account_sub');?>">Account Group</a></li>
           <li class="breadcrumb-item active">Create</li>
         </ol>
@@ -41,7 +40,8 @@
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label">Account Group Id </label>
                               <div class="col-md-8">
-                              <?php echo form_input(array('type' =>'text', 'name' => 'vendor_group_id','id'=>'vendor_group_id','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off','readonly'=>'readonly','value'=>$vendor_group_id)); ?>
+                              <?php echo form_input(array('type' =>'text', 'name' => 'vendor_group_id','id'=>'vendor_group_id','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off')); ?>
+                              <span><p  id="code_div" style="color:red;display:none">Code already existed</p></span>
                               </div>
                             </div>                      
                             <div class="form-group row">
@@ -55,7 +55,8 @@
                               <div class="col-md-8">
                               <?php echo form_input(array('type' => 'number','id' => 'range_from', 'name' => 'range_from','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'false','maxlength'=>'10')); ?>
                               </div>
-                            </div>   
+                            </div> 
+                            <span><p  id="range_div" style="color:red;display:none">Out of range</p></span>  
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label">Range To: </label>
                               <div class="col-md-8">
@@ -86,4 +87,56 @@
 <?php $this->load->view('layout/admin/footer'); ?>
     
 
-    
+<script>
+$(function(){  
+    $('#vendor_group_id').click(function(){ 
+    $('#code_div').hide();  
+   });
+  $('#vendor_group_id').blur(function(){
+    var vendor_group_id=$('#vendor_group_id').val();      
+    var url= "<?php echo base_url(); ?>" + "index.php/Masters/ajax_account_group";  
+      jQuery.ajax({ 
+        type: 'GET',         
+        url: url, 
+        //dataType: 'json', 
+        data: {vendor_group_id: vendor_group_id}, 
+        success: function (response) {  
+            
+          if(response==1){
+            $('#code_div').show();  
+            $('#vendor_group_id').val('');  
+          }
+                 
+        }, 
+        error: function (jqXhr, textStatus, errorMessage) {           
+           $('p').append('Error' + errorMessage); 
+        } 
+     }); 
+  }); 
+
+  $('#range_from').blur(function(){
+    var range_from=$('#range_from').val();      
+    var url= "<?php echo base_url(); ?>" + "index.php/Masters/ajax_check_range";  
+      jQuery.ajax({ 
+        type: 'GET',         
+        url: url, 
+        //dataType: 'json', 
+        data: {range_from: range_from}, 
+        success: function (response) {  
+            
+          if(response==1){
+            $('#range_div').show();  
+            $('#range_from').val('');  
+          }
+                 
+        }, 
+        error: function (jqXhr, textStatus, errorMessage) {           
+           $('p').append('Error' + errorMessage); 
+        } 
+     }); 
+  }); 
+
+}); 
+
+</script>
+  

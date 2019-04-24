@@ -18,8 +18,8 @@
     <div class="page">
       <div class="page-header">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-        <li class="breadcrumb-item"><a href="<?php echo site_url('Welcome/master');?>">Master</a></li>
+        <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard');?>">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="<?php echo site_url('Setup');?>">Setup</a></li>
         <li class="breadcrumb-item"><a href="<?php echo site_url('Masters/line_of_business_sub');?>">Line of Business</a></li>
         <li class="breadcrumb-item active">Create</li>
       </ol>
@@ -34,14 +34,12 @@
                 <div class="example-wrap">
                   <h4 class="example-title">Create Line of Business</h4>
                   <?php echo $this->session->flashdata('response'); ?>
-                  <div class="example">
-                    <?php if(isset($response)){
-                      echo "hi";
-                      } ?>
+                  <div class="example">                    
                       <div class="form-group row">
                         <label class="col-md-3 col-form-label">Code: </label>
                         <div class="col-md-9">
-                          <?php echo form_input(array('id' => 'bcode', 'name' => 'bcode','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off','value'=>$bcode,'readonly'=>'true')); ?>
+                          <?php echo form_input(array('id' => 'bcode', 'name' => 'bcode','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off')); ?>
+                          <span><p  id="code_div" style="color:red;display:none">Code already exist</p></span>
                         </div>
                       </div>
 
@@ -73,5 +71,33 @@
 </div>
 <?php $this->load->view('layout/admin/footer'); ?>
     
+<script>
+$(function(){  
+   $('#bcode').click(function(){ 
+    $('#code_div').hide();  
+   });
+  $('#bcode').blur(function(){ 
+    var bcode=$('#bcode').val();      
+    var url= "<?php echo base_url(); ?>" + "index.php/Masters/ajax_line_of_business";  
+      jQuery.ajax({ 
+        type: 'GET',         
+        url: url, 
+        //dataType: 'json', 
+        data: {bcode: bcode}, 
+        success: function (response) {  
+            
+          if(response==1){
+            $('#code_div').show();  
+            $('#bcode').val('');  
+          }
+                 
+        }, 
+        error: function (jqXhr, textStatus, errorMessage) {           
+           $('p').append('Error' + errorMessage); 
+        } 
+     }); 
+  }); 
+}); 
 
+</script>
     

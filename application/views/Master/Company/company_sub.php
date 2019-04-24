@@ -5,10 +5,9 @@
     <div class="page">
       <div class="page-header">
       <ol class="breadcrumb">
-        
-         <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard');?>">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard');?>">Dashboard</a></li>
         <li class="breadcrumb-item"><a href="<?php echo site_url('Setup');?>">Setup</a></li>
-        <li class="breadcrumb-item active">Account Group</li>
+        
       </ol>
       <div class="page-content">
 
@@ -26,7 +25,7 @@
                         </div>
                       </div>
                     </div>
-                    <a href="<?php echo site_url('Vendors/create_acount_group');?>" class="btn btn-inverse project-button">CREATE</a>
+                    <a href="<?php echo site_url('Setup/create_company');?>" class="btn btn-inverse project-button">CREATE</a>
                   </figcaption>
                 </figure>
                 <div class="text-truncate">CREATE</div>
@@ -43,7 +42,7 @@
                         </div>
                       </div>
                     </div>
-                     <a href="<?php echo site_url('Vendors/change_acount_group_list');?>" class="btn btn-inverse project-button">CHANGE</a>
+                     <a href="<?php echo site_url('Setup/change_company_list');?>" class="btn btn-inverse project-button">CHANGE</a>
                     
                   </figcaption>
                 </figure>
@@ -58,12 +57,12 @@
                   <img class="caption-figure overlay-figure dashboard-icon" src="<?php echo base_url();?>assets/images/indianex_images/master_entry_icons/display.png">
                   <figcaption class="overlay-panel overlay-background overlay-fade text-center vertical-align">
                     <div class="btn-group">
-          <div class="dropdown float-left">
+                        <div class="dropdown float-left">
                         <div class="dropdown-menu" role="menu">
                         </div>
                       </div>
                     </div>
-                     <a href="<?php echo site_url('Vendors/display_acount_group_list');?>" class="btn btn-inverse project-button">DISPLAY</a>                    
+                     <a href="<?php echo site_url('Setup/display_company_list');?>" class="btn btn-inverse project-button">DISPLAY</a>                    
                   </figcaption>
                 </figure>
                 <div class="text-truncate">DISPLAY</div>
@@ -73,8 +72,9 @@
             
           </ul>
         </div>
-      </div>
-        
+
+        </div>
+        </div>
       </div>
     </div>
 <?php $this->load->view('layout/admin/footer'); ?>

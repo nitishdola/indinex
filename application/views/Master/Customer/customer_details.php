@@ -103,7 +103,7 @@
                                     <div class="form-group row">
                                       <label class="col-md-6 col-form-label">Mobile: </label>
                                       <div class="col-md-6">
-                                         <?php echo form_input(array('type' => 'number','id' => 'mobile_id', 'name' => 'mobile','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off','maxlength'=>'12')); ?>
+                                         <?php echo form_input(array('type' => 'tel','id' => 'mobile_id', 'name' => 'mobile','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off','maxlength'=>'12')); ?>
                                          <p id="mobile_div" style="color:red;display:none"> Mobile number is already registered</p>
                                       </div>
                                     </div>  
@@ -133,7 +133,7 @@
                                       </div>
                                     </div>
                                     <div class="form-group row">
-                                      <label class="col-md-6 col-form-label">Contact Person Mobile:: </label>
+                                      <label class="col-md-6 col-form-label">Contact Person Mobile: </label>
                                       <div class="col-md-6">
                                          <?php echo form_input(array('type' => 'number','id' => 'contact_person_mobile', 'name' => 'contact_person_mobile','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'false','maxlength'=>'12')); ?>
                                       </div>
@@ -142,18 +142,18 @@
                                       <label class="col-md-6 col-form-label">Country: </label>
                                       <div class="col-md-6">
                                         <select id="country" name="country" class="form-control">
-                                          <option>INDIA</option>
+                                          <option value="India">India</option>
                                         </select>
                                       </div>
                                     </div>
                                     <div class="form-group row">
                                       <label class="col-md-6 col-form-label">Region: </label>
                                       <div class="col-md-6">
-                                         <select class="form-control" id="region" name="region" >
+                                         <select class="form-control" id="region_id" name="region" >
                                         <option value="">Select</option>  
                                           <?php foreach($states as $st2)     
                                             { ?>
-                                            <option value="<?php echo $st2->name?>"><?php echo $st2->name?> </option>
+                                            <option value="<?php echo $st2->id?>"><?php echo $st2->TIN_no?> -<?php echo $st2->name?> </option>
                                             <?php }  ?>  
                                         </select>
                                       </div>
@@ -161,9 +161,8 @@
                                     <div class="form-group row">
                                       <label class="col-md-6 col-form-label">City: </label>
                                       <div class="col-md-6">
-                                          <select id="city" name="city" class="form-control">
-                                          <option value="Guwahati">Guwahati</option>
-                                          <option value="Shillong">Shillong</option>
+                                          <select id="city_id" name="city" class="form-control">
+                                            <option value="">Select</option>
                                           </select>
                                       </div>
                                     </div>
@@ -195,8 +194,7 @@
                         <p>Account Control Form</p>
                   <!-- Example Horizontal Form -->
                   <div class="example-wrap">
-                  <h4 class="example-title"></h4> 
-                  
+                  <h4 class="example-title"></h4>                   
                     <div class="example">
                         <div class="form-group row">
                           <label class="col-md-6 col-form-label">GST No: </label>
@@ -307,18 +305,18 @@
                               <label class="col-md-6 col-form-label">Country: </label>
                               <div class="col-md-6">
                                <select id="country" name="bank_country" class="form-control">
-                                  <option>INDIA</option>
+                                  <option value="India">India</option>
                                 </select>
                               </div>
                             </div>
                             <div class="form-group row">
                               <label class="col-md-6 col-form-label">Region: </label>
                               <div class="col-md-6">
-                                 <select class="form-control" id="region" name="bank_region" >
+                                 <select class="form-control" id="bank_region" name="bank_region" >
                                 <option value="">Select</option>  
                                   <?php foreach($states as $st2)     
                                     { ?>
-                                    <option value=""><?php echo $st2->name?> </option>
+                                    <option value="<?php echo $st2->id?>"><?php echo $st2->TIN_no?> - <?php echo $st2->name;?></option>
                                     <?php }  ?>  
                                 </select>
                               </div>
@@ -326,11 +324,8 @@
                             <div class="form-group row">
                               <label class="col-md-6 col-form-label">City: </label>
                               <div class="col-md-6">
-                               <select id="city" name="bank_city" class="form-control">
-                                 
-                                  <option value="Guwahati">Guwahati</option>
-                                  <option value="Shillong">Shillong</option>
-
+                               <select id="bank_city" name="bank_city" class="form-control">
+                                 <option value="">Select</option>
                                 </select>
                               </div>                             
                             </div>
@@ -442,6 +437,54 @@
 <?php $this->load->view('layout/admin/footer'); ?>
 
 <script>
+$('#region_id').change(function(){
+    var region_id       =$('#region_id').val();
+    $('#city_id').empty(); 
+      var url= "<?php echo base_url(); ?>" + "index.php/Masters/ajax_get_cities";       
+        jQuery.ajax({
+          type: 'GET',        
+          url: url,
+          dataType: 'json',
+          data: {region_id: region_id},
+          success: function (jsonArray) {      
+              $.each(jsonArray, function(index,jsonObject){
+                  $('#city_id')
+                  .append($("<option></option>")
+                  .attr("value",jsonObject['city_name'])
+                  .text(jsonObject['city_name']));               
+            });        
+          },
+
+          error: function (jqXhr, textStatus, errorMessage) {
+            // $.unblockUI();
+             //$('p').append('Error' + errorMessage);
+          }
+       });
+  });
+  $('#bank_region').change(function(){
+    var region_id       =$('#bank_region').val();
+    $('#bank_city').empty(); 
+      var url= "<?php echo base_url(); ?>" + "index.php/Masters/ajax_get_cities";       
+        jQuery.ajax({
+          type: 'GET',        
+          url: url,
+          dataType: 'json',
+          data: {region_id: region_id},
+          success: function (jsonArray) {      
+              $.each(jsonArray, function(index,jsonObject){
+                  $('#bank_city')
+                  .append($("<option></option>")
+                  .attr("value",jsonObject['city_name'])
+                  .text(jsonObject['city_name']));               
+            });        
+          },
+
+          error: function (jqXhr, textStatus, errorMessage) {
+            // $.unblockUI();
+             $('p').append('Error' + errorMessage);
+          }
+       });
+  });
 $('.continue').click(function(){
     var title                   =$('#title').val();
     var first_name              =$('#first_name').val(); 
@@ -457,6 +500,7 @@ $('.continue').click(function(){
       $('.nav-tabs > .active').next('li').find('a').trigger('click');
   }
 });
+
 $('.continue2').click(function(){
   $('.nav-tabs > .active').next('li').find('a').trigger('click');
 });
@@ -469,7 +513,8 @@ $(function(){
 
   $('#mobile_id').blur(function(){
     var mobile_no=$('#mobile_id').val(); 
-    var url= "<?php echo base_url(); ?>" + "index.php/vendors/ajax_check_mobile_no";     
+
+    var url= "<?php echo base_url(); ?>" + "index.php/Customers/ajax_check_mobile_no";     
      jQuery.ajax({ 
         type: 'GET',         
         url: url, 

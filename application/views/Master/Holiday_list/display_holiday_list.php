@@ -5,8 +5,8 @@
     <div class="page">
       <div class="page-header">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-        <li class="breadcrumb-item"><a href="<?php echo site_url('Welcome/master');?>">Master</a></li>
+        <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard');?>">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="<?php echo site_url('Setup');?>">Setup</a></li>
         <li class="breadcrumb-item"><a href="<?php echo site_url('Masters/holiday_list_sub');?>">Holiday List</a></li>
         <li class="breadcrumb-item active">Display</li>
       </ol>
@@ -16,35 +16,48 @@
             <div class="panel-body container-fluid">
               <h3>Display Holiday List</h3>
                 <?php foreach($res as $row) 
-                    {
-                      $month=date('m',strtotime($row->date));
-                      $date=date('d',strtotime($row->date));
+                    { 
+                      
+                      $month=date('m',strtotime($row->date_from));
+                      $date_from=date('d',strtotime($row->date_from));
+                      $date_to=date('d',strtotime($row->date_to));
                       if($month== 1){
-                        $month="January";
+                         echo $month="<p style='font-weight:bold;font-size:18px;'>January</p>";
+                         echo $row->holiday_name.'-'.$date_from;
+                         //echo $date_to;
                       } else if($month== 2){
-                        $month= "Feburary";
+                        echo $month= "<p style='font-weight:bold;font-size:18px;'>Feburary</p>";
+                        echo $row->holiday_name.'-'.$date_from;
                       } else if($month== 3){
-                        echo $month= "March";
-                        echo "<h5>".$date."-".$row->holiday_name."</h5>";
+                        echo $month= "<p style='font-weight:bold;font-size:18px;'>March</p>";
+                        echo $row->holiday_name.'-'.$date_from;
                       } else if($month== 4){
-                        $month= "April";
+                        echo $month= "<p style='font-weight:bold;font-size:18px;'>April</p>";
+                        echo $row->holiday_name.'-'.$date_from;
                       } else if($month== 5){
-                        $month= "May";
+                        echo $month= "<p style='font-weight:bold;font-size:18px;>May</p>";
+                        echo $row->holiday_name.'-'.$date_from;
                       } else if($month== 6){
-                        $month= "June";
+                        echo $month= "<p style='font-weight:bold;font-size:18px;'>June</p>";
+                        echo $row->holiday_name.'-'.$date_from;
                       } else if($month== 7){
-                        $month= "July";
+                        echo $month= "<p style='font-weight:bold;font-size:18px;'>July</p>";
+                        echo $row->holiday_name.'-'.$date_from;
                       } else if($month== 8){
-                        $month= "August";
+                        echo $month= "<p style='font-weight:bold;font-size:18px;'>August</p>";
+                        echo $row->holiday_name.'-'.$date_from;
                       } else if($month== 9){
-                        $month= "September";
+                        echo $month= "<p style='font-weight:bold;font-size:18px;'>September</p>";
+                        echo $row->holiday_name.'-'.$date_from;
                       } else if($month== 10){
-                        echo $month= "Octber";
-                        echo "<h5>".$date."-".$row->holiday_name."</h5>";
+                        echo $month= "<p style='font-weight:bold;font-size:18px;'>Octber</p>";
+                        echo $row->holiday_name.'-'.$date_from;
                       } else if($month== 11){
-                        $month= "November";
+                        echo $month= "<p style='font-weight:bold;font-size:18px;'>November</p>";
+                        echo $row->holiday_name.'-'.$date_from;
                       } else if($month== 12){
-                        $month= "December";
+                        echo $month= "<p style='font-weight:bold;font-size:18px;'>December</p>";
+                        echo $row->holiday_name.'-'.$date_from;
                       } 
 
                       
@@ -54,6 +67,7 @@
         <!-- End Panel Controls Sizing -->
         </div>
       </div>
+    </div>
     </div>
 <?php $this->load->view('layout/admin/footer'); ?>
     

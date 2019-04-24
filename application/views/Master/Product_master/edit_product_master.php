@@ -62,7 +62,7 @@
 
               <div class="tab-content pt-5" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                  <?php echo form_open(); ?>
+                  <?php echo form_open_multipart(); ?>
 
                   <div class="row row-lg">                
                     <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
@@ -147,7 +147,7 @@
                                 <select id="gross_uom" name="gross_uom" style="width:100px" class="form-control">
                                     <option  value="">UOM</option>
                                     <?php foreach($variants as $mu)  { ?>      
-                                    <option <?php if($mu->variants_name == $row->gross_uom){ echo 'selected="selected"'; } ?> value="<?php echo $mu->variants_name ?>"><?php echo $mu->variants_name?> </option>                   
+                                    <option <?php if($mu->variants_name == $row->gross_uom){ echo 'selected="selected"'; } ?> value="<?php echo $mu->variants_name ;?>"><?php echo $mu->variants_name;?> </option>                   
                                   <?php } ?>
                                   </select>
                               </div>
@@ -156,10 +156,10 @@
                               <label class="col-md-4 col-form-label">Size: </label>
                               <div class="col-md-8">
                                 <select id="size" class="form-control" name="size">
-                                  <option  value="">Size</option>
-                                   <?php foreach($sizes as $u)  { ?>
-                                   <option <?php if($u->variants_name == $row->size){ echo 'selected="selected"'; } ?> value="<?php echo $u->variants_name ?>"><?php echo $row->size?> </option>                           
-                                  <?php }  ?>
+                                  <option  value="">Select</option>
+                                   <?php foreach($sizes as $s)  { ?>
+                                    <option <?php if($s->variants_name == $row->size){ echo 'selected="selected"'; } ?> value="<?php echo $s->variants_name ;?>"><?php echo $s->variants_name;?> </option>                   
+                                  <?php } ?>                                                               
                                 </select> 
                               </div>
                             </div>
@@ -167,7 +167,7 @@
                               <label class="col-md-4 col-form-label">Color: </label>
                               <div class="col-md-8">
                                 <select id="color" class="form-control" name="color">
-                                    <option value="">Color</option>
+                                    <option value="">Select</option>
                                    <?php foreach($color as $r)  { ?>
                                     <option <?php if($r->variants_name == $row->color){ echo 'selected="selected"'; } ?> value="<?php echo $r->variants_name ?>"><?php echo $r->variants_name;?></option>                      
                                   <?php } ?>
