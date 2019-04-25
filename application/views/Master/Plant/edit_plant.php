@@ -1,27 +1,14 @@
 <?php $this->load->view('layout/admin/header'); ?>
 <body class="animsition app-projects">
    <?php $this->load->view('layout/admin/nav_menu'); ?>
-    <?php 
-    if(!empty($record))
-    {     
-      foreach($record as $row)
-      {     
-          $scode=$row->scode;
-          $scode++;
-          $scode=str_pad($scode, 4, '0', STR_PAD_LEFT);
-      } 
-    } else {      
-      $scode=1;
-      $scode=str_pad($scode, 4, '0', STR_PAD_LEFT);
-    }
-    ?>
+      <?php $storage_id= $this->input->get('storage_id');?>
     <div class="page">
       <div class="page-header">
       <ol class="breadcrumb">
-         <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard');?>">Dashboard</a></li>
-        <li class="breadcrumb-item"><a href="<?php echo site_url('Setup');?>">Setup</a></li>        
-        <li class="breadcrumb-item"><a href="<?php echo site_url('Masters/storage_location_sub');?>">Storage Location</a></li>
-        <li class="breadcrumb-item active">Create</li>
+        <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard');?>">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="<?php echo site_url('Setup');?>">Setup</a></li>
+        <li class="breadcrumb-item"><a href="<?php echo site_url('Masters/plant_sub');?>">Plant</a></li>
+        <li class="breadcrumb-item active">Change</li>
       </ol>
       <div class="page-content">
         <div class="projects-wrap">
@@ -32,48 +19,46 @@
               <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
                 <!-- Example Horizontal Form -->
                 <div class="example-wrap">
-                  <h4 class="example-title">Create Storage Location</h4>  
-                  <?php echo $this->session->flashdata('response'); ?>                
-                  <div class="example">                    
+                  <h4 class="example-title">Change Plant</h4>                  
+                  <?php echo $this->session->flashdata('response'); ?>
+                  <?php foreach($res as $r){ ?>
+                   <?php echo form_input(array('type' =>'hidden', 'name' => 'storage_id','id'=>'storage_id','value'=>$storage_id)); ?>  
+                  <div class="example">                   
                       <div class="form-group row">
-                        <label class="col-md-4 col-form-label">Storage Location Code: </label>
+                        <label class="col-md-4 col-form-label">Plant Code: </label>
                         <div class="col-md-8">
-                          <?php echo form_input(array('id' => 'scode', 'name' => 'scode','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off','maxlength'=>'4')); ?>
-                           <span><p  id="code_div" style="color:red;display:none">Code already exist</p></span>
+                          <?php echo form_input(array('id' => 'pcode', 'name' => 'pcode','class'=>'form-control','style'=>'margin-bottom:5px','readonly'=>'readonly','autocomplete'=>'off','value'=>str_pad($r->pcode, 4, '0', STR_PAD_LEFT))); ?>
+                          <span><p  id="code_div" style="color:red;display:none">Code already exist</p></span>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-md-4 col-form-label">Company: </label>
+                        <div class="col-md-8">
+                          <select name="company_id" class="form-control" required="true">
+                            <option value="">Select</option>
+                            <?php foreach($company->result() as $rw)     
+                              { ?>
+                                <option  <?php if($rw->id == $r->company_id){ echo 'selected="selected"'; } ?> value="<?php echo $rw->id;?>"><?php echo $rw->company_name;?></option>
+                              <?php }   ?>  
+                          </select>
                         </div>
                       </div>
                       <div class="form-group row">
                         <label class="col-md-4 col-form-label">Plant Name: </label>
                         <div class="col-md-8">
-                          <select class="form-control" id="plant_id" name="plant_id" required="true">
-                            <option value="">Select</option> 
-                            <?php foreach($plant as $row)
-                              {
-                                echo '<option value="'.$row->id.'">'.$row->first_name.' '.$row->middle_name.' '.$row->last_name.'</option>';
-                              } ?>   
-                          </select>
+                          <?php echo form_input(array('id' => 'first_name', 'name' => 'first_name','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off','value'=>($r->first_name))); ?>
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label class="col-md-4 col-form-label">Storage Location Name: </label>
+                        <label class="col-md-4 col-form-label"></label>
                         <div class="col-md-8">
-                          <?php echo form_input(array('id' => 'first_name', 'name' => 'first_name','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off')); ?>
+                          <?php echo form_input(array('id' => 'middle_name', 'name' => 'middle_name','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'off','value'=>ucfirst($r->middle_name))); ?>
                         </div>
                       </div>
-
-
                       <div class="form-group row">
-                        <label class="col-md-4 col-form-label"> </label>
+                        <label class="col-md-4 col-form-label"></label>
                         <div class="col-md-8">
-                           <?php echo form_input(array('id' => 'middle_name', 'name' => 'middle_name','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'off')); ?>
-                        </div>
-                      </div>
-
-
-                      <div class="form-group row">
-                        <label class="col-md-4 col-form-label"> </label>
-                        <div class="col-md-8">
-                          <?php echo form_input(array('id' => 'last_name', 'name' => 'last_name','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'off')); ?>
+                          <?php echo form_input(array('id' => 'last_name', 'name' => 'last_name','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'off','value'=>ucfirst($r->last_name))); ?>
                         </div>
                       </div>
                   </div>
@@ -82,12 +67,12 @@
               <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
                 <!-- Example Horizontal Form -->
                 <div class="example-wrap">
-                 <h4 class="example-title">Communication</h4>                  
+                  <h4 class="example-title">Communication</h4>                  
                   <div class="example">                    
                       <div class="form-group row">
                         <label class="col-md-4 col-form-label">Country: </label>
                         <div class="col-md-8">
-                          <select id="country" name="country" class="form-control" required="true">
+                          <select id="country" name="country"   class="form-control">
                             <option value="India">India</option>
                           </select>
                         </div>
@@ -95,27 +80,32 @@
                       <div class="form-group row">
                         <label class="col-md-4 col-form-label">Region: </label>
                         <div class="col-md-8">
-                          <select class="form-control" id="region_id" name="region" required="true">
-                          <option value="">Select</option>  
-                            <?php foreach($states as $row)     
-                              {
-                                echo '<option value="'.$row->id.'">'.$row->name.'</option>';
-                              }   ?>  
+                          <select id="region_id" name="region" class="form-control" required="true">
+                            <option value="">Select</option>  
+                                <?php foreach($states as $st2)     
+                                { ?>
+                                <option <?php if($st2->id == $r->region){ echo 'selected="selected"'; } ?> value="<?php echo $st2->id; ?>"><?php echo $st2->name?> </option>
+                                <?php }  ?>  
+                              
                           </select>
                         </div>
                       </div>
                       <div class="form-group row">
                         <label class="col-md-4 col-form-label">City: </label>
-                        <div class="col-md-8">
-                          <select id="city_id" name="city" class="form-control" required="true">
-                            <option value="">Select</option>                            
-                          </select>
-                        </div>
+                          <div class="col-md-8">
+                            <select id="city_id" name="city" class="form-control"  required="true">
+                              <option value="" =" ">Select</option>
+                               <?php foreach($city as $ct)     
+                                    { ?>
+                                    <option <?php if($ct->city_name == $r->city){ echo 'selected="selected"'; } ?> value="<?php echo $ct->city_id; ?>"><?php echo $ct->city_name?> </option>
+                                    <?php }  ?>
+                            </select>
+                          </div>
                       </div>
                       <div class="form-group row">
                         <label class="col-md-4 col-form-label">Postal Address: </label>
                         <div class="col-md-8">
-                          <textarea class="form-control" placeholder="Address" autocomplete="off" id="postal_address" name="postal_address" rows="5" required="true"></textarea>
+                          <textarea class="form-control" id="postal_address" name="postal_address" placeholder="Address" autocomplete="off" rows="5"  required="true"><?php echo $r->postal_address;?></textarea>
                         </div>
                       </div>
                   </div>
@@ -123,30 +113,32 @@
                 <!-- End Example Horizontal Form -->
               </div>
             </div>
+            <?php } ?>
             <div class="col-md-12">
               <div class="form-group row">
                 <div class="col-md-9">
                   <input type="hidden" name="sub" value="1">
-                  <button type="submit" class="btn btn-primary">Submit </button>
+                  <button type="submit" class="btn btn-primary">Update </button>
                   <button type="reset" class="btn btn-default btn-outline">Reset</button>
                 </div>
               </div>
             </div>
-          <?php echo form_close(); ?>
+           <?php echo form_close(); ?>
           </div>
           </div>
         <!-- End Panel Controls Sizing -->
         </div>
       </div>
-    </div></div>
     </div>
-    
+    </div>
 <?php $this->load->view('layout/admin/footer'); ?>
+    
 <script>
-$(function(){ 
+$(function(){  
+
   $('#region_id').change(function(){
     var region_id       =$('#region_id').val();
-     $('#city_id').empty();
+      $('#city_id').empty();
       var url= "<?php echo base_url(); ?>" + "index.php/Masters/ajax_get_cities";       
         jQuery.ajax({
           type: 'GET',        
@@ -169,23 +161,22 @@ $(function(){
        });
   });
 
- 
-   $('#scode').click(function(){ 
+   $('#pcode').click(function(){ 
     $('#code_div').hide();  
    });
-  $('#scode').blur(function(){
-    var scode=$('#scode').val();      
-    var url= "<?php echo base_url(); ?>" + "index.php/Masters/ajax_storage_code";  
+  $('#pcode').blur(function(){ 
+    var pcode=$('#pcode').val();      
+    var url= "<?php echo base_url(); ?>" + "index.php/Masters/ajax_plant_code";  
       jQuery.ajax({ 
         type: 'GET',         
         url: url, 
         //dataType: 'json', 
-        data: {scode: scode}, 
+        data: {pcode: pcode}, 
         success: function (response) {  
             
           if(response==1){
             $('#code_div').show();  
-            $('#scode').val('');  
+            $('#pcode').val('');  
           }
                  
         }, 
@@ -197,3 +188,4 @@ $(function(){
 }); 
 
 </script>
+    

@@ -30,8 +30,24 @@ class Line_Of_Business_Model extends CI_Model
     $query ="select bcode from  business_type where bcode='$bcode'";
     $res = $this->db->query($query);
     return $res->result();
-  }  
+  } 
+  public function insert_update($id,$description)
+  {
+    $query=$this->db->query("update business_type SET description='$description' where id='$id'");
+  } 
   	
+  public function business_details($id)
+  {
+    //$query=$this->db->query("update business_type SET description='$description' where id='$id'");
+    $query = $this->db->get('business_type');
+    $this->db->select('*');
+    $this->db->from('business_type');
+    $this->db->where('business_type.id',$id);  
+    $query = $this->db->get();      
+    return $query->result(); 
+     $query = $this->db->get(description);      
+    return $query->result();
+    }
 } 
 
 ?>

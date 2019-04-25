@@ -34,7 +34,7 @@
                             <td><?php echo  $i;?>    </td>   
                             <td><?php echo  str_pad($row->bcode, 4, '0', STR_PAD_LEFT);?></td>
                             <td><?php echo  $row->description;?></td> 
-                            <td>Edit</td>
+                            <td><a href="<?php echo site_url('Masters/edit_line_of_business?id='.$row->id);?>" class="btn btn-info btn-sm"  style="margin: 5px">Edit</a></td>
                             <td>Delete</td>
                             </tr>  
                          <?php }  ?>

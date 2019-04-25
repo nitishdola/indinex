@@ -20,7 +20,7 @@
                   <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                       <table class="table table-bordered" style="width:100%">
                       <tr>
-                       <th>Sl</th><th>Account Group Id</th><th>Group Name</th><th>Range From</th><th>Range To</th><th>Change</th>
+                       <th>Sl</th><th>Account Group Id</th><th>Group Name</th><th>Range From</th><th>Range To</th><th>Current Status</th>
                       </tr>
                       <tbody>
                           <?php 

@@ -14,7 +14,7 @@
         <div class="projects-wrap">
           <div class="panel">
             <div class="panel-body container-fluid">
-              <h3>Change Company List</h3>
+              <h3>Change Company</h3>
                 <div class="example">  
                  <?php echo form_open(); ?>
                         <div class="form-group row">                                                    
@@ -50,6 +50,7 @@
                       <td><?php echo  $row->postal_address;?></td> 
                       <td><?php if(!empty($row->mobile)){
                       $mobile=unserialize($row->mobile);
+                      //print_r($mobile);
                       $cnt= count($mobile);
                         for($i=1;$i<$cnt;$i++){
                           echo ($mobile[$i]).'<br>';
@@ -57,11 +58,11 @@
                       }
                       ?></td> 
                       <td><?php 
-                      
-                        $email=unserialize($row->email);
+
+                        $email=unserialize($row->email);                       
                         $cnt2= count($email);
                         for($j=1;$j<$cnt2;$j++){
-                        echo ($email[$j]).'<br>';
+                          echo ($email[$j]).'<br>';
                         }
                      
                       ?></td> 

@@ -75,13 +75,26 @@
                         </div>
                       </div>
                        <div class="form-group row">
+                          <label class="col-md-3 col-form-label">Product Category : </label>
+                          <div class="col-md-9">
+                            <select class="form-control" id="category_id" name="category">
+                              <option value="">Select</option> 
+                              <?php foreach($category->result() as $ct)
+                              {
+                                echo '<option value="'.$ct->id.'">'.$ct->category_name.'</option>';
+                              } ?>   
+                            </select>
+                          </div>
+                        </div>
+                       <div class="form-group row">
                           <label class="col-md-3 col-form-label">Product Name : </label>
                           <div class="col-md-9">
-                            <select class="form-control" id="product" name="product">
+                            <select class="form-control" id="product_id" name="product">
                               <option value="">Select</option> 
                             </select>
                           </div>
                         </div>
+                        
                         <div class="form-group row">
                           <label class="col-md-3 col-form-label">Current Stock : </label>
                           <div class="col-md-9">
@@ -226,10 +239,36 @@
             <?php $this->load->view('layout/admin/footer_with_js'); ?>
     
 <script>
-$(function(){ 
+$(function(){
+
+    $('#category_id').change(function(){
+      $('#product_id').empty().append('<option value=" ">Select</option>');
+      var category_id     = $('#category_id').val();
+      //var plant_loc_id    = $('#plant_loc').val();
+      //var loc_storage_id  = $('#loc_storage_from').val();
+      var url= "<?php echo base_url(); ?>" + "index.php/stock_movement/ajax_product_name";
+
+      jQuery.ajax({
+          type: 'GET',        
+          url: url,
+          dataType: 'json',
+          data: {category_id: category_id},
+          success: function (jsonArray) {      
+              $.each(jsonArray, function(index,jsonObject){
+                  $('#product_id')
+                  .append($("<option></option>")
+                  .attr("value",jsonObject['id'])
+                  .text(jsonObject['product_name']));               
+            });         
+          },
+          error: function (jqXhr, textStatus, errorMessage) {            
+             $('p').append('Error' + errorMessage);
+          }
+        });     
+      }); 
+
     $('#plant_loc').change(function(){
     $('#loc_storage_from,#loc_storage_to').empty().append('<option value=" ">Select</option>');
-
       var plant_loc=$('#plant_loc').val();      
       var url= "<?php echo base_url(); ?>" + "index.php/stock_movement/ajax_get_storage_location";
 

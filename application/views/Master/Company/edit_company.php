@@ -79,7 +79,7 @@
         <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard');?>">Dashboard</a></li>
         <li class="breadcrumb-item"><a href="<?php echo site_url('Setup');?>">Setup</a></li>
         <li class="breadcrumb-item"><a href="<?php echo site_url('Setup/company_sub');?>">Company</a></li>
-        <li class="breadcrumb-item active">Create</li>
+        <li class="breadcrumb-item active">Change</li>
       </ol>
       <div class="page-content">
         <div class="projects-wrap">
@@ -91,7 +91,7 @@
                     <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
                       <!-- Example Horizontal Form -->
                       <div class="example-wrap">
-                        <h4 class="example-title">Create Company</h4> 
+                        <h4 class="example-title">Change Company</h4> 
                         
                          <?php echo $this->session->flashdata('response'); ?>
                          <?php foreach($res as $r) { ?>   
@@ -106,8 +106,8 @@
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label">Title: </label>
                               <div class="col-md-8">
-                                <select class="form-control" name="title">
-                                  <option value="M/s.">M/s.</option>
+                                <select class="form-control" name="title">                                  
+                                   <option <?php if($r->title == 'M/s.'){ echo 'selected="selected"'; } ?> value="M/s.">M/s.</option>
                                 </select>
                               </div>
                             </div> 
@@ -146,8 +146,8 @@
                              <div class="form-group row">
                               <label class="col-md-4 col-form-label" >Language</label>
                               <div class="col-md-8">
-                                <select class="form-control" id="plant_id" name="plant_id">
-                                  <option value="English">English</option> 
+                                <select class="form-control" id="language" name="language">                           
+                                   <option <?php if($r->language == 'English'){ echo 'selected="selected"'; } ?> value="English">English</option>
                                 </select>
                               </div>
                             </div>  
@@ -156,10 +156,11 @@
                               <div class="col-md-8">
                                 <select class="form-control" id="currency" name="currency" required="true">
                                   <option value="">Select</option> 
-                                  <?php foreach($currency as $row)
-                                    {
-                                      echo '<option value="'.$row->id.'">'.$row->variants_name.'</option>';
-                                    } ?>   
+                                  <?php foreach($currency as $cr)
+                                    { ?>
+                                      <option <?php if($cr->variants_name == $r->currency){ echo 'selected="selected"'; } ?> value="<?php echo $cr->variants_name;?>"><?php echo $cr->variants_name;?></option>';
+                                    <?php } ?>   
+                                   
                                 </select>
                               </div>
                             </div>  
@@ -175,26 +176,30 @@
                                 <?php echo form_input(array('type' => 'tel','id' => 'telephone', 'name' => 'telephone','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'false','maxlength'=>'12','value'=>$r->telephone)); ?>
                               </div>
                             </div>  
+                            <?php
+                            $mobile=unserialize($r->mobile);                            
+                            $cnt= count($mobile); ?>
+                            <input type="hidden" name="cnt_mobile" value="<?php echo $cnt;?>">
+                            <?php for($i=1;$i<$cnt;$i++){ ?> 
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label" >Mobile</label>
                               <div class="col-md-8">
-                                <?php echo form_input(array('type' => 'tel','id' => 'mobile_1', 'name' => 'mobile_1','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'false','maxlength'=>'12','required'=>'required')); ?>
-                                 
+                                <?php echo form_input(array('type' => 'tel','id' => 'mobile_'.$i, 'name' => 'mobile_'.$i,'class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'false','maxlength'=>'12','required'=>'required', 'value'=>$mobile[$i])); ?>                                 
                               </div>
-                             
-
-                            </div>  
-                            <div id="mobile_div"></div>
-                            <input type="hidden" id="h1" name="h1" value="1">
+                            </div> 
+                            <?php } ?>
+                             <?php
+                            $email=unserialize($r->email);                            
+                            $cnt2= count($email); ?>
+                            <input type="hidden" name="cnt_email" value="<?php echo $cnt;?>">
+                            <?php for($j=1;$j<$cnt2;$j++){ ?> 
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label" >Email</label>
                               <div class="col-md-8">
-                                <?php echo form_input(array('type' => 'email','id' => 'email_1', 'name' => 'email_1','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'false','maxlength'=>'100','value'=>'')); ?>
-                              </div>
-                             
-                            </div>  
-                            <div id="email_div"></div>
-                             <input type="hidden" id="h2" name="h2" value="1">
+                                <?php echo form_input(array('type' => 'email','id' => 'email_'.$j, 'name' => 'email_'.$j,'class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'false','maxlength'=>'100', 'value'=>$email[$j])); ?>
+                              </div>                             
+                            </div> 
+                            <?php } ?>
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label" >Fax</label>
                               <div class="col-md-8">
@@ -214,10 +219,10 @@
                         <div class="col-md-8">
                           <select id="region_id" name="region" class="form-control">
                             <option value="">Select</option>                      
-                              <?php foreach($states as $row)     
-                              {
-                                echo '<option value="'.$row->id.'">'.$row->TIN_no.'-'.$row->name.'</option>';
-                              }   ?>  
+                              <?php foreach($states as $st2)     
+                                { ?>
+                                <option <?php if($st2->id == $r->region){ echo 'selected="selected"'; } ?> value="<?php echo $st2->id; ?>"><?php echo $st2->name?> </option>
+                                <?php }  ?>  
                           </select>
                         </div>
                       </div>
@@ -226,10 +231,10 @@
                           <div class="col-md-8">
                             <select id="city_id" name="city" class="form-control">
                               <option value="">Select</option>
-                               <?php foreach($city as $row)     
-                              {
-                                echo '<option value="'.$row->city_id.'">'.$row->city_name.'</option>';
-                              }   ?> 
+                               <?php foreach($city as $ct)     
+                                    { ?>
+                                    <option <?php if($ct->city_name == $r->city){ echo 'selected="selected"'; } ?> value="<?php echo $ct->city_id; ?>"><?php echo $ct->city_name?> </option>
+                                    <?php }  ?> 
                             </select>
                           </div>
                       </div>

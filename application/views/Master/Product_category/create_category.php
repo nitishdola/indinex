@@ -50,13 +50,13 @@
                       <div class="form-group row">
                         <label class="col-md-4 col-form-label">Range From: </label>
                         <div class="col-md-8">
-                        <?php echo form_input(array('type' => 'number','id' => 'range_from', 'name' => 'range_from','class'=>'form-control zdatepicker','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'false','maxlength'=>'10')); ?>
+                        <?php echo form_input(array('type' => 'number','id' => 'range_from', 'name' => 'range_from','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'false','maxlength'=>'10')); ?>
                         </div>
                       </div>   
                       <div class="form-group row">
                         <label class="col-md-4 col-form-label">Range To: </label>
                         <div class="col-md-8">
-                          <?php echo form_input(array('type' => 'number','id' => 'range_to', 'name' => 'range_to','class'=>'form-control zdatepicker','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'false','maxlength'=>'10')); ?>
+                          <?php echo form_input(array('type' => 'number','id' => 'range_to', 'name' => 'range_to','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'false','maxlength'=>'10')); ?>
                         </div>
                       </div> 
                   </div>

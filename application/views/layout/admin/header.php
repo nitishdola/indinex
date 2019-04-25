@@ -7,7 +7,7 @@
     <meta name="description" content="bootstrap material admin template">
     <meta name="author" content="">
     
-    <title>Projects | Indianex</title>
+    <title>Projects | Indinex</title>
     
     <!-- Stylesheets -->
     <link rel="stylesheet" href="<?php echo base_url();?>global/css/bootstrap.min.css">

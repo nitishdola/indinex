@@ -42,18 +42,18 @@
                   <?php 
                     $i=0;                           
                     foreach($result->result() as $row)  
-                    { $i++;
+                    { $i++; 
                     ?>
                     <tr>  
                       <td><?php echo  $i;?> </td>                          
                       <td><?php echo  str_pad($row->pcode, 4, '0', STR_PAD_LEFT);?></td> 
-                      <td><?php echo  $row->first_name.'&nbsp;'.$row->middle_name.'&nbsp;'. $row->last_name;?></td> 
-                      <td><?php echo  $row->company_name.''.$row->company_name2.''.$row->company_name3;?></td> 
-                      <td><?php echo  $row->name;?></td> 
+                      <td><?php echo  ucwords($row->first_name).'&nbsp;'.$row->middle_name.'&nbsp;'. $row->last_name;?></td> 
+                      <td><?php echo  $row->company_name.'&nbsp;'.$row->company_name2.'&nbsp;'.$row->company_name3;?></td> 
+                      <td><?php echo  ucwords($row->name);?></td> 
                       <td><?php echo  $row->country;?></td>
                       <td><?php echo  $row->city;?></td>
                       <td><?php echo  $row->postal_address;?></td> 
-                      <td><?php //echo  $row->postal_address;?></td> 
+                      <td><a href="<?php echo site_url('Masters/edit_plant?storage_id='.$row->storage_id);?>" class="btn btn-info btn-sm"  style="margin: 5px">Edit</a></td>
                       <td><?php //echo  $row->postal_address;?></td> 
                       </tr>  
                    <?php }  ?>

@@ -37,7 +37,8 @@
                       <td><?php echo  $i;?>   </td>                        
                       <td><?php echo  $row->category_code;?></td> 
                       <td><?php echo  $row->category_name;?></td> 
-                      <td></td><td></td>
+                      <td><a href="<?php echo site_url('Masters/edit_product_category?id='.$row->id);?>" class="btn btn-info btn-sm"  style="margin: 5px">Edit</a></td>
+                      <td></td>
                       </tr>  
                    <?php }  ?>
                 </tbody>

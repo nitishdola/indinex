@@ -50,7 +50,7 @@
                       <td><?php echo  $row->name1.'&nbsp;'.$row->name2.'&nbsp;'.$row->name3;?></td>
                       <td><?php echo  $row->first_name.'&nbsp;'.$row->middle_name.'&nbsp;'.$row->last_name;?></td>
                       <td><?php echo  $row->country;?></td>
-                      <td><?php echo  $row->name;?></td> 
+                      <td><?php //echo  $row->name;?></td> 
                       <td><?php echo  $row->city;?></td> 
                       <td width="20%"><?php echo  $row->postal_address;?></td>
                       </tr>  

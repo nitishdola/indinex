@@ -11,10 +11,11 @@ class Main_Storage_Model extends CI_Model
 
 	public function select()  
 	{  
-    $this->db->select('*');
+    $this->db->select('storage_type.*,states.id,states.name,company_setup.id,company_setup.company_name,company_setup.company_name2,company_setup.company_name3');
     $this->db->from('storage_type');
     $this->db->join('states','states.id = storage_type.region','left');
-    $this->db->order_by("storage_type.id", "DESC");
+    $this->db->join('company_setup','company_setup.id = storage_type.company_id','left');    
+    $this->db->order_by("storage_type.storage_id", "DESC");
     $this->db->limit('100');
 
     $query = $this->db->get();  
@@ -25,16 +26,41 @@ class Main_Storage_Model extends CI_Model
     if($code!=''){
       $where=$this->db->where('storage_type.pcode',$code); 
     } 
-    $this->db->select('*');
+    $this->db->select('storage_type.*,states.id,states.name,company_setup.id,company_setup.company_name,company_setup.company_name2,company_setup.company_name3');
     $this->db->from('storage_type');
     $this->db->join('states','states.id = storage_type.region','left');
-    $this->db->join('company_setup','company_setup.id = storage_type.company_id','left');
+    $this->db->join('company_setup','company_setup.id = storage_type.company_id','left');       
     $where;
-    $this->db->order_by("storage_type.id", "DESC");
+    $this->db->order_by("storage_type.storage_id", "DESC");
     
     $query = $this->db->get();  
     return $query;  
   } 
+
+  public function fetchOnly($storage_id=null) {
+    if($storage_id!=''){
+      $where=$this->db->where('storage_type.storage_id',$storage_id); 
+    } 
+    $this->db->select('storage_type.*,states.id,states.name,company_setup.id,company_setup.company_name,company_setup.company_name2,company_setup.company_name3');
+    $this->db->from('storage_type');
+    $this->db->join('states','states.id = storage_type.region','left');
+    $this->db->join('company_setup','company_setup.id = storage_type.company_id','left');       
+    $where;
+    $this->db->order_by("storage_type.storage_id", "DESC");    
+    $query = $this->db->get();  
+    return $query;  
+
+  }
+
+  public function fetchPlantDetails($storage_id) {
+    $this->db->select('*');
+    $this->db->from('storage_type');
+    $this->db->where('storage_type.storage_id',$storage_id);  
+    $query = $this->db->get();      
+    return $query->result();    
+
+  }
+
 
 	public function getAllPlant()
   {
@@ -44,7 +70,7 @@ class Main_Storage_Model extends CI_Model
 
   public function check_last_record()
   { 
-    $query ="select pcode from  storage_type order by id DESC limit 1";
+    $query ="select pcode from  storage_type order by storage_id DESC limit 1";
     $res = $this->db->query($query);
     return $res->result();
   }   
@@ -54,6 +80,11 @@ class Main_Storage_Model extends CI_Model
     $res = $this->db->query($query);
     return $res->result();
   }  
+
+  public function plant_update($storage_id,$company_id,$first_name,$middle_name,$last_name,$country,$region,$city,$postal_address){
+    $query=$this->db->query("update storage_type SET first_name='$first_name',middle_name='$middle_name',last_name='$last_name',company_id='$company_id',region='$region',country='$country',city='$city' where storage_id='$storage_id'");
+    return true;
+  }
 
 } 
 

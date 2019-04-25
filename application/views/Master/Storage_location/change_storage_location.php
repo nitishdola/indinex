@@ -25,7 +25,7 @@
                     <?php echo form_open(); ?>
                         <div class="form-group row">                                                    
                           <div class="col-md-2">                       
-                            <?php echo form_input(array('type' =>'number', 'name' => 'code','id'=>'ccode','class'=>'form-control','style'=>'margin-bottom:5px','placeholder'=>'Storage Location Code','autocomplete'=>'off','required'=>'true')); ?>  
+                            <?php echo form_input(array('type' =>'number', 'name' => 'code','id'=>'code','class'=>'form-control','style'=>'margin-bottom:5px','placeholder'=>'Plant Code','autocomplete'=>'off')); ?>  
                           </div>
 
                            <input type="hidden" name="search" value="1">
@@ -42,7 +42,7 @@
                   <?php 
                     $i=0;                           
                     foreach($result->result() as $row)  
-                    { $i++;
+                    { $i++; // var_dump($row);
                     ?>
                     <tr>  
                       <td><?php echo  $i;?>     </td>                                             
@@ -50,10 +50,11 @@
                       <td><?php echo  $row->name1.'&nbsp;'.$row->name2.'&nbsp;'.$row->name3;?></td>
                       <td><?php echo  $row->first_name.'&nbsp;'.$row->middle_name.'&nbsp;'.$row->last_name;?></td>
                       <td><?php echo  $row->country;?></td>
-                      <td><?php echo  $row->name;?></td> 
+                      <td><?php //echo  $row->name;?></td> 
                       <td><?php echo  $row->city;?></td> 
                       <td width="20%"><?php echo  $row->postal_address;?></td>
-                      <td></td><td></td>
+                      <td><a href="<?php echo site_url('Masters/edit_storage_location?scode='.$row->scode);?>" class="btn btn-info btn-sm"  style="margin: 5px">Edit</a></td>
+                       <td></td>
                       </tr>  
                    <?php }  ?>
                 </tbody>
@@ -61,7 +62,7 @@
             </div>
 
 
-           <?php echo form_close(); ?>
+          
           </div>
           </div>
         <!-- End Panel Controls Sizing -->

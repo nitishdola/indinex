@@ -25,7 +25,7 @@
                     <?php echo form_open(); ?>
                         <div class="form-group row">                                                    
                           <div class="col-md-2">                       
-                            <?php echo form_input(array('type' =>'number', 'name' => 'code','id'=>'code','class'=>'form-control','style'=>'margin-bottom:5px','placeholder'=>'Plant Code','autocomplete'=>'off','required'=>'true')); ?>  
+                            <?php echo form_input(array('type' =>'number', 'name' => 'code','id'=>'code','class'=>'form-control','style'=>'margin-bottom:5px','placeholder'=>'Plant Code','autocomplete'=>'off')); ?>  
                           </div>
 
                             <input type="hidden" name="search" value="1">
@@ -46,7 +46,7 @@
                     ?>
                     <tr>  
                       <td><?php echo  $i;?>    </td>                       
-                      <td><?php echo  $row->pcode;?></td> 
+                      <td><?php echo  str_pad($row->pcode, 4, '0', STR_PAD_LEFT);?></td> 
                       <td><?php echo  $row->first_name.''.$row->middle_name.''.$row->last_name;?></td>
                       <td><?php echo  $row->company_name.''.$row->company_name2.''.$row->company_name3;?></td> 
                       <td><?php echo  $row->country;?></td>

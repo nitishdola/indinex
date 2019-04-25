@@ -15,6 +15,16 @@ class Company_Model extends CI_Model
     $this->db->select('*');
     $this->db->from('company_setup');
     $this->db->join('states','states.id = company_setup.region','left');
+    //$this->db->where('company_setup.id',$id);  
+    $query = $this->db->get();  
+    return $query->result();;  
+  }
+  public function fetch_data($id)  
+  {  
+    $this->db->select('*');
+    $this->db->from('company_setup');
+    $this->db->join('states','states.id = company_setup.region','left');
+    $this->db->where('company_setup.id',$id);  
     $query = $this->db->get();  
     return $query->result();;  
   }
@@ -44,9 +54,9 @@ class Company_Model extends CI_Model
     return $query->result();;  
   }
    
-  public function change_company_data($title,$company_name,$company_name2,$company_name3,$period_from,$period_to,$currency,$country,$region,$city,$telephone,$fax,$postal_address,$company_id)
+  public function change_company_data($company_id,$title,$company_name,$company_name2,$company_name3,$period_from,$period_to,$currency,$country,$region,$city,$telephone,$fax,$language,$mobile,$email)
   {
-    $query=$this->db->query("update company_setup SET title='$title',company_name='$company_name',company_name2='$company_name2',company_name3='$company_name3',period_from='$period_from',period_to='$period_to',currency='$currency',country='$country',region='$region',city='$city',telephone='$telephone',fax='$fax' where id='$company_id'");
+    $query=$this->db->query("update company_setup SET title='$title',company_name='$company_name',company_name2='$company_name2',company_name3='$company_name3',period_from='$period_from',period_to='$period_to',currency='$currency',country='$country',region='$region',city='$city',telephone='$telephone',fax='$fax',language='$language',mobile='$mobile',email='$email' where id='$company_id'");
     return true;
   }   
   	

@@ -30,6 +30,13 @@ class Product_Master_Model extends CI_Model
   
     $this->db->insert('product_accounting_data', $data);
   } */
+  public function fetchProductName($category_id)
+  {
+    $this->db->where('product_category',$category_id);
+    $query = $this->db->get('product_general_data');
+    return $query->result();
+  }
+
 	public function select()  
 	{  
    	/*$query = $this->db->get('product_general_data');  

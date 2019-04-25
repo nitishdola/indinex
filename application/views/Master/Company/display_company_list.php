@@ -45,17 +45,27 @@
                       <td><?php echo  $row->period_from;?></td> 
                       <td><?php echo  $row->period_to;?></td> 
                       <td><?php echo  $row->country;?></td> 
-                      <td><?php echo  $row->name;?></td>
+                      <td><?php echo  $row->state;?></td>
                       <td><?php echo  $row->city;?></td>
                       <td><?php echo  $row->postal_address;?></td> 
-                      <td><?php /*echo  $data =$row->mobile;
-                          foreach ($data as $key => $item) {
-                                $data[$key]['mobile'] = unserialize($item['mobile']);
-                            }*/
-                          
+                      <td><?php if(!empty($row->mobile)){
+                      $mobile=unserialize($row->mobile);
+                      //print_r($mobile);
+                      $cnt= count($mobile);
+                        for($i=1;$i<$cnt;$i++){
+                          echo ($mobile[$i]).'<br>';
+                        }
+                      }
+                      ?></td> 
+                      <td><?php 
 
-                          ?></td> 
-                      <td><?php // echo  $row->email;?></td> 
+                        $email=unserialize($row->email);                       
+                        $cnt2= count($email);
+                        for($j=1;$j<$cnt2;$j++){
+                          echo ($email[$j]).'<br>';
+                        }
+                     
+                      ?></td> 
                       <td><?php echo  $row->fax;?></td>
                      
                       </tr>  

@@ -78,9 +78,10 @@ class Setup extends CI_Controller {
  			$mobile=serialize($mobile);
  			$h2=$this->input->post('h2');
  			for($j=1;$j<=$h2;$j++){
- 				$email[]=explode(" , ",$this->input->post('email_'.$j)); 				
+ 				$email[]=$this->input->post('email_'.$j); 				
  			} 
  			$email=serialize($email);
+ 			//var_dump($email);
  			//exit(); 
  			
  			$data = array(				
@@ -117,6 +118,7 @@ class Setup extends CI_Controller {
 
 	public function edit_company($id=null)
 	{
+		$id = $this->input->get('id');
 		$this->load->model('city_model'); 
 		$data['city'] = $this->city_model->getAllCity();
 		$this->load->model('country_model'); 
@@ -125,12 +127,27 @@ class Setup extends CI_Controller {
 		$data['currency']=$this->product_variants_model->select_currency();	
 		$this->load->model('main_storage_model'); 		
 		$data['plant'] = $this->main_storage_model->getAllPlant();
-		$this->load->model('company_model');		
+		$this->load->model('company_model');
+
+		$data['res'] = $this->company_model->fetch_data($id);		
+		$mobile[]=array();
+		$email[]=array();
 
 		if($this->input->post('sub'))
 		{
 			//var_dump($_POST);
-			// /exit();
+			$cnt_mobile 			= $this->input->post('cnt_mobile');
+			for($i=1;$i<$cnt_mobile;$i++){
+				$mobile[]= $this->input->post('mobile_'.$i);
+			}
+			$mobile 				=serialize($mobile);
+
+			$cnt_email 			= $this->input->post('cnt_email');
+			for($j=1;$j<$cnt_email;$j++){
+				$email[]= $this->input->post('email_'.$j);
+			}
+			$email 					=serialize($email);
+			
 			$company_id 			= $this->input->post('company_id');
 			$title 					= $this->input->post('title');
 			$company_name 			= $this->input->post('company_name');		
@@ -144,16 +161,18 @@ class Setup extends CI_Controller {
 			$city 					= $this->input->post('city');
 			$telephone 				= $this->input->post('telephone');
 			$fax 					= $this->input->post('fax');
-			//$postal_address 		= $this->input->post('postal_address');
+			$language 				= $this->input->post('language');
+
+			//$mobile 		= $this->input->post('postal_address');
 			
-			$this->company_model->change_company_data($company_id,$title,$company_name,$company_name2,$company_name3,$period_from,$period_to,$currency,$country,$region,$city,$telephone,$fax);
-			$this->session->set_flashdata('response',"<div class='alert alert-success'><strong>Success!</strong>&nbsp;&nbsp;Data Changed</div>");	
-			 
+			$this->company_model->change_company_data($company_id,$title,$company_name,$company_name2,$company_name3,$period_from,$period_to,$currency,$country,$region,$city,$telephone,$fax,$language,$mobile,$email);
+			$this->session->set_flashdata('response',"<div class='alert alert-success'><strong>Success!</strong>&nbsp;&nbsp;Data Changed</div>");			 
 			redirect(site_url('Setup/edit_company?id='.$company_id));			
 
 		}
 
-		$data['res'] = $this->company_model->fetch_all_data();		
+				
+		
 		$this->load->view('Master/Company/edit_company',$data);
 
 

@@ -39,7 +39,7 @@
                       <div class="form-group row">
                         <label class="col-md-4 col-form-label">Plant Code: </label>
                         <div class="col-md-8">
-                          <?php echo form_input(array('id' => 'pcode', 'name' => 'pcode','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off','value'=>'')); ?>
+                          <?php echo form_input(array('id' => 'pcode', 'name' => 'pcode','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off','maxlength'=>'4')); ?>
                           <span><p  id="code_div" style="color:red;display:none">Code already exist</p></span>
                         </div>
                       </div>
@@ -92,7 +92,7 @@
                       <div class="form-group row">
                         <label class="col-md-4 col-form-label">Region: </label>
                         <div class="col-md-8">
-                          <select id="region_id" name="region" class="form-control">
+                          <select id="region_id" name="region" class="form-control" required="true">
                             <option value="">Select</option>                      
                               <?php foreach($states as $row)     
                               {
@@ -104,7 +104,7 @@
                       <div class="form-group row">
                         <label class="col-md-4 col-form-label">City: </label>
                           <div class="col-md-8">
-                            <select id="city_id" name="city" class="form-control">
+                            <select id="city_id" name="city" class="form-control"  required="true">
                               <option value="" =" ">Select</option>
                               
                             </select>
@@ -113,7 +113,7 @@
                       <div class="form-group row">
                         <label class="col-md-4 col-form-label">Postal Address: </label>
                         <div class="col-md-8">
-                          <textarea class="form-control" id="postal_address" name="postal_address" placeholder="Address" autocomplete="off" rows="5"></textarea>
+                          <textarea class="form-control" id="postal_address" name="postal_address" placeholder="Address" autocomplete="off" rows="5"  required="true"></textarea>
                         </div>
                       </div>
                   </div>

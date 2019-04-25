@@ -33,7 +33,23 @@ class Product_Category_Model extends CI_Model
     return $res->result();
     }   
  
+  public function insert_update($id,$category_name){
+
+      $query=$this->db->query("update product_category SET category_name='$category_name' where id='$id'");    
   
+  }
+  public function category_details($id)
+  {
+    //$query=$this->db->query("update business_type SET description='$description' where id='$id'");
+    $query = $this->db->get('product_category');
+    $this->db->select('*');
+    $this->db->from('product_category');
+    $this->db->where('product_category.id',$id);  
+    $query = $this->db->get();      
+    return $query->result(); 
+     $query = $this->db->get(category_name);      
+    return $query->result();
+    }
 } 
 
 ?>

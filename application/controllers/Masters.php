@@ -163,6 +163,30 @@ class Masters extends CI_Controller {
     	$this->load->view('Master/Line_of_business/change_line_of_business',$data);
     	
     }
+     public function edit_line_of_business($id=null)
+    {
+        $id = $this->input->get('id');
+        $this->load->model('line_of_business_model');
+        $data['business']=$this->line_of_business_model->business_details($id);
+        //var_dump($data['business']=$this->Line_Of_Business_Model->business_details($id));
+        $this->load->view('Master/Line_of_business/edit_line_of_business',$data);
+        $this->load->model('line_of_business_model'); 
+
+  
+        if($this->input->post('sub'))
+        {               
+            
+            $description    = $this->input->post('description');
+            $id             = $this->input->post('h1');
+
+            //exit();
+            $this->line_of_business_model->insert_update($id,$description);
+            $this->session->set_flashdata('response',"<div class='alert alert-success'><strong>Success!</strong>&nbsp;&nbsp;record Update</div>");
+            redirect(site_url('Masters/edit_line_of_business?id='.$id));
+
+        }
+
+    }
      public function display_line_of_business()
     {
     	$this->load->database();          
@@ -223,7 +247,7 @@ class Masters extends CI_Controller {
     public function change_plant(){
     	$this->load->database();          
         $this->load->model('main_storage_model'); 
-        $data['result']=$this->main_storage_model->select(); 
+       // $data['result']=$this->main_storage_model->select(); 
 
         $this->load->model('country_model'); 
 		$data['states'] = $this->country_model->getAllStates();
@@ -233,7 +257,7 @@ class Masters extends CI_Controller {
             $code=$this->input->post('code');
             $data['result'] = $this->main_storage_model->filterData($code);
         } else {
-            $data['result'] = $this->main_storage_model->filterData();
+           $data['result']=$this->main_storage_model->select();
         }
        	$this->load->view('Master/Plant/change_plant',$data);
     }
@@ -241,8 +265,6 @@ class Masters extends CI_Controller {
     public function display_plant(){
     	$this->load->database();          
         $this->load->model('main_storage_model'); 
-        $data['result']=$this->main_storage_model->select(); 
-
         $this->load->model('country_model'); 
 		$data['states'] = $this->country_model->getAllStates();
 
@@ -252,10 +274,51 @@ class Masters extends CI_Controller {
             $code=$this->input->post('code');
             $data['result'] = $this->main_storage_model->filterData($code);
         } else {
-            $data['result'] = $this->main_storage_model->filterData();
+            $data['result'] = $this->main_storage_model->select();
         }
 
        	$this->load->view('Master/Plant/display_plant',$data);
+    }
+
+    public function edit_plant($storage_id=null){
+        $storage_id = $this->input->get('storage_id');
+        $this->load->model('main_storage_model');      
+        $data['res']=$this->main_storage_model->fetchPlantDetails($storage_id);
+        $this->load->model('company_model'); 
+        $data['company'] = $this->company_model->getCompanyCode();  
+        $this->load->model('country_model'); 
+        $data['states'] = $this->country_model->getAllStates();   
+        $this->load->model('city_model'); 
+        $data['city'] = $this->city_model->getAllCity();        
+        $this->load->model('product_variants_model'); 
+        $data['variants']=$this->product_variants_model->select_uom();
+        $data['sizes']=$this->product_variants_model->select_size();
+        $data['color']=$this->product_variants_model->select_color();
+        $data['currency']=$this->product_variants_model->select_currency(); 
+        $this->load->model('language_model');       
+        $data['language'] = $this->language_model->select();         
+
+        if($this->input->post('sub'))
+        {
+            var_dump($_POST);
+            
+            $storage_id             =$this->input->post('storage_id'); 
+            $company_id             = $this->input->post('company_id'); 
+            $first_name             = $this->input->post('first_name');           
+            $middle_name            = $this->input->post('middle_name'); 
+            $last_name              = $this->input->post('last_name'); 
+            $country                = $this->input->post('country'); 
+            $region                 = $this->input->post('region'); 
+            $city                   = $this->input->post('city'); 
+            $postal_address         = $this->input->post('postal_address'); 
+            
+            $this->main_storage_model->plant_update($storage_id,$company_id,$first_name,$middle_name,$last_name,$country,$region,$city,$postal_address);
+            $this->session->set_flashdata('response',"<div class='alert alert-success'><strong>Success!</strong>&nbsp;&nbsp;record Update</div>");
+            redirect(site_url('Masters/edit_plant?storage_id='.$storage_id));
+
+        }
+        
+        $this->load->view('Master/Plant/edit_plant',$data);
     }
 
     public function create_storage_location(){
@@ -297,7 +360,7 @@ class Masters extends CI_Controller {
     public function change_storage_location(){
     	$this->load->database();          
         $this->load->model('sub_storage_model'); 
-        $data['result']=$this->sub_storage_model->select(); 
+       // $data['result']=$this->sub_storage_model->select(); 
 
         $this->load->model('main_storage_model'); 		
 		$data['plant'] = $this->main_storage_model->getAllPlant();
@@ -306,10 +369,12 @@ class Masters extends CI_Controller {
             var_dump($_POST);exit();
             $code=$this->input->post('code');
             $data['result'] = $this->sub_storage_model->filterData($code);
+            $this->load->view('Master/Storage_location/change_storage_location',$data);
         } else {
-            $data['result'] = $this->sub_storage_model->filterData();
+            $data['result']=$this->sub_storage_model->select(); 
+            $this->load->view('Master/Storage_location/change_storage_location',$data);
         }
-    	$this->load->view('Master/Storage_location/change_storage_location',$data);
+    	
     }
 
     public function display_storage_location(){
@@ -321,6 +386,45 @@ class Masters extends CI_Controller {
 		$data['plant'] = $this->main_storage_model->getAllPlant();
     	$this->load->view('Master/Storage_location/display_storage_location',$data);
     }
+    public function edit_storage_location($scode=null)
+    {
+        $id = $this->input->get('scode');
+        $this->load->model('sub_storage_model');
+        $data['storage']=$this->sub_storage_model->storage_details($id);
+        
+        $this->load->model('main_storage_model');       
+        $data['plant'] = $this->main_storage_model->getAllPlant();
+        $this->load->model('country_model'); 
+        $data['states'] = $this->country_model->getAllStates();
+        //var_dump($this->sub_storage_model->storage_details($id));
+        $this->load->model('city_model'); 
+        $data['city'] = $this->city_model->getAllCity();     
+        $this->load->model('sub_storage_model'); 
+  
+        if($this->input->post('sub'))
+        {       
+
+               
+             $id                   = $this->input->post('h1');
+             $scode                = $this->input->post('scode');
+             $plant_id             = $this->input->post('plant_id');
+             $first_name           = $this->input->post('first_name');
+             $middle_name          = $this->input->post('middle_name');
+             $last_name            = $this->input->post('last_name');
+             $country              = $this->input->post('country');
+             $region               = $this->input->post('region');
+             $city                 = $this->input->post('city');
+             $postal_address       = $this->input->post('postal_address');
+            //exit();
+            $this->sub_storage_model->insert_update($scode,$plant_id,$first_name,$middle_name,$last_name,$country,$region,$city,$postal_address);
+            $this->session->set_flashdata('response',"<div class='alert alert-success'><strong>Success!</strong>&nbsp;&nbsp;record updated</div>");
+            redirect(site_url('Masters/edit_storage_location?scode='.$id));
+
+        }
+        $this->load->view('Master/Storage_location/edit_storage_location',$data);
+
+    }
+
     public function create_sub_storage_location(){
         $this->load->model('country_model'); 
         $data['states'] = $this->country_model->getAllStates(); 
@@ -869,5 +973,29 @@ class Masters extends CI_Controller {
         }
     }
 	
+    public function edit_product_category($id=null)
+    {
+        $id = $this->input->get('id');
+        $this->load->model('product_category_model');
+        $data['category']=$this->product_category_model->category_details($id);
+        //var_dump($data['business']=$this->Line_Of_Business_Model->business_details($id));
+        $this->load->model('product_category_model'); 
+
+        $this->load->model('city_model'); 
+        $arr['cities']=$this->city_model->select_cities($region_id);
+  
+        if($this->input->post('sub'))
+        {               
+           $category_code  = $this->input->post('category_code');
+           $category_name  = $this->input->post('category_name');
+           $id             = $this->input->post('h1');
+            //var_dump($_POST);
+            //exit();
+            $this->product_category_model->insert_update($id,$category_name);
+            $this->session->set_flashdata('response',"<div class='alert alert-success'><strong>Success!</strong>&nbsp;&nbsp;record updated</div>");
+            redirect(site_url('Masters/edit_product_category?id='.$id));
+        }
+       $this->load->view('Master/Product_category/edit_product_category',$data);
+    }
 
 }
