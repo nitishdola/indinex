@@ -87,23 +87,26 @@
         </div>
     </div>
 
-
+    <?php if($all_products){ ?>
     <div class="col-md-8 text-center text-lg-left gallery">
-      <?php foreach($all_products as $k => $v): // var_dump($v);?>
+      <?php foreach($all_products as $k => $v):  //var_dump($v);?>
         <div class="tab-content" id="pills-tabContent">
         <div class="tab-pane fade show active" id="showall" role="tabpanel" aria-labelledby="showall-tab">
-          <div class="Portfolio"><a href="javascript:void(0)" onclick="addProductToCart(<?php echo $v->id; ?>, '<?php echo $v->product_description; ?>', '<?php echo $v->sale_price; ?>', '<?php echo $v->currency; ?>')"><img class="card-img" src="<?php echo base_url(); ?>uploads/images/<?php echo $v->picture; ?>" alt=""></a><div class="desc"><?php echo ucwords($v->product_description); ?> <br>
+          <div class="Portfolio"><a href="javascript:void(0)" onclick="addProductToCart(<?php echo $v->product_general_data_id; ?>, '<?php echo $v->product_description; ?>', '<?php echo $v->sale_price; ?>', '<?php echo $v->currency; ?>')"><img class="card-img" src="<?php echo base_url(); ?>uploads/images/<?php echo $v->picture; ?>" alt=""></a><div class="desc"><?php echo ucwords($v->product_description); ?> <br>
             <?php echo $v->sale_price; ?> <?php echo $v->currency; ?></div></div>
           
         </div>
       </div>  
       <?php endforeach; ?>
     </div>
-  </div>
 
+  </div><?php }  else { echo "<div class='alert alert-warning'><h2>No Product to Display</h2></div>";} ?>
 </div>
+</div>
+</body>
 
 <?php $this->load->view('layout/admin/footer_with_js'); ?>
+
 <script>
 var total_price = 0;
 

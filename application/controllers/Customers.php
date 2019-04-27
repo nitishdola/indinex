@@ -148,8 +148,19 @@ class Customers extends CI_Controller {
 		$this->load->view('Master/Customer/customer_details',$data);	
 	}
 
+	public function ajax_delete_customer(){
 
-	public function customer_general_data($customer_code=NULL)
+        $id=$this->input->get('id');
+        $this->load->model('customer_model'); 
+        $arr['res']=$this->customer_model->deleteRecord($id);
+                
+        if(!empty($this->customer_model->deleteRecord($id))){
+            echo 1;
+        }  else {
+            echo 0;
+        }
+    }
+	/*public function customer_general_data($customer_code=NULL)
 	{
 		$this->load->model('vendor_model'); 
 		$this->load->view('Master/Customer/customer_general_data');	
@@ -194,12 +205,19 @@ class Customers extends CI_Controller {
  		{
  			redirect(site_url('Customers/customer_paymeny_data/'.$vendor_code));
  		}
-	}
+	}*/
 
 	public function change_customer()
 	{
-		$this->load->model('customer_model'); 
-		$data['customer_details']=$this->customer_model->select_customer_details();
+		$this->load->model('customer_model'); 		
+		if($this->input->post('search'))
+        {        	
+           $code=$this->input->post('code');
+           $data['customer_details'] = $this->customer_model->filter_customer_details($code);
+         
+        } else {
+           $data['customer_details']= $this->customer_model->select_customer_details();    
+        }
 		$this->load->view('Master/Customer/change_customer',$data);	
 	}
 	public function display_customer()

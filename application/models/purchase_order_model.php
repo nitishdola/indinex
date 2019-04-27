@@ -51,8 +51,8 @@ class Purchase_Order_Model extends CI_Model
 
   public function select_vendor_details($vendor_id)  
   {  
-      $this->db->where('id',$vendor_id);
-      $query = $this->db->get('vendor');
+      $this->db->where('vendor_id',$vendor_id);
+      $query = $this->db->get('vendor_details');
       return $query->result(); 
   }
 
@@ -63,7 +63,7 @@ class Purchase_Order_Model extends CI_Model
       $this->db->where($where);
       //$this->db->select('purchase_order.purchase_order_no as po_number');
       $this->db->from('purchase_order');
-      $this->db->join('vendor', 'vendor.id = purchase_order.vendor_id');
+      $this->db->join('vendor_details', 'vendor_details.vendor_id = purchase_order.vendor_id');
       $query = $this->db->get();
 
       return $query->result(); 

@@ -272,7 +272,7 @@ public function change_product_master(){
 				$in_house_production 		= $this->input->post('in_house_production');
 				$in_house_manufacturing 	= $this->input->post('in_house_manufacturing');
 
-		    	$this->product_master_model->change_product_manufacturing_data($product_code,$product_manufacturing,$manufacturing_date,$product_purchase,$product_make_to_order,$in_house_production,$order_unit,$in_house_manufacturing);
+		    	$this->product_master_model->change_product_manufacturing_data($product_code,$product_manufacturing,$manufacturing_date,$product_purchase,$product_make_to_order,$in_house_production,$in_house_manufacturing);
 				
 				$this->session->set_flashdata('response',"<div class='alert alert-success'><strong>Success!</strong>&nbsp;&nbsp;Manufacturing Data Changed</div>");	
 								

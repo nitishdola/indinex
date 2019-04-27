@@ -120,7 +120,7 @@
                                        <?php //echo form_input(array('type' => 'file','id' => 'picture', 'name' => 'picture','style'=>'margin-bottom:5px')); ?>
                                        </span>-->
 
-                                       <span class="btn btn-info btn-file">Browse Image File<input name="picture" type="file" /></span>
+                                       <span class="btn btn-info btn-file">Browse Image File<input name="picture" type="file" required="true" /></span>
                                     </div>
                                   </div>                                                        
                                 </div>

@@ -53,7 +53,7 @@
             <li>
               <div class="panel">
                 <figure class="overlay overlay-hover animation-hover">
-                  <img class="caption-figure overlay-figure dashboard-icon" src="<?php echo base_url();?>assets/images/indianex_images/master/line_of_business.png">
+                  <img class="caption-figure overlay-figure dashboard-icon" src="<?php echo base_url();?>assets/images/indianex_images/customer_acc.png">
                   <figcaption class="overlay-panel overlay-background overlay-fade text-center vertical-align">
                     <div class="btn-group">
 					<div class="dropdown float-left">

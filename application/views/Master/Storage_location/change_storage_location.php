@@ -7,7 +7,7 @@
       <ol class="breadcrumb">
          <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard');?>">Dashboard</a></li>
         <li class="breadcrumb-item"><a href="<?php echo site_url('Setup');?>">Setup</a></li>
-        <li class="breadcrumb-item"><a href="<?php echo site_url('Masters/plant_sub');?>">Plant</a></li>
+        <li class="breadcrumb-item"><a href="<?php echo site_url('Masters/storage_location_sub');?>">Storage Location</a></li>
         <li class="breadcrumb-item active">Change</li>
       </ol>
       <div class="page-content">
@@ -19,13 +19,13 @@
               <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                 <!-- Example Horizontal Form -->
                 <div class="example-wrap">
-                  <h4 class="example-title">Change Plant</h4>
+                  <h4 class="example-title">Change Storage Location</h4>
                   
                   <div class="example">
                     <?php echo form_open(); ?>
                         <div class="form-group row">                                                    
                           <div class="col-md-2">                       
-                            <?php echo form_input(array('type' =>'number', 'name' => 'code','id'=>'code','class'=>'form-control','style'=>'margin-bottom:5px','placeholder'=>'Plant Code','autocomplete'=>'off')); ?>  
+                            <?php echo form_input(array('type' =>'number', 'name' => 'code','id'=>'code','class'=>'form-control','style'=>'margin-bottom:5px','placeholder'=>'Storage Code','autocomplete'=>'off')); ?>  
                           </div>
 
                            <input type="hidden" name="search" value="1">

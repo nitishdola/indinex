@@ -24,6 +24,9 @@ class Transactions extends CI_Controller {
     public function index(){
 
     }
+     public function pos_sub(){
+    	$this->load->view('Transactions/pos_sub');
+    }
 	public function purchase_order()
 	{
 		$this->load->view('layout/admin/header');			
@@ -111,8 +114,8 @@ class Transactions extends CI_Controller {
 
 	public function view_po_details($purchase_order_id) {
 		$this->load->library('encryption');
-		$purchase_order_id =11;// $this->encryption->decrypt($purchase_order_id);
-		
+		$purchase_order_id =$this->encryption->decrypt($purchase_order_id);
+	
 		$this->load->view('layout/admin/header');			
 		$this->load->view('layout/admin/nav_menu');	
 

@@ -1,13 +1,11 @@
 <?php $this->load->view('layout/admin/header'); ?>
 <body class="animsition app-projects">
    <?php $this->load->view('layout/admin/nav_menu'); ?>
-
     <div class="page">
       <div class="page-header">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard');?>">Dashboard</a></li>
-        <li class="breadcrumb-item"><a href="<?php echo site_url('Welcome/master');?>">Master</a></li> 
-        <li class="breadcrumb-item active">Product Master</li>      
+        <li class="breadcrumb-item active">Purchase Order</li>
       </ol>
       <div class="page-content">
 
@@ -25,7 +23,7 @@
                         </div>
                       </div>
                     </div>
-                    <a href="<?php echo site_url('product_masters/create_product_master');?>" class="btn btn-inverse project-button">CREATE</a>
+                    <a href="<?php echo site_url('Transactions/purchase_order');?>" class="btn btn-inverse project-button">CREATE</a>
                   </figcaption>
                 </figure>
                 <div class="text-truncate">CREATE</div>
@@ -42,15 +40,13 @@
                         </div>
                       </div>
                     </div>
-                     <a href="<?php echo site_url('product_masters/change_product_master');?>" class="btn btn-inverse project-button">CHANGE</a>
+                    <a href="#" class="btn btn-inverse project-button">CHANGE</a>
                     
                   </figcaption>
                 </figure>
                 <div class="text-truncate">CHANGE</div>
               </div>
             </li>
-      
-      
             <li>
               <div class="panel">
                 <figure class="overlay overlay-hover animation-hover">
@@ -62,7 +58,7 @@
                         </div>
                       </div>
                     </div>
-                     <a href="<?php echo site_url('product_masters/display_product_master');?>" class="btn btn-inverse project-button">DISPLAY</a>                    
+                     <a href="<?php echo site_url('transactions/view_all_purchase_orders');?>" class="btn btn-inverse project-button">DISPLAY</a>                    
                   </figcaption>
                 </figure>
                 <div class="text-truncate">DISPLAY</div>
@@ -76,5 +72,4 @@
         </div>
         </div>
       </div>
-    </div>
 <?php $this->load->view('layout/admin/footer'); ?>

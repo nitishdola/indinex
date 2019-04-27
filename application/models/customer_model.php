@@ -38,6 +38,16 @@ class customer_model extends CI_Model
     return $query->result();     
 
   }  
+  public function filter_customer_details($code)  
+  {  
+    $this->db->select('*');
+    $this->db->from('customer_details');
+    $this->db->join('customer_group', 'customer_group.id = customer_details.customer_group_id','left');    
+    $this->db->where('customer_details.customer_code',$code);  
+    $query = $this->db->get();      
+    return $query->result();     
+
+  }  
   public function customer_details($customer_id)  
   {  
     $this->db->select('*');
@@ -91,6 +101,12 @@ class customer_model extends CI_Model
     $this->db->group_by('customer_group.id');
     $query = $this->db->get();  
     return $query->result();
+  }
+
+  public function deleteRecord($id){
+    $this->db->where('customer_id', $id);
+    $this->db->delete('customer_details');
+    return true;
   }
 } 
 

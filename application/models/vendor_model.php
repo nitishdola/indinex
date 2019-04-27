@@ -103,12 +103,23 @@ class Vendor_Model extends CI_Model
     return $query->result();     
 
   }  
-
-  public function fetch_vendor_details($vendor_id)  
+  public function filter_vendor_details($vendor_code=null)  
   {  
     $this->db->select('*');
     $this->db->from('vendor_details');
     $this->db->join('vendor_group', 'vendor_group.id = vendor_details.vendor_group_id'); 
+    $this->db->where('vendor_details.vendor_code',$vendor_code);   
+    $query = $this->db->get();      
+    return $query->result();     
+
+  }  
+
+  public function fetch_vendor_details($vendor_id)  
+  {  
+    $this->db->select('vendor_details.*,states.name as sname');
+    $this->db->from('vendor_details');
+    $this->db->join('vendor_group', 'vendor_group.id = vendor_details.vendor_group_id');
+    $this->db->join('states', 'states.id = vendor_details.region'); 
     $this->db->where('vendor_id',$vendor_id);    
     $query = $this->db->get();      
     return $query->result();     
@@ -135,7 +146,7 @@ class Vendor_Model extends CI_Model
     $this->db->join(' vendor_accounting_information',' vendor_accounting_information.vendor_code = vendor.vendor_code','left'); 
     $this->db->join('vendor_account_control','vendor_account_control.vendor_code = vendor.vendor_code','left'); 
     $this->db->join('vendor_paymeny_details',' vendor_paymeny_details.vendor_code = vendor.vendor_code','left');    
-    $this->db->where('vendor.vendor_code',$vendor_code);  
+    $this->db->where('vendor_details.vendor_code',$vendor_code);  
     $query = $this->db->get();      
     return $query->result();     
 
@@ -175,6 +186,13 @@ class Vendor_Model extends CI_Model
     $query = $this->db->get(); 
     return $query->result();
   }
+
+  public function deleteRecord($id){
+    $this->db->where('vendor_id', $id);
+    $this->db->delete('vendor_details');
+    return true;
+  }
+
 
 } 
 

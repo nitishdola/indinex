@@ -4,8 +4,8 @@
 
     <div class="page">
       <div class="page-header">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+      <ol class="breadcrumb">        
+        <li class="breadcrumb-item"><a href="<?php echo site_url('Dashboard');?>">Dashboard</a></li>
         <li class="breadcrumb-item"><a href="<?php echo site_url('Welcome/master');?>">Master</a></li>
         <li class="breadcrumb-item"><a href="<?php echo site_url('Masters/product_category_sub');?>">Product Category</a></li>
         <li class="breadcrumb-item active">Display</li>

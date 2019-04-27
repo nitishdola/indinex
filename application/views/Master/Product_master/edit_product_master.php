@@ -412,14 +412,14 @@
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label">Ok to Purchase: </label>
                               <div class="col-md-8">
-                                 <?php echo form_input(array('type'=>'checkbox','id' => 'ok_to_purchase', 'name' => 'ok_to_purchase','style'=>'margin-bottom:5px;margin-left:15px','checked'=>'checked')); ?>                  
+                                 <?php echo form_input(array('type'=>'checkbox','id' => 'ok_to_purchase', 'name' => 'ok_to_purchase','style'=>'margin-bottom:5px;')); ?>                  
                               </div>
                             </div>
                             
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label">Cannot be Purchase/ Manufacturing/Buy: </label>
                               <div class="col-md-8">
-                                <?php echo form_input(array('type'=>'checkbox','id' => 'cannot_be_purchase', 'name' => 'cannot_be_purchase','style'=>'margin-bottom:5px;margin-left:15px')); ?>
+                                <?php echo form_input(array('type'=>'checkbox','id' => 'cannot_be_purchase', 'name' => 'cannot_be_purchase','style'=>'margin-bottom:5px;')); ?>
                               </div>
                             </div>                           
 

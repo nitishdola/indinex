@@ -189,10 +189,19 @@ class Vendors extends CI_Controller {
 	}
 	
 
-	public function change_vendor()
+	public function change_vendor($code=null)
 	{
 		$this->load->model('vendor_model'); 
-		$data['vendor_details']=$this->vendor_model->select_vendor_details();
+		if($this->input->post('search'))
+        {
+        	
+           $code=$this->input->post('code');
+           $data['vendor_details'] = $this->vendor_model->filter_vendor_details($code);
+         
+        } else {
+           $data['vendor_details']= $this->vendor_model->select_vendor_details();    
+        }
+
 		$this->load->view('Master/Vendor/change_vendor',$data);
 		
 	}
@@ -202,6 +211,18 @@ class Vendors extends CI_Controller {
 		$data['vendor_details']=$this->vendor_model->select_vendor_details();
 		$this->load->view('Master/Vendor/display_vendor',$data);	
 	}
+	public function ajax_delete_vendor(){
+
+        $id=$this->input->get('id');
+        $this->load->model('vendor_model'); 
+        $arr['res']=$this->vendor_model->deleteRecord($id);
+                
+        if(!empty($this->vendor_model->deleteRecord($id))){
+            echo 1;
+        }  else {
+            echo 0;
+        }
+    }
 	public function display_vendor_details()
 	{
 		$vendor_id = $this->input->get('id');

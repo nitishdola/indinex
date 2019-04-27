@@ -134,13 +134,7 @@ class Pos extends CI_Controller {
         $data['sales_details'] = $this->sales_model->fetchSalesDetails($sale_id)[0];
         $data['sales_items']   = $this->sales_items_model->fetchSalesItems($sale_id);
 
-        
-        /*echo '<pre>';
-        var_dump($data);
-        echo '</pre>';
-        exit;*/
-        
-        
+              
         $this->load->view('pos/view_receipt',$data);
         $this->load->view('layout/admin/footer');   
     }

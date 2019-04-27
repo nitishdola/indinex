@@ -6,12 +6,12 @@
       <div class="page-header">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard');?>">Dashboard</a></li>
-        <li class="breadcrumb-item"><a href="<?php echo site_url('Welcome/master');?>">Master</a></li>        
-        <li class="breadcrumb-item"><a href="<?php echo site_url('Customers/customer_master_sub');?>">Customer Master</a></li>
+        <li class="breadcrumb-item"><a href="<?php echo site_url('Welcome/master');?>">Master</a></li>
+        
+        <li class="breadcrumb-item"><a href="<?php echo site_url('Vendors/vendor_master_sub');?>">Vendor Master</a></li>
         <li class="breadcrumb-item active">Change</li>
       </ol>
-
-           <div class="page-content">
+      <div class="page-content">
         <div class="projects-wrap">
           <div class="panel">
             <div class="panel-body container-fluid">
@@ -19,40 +19,44 @@
               <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                 <!-- Example Horizontal Form -->
                 <div class="example-wrap">
-                  <h4 class="example-title">Change Customer Details</h4>                  
-                  <div class="example"> 
-                   <?php echo form_open(); ?>
+                  <h4 class="example-title">Change Vendor Details</h4>
+                  
+                  <div class="example">    
+                  <?php echo form_open(); ?>
                       <div class="form-group row">                                                    
                         <div class="col-md-2">                       
-                          <?php echo form_input(array('type' =>'number', 'name' => 'code','id'=>'ccode','class'=>'form-control','style'=>'margin-bottom:5px','placeholder'=>'Customer Code','autocomplete'=>'off')); ?>  
+                          <?php echo form_input(array('type' =>'number', 'name' => 'code','id'=>'ccode','class'=>'form-control','style'=>'margin-bottom:5px','placeholder'=>'Vendor Code','autocomplete'=>'off')); ?>  
                         </div>
-                          <input type="hidden" name="search" value="1">
-                          <button type="submit" class="btn btn-primary">Search </button>                          
+
+                         <input type="hidden" name="search" value="1">
+                          <button type="submit" class="btn btn-primary">Search </button>
+                          
                       </div> 
                     </div>   
                      <?php echo form_close(); ?> 
-                     <?php if($customer_details)  { ?>                    
+                     <?php if($vendor_details)  { ?>                
                     <table class="table table-bordered">
                     <tr>
-                     <th>Sl</th><th>Customer Account Group</th><th>Type of Business</th><th>Customer Name</th><th>Customer Code</th><th>Company Code</th><th>Change</th><th>Delete</th>
+                     <th>Sl</th><th>Vendor Account Group</th><th>Type of Business</th><th>Vendor Name</th><th>Vendor Code</th><th>Company Code</th><th>Edit</th><th>Delete</th>
                     </tr>                    
                     <tbody>
                     <?php 
                     $i=0;                           
-                    foreach($customer_details as $row)  
-                    { $i++; ?>
+                    foreach($vendor_details as $row)  
+                    { $i++;?>
                       <tr>  
                         <td><?php echo  $i;?> </td>   
                         <td><?php echo  $row->group_name;?></td>  
                         <td><?php echo  $row->type_of_business;?></td>  
-                        <td><?php echo  $row->title.'&nbsp;'.$row->first_name.'&nbsp;'.$row->middle_name .'&nbsp;'.$row->last_name;?></td>    
-                        <td><?php echo  str_pad($row->customer_code, 4, '0', STR_PAD_LEFT);?></td>
-                        <td><?php echo  str_pad($row->company_code, 4, '0', STR_PAD_LEFT);?></td>
-                        <td><a href="<?php echo site_url('customers/edit_customer?id='.$row->customer_id);?>" class="btn btn-info btn-sm"  style="margin: 5px">Change</a>
+                        <td><?php echo  $row->title.'&nbsp;'.ucfirst($row->first_name).'&nbsp;'.ucfirst($row->middle_name).'&nbsp;'.ucfirst($row->last_name);?></td>    
+                        <td><?php echo  str_pad($row->vendor_code, 4, '0', STR_PAD_LEFT);?></td>
+                        <td><?php echo  str_pad($row->company_code, 4, '0', STR_PAD_LEFT);?></td>                  
+                        <td><a href="<?php echo site_url('vendors/edit_vendor?id='.$row->vendor_id);?>" class="btn btn-info btn-sm"  style="margin: 5px">Edit</a>
+                        <td><button id="del_<?php echo $row->vendor_id; ?>" class="btn btn-danger btn-sm del"  style="margin: 5px">Delete</button> </td>
                         </td>
-                        <td><button id="del_<?php echo $row->customer_id; ?>" class="btn btn-danger btn-sm del"  style="margin: 5px">Delete</button> </td>
                       </tr>  
-                     <?php }  ?>                     
+                     <?php }  ?>
+                     
                     </tbody>
                     </table>
                     <?php }  else { echo "<div class='alert alert-warning'><h2>No Data to Display</h2></div>";} ?>
@@ -142,7 +146,7 @@
       var deleteid = splitid[1];
       var checkstr =  confirm('are you sure you want to delete this?');
       if(checkstr == true){
-        var url= "<?php echo base_url(); ?>" + "index.php/Customers/ajax_delete_customer";       
+        var url= "<?php echo base_url(); ?>" + "index.php/Vendors/ajax_delete_vendor";       
           jQuery.ajax({
             type: 'GET',        
             url: url,
