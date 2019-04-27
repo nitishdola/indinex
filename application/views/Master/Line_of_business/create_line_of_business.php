@@ -38,7 +38,7 @@
                       <div class="form-group row">
                         <label class="col-md-3 col-form-label">Code: </label>
                         <div class="col-md-9">
-                          <?php echo form_input(array('id' => 'bcode', 'name' => 'bcode','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off')); ?>
+                          <?php echo form_input(array('id' => 'bcode', 'name' => 'bcode','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off','maxlength'=>'5')); ?>
                           <span><p  id="code_div" style="color:red;display:none">Code already exist</p></span>
                         </div>
                       </div>

@@ -32,7 +32,7 @@ class Setup extends CI_Controller {
 	public function change_company_list()
 	{
 		$this->load->model('company_model'); 
-		$data['res'] = $this->company_model->fetch_all_data();	
+		//$data['res'] = $this->company_model->fetch_all_data();	
 		if($this->input->post('search'))
         {
             //var_dump($_POST);exit();
@@ -92,6 +92,7 @@ class Setup extends CI_Controller {
 				  'period_from' 	=> $this->input->post('period_from'),
 				  'period_to' 		=> $this->input->post('period_to'),
 				  'currency' 		=> $this->input->post('currency'),
+				  'language' 		=> $this->input->post('language'),
 				  'telephone' 		=> $this->input->post('telephone'),
 				  'mobile' 			=> $mobile,				  
 				  'email' 			=> $email,
@@ -162,10 +163,9 @@ class Setup extends CI_Controller {
 			$telephone 				= $this->input->post('telephone');
 			$fax 					= $this->input->post('fax');
 			$language 				= $this->input->post('language');
-
-			//$mobile 		= $this->input->post('postal_address');
+			$postal_address			= $this->input->post('postal_address');
 			
-			$this->company_model->change_company_data($company_id,$title,$company_name,$company_name2,$company_name3,$period_from,$period_to,$currency,$country,$region,$city,$telephone,$fax,$language,$mobile,$email);
+			$this->company_model->change_company_data($company_id,$title,$company_name,$company_name2,$company_name3,$period_from,$period_to,$currency,$country,$region,$city,$telephone,$fax,$language,$mobile,$email,$postal_address);
 			$this->session->set_flashdata('response',"<div class='alert alert-success'><strong>Success!</strong>&nbsp;&nbsp;Data Changed</div>");			 
 			redirect(site_url('Setup/edit_company?id='.$company_id));			
 
@@ -177,5 +177,19 @@ class Setup extends CI_Controller {
 
 
 	}
+
+	public function ajax_delete(){
+
+        $id=$this->input->get('id');
+        $this->load->model('company_model'); 
+        $arr['res']=$this->company_model->deleteRecord($id);
+                
+        if(!empty($this->company_model->deleteRecord($id))){
+            echo 1;
+        }  else {
+            echo 0;
+        }
+    }
+	
 
 }

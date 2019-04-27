@@ -97,7 +97,7 @@
                               <option value="" =" ">Select</option>
                                <?php foreach($city as $ct)     
                                     { ?>
-                                    <option <?php if($ct->city_name == $r->city){ echo 'selected="selected"'; } ?> value="<?php echo $ct->city_id; ?>"><?php echo $ct->city_name?> </option>
+                                    <option <?php if($ct->city_name == $r->city){ echo 'selected="selected"'; } ?> value="<?php echo $ct->city_name; ?>"><?php echo $ct->city_name?> </option>
                                     <?php }  ?>
                             </select>
                           </div>

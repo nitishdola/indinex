@@ -16,13 +16,25 @@
             <div class="panel-body container-fluid">
             <?php echo form_open(); ?>
             <div class="row row-lg">
-              <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+              <div class="col-md-9 col-lg-9 col-sm-12 col-xs-12">
                 <!-- Example Horizontal Form -->
                 <div class="example-wrap">
                   <h4 class="example-title">Display Product Category</h4>
                   
                   <div class="example">
-                    
+                     <?php echo form_open(); ?>
+                      <div class="form-group row">                                                    
+                        <div class="col-md-2">                       
+                          <?php echo form_input(array('type' =>'number', 'name' => 'code','id'=>'ccode','class'=>'form-control','style'=>'margin-bottom:5px','placeholder'=>'Product Code','autocomplete'=>'off')); ?>  
+                        </div>
+
+                         <input type="hidden" name="search" value="1">
+                          <button type="submit" class="btn btn-primary">Search </button>
+                          
+                      </div> 
+                    </div>   
+                     <?php echo form_close(); ?>
+                      <?php if($result->result())  { ?>  
                       <table class="table table-bordered">
                       <tr>
                        <th>Sl</th><th>Category Code</th><th>Category Name</th>
@@ -35,12 +47,13 @@
                     ?>
                     <tr>  
                       <td><?php echo  $i;?>  </td>                         
-                      <td><?php echo  $row->category_code;?></td> 
-                      <td><?php echo  $row->category_name;?></td> 
+                      <td><?php echo  str_pad($row->category_code, 4, '0', STR_PAD_LEFT);?></td>
+                      <td><?php echo  ucwords($row->category_name);?></td> 
                       </tr>  
                    <?php }  ?>
                 </tbody>
               </table>
+              <?php }  else { echo "<div class='alert alert-warning'><h2>No Data to Display</h2></div>";} ?>
             </div>
 
 

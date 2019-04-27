@@ -152,7 +152,7 @@ class product_masters extends CI_Controller {
 
 public function change_product_master(){
     	$this->load->model('product_master_model');   
-    	$data['product_details'] 	= $this->product_master_model->select();      
+    	  
         
 		$this->load->model('product_category_model'); 
         $data['cat']=$this->product_category_model->select();  
@@ -170,6 +170,15 @@ public function change_product_master(){
 
         $this->load->model('main_storage_model'); 		
 		$data['plant'] = $this->main_storage_model->getAllPlant();
+		if($this->input->post('search'))
+        {
+        	//var_dump($_POST);exit();
+           $code=$this->input->post('code');
+           $data['product_details'] = $this->product_master_model->filterData($code);
+           //var_dump($this->product_master_model->filterData($code));exit();
+        } else {
+           $data['product_details']= $this->product_master_model->select();    
+        }
 
     	$this->load->view('Master/Product_master/change_product_master',$data);
     }  
@@ -196,7 +205,10 @@ public function change_product_master(){
 
         $this->load->model('main_storage_model'); 		
 		$data['plant'] 				= $this->main_storage_model->getAllPlant();
-		$this->load->view('Master/product_master/edit_product_master',$data);		
+		$this->load->model('sub_storage_model'); 
+        $data['storage']			=$this->sub_storage_model->select(); 
+		$this->load->view('Master/product_master/edit_product_master',$data);
+
 
 		if($this->input->post('sub_1'))
 		{
@@ -298,9 +310,82 @@ public function change_product_master(){
 				
 				$this->session->set_flashdata('response',"<div class='alert alert-success'><strong>Success!</strong>&nbsp;&nbsp;Accounting Data Changed</div>");	
 				redirect(site_url('product_masters/edit_product_master?product_code='.$product_code));
-    		}
-    
+    		}    
     }
 
+    public function display_product_details($product_code=null){
+    	$product_code 				= $this->input->get('product_code');
+
+    	$this->load->model('product_master_model');   
+    	$data['product_details'] 	= $this->product_master_model->product_details($product_code);      
+        
+		$this->load->model('product_category_model'); 
+        $data['cat'] 				=$this->product_category_model->select();  
+
+        $this->load->model('product_variants_model'); 
+        $data['variants'] 			=$this->product_variants_model->select_uom();
+        $data['sizes'] 				=$this->product_variants_model->select_size();
+        $data['color'] 				=$this->product_variants_model->select_color();
+        $data['currency'] 			=$this->product_variants_model->select_currency();
+
+        $this->load->model('product_master_model'); 
+        $data['temperature'] 		=$this->product_master_model->select_tmparature();
+        $data['storage'] 			=$this->product_master_model->select_storage();
+        $data['special'] 			=$this->product_master_model->select_special();
+
+        $this->load->model('main_storage_model'); 		
+		$data['plant'] 				= $this->main_storage_model->getAllPlant();
+		$this->load->model('sub_storage_model'); 
+        $data['storage']			=$this->sub_storage_model->select(); 
+		$this->load->view('Master/product_master/display_product_details',$data);
+
+
+	}
+
+	public function ajax_delete_product_master(){
+        $id=$this->input->get('id');
+        $this->load->model('product_master_model'); 
+        $arr['res']=$this->product_master_model->deleteRecord($id);
+                
+        if(!empty($this->product_master_model->deleteRecord($id))){
+            echo 1;
+        }  else {
+            echo 0;
+        }
+    }
+
+    public function display_product_master(){
+
+    	$this->load->model('product_master_model');   
+    	  
+        
+		$this->load->model('product_category_model'); 
+        $data['cat']=$this->product_category_model->select();  
+
+        $this->load->model('product_variants_model'); 
+        $data['variants']=$this->product_variants_model->select_uom();
+        $data['sizes']=$this->product_variants_model->select_size();
+        $data['color']=$this->product_variants_model->select_color();
+        $data['currency']=$this->product_variants_model->select_currency();
+
+        $this->load->model('product_master_model'); 
+        $data['temperature']=$this->product_master_model->select_tmparature();
+        $data['storage']=$this->product_master_model->select_storage();
+        $data['special']=$this->product_master_model->select_special();
+
+        $this->load->model('main_storage_model'); 		
+		$data['plant'] = $this->main_storage_model->getAllPlant();
+		if($this->input->post('search'))
+        {
+        	//var_dump($_POST);exit();
+           $code=$this->input->post('code');
+           $data['product_details'] = $this->product_master_model->filterData($code);
+           //var_dump($this->product_master_model->filterData($code));exit();
+        } else {
+           $data['product_details']= $this->product_master_model->select();    
+        }
+
+    	$this->load->view('Master/Product_master/display_product_master',$data);
+    }
     
 }

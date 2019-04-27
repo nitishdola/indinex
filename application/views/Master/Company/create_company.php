@@ -100,7 +100,7 @@
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label">Company Code: </label>
                               <div class="col-md-8">
-                               <?php echo form_input(array('type' =>'number', 'name' => 'company_code','id'=>'ccode','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off')); ?><span><p  id="code_div" style="color:red;display:none">Code already exist</p></span>
+                               <?php echo form_input(array('type' =>'number', 'name' => 'company_code','id'=>'ccode','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off','maxlength'=>'4')); ?><span><p  id="code_div" style="color:red;display:none">Code already exist</p></span>
                               </div>
                             </div> 
                             <div class="form-group row">
@@ -129,35 +129,35 @@
                                 <?php echo form_input(array('type' => 'text','id' => 'company_name3', 'name' => 'company_name3','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'false','maxlength'=>'10')); ?>
                               </div>
                             </div>  
-                             <div class="form-group row">
+                            <!-- <div class="form-group row">
                               <label class="col-md-4 col-form-label" >Plant</label>
                               <div class="col-md-8">
                                 <select class="form-control" id="plant_id" name="plant_id" required="true">
                                   <option value="">Select</option> 
-                                  <?php foreach($plant as $row)
+                                  <?php /* foreach($plant as $row)
                                     {
                                       echo '<option value="'.$row->id.'">'.$row->first_name.' '.$row->middle_name.' '.$row->last_name.'</option>';
-                                    } ?>   
+                                    } */ ?>   
                                 </select>
                               </div>
-                            </div>  
+                            </div>  -->
                              <div class="form-group row">
                               <label class="col-md-4 col-form-label" >Finincial year From</label>
                               <div class="col-md-8">
-                                <?php echo form_input(array('type' => 'text','id' => 'period_from', 'name' => 'period_from','class'=>'form-control yearpicker','style'=>'margin-bottom:5px','autocomplete'=>'false')); ?>
+                                <?php echo form_input(array('type' => 'text','id' => 'period_from', 'name' => 'period_from','class'=>'form-control yearpicker','style'=>'margin-bottom:5px','autocomplete'=>'false','required'=>'true')); ?>
                               </div>
                             </div>  
                              <div class="form-group row">
                               <label class="col-md-4 col-form-label" >Finincial year To</label>
                               <div class="col-md-8">
-                                <?php echo form_input(array('type' => 'text','id' => 'period_to', 'name' => 'period_to','class'=>'form-control yearpicker','style'=>'margin-bottom:5px','autocomplete'=>'false')); ?>
+                                <?php echo form_input(array('type' => 'text','id' => 'period_to', 'name' => 'period_to','class'=>'form-control yearpicker','style'=>'margin-bottom:5px','autocomplete'=>'false','required'=>'true')); ?>
                               </div>
                             </div>  
 
                              <div class="form-group row">
                               <label class="col-md-4 col-form-label" >Language</label>
                               <div class="col-md-8">
-                                <select class="form-control" id="plant_id" name="plant_id">
+                                <select class="form-control" id="language" name="language">
                                   <option value="English">English</option> 
                                 </select>
                               </div>
@@ -169,7 +169,7 @@
                                   <option value="">Select</option> 
                                   <?php foreach($currency as $row)
                                     {
-                                      echo '<option value="'.$row->id.'">'.$row->variants_name.'</option>';
+                                      echo '<option value="'.$row->variants_name.'">'.$row->variants_name.'</option>';
                                     } ?>   
                                 </select>
                               </div>
@@ -228,7 +228,7 @@
                       <div class="form-group row">
                         <label class="col-md-4 col-form-label">Region: </label>
                         <div class="col-md-8">
-                          <select id="region_id" name="region" class="form-control">
+                          <select id="region_id" name="region" class="form-control" required="true">
                             <option value="">Select</option>                      
                               <?php foreach($states as $row)     
                               {
@@ -240,7 +240,7 @@
                       <div class="form-group row">
                         <label class="col-md-4 col-form-label">City: </label>
                           <div class="col-md-8">
-                            <select id="city_id" name="city" class="form-control">
+                            <select id="city_id" name="city" class="form-control"  required="true">
                               <option value="">Select</option>
                               
                             </select>
@@ -249,7 +249,7 @@
                       <div class="form-group row">
                         <label class="col-md-4 col-form-label">Postal Address: </label>
                         <div class="col-md-8">
-                          <textarea class="form-control" id="postal_address" name="postal_address" placeholder="Address" autocomplete="off" rows="5"></textarea>
+                          <textarea class="form-control" id="postal_address" name="postal_address" placeholder="Address" autocomplete="off" rows="5"  required="true"></textarea>
                         </div>
                       </div>
 

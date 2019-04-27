@@ -133,20 +133,20 @@
                              <div class="form-group row">
                               <label class="col-md-4 col-form-label" >Finincial year From</label>
                               <div class="col-md-8">
-                                <?php echo form_input(array('type' => 'text','id' => 'period_from', 'name' => 'period_from','class'=>'form-control yearpicker','style'=>'margin-bottom:5px','autocomplete'=>'false','value'=>$r->period_from)); ?>
+                                <?php echo form_input(array('type' => 'text','id' => 'period_from', 'name' => 'period_from','class'=>'form-control yearpicker','style'=>'margin-bottom:5px','autocomplete'=>'false','value'=>$r->period_from,'required'=>'true')); ?>
                               </div>
                             </div>  
                              <div class="form-group row">
                               <label class="col-md-4 col-form-label" >Finincial year To</label>
                               <div class="col-md-8">
-                                <?php echo form_input(array('type' => 'text','id' => 'period_to', 'name' => 'period_to','class'=>'form-control yearpicker','style'=>'margin-bottom:5px','autocomplete'=>'false','value'=>$r->period_to)); ?>
+                                <?php echo form_input(array('type' => 'text','id' => 'period_to', 'name' => 'period_to','class'=>'form-control yearpicker','style'=>'margin-bottom:5px','autocomplete'=>'false','value'=>$r->period_to,'required'=>'true')); ?>
                               </div>
                             </div>  
 
                              <div class="form-group row">
                               <label class="col-md-4 col-form-label" >Language</label>
                               <div class="col-md-8">
-                                <select class="form-control" id="language" name="language">                           
+                                <select class="form-control" id="language" name="language" required="true">
                                    <option <?php if($r->language == 'English'){ echo 'selected="selected"'; } ?> value="English">English</option>
                                 </select>
                               </div>
@@ -217,7 +217,7 @@
                       <div class="form-group row">
                         <label class="col-md-4 col-form-label">Region: </label>
                         <div class="col-md-8">
-                          <select id="region_id" name="region" class="form-control">
+                          <select id="region_id" name="region" class="form-control" required="true">
                             <option value="">Select</option>                      
                               <?php foreach($states as $st2)     
                                 { ?>
@@ -229,11 +229,11 @@
                       <div class="form-group row">
                         <label class="col-md-4 col-form-label">City: </label>
                           <div class="col-md-8">
-                            <select id="city_id" name="city" class="form-control">
+                            <select id="city_id" name="city" class="form-control" required="true">
                               <option value="">Select</option>
                                <?php foreach($city as $ct)     
                                     { ?>
-                                    <option <?php if($ct->city_name == $r->city){ echo 'selected="selected"'; } ?> value="<?php echo $ct->city_id; ?>"><?php echo $ct->city_name?> </option>
+                                    <option <?php if($ct->city_name == $r->city){ echo 'selected="selected"'; } ?> value="<?php echo $ct->city_name; ?>"><?php echo $ct->city_name?> </option>
                                     <?php }  ?> 
                             </select>
                           </div>
@@ -241,7 +241,7 @@
                       <div class="form-group row">
                         <label class="col-md-4 col-form-label">Postal Address: </label>
                         <div class="col-md-8">
-                          <textarea class="form-control" id="postal_address" name="postal_address" placeholder="Address" autocomplete="off" rows="5"><?php echo $r->postal_address; ?></textarea>
+                          <textarea class="form-control" id="postal_address" name="postal_address" placeholder="Address" autocomplete="off" rows="5" required="true"><?php echo $r->postal_address; ?></textarea>
                         </div>
                       </div>
 

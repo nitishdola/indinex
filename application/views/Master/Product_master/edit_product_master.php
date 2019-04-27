@@ -70,7 +70,7 @@
                         <div class="example-wrap">
                         <h4 class="example-title"></h4> 
                           <?php echo $this->session->flashdata('response'); ?> 
-                         <?php foreach($product_details as $row) { // var_dump($row);?> 
+                         <?php foreach($product_details as $row) { ?> 
                           <div class="example">
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label">Product Code: </label>
@@ -85,7 +85,7 @@
                                <select name="product_category" class="form-control" >
                                 <option value="">Select</option>
                                 <?php foreach ($cat->result() as $category) { ?>
-                                <option <?php if($category->id == $row->product_category_id){ echo 'selected="selected"'; } ?> value="<?php echo $category->id ?>"><?php echo $category->category_name?> </option>
+                                <option <?php if($category->id == $row->product_category){ echo 'selected="selected"'; } ?> value="<?php echo $category->id ?>"><?php echo $category->category_name?> </option>
                                 <?php } ?>
                                 </select>
                               </div>
@@ -230,7 +230,7 @@
                                   <option value="">Select</option> 
                                         <?php foreach($plant as $p)
                                         { ?>                                         
-                                          <option <?php if($p->id == $row->plant){ echo 'selected="selected"'; } ?> value="<?php echo $p->id ?>"><?php echo $p->first_name.' '.$p->middle_name.' '.$p->last_name; ?> </option>                   
+                                          <option <?php if($p->storage_id == $row->plant){ echo 'selected="selected"'; } ?> value="<?php echo $p->storage_id ?>"><?php echo $p->first_name.' '.$p->middle_name.' '.$p->last_name; ?> </option>                   
                                   
                                        <?php } ?>                                               
                                    </select>
@@ -241,7 +241,11 @@
                               <div class="col-md-8">
                                 <select id="storage_location_id" name="storage_location" class="form-control">
                                   <option value="">Select</option> 
-                                                                               
+                                    <?php foreach($storage->result()  as $s)
+                                        { ?>                                         
+                                          <option <?php if($s->id == $row->storage_location){ echo 'selected="selected"'; } ?> value="<?php echo $s->id ?>"><?php echo $s->first_name.' '.$s->middle_name.' '.$s->last_name; ?> </option>                   
+                                  
+                                       <?php } ?>                                              
                                    </select>
                               </div>
                             </div>

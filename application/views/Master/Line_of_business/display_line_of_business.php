@@ -19,7 +19,8 @@
                 <!-- Example Horizontal Form -->
                 <div class="example-wrap">
                   <h4 class="example-title">Display Line of Business</h4>                  
-                  <div class="example">                    
+                  <div class="example"> 
+                  <?php if(!empty($result->result()))  { ?>                     
                       <table class="table table-bordered">
                       <tr>
                        <th>Sl</th><th>Product Code</th><th>Product Description</th>
@@ -33,11 +34,12 @@
                           <tr>  
                             <td><?php echo  $i;?> </td>                          
                             <td><?php echo  str_pad($row->bcode, 4, '0', STR_PAD_LEFT);?></td>
-                            <td><?php echo  $row->description;?></td> 
+                            <td><?php echo  ucwords($row->description);?></td> 
                             </tr>  
                          <?php }  ?>
                 </tbody>
               </table>
+               <?php } else { echo "<div class='alert alert-warning'><h2>No Data to Display</h2></div>";} ?>
             </div>
           </div>
           </div>

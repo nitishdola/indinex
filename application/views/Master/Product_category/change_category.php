@@ -8,21 +8,31 @@
         <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
         <li class="breadcrumb-item"><a href="<?php echo site_url('Welcome/master');?>">Master</a></li>
         <li class="breadcrumb-item"><a href="<?php echo site_url('Masters/product_category_sub');?>">Product Category</a></li>
-        <li class="breadcrumb-item active">Display</li>
+        <li class="breadcrumb-item active">Change</li>
       </ol>
       <div class="page-content">
         <div class="projects-wrap">
           <div class="panel">
-            <div class="panel-body container-fluid">
-            <?php echo form_open(); ?>
+            <div class="panel-body container-fluid">            
             <div class="row row-lg">
-              <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+              <div class="col-md-9 col-lg-9col-sm-12 col-xs-12">
                 <!-- Example Horizontal Form -->
                 <div class="example-wrap">
-                  <h4 class="example-title">Display Product Category</h4>
-                  
+                  <h4 class="example-title">Change Product Category</h4>                  
                   <div class="example">
-                    
+                    <?php echo form_open(); ?>
+                      <div class="form-group row">                                                    
+                        <div class="col-md-2">                       
+                          <?php echo form_input(array('type' =>'number', 'name' => 'code','id'=>'ccode','class'=>'form-control','style'=>'margin-bottom:5px','placeholder'=>'Product Code','autocomplete'=>'off')); ?>  
+                        </div>
+
+                         <input type="hidden" name="search" value="1">
+                          <button type="submit" class="btn btn-primary">Search </button>
+                          
+                      </div> 
+                    </div>   
+                     <?php echo form_close(); ?> 
+                     <?php if($result->result())  { ?>
                       <table class="table table-bordered">
                       <tr>
                        <th>Sl</th><th>Category Code</th><th>Category Name</th><th>Edit</th><th>Delete</th>
@@ -34,19 +44,18 @@
                     { $i++;
                     ?>
                     <tr>  
-                      <td><?php echo  $i;?>   </td>                        
-                      <td><?php echo  $row->category_code;?></td> 
-                      <td><?php echo  $row->category_name;?></td> 
+                      <td><?php echo  $i;?>   </td>
+                      <td><?php echo  str_pad($row->category_code, 4, '0', STR_PAD_LEFT);?></td>
+                      <td><?php echo  ucwords($row->category_name);?></td> 
                       <td><a href="<?php echo site_url('Masters/edit_product_category?id='.$row->id);?>" class="btn btn-info btn-sm"  style="margin: 5px">Edit</a></td>
-                      <td></td>
+                      <td><button id="del_<?php echo $row->id; ?>" class="btn btn-danger btn-sm del"  style="margin: 5px">Delete</button> </td>
                       </tr>  
                    <?php }  ?>
                 </tbody>
               </table>
+              <?php }  else { echo "<div class='alert alert-warning'><h2>No Data to Display</h2></div>";} ?>
             </div>
 
-
-           <?php echo form_close(); ?>
           </div>
           </div>
         <!-- End Panel Controls Sizing -->
@@ -58,6 +67,43 @@
   </div>
 </div>
 <?php $this->load->view('layout/admin/footer'); ?>
-    
+<script>
+$(function(){
+  $('.del').click(function(){
+      var el = this;
+      var id = this.id;
+      var splitid = id.split("_");
+      var deleteid = splitid[1];
+      var checkstr =  confirm('are you sure you want to delete this?');
+      if(checkstr == true){
+        var url= "<?php echo base_url(); ?>" + "index.php/Masters/ajax_delete_product_category";       
+          jQuery.ajax({
+            type: 'GET',        
+            url: url,
+            dataType: 'json',
+            data: {id: deleteid},
+            success: function (response) {      
+                if(response == 1){
+                   // Remove row from HTML Table
+                   $(el).closest('tr').css('background','tomato');
+                   $(el).closest('tr').fadeOut(800,function(){
+                      $(this).remove();
+                   });
+                }else{
+                   alert('Invalid ID.');
+                }     
+            },
 
+            error: function (jqXhr, textStatus, errorMessage) {
+              // $.unblockUI();
+               //$('p').append('Error' + errorMessage);
+            }
+         });
+      } else  {
+        return false;
+      }
+    });
+});
+
+</script>
     

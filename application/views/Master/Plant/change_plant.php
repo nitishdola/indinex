@@ -54,7 +54,7 @@
                       <td><?php echo  $row->city;?></td>
                       <td><?php echo  $row->postal_address;?></td> 
                       <td><a href="<?php echo site_url('Masters/edit_plant?storage_id='.$row->storage_id);?>" class="btn btn-info btn-sm"  style="margin: 5px">Edit</a></td>
-                      <td><?php //echo  $row->postal_address;?></td> 
+                      <td><button id="del_<?php echo $row->storage_id; ?>" class="btn btn-danger btn-sm del"  style="margin: 5px">Delete</button> </td>
                       </tr>  
                    <?php }  ?>
                 </tbody>
@@ -74,4 +74,42 @@
     </div>
 </div>
 <?php $this->load->view('layout/admin/footer'); ?>
-  
+<script>
+$(function(){
+  $('.del').click(function(){
+      var el = this;
+      var id = this.id;
+      var splitid = id.split("_");
+      var deleteid = splitid[1];
+      var checkstr =  confirm('are you sure you want to delete this?');
+      if(checkstr == true){
+        var url= "<?php echo base_url(); ?>" + "index.php/Masters/ajax_delete_plant";       
+          jQuery.ajax({
+            type: 'GET',        
+            url: url,
+            dataType: 'json',
+            data: {id: deleteid},
+            success: function (response) {      
+                if(response == 1){
+                   // Remove row from HTML Table
+                   $(el).closest('tr').css('background','tomato');
+                   $(el).closest('tr').fadeOut(800,function(){
+                      $(this).remove();
+                   });
+                }else{
+                   alert('Invalid ID.');
+                }     
+            },
+
+            error: function (jqXhr, textStatus, errorMessage) {
+              // $.unblockUI();
+               //$('p').append('Error' + errorMessage);
+            }
+         });
+      } else  {
+        return false;
+      }
+    });
+});
+
+</script>  

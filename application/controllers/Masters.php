@@ -90,6 +90,21 @@ class Masters extends CI_Controller {
             echo 0;
         }
     }
+    public function ajax_delete_business(){
+
+        $id=$this->input->get('id');
+        $this->load->model('Line_Of_Business_Model'); 
+        $arr['res']=$this->Line_Of_Business_Model->deleteRecord($id);
+                
+        if(!empty($this->Line_Of_Business_Model->deleteRecord($id))){
+            echo 1;
+        }  else {
+            echo 0;
+        }
+    }
+
+
+
 
     public function ajax_plant_code(){
 
@@ -98,6 +113,18 @@ class Masters extends CI_Controller {
         $arr['res']=$this->Main_Storage_Model->ifAlreadyExist($bcode);
         
         if(!empty($this->Main_Storage_Model->ifAlreadyExist($bcode))){
+            echo 1;
+        }  else {
+            echo 0;
+        }
+    }
+    public function ajax_delete_plant(){
+
+        $id=$this->input->get('id');
+        $this->load->model('Main_Storage_Model'); 
+        $arr['res']=$this->Main_Storage_Model->deleteRecord($id);
+                
+        if(!empty($this->Main_Storage_Model->deleteRecord($id))){
             echo 1;
         }  else {
             echo 0;
@@ -253,7 +280,6 @@ class Masters extends CI_Controller {
 		$data['states'] = $this->country_model->getAllStates();
         if($this->input->post('search'))
         {
-            //var_dump($_POST);exit();
             $code=$this->input->post('code');
             $data['result'] = $this->main_storage_model->filterData($code);
         } else {
@@ -300,8 +326,7 @@ class Masters extends CI_Controller {
 
         if($this->input->post('sub'))
         {
-            var_dump($_POST);
-            
+                        
             $storage_id             =$this->input->post('storage_id'); 
             $company_id             = $this->input->post('company_id'); 
             $first_name             = $this->input->post('first_name');           
@@ -366,7 +391,7 @@ class Masters extends CI_Controller {
 		$data['plant'] = $this->main_storage_model->getAllPlant();
         if($this->input->post('search'))
         {
-            var_dump($_POST);exit();
+           // var_dump($_POST);exit();
             $code=$this->input->post('code');
             $data['result'] = $this->sub_storage_model->filterData($code);
             $this->load->view('Master/Storage_location/change_storage_location',$data);
@@ -424,7 +449,18 @@ class Masters extends CI_Controller {
         $this->load->view('Master/Storage_location/edit_storage_location',$data);
 
     }
+     public function ajax_delete_storage_location(){
 
+        $id=$this->input->get('id');
+        $this->load->model('sub_storage_model'); 
+        $arr['res']=$this->sub_storage_model->deleteRecord($id);
+                
+        if(!empty($this->sub_storage_model->deleteRecord($id))){
+            echo 1;
+        }  else {
+            echo 0;
+        }
+    }
     public function create_sub_storage_location(){
         $this->load->model('country_model'); 
         $data['states'] = $this->country_model->getAllStates(); 
@@ -583,13 +619,28 @@ class Masters extends CI_Controller {
     public function change_category(){
     	$this->load->database();          
         $this->load->model('product_category_model'); 
-        $data['result']=$this->product_category_model->select();
+        if($this->input->post('search'))
+        {
+            //var_dump($_POST);exit();
+            $code=$this->input->post('code');
+            $data['result'] = $this->product_category_model->filterData($code);
+        } else {
+           $data['result']=$this->product_category_model->select();
+        }
+        
     	$this->load->view('Master/Product_category/change_category',$data);	
     }
     public function display_category(){
     	$this->load->database();          
         $this->load->model('product_category_model'); 
-        $data['result']=$this->product_category_model->select();
+         if($this->input->post('search'))
+        {
+            //var_dump($_POST);exit();
+            $code=$this->input->post('code');
+            $data['result'] = $this->product_category_model->filterData($code);
+        } else {
+           $data['result']=$this->product_category_model->select();
+        }
     	$this->load->view('Master/Product_category/display_category',$data);	
     }
     public function create_product_variants(){
@@ -981,8 +1032,6 @@ class Masters extends CI_Controller {
         //var_dump($data['business']=$this->Line_Of_Business_Model->business_details($id));
         $this->load->model('product_category_model'); 
 
-        $this->load->model('city_model'); 
-        $arr['cities']=$this->city_model->select_cities($region_id);
   
         if($this->input->post('sub'))
         {               
@@ -996,6 +1045,18 @@ class Masters extends CI_Controller {
             redirect(site_url('Masters/edit_product_category?id='.$id));
         }
        $this->load->view('Master/Product_category/edit_product_category',$data);
+    }
+
+    public function ajax_delete_product_category(){
+        $id=$this->input->get('id');
+        $this->load->model('product_category_model'); 
+        $arr['res']=$this->product_category_model->deleteRecord($id);
+                
+        if(!empty($this->product_category_model->deleteRecord($id))){
+            echo 1;
+        }  else {
+            echo 0;
+        }
     }
 
 }

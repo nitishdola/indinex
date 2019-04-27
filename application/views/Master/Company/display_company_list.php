@@ -16,6 +16,7 @@
             <div class="panel-body container-fluid">
               <h3>Display Company List</h3>
                 <div class="example">  
+                <?php if(!empty($res))  { ?>
                 <?php echo form_open(); ?>
                         <div class="form-group row">                                                    
                           <div class="col-md-2">                       
@@ -30,20 +31,22 @@
                        <?php echo form_close(); ?>                    
                   <table class="table table-bordered" style="width:100%">
                   <tr>
-                   <th>Sl</th><th>Company Code</th><th>Company Name</th><th>Finincial Year</th><th>Finincial To</th><th>Country</th><th>Region</th><th>City</th><th width="20%">Postal address</th><th>Mobile</th><th>Email</th><th>Fax</th>
+                   <th>Sl</th><th>Company Code</th><th>Company Name</th><th>Finincial Year</th><th>Finincial To</th><th>Language</th><th>Currency</th><th>Country</th><th>Region</th><th>City</th><th width="20%">Postal address</th><th>Mobile</th><th>Email</th><th>Fax</th>
                   </tr>
                   <tbody>
-                  <?php 
-                    $i=0;                           
+                   <?php 
+                    $k=0;                           
                     foreach($res as $row)  
-                    { $i++;
+                    { $k++;
                     ?>
                     <tr>  
-                      <td><?php echo  $i;?> </td>                          
+                      <td><?php echo  $k;?> </td>                          
                       <td><?php echo  str_pad($row->company_code, 4, '0', STR_PAD_LEFT);?></td> 
                       <td><?php echo  $row->title.'&nbsp;'.ucwords($row->company_name).'&nbsp;'.$row->company_name2;?></td> 
                       <td><?php echo  $row->period_from;?></td> 
                       <td><?php echo  $row->period_to;?></td> 
+                      <td><?php echo  $row->language;?></td> 
+                      <td><?php echo  $row->currency;?></td> 
                       <td><?php echo  $row->country;?></td> 
                       <td><?php echo  $row->state;?></td>
                       <td><?php echo  $row->city;?></td>
@@ -66,12 +69,12 @@
                         }
                      
                       ?></td> 
-                      <td><?php echo  $row->fax;?></td>
-                     
+                      <td><?php echo  $row->fax;?></td>                     
                       </tr>  
                    <?php }  ?>
                 </tbody>
               </table>
+              <?php } else { echo "<div class='alert alert-warning'><h2>No Data to Display</h2></div>";} ?>
             </div>
           </div>
           </div>

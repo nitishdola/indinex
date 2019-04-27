@@ -236,7 +236,7 @@
                                   <option value="">Select</option> 
                                         <?php foreach($plant as $row)
                                         {
-                                          echo '<option value="'.$row->id.'">'.$row->first_name.' '.$row->middle_name.' '.$row->last_name.'</option>';
+                                          echo '<option value="'.$row->storage_id.'">'.$row->first_name.' '.$row->middle_name.' '.$row->last_name.'</option>';
                                         } ?>                                               
                                    </select>
                               </div>
@@ -367,7 +367,7 @@
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label">Manufacturing Date: </label>
                               <div class="col-md-8">
-                                <?php echo form_input(array('type'=>'text','id' => 'manufacturing_date', 'name' => 'manufacturing_date','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'off','maxlength'=>'')); ?>
+                                <?php echo form_input(array('type'=>'date','id' => 'manufacturing_date', 'name' => 'manufacturing_date','class'=>'form-control','autocomplete'=>'off')); ?>
                               </div>
                             </div>
 
@@ -647,7 +647,7 @@ $('#plant').change(function(){
               $.each(jsonArray, function(index,jsonObject){
                   $('#storage_location_id')
                   .append($("<option></option>")
-                  .attr("value",jsonObject['first_name'])
+                  .attr("value",jsonObject['id'])
                   .text(jsonObject['first_name']));               
             });         
           },

@@ -48,6 +48,13 @@ class Line_Of_Business_Model extends CI_Model
      $query = $this->db->get(description);      
     return $query->result();
     }
+
+  public function deleteRecord($id){
+    $this->db->where('id', $id);
+    $this->db->delete('business_type');
+    return true;
+  }
+
 } 
 
 ?>

@@ -82,8 +82,14 @@ class Main_Storage_Model extends CI_Model
   }  
 
   public function plant_update($storage_id,$company_id,$first_name,$middle_name,$last_name,$country,$region,$city,$postal_address){
-    $query=$this->db->query("update storage_type SET first_name='$first_name',middle_name='$middle_name',last_name='$last_name',company_id='$company_id',region='$region',country='$country',city='$city' where storage_id='$storage_id'");
+    $query=$this->db->query("update storage_type SET first_name='$first_name',middle_name='$middle_name',last_name='$last_name',company_id='$company_id',region='$region',country='$country',city='$city',postal_address='$postal_address' where storage_id='$storage_id'");
     return true;
+  }
+
+  public function deleteRecord($id){
+      $this->db->where('storage_id', $id);
+      $this->db->delete('storage_type');
+      return true;
   }
 
 } 

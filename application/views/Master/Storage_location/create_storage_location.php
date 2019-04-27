@@ -49,7 +49,7 @@
                             <option value="">Select</option> 
                             <?php foreach($plant as $row)
                               {
-                                echo '<option value="'.$row->id.'">'.$row->first_name.' '.$row->middle_name.' '.$row->last_name.'</option>';
+                                echo '<option value="'.$row->storage_id.'">'.$row->first_name.' '.$row->middle_name.' '.$row->last_name.'</option>';
                               } ?>   
                           </select>
                         </div>

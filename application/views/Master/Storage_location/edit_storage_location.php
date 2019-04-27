@@ -39,7 +39,7 @@
                             <option value="">Select</option> 
                             <?php foreach($plant as $pl)
                               { ?>
-                              <option <?php if($pl->id == $r->plant_id){ echo 'selected="selected"'; } ?> value="<?php echo $pl->id; ?>"><?php echo $pl->first_name.'&nbsp;'.$pl->middle_name.'&nbsp;'.$pl->last_name?> </option>
+                              <option <?php if($pl->storage_id == $r->plant_id){ echo 'selected="selected"'; } ?> value="<?php echo $pl->storage_id; ?>"><?php echo $pl->first_name.'&nbsp;'.$pl->middle_name.'&nbsp;'.$pl->last_name?> </option>
                                 <?php }  ?> 
                                 <?php //echo '<option value="'.$row->id.'">'.$row->first_name.' '.$row->middle_name.' '.$row->last_name.'</option>';
                               } ?>   
@@ -112,7 +112,7 @@
                       <div class="form-group row">
                         <label class="col-md-4 col-form-label">Postal Address: </label>
                         <div class="col-md-8">
-                          <textarea id="postal_address" class="form-control" placeholder="Address" autocomplete="off" id="postal_address" name="postal_address"><?php echo $r->postal_address;?></textarea>
+                          <textarea id="postal_address" class="form-control" placeholder="Address" autocomplete="off" id="postal_address" name="postal_address" rows="5"><?php echo $r->postal_address;?></textarea>
                         </div>
                       </div>
                   </div>
