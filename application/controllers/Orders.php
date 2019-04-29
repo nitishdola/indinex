@@ -67,7 +67,7 @@ class Orders extends CI_Controller {
 
         $arr = [
             'vendor_details_id' => $this->input->post('vendor_details_id'),
-            'order_number'      => trim($this->input->post('order_no')),
+            'order_number'      => trim($this->input->post('order_number')),
             'order_date'        => date('Y-m-d', strtotime($this->input->post('order_date'))),
             'entered_by'        => $this->ion_auth->get_user_id(),
             'payment_type'      => trim($this->input->post('payment_type')),
@@ -132,26 +132,26 @@ class Orders extends CI_Controller {
 
         $data['results'] = $this->order_model->fetchAllOrders();
 
-        echo '<pre>';
+        /*echo '<pre>';
         var_dump($data);
         echo '</pre>';
 
-        exit;
+        exit;*/
 
-        $this->load->view('pos/view_all_receipts',$data);
+        $this->load->view('orders/view_all_orders',$data);
         $this->load->view('layout/admin/footer'); 
     } 
 
-    public function view_receipt($sale_id) {
+    public function view_order($order_id) {
         
         $this->load->view('layout/admin/header');           
         $this->load->view('layout/admin/nav_menu'); 
 
-        $this->load->model('sales_model'); 
-        $this->load->model('sales_items_model'); 
+        $this->load->model('order_model'); 
+        $this->load->model('order_item_model'); 
 
-        $data['sales_details'] = $this->sales_model->fetchSalesDetails($sale_id)[0];
-        $data['sales_items']   = $this->sales_items_model->fetchSalesItems($sale_id);
+        $data['order_details'] = $this->order_model->fetchOrderDetails($order_id)[0];
+        $data['order_items']   = $this->order_item_model->fetchOrderItems($order_id);
 
         
         /*echo '<pre>';
@@ -160,7 +160,7 @@ class Orders extends CI_Controller {
         exit;*/
         
         
-        $this->load->view('pos/view_receipt',$data);
+        $this->load->view('orders/view_order',$data);
         $this->load->view('layout/admin/footer');   
     }
 }
