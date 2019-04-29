@@ -31,7 +31,13 @@
                       <div class="form-group row">
                         <label class="col-md-3 col-form-label">Company: </label>
                         <div class="col-md-9">
-                          <?php echo form_input(array('id' => 'holiday_name', 'name' => 'holiday_name','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true')); ?>
+                           <select name="company_id" class="form-control">
+                            <option value="">Select</option>
+                            <?php foreach($company as $rw)     
+                              {
+                                echo '<option value="'.$rw->id.'">'.ucwords($rw->company_name).'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-'.$rw->company_code.'</option>';
+                              }   ?>  
+                          </select>
                         </div>
                       </div>                    
                       <div class="form-group row">

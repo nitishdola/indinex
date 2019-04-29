@@ -247,9 +247,15 @@
                           </div>
                       </div>
                       <div class="form-group row">
+                        <label class="col-md-4 col-form-label" >Pin Code</label>
+                        <div class="col-md-8">
+                          <?php echo form_input(array('type' => 'number','id' => 'pincode', 'name' => 'pincode','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'false','maxlength'=>'20')); ?>
+                        </div>
+                      </div> 
+                      <div class="form-group row">
                         <label class="col-md-4 col-form-label">Postal Address: </label>
                         <div class="col-md-8">
-                          <textarea class="form-control" id="postal_address" name="postal_address" placeholder="Address" autocomplete="off" rows="5"  required="true"></textarea>
+                          <textarea class="form-control" id="postal_address" name="postal_address" placeholder="Address" autocomplete="off" rows="5"></textarea>
                         </div>
                       </div>
 

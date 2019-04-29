@@ -181,7 +181,7 @@
                                <div class="col-md-12">
                                   <div class="form-group row">
                                     <div class="col-md-9">
-                                     <!--<button class="btn btn-primary continue" style="color:white">Continue</button> -->
+                                     <button class="btn btn-primary continue" style="color:white">Continue</button>
                                     </div>
                                   </div>
                               </div>                                    
@@ -223,7 +223,7 @@
                <div class="col-md-12">
                 <div class="form-group row">
                   <div class="col-md-9">
-                   <!--<button class="btn btn-primary continue" style="color:white">Continue</button>-->
+                   <button class="btn btn-primary continue" style="color:white">Continue</button>
                   </div>
                 </div>
             </div>    
@@ -488,6 +488,7 @@ $('#bank_region').change(function(){
   });
 
 $('.continue').click(function(){
+  alert("hi");
     var title                   =$('#title').val();
     var first_name              =$('#first_name').val(); 
     var mobile_id               =$('#mobile_id').val();
@@ -502,6 +503,7 @@ $('.continue').click(function(){
       $('.nav-tabs > .active').next('li').find('a').trigger('click');
   }
 });
+
 $('.back').click(function(){
   $('.nav-tabs > .active').prev('li').find('a').trigger('click');
 });

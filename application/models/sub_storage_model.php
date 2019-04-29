@@ -11,6 +11,7 @@ class Sub_Storage_Model extends CI_Model
 
 	public function select()  
   	{  
+  		$this->db->order_by("id", "asc");
      	$this->db->select('storage_location.*,states.id as sid,states.name as sname,storage_type.first_name as name1,storage_type.middle_name as name2,storage_type.last_name as name3');
 	    $this->db->from('storage_location');
 	    $this->db->join('states','states.id = storage_location.region','left');

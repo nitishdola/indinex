@@ -24,8 +24,8 @@ class Customers extends CI_Controller {
 	}
 	public function create_acount_group()
 	{
-		$this->load->model('vendor_model');        
-		$data['checkrecord'] = $this->vendor_model->check_last_record();
+		$this->load->model('customer_model');        
+		$data['checkrecord'] = $this->customer_model->check_last_record();
 		$this->load->view('Master/Customer/create_acount_group',$data);
 		if($this->input->post('sub'))
  		{
@@ -34,13 +34,13 @@ class Customers extends CI_Controller {
 
  			//exit();
  			$data = array(
-				'vendor_group_id' => $this->input->post('vendor_group_id'),
+				'customer_group_id' => ucfirst($this->input->post('customer_group_id')),
 				'group_name' => $this->input->post('group_name'),
 				'range_from' => $this->input->post('range_from'),
 				'range_to' => $this->input->post('range_to')				
 			);
 	       	
-			$this->vendor_model->form_insert($data);
+			$this->customer_model->form_insert($data);
 			$this->session->set_flashdata('response',"<div class='alert alert-success'><strong>Success!</strong>&nbsp;&nbsp;record inserted</div>");
 			redirect(site_url('Customers/create_acount_group'));
  		}	
@@ -48,7 +48,7 @@ class Customers extends CI_Controller {
 	public function range_if_exist($range_from=1000)
 	{
 		
-		$this->load->model('vendor_model');        
+		$this->load->model('customer_model');        
 		$data['checkrecord'] = $this->vendor_model->select_range($range_from);
 
 	    foreach($data as $row)  

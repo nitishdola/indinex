@@ -28,7 +28,7 @@
 
                             <tr>  
                               <td><?php echo  $i;?>    </td>    
-                              <td><?php echo  str_pad($row->customer_group_id, 4, '0', STR_PAD_LEFT);?></td>
+                              <td><?php echo  $row->group;?></td>
                               <td><?php echo  ucwords($row->group_name);?></td> 
                               <td><?php echo  $row->range_from;?></td> 
                               <td><?php echo  $row->range_to;?></td> 

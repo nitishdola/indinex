@@ -36,7 +36,7 @@
                        <?php echo form_close(); ?>   
                       <table class="table table-bordered" style="width:100%">
                       <tr>
-                       <th>Sl</th><th>Product Code</th><th>Plant Name</th><th>Company</th><th>Region</th><th>Country</th><th>City</th><th width="20%">Postal address</th><th>Edit</th><th>Delete</th>
+                       <th>Sl</th><th>Plant Code</th><th>Plant Name</th><th>Company</th><th>Region</th><th>Country</th><th>City</th><th width="20%">Postal address</th><th>Edit</th><th>Delete</th>
                       </tr>
                       <tbody>
                   <?php 

@@ -100,6 +100,7 @@ class Setup extends CI_Controller {
 				  'country' 		=> $this->input->post('country'),
 				  'region' 			=> $this->input->post('region'),
 				  'city' 			=> $this->input->post('city'),
+				  'pincode' 		=> $this->input->post('pincode'),
 				  'postal_address' 	=> $this->input->post('postal_address')
 			);
 			$this->load->model('company_model'); 
@@ -160,12 +161,13 @@ class Setup extends CI_Controller {
 			$country 				= $this->input->post('country');
 			$region 				= $this->input->post('region');
 			$city 					= $this->input->post('city');
+			$pincode 				= $this->input->post('pincode');
 			$telephone 				= $this->input->post('telephone');
 			$fax 					= $this->input->post('fax');
 			$language 				= $this->input->post('language');
 			$postal_address			= $this->input->post('postal_address');
 			
-			$this->company_model->change_company_data($company_id,$title,$company_name,$company_name2,$company_name3,$period_from,$period_to,$currency,$country,$region,$city,$telephone,$fax,$language,$mobile,$email,$postal_address);
+			$this->company_model->change_company_data($company_id,$title,$company_name,$company_name2,$company_name3,$period_from,$period_to,$currency,$country,$region,$city,$pincode,$telephone,$fax,$language,$mobile,$email,$postal_address);
 			$this->session->set_flashdata('response',"<div class='alert alert-success'><strong>Success!</strong>&nbsp;&nbsp;Data Changed</div>");			 
 			redirect(site_url('Setup/edit_company?id='.$company_id));			
 

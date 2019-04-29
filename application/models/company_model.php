@@ -54,9 +54,9 @@ class Company_Model extends CI_Model
     return $query->result();;  
   }
    
-  public function change_company_data($company_id,$title,$company_name,$company_name2,$company_name3,$period_from,$period_to,$currency,$country,$region,$city,$telephone,$fax,$language,$mobile,$email,$postal_address)
+  public function change_company_data($company_id,$title,$company_name,$company_name2,$company_name3,$period_from,$period_to,$currency,$country,$region,$city,$pincode,$telephone,$fax,$language,$mobile,$email,$postal_address)
   {
-    $query=$this->db->query("update company_setup SET title='$title',company_name='$company_name',company_name2='$company_name2',company_name3='$company_name3',period_from='$period_from',period_to='$period_to',currency='$currency',country='$country',region='$region',city='$city',telephone='$telephone',fax='$fax',language='$language',mobile='$mobile',email='$email',postal_address='$postal_address' where id='$company_id'");
+    $query=$this->db->query("update company_setup SET title='$title',company_name='$company_name',company_name2='$company_name2',company_name3='$company_name3',period_from='$period_from',period_to='$period_to',currency='$currency',country='$country',region='$region',city='$city',pincode='$pincode',telephone='$telephone',fax='$fax',language='$language',mobile='$mobile',email='$email',postal_address='$postal_address' where id='$company_id'");
     return true;
   }   
   	

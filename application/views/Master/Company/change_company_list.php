@@ -31,7 +31,7 @@
                        <?php echo form_close(); ?>                    
                   <table class="table table-bordered" style="width:100%">
                   <tr>
-                   <th>Sl</th><th>Company Code</th><th>Company Name</th><th>Finincial Year</th><th>Finincial To</th><th>Language</th><th>Currency</th><th>Country</th><th>Region</th><th>City</th><th width="20%">Postal address</th><th>Mobile</th><th>Email</th><th>Fax</th><th>Edit</th><th>Delete</th>
+                   <th>Sl</th><th>Company Code</th><th>Company Name</th><th>Finincial Year</th><th>Finincial To</th><th>Language</th><th>Currency</th><th>Country</th><th>Region</th><th>City</th><th>Pincode</th><th width="20%">Postal address</th><th>Mobile</th><th>Email</th><th>Fax</th><th>Edit</th><th>Delete</th>
                   </tr>
                   <tbody>
                   <?php 
@@ -50,6 +50,7 @@
                       <td><?php echo  $row->country;?></td> 
                       <td><?php echo  $row->state;?></td>
                       <td><?php echo  $row->city;?></td>
+                      <td><?php echo  $row->pincode;?></td>
                       <td><?php echo  $row->postal_address;?></td> 
                       <td><?php if(!empty($row->mobile)){
                       $mobile=unserialize($row->mobile);

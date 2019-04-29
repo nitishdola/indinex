@@ -2,7 +2,7 @@
 <body class="animsition app-projects"> 
    <?php $this->load->view('layout/admin/nav_menu'); ?> 
     <?php  
-    /*if(!empty($checkrecord)) 
+    if(!empty($checkrecord)) 
     {      
       foreach($checkrecord as $row) 
       {      
@@ -13,7 +13,7 @@
     } else {       
       $vendor_group_id=1; 
       $vendor_group_id=str_pad($vendor_group_id, 4, '0', STR_PAD_LEFT); 
-    } */
+    } 
     ?> 
     <div class="page"> 
       <div class="page-header"> 
@@ -69,7 +69,7 @@
                                   <option value="">Select</option>
                                   <?php foreach($company as $row)
                                     {
-                                      echo '<option value="'.$row->id.'">'.$row->title.''.$row->company_name.''.$row->company_name2.''.$row->company_name3.'</option>';
+                                      echo '<option value="'.$row->id.'">'.$row->title.''.$row->company_name.''.$row->company_name2.''.$row->company_name3.'&nbsp;&nbsp;&nbsp;-'.$row->company_code.'</option>';
                                     } ?>  
                                 </select>
                               </div> 
@@ -100,7 +100,8 @@
 $(function(){  
 
   $('#vendor_account_group_id').change(function(){ 
-    var vendor_group_id=$('#vendor_account_group_id').val();      
+    var vendor_group_id=$('#vendor_account_group_id').val();   
+   
     var url= "<?php echo base_url(); ?>" + "index.php/vendors/ajax_get_vendor_code"; 
      //$.blockUI(); 
      jQuery.ajax({ 

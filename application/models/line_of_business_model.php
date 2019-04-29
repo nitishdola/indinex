@@ -11,6 +11,7 @@ class Line_Of_Business_Model extends CI_Model
 
 	public function select()  
 	{  
+    $this->db->order_by("id", "asc");
    	$query = $this->db->get('business_type');  
    	return $query;  
 	}

@@ -49,7 +49,7 @@
                             <option value="">Select</option> 
                             <?php foreach($plant as $row)
                               {
-                                echo '<option value="'.$row->storage_id.'">'.$row->first_name.' '.$row->middle_name.' '.$row->last_name.'</option>';
+                                echo '<option value="'.$row->storage_id.'">'.$row->first_name.' '.$row->middle_name.' '.$row->last_name.'&nbsp;&nbsp;&nbsp;-'.$row->pcode.'</option>';
                               } ?>   
                           </select>
                         </div>
@@ -99,7 +99,7 @@
                           <option value="">Select</option>  
                             <?php foreach($states as $row)     
                               {
-                                echo '<option value="'.$row->id.'">'.$row->name.'</option>';
+                                echo '<option value="'.$row->id.'">'.$row->TIN_no.'-'.$row->name.'</option>';
                               }   ?>  
                           </select>
                         </div>
@@ -115,7 +115,7 @@
                       <div class="form-group row">
                         <label class="col-md-4 col-form-label">Postal Address: </label>
                         <div class="col-md-8">
-                          <textarea class="form-control" placeholder="Address" autocomplete="off" id="postal_address" name="postal_address" rows="5" required="true"></textarea>
+                          <textarea class="form-control" placeholder="Address" autocomplete="off" id="postal_address" name="postal_address" rows="5" ></textarea>
                         </div>
                       </div>
                   </div>

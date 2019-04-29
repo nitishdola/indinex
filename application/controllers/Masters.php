@@ -386,7 +386,6 @@ class Masters extends CI_Controller {
     	$this->load->database();          
         $this->load->model('sub_storage_model'); 
        // $data['result']=$this->sub_storage_model->select(); 
-
         $this->load->model('main_storage_model'); 		
 		$data['plant'] = $this->main_storage_model->getAllPlant();
         if($this->input->post('search'))
@@ -688,15 +687,18 @@ class Masters extends CI_Controller {
     }
 
     public function create_holiday_list(){
-    	$this->load->database();          
+    	$this->load->database();     
+        $this->load->model('company_model'); 
+        $data['company'] = $this->company_model->getCompanyCode(); 
+
         $this->load->model('holiday_model'); 
         $this->load->view('Master/Holiday_list/create_holiday_list');
         if($this->input->post('sub'))
  		{	 
- 			
+            
  			$data = array(
-				'date_from' 		=> $this->input->post('date_from'),
-                'date_to'           => $this->input->post('date_to'),
+				'date_from' 		=> date('Y-m-d',strtotime($this->input->post('date_from'))),
+                'date_to'           => date('Y-m-d',strtotime($this->input->post('date_to'))),
 				'holiday_name' 	    => $this->input->post('holiday_name')
 			);
 
