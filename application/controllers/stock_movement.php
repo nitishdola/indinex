@@ -24,14 +24,19 @@ class stock_movement extends CI_Controller {
         $this->load->model('sub_storage_model'); 
         $data['storage']=$this->sub_storage_model->select(); 
 
+        $this->load->model('product_category_model'); 
+        $data['category']=$this->product_category_model->select(); 
+
 		$this->load->model('main_storage_model'); 		
 		$data['plant'] = $this->main_storage_model->getAllPlant();
 
 		$this->load->model('stock_movement_model'); 
-		$data['record'] = $this->stock_movement_model->last_record();		
+		$data['record'] = $this->stock_movement_model->last_record();
+
+		$this->load->model('stock_movement_model'); 
+		//$data['product'] = $this->product_master_model->fetchProductDetails();
 		
 		$this->load->view('stock_movements/create_stock_movement',$data);
-
 		//echo $ip_address = $this->input->ip_address();
 		if($this->input->post('sub'))
  		{
@@ -80,8 +85,8 @@ class stock_movement extends CI_Controller {
 
 		if($this->input->post('search'))
  		{
- 			$transfer_type=$this->input->post('transfer_type');
- 			$data['res'] = $this->stock_movement_model->select($transfer_type);
+ 			$code=$this->input->post('code');
+ 			$data['res'] = $this->stock_movement_model->select($code);
  		} else {
  			$data['res'] = $this->stock_movement_model->select();
  		}
@@ -140,6 +145,28 @@ class stock_movement extends CI_Controller {
        	echo  json_encode($array_loc);	
 		
 	}
+	public function ajax_product_name() {
+		
+		$category_id	=$this->input->get('category_id');
+		
+		$this->load->model('product_master_model'); 
+        $arr['product']=$this->product_master_model->fetchProductName($category_id);
+
+        //var_dump($arr['product']);
+        //die();
+        $i=0;
+        $array = array();
+		foreach( $arr['product'] as $row)  
+        { 	 
+	    	$array[$i]["id"]			=$row->id;
+	    	$array[$i]["product_name"] 	=$row->product_description;	    	
+	    	$i++; 
+        }    
+        
+       	echo  json_encode($array);
+		
+	}
+
 	public function edit_stock_movement($id=null){
 		$this->load->database(); 
 		

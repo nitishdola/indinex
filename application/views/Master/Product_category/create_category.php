@@ -38,7 +38,7 @@
                       <div class="form-group row">
                         <label class="col-md-4 col-form-label">Category Code: </label>
                         <div class="col-md-8">
-                          <?php echo form_input(array('id' => 'category_code', 'name' => 'category_code','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off','readonly'=>'readonly','value'=>$category_code)); ?>
+                          <?php echo form_input(array('id' => 'category_code', 'name' => 'category_code','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off')); ?>
                         </div>
                       </div>                      
                       <div class="form-group row">

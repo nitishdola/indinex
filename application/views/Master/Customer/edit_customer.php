@@ -126,7 +126,7 @@
                               <label class="col-md-6 col-form-label">Country: </label>
                               <div class="col-md-6">
                                 <select id="country" name="country" class="form-control" >
-                                  <option>INDIA</option>
+                                  <option value="India">India</option>
                                 </select>
                               </div>
                             </div>
@@ -137,7 +137,7 @@
                                 <option value="">Select</option>  
                                   <?php foreach($states as $st2)     
                                     { ?>
-                                    <option <?php if($st2->name == $row->region){ echo 'selected="selected"'; } ?> value="<?php echo $st2->id; ?>"><?php echo $st2->name?> </option>
+                                    <option <?php if($st2->id == $row->region){ echo 'selected="selected"'; } ?> value="<?php echo $st2->id; ?>"><?php echo $st2->name?> </option>
                                     <?php }  ?>  
                                 </select>
                               </div>
@@ -146,7 +146,10 @@
                               <label class="col-md-6 col-form-label">City: </label>
                               <div class="col-md-6">
                                   <select id="city_id" name="city" class="form-control" required="true">
-                                  <option value="">Select</option>
+                                  <?php foreach($city as $ct)     
+                                    { ?>
+                                    <option <?php if($ct->city_name == $row->city){ echo 'selected="selected"'; } ?> value="<?php echo $ct->city_id; ?>"><?php echo $ct->city_name?> </option>
+                                    <?php }  ?> 
                                   </select>
                               </div>
                             </div>                            
@@ -302,7 +305,7 @@
                               <label class="col-md-6 col-form-label">Country: </label>
                               <div class="col-md-6">
                                <select id="" name="bank_country" class="form-control">
-                                  <option>INDIA</option>
+                                  <option value="India">India</option>
                                 </select>
                               </div>
                             </div>
@@ -311,9 +314,9 @@
                               <div class="col-md-6">
                                  <select class="form-control" id="region_bank_id" name="bank_region" >
                                   <option value="">Select</option>  
-                                  <?php foreach($states as $st)     
+                                  <?php foreach($states as $st) 
                                     { ?>
-                                    <option <?php //if($st->name == $row->region){ echo 'selected="selected"'; } ?> value="<?php echo $st->id; ?>"><?php echo $st->id?> </option>
+                                    <option <?php if($st->name == $row->region){ echo 'selected="selected"'; } ?> value="<?php echo $st->id; ?>"><?php echo $st->name?> </option>
                                     <?php }  ?>  
                                 </select>
                               </div>
@@ -323,7 +326,10 @@
                               <div class="col-md-6">
                                <select id="city_bank_id" name="bank_city" class="form-control">
                                   <option value="">Select</option>
-
+                                  <?php foreach($city as $ci) 
+                                    { ?>
+                                    <option <?php if($c->name == $row->city){ echo 'selected="selected"'; } ?> value="<?php echo $ci->id; ?>"><?php echo $ci->city_name?> </option>
+                                    <?php }  ?> 
                                 </select>
                               </div>                             
                             </div>
@@ -461,7 +467,7 @@ $(function(){
 
           error: function (jqXhr, textStatus, errorMessage) {
             // $.unblockUI();
-             $('p').append('Error' + errorMessage);
+             //$('p').append('Error' + errorMessage);
           }
        });
   });

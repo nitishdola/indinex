@@ -28,7 +28,7 @@
                         <td><?php echo $k+1; ?></td>
                         <td><?php echo $v->receipt_number; ?></td>
                         <td><?php echo date('d-m-Y', strtotime($v->receipt_date)); ?></td>
-                        <td><?php echo $v->customer_name; ?></td>
+                        <td><?php echo $v->title.'&nbsp;'.$v->first_name.'&nbsp;'.$v->middle_name.'&nbsp;'.$v->last_name; ?></td>
                         <td><a class="btn btn-sm btn-primary" href="<?php echo site_url('pos/view_receipt/'.$v->id); ?>"> <i class="fa fa-share" aria-hidden="true"></i> Details</a>
                         </td>
                       </tr>

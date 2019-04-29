@@ -61,11 +61,11 @@
                     </div>  
                     <div class="tab-content">
                       <div class="tab-content">
-                  <div role="tabpanel" class="tab-pane active" id="general">
+                    <div role="tabpanel" class="tab-pane active" id="general">
                     <h3 class="">General Data</h3> 
 
                      <p>General Data Form</p>                       
-                     <?php echo form_open(); ?>
+                    <?php echo form_open_multipart(); ?>
                      <?php 
                       $vcode          = $this->input->get('vcode');
                       $group_id       = $this->input->get('group_id');
@@ -73,17 +73,16 @@
                       <?php echo form_input(array('type' =>'hidden', 'name' => 'vcode','value'=>$vcode)); ?>
                       <?php echo form_input(array('type' =>'hidden', 'name' => 'group_id','value'=>$group_id)); ?>
                       <?php echo form_input(array('type' =>'hidden', 'name' => 'company_code','value'=>$company_code)); ?>
-                        <div class="row row-lg">  
-
+                        <div class="row row-lg"> 
                           <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                             <?php echo $this->session->flashdata('response'); ?> 
-                          </div>   <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                          </div>   
+                          <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
                               <!-- Example Horizontal Form -->
                               <div class="example-wrap">
-                              <h4 class="example-title"></h4> 
-                              
+                              <h4 class="example-title"></h4>                              
                                 <div class="example">
-                                   <div class="form-group row">
+                                <div class="form-group row">
                               <label class="col-md-4 col-form-label">Product Category: </label>
                               <div class="col-md-8">
                                 <select name="product_category" id="product_category" class="form-control" required="required"><option value="">Select</option> 
@@ -117,9 +116,11 @@
                                   <div class="form-group row">
                                     <label class="col-md-4 col-form-label">Photo: </label>
                                     <div class="col-md-8">
-                                        <span class="btn btn-info btn-file">Browse Image File
-                                       <?php echo form_input(array('type' => 'file','id' => 'picture', 'name' => 'picture','style'=>'margin-bottom:5px')); ?>
-                                       </span>
+                                        <!--<span class="btn btn-info btn-file">Browse Image File
+                                       <?php //echo form_input(array('type' => 'file','id' => 'picture', 'name' => 'picture','style'=>'margin-bottom:5px')); ?>
+                                       </span>-->
+
+                                       <span class="btn btn-info btn-file">Browse Image File<input name="picture" type="file" required="true" /></span>
                                     </div>
                                   </div>                                                        
                                 </div>
@@ -164,9 +165,9 @@
                               <div class="col-md-8">
                                 <select id="size" class="form-control" name="size">
                                     <option value="">Size</option>
-                                     <?php foreach($sizes as $row)  {
+                                    <?php foreach($sizes as $row)  {
                                       echo '<option value="'.$row->variants_name.'">'.$row->variants_name.'</option>';                           
-                                  } ?>
+                                    } ?>
                                 </select> 
 
                               </div>
@@ -196,7 +197,7 @@
                                 <?php echo form_input(array('type'=>'number','id' => 'conversion_factor_to', 'name' => 'conversion_factor_to','style'=>'width:80px;float:left;margin-right:10px','class'=>'form-control')); ?> 
                                 <select id="factor_to_uom" name="factor_to_uom" class="form-control" style="width:80px;margin-right:2px">
                                     <option value="">UOM</option>
-                                    <?php foreach($variants as $row)  {
+                                    <?php foreach($variants as $row)  {   
                                     echo '<option value="'.$row->variants_name.'">'.$row->variants_name.'</option>';                           
                                   } ?>
                                 </select> 
@@ -235,7 +236,7 @@
                                   <option value="">Select</option> 
                                         <?php foreach($plant as $row)
                                         {
-                                          echo '<option value="'.$row->id.'">'.$row->first_name.' '.$row->middle_name.' '.$row->last_name.'</option>';
+                                          echo '<option value="'.$row->storage_id.'">'.$row->first_name.' '.$row->middle_name.' '.$row->last_name.'</option>';
                                         } ?>                                               
                                    </select>
                               </div>
@@ -252,7 +253,7 @@
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label">Packaging: </label>
                               <div class="col-md-8">
-                                 <?php echo form_input(array('type'=>'text','id' => 'packaging', 'name' => 'packaging','style'=>'width:300px;float:left;margin-right:2px','class'=>'form-control')); ?> 
+                                 <?php echo form_input(array('type'=>'text','id' => 'packaging', 'name' => 'packaging','style'=>'width:250px;float:left;margin-right:2px','class'=>'form-control')); ?> 
                                   <select id="packaging_uom" name="packaging_uom" style="width:100px" class="form-control">
                                     <option value="">UOM</option>
                                     <?php foreach($variants as $row)  {
@@ -264,7 +265,7 @@
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label">Order Unit: </label>
                               <div class="col-md-8">
-                                <?php echo form_input(array('type'=>'number','id' => 'order_unit', 'name' => 'order_unit','style'=>'width:300px;float:left;margin-right:2px','class'=>'form-control')); ?> 
+                                <?php echo form_input(array('type'=>'number','id' => 'order_unit', 'name' => 'order_unit','style'=>'width:250px;float:left;margin-right:2px','class'=>'form-control')); ?> 
                                   <select id="order_unit_uom" name="order_unit_uom" style="width:100px" class="form-control">
                                     <option value="">UOM</option>
                                     <?php foreach($variants as $row)  {
@@ -300,7 +301,7 @@
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label">Min Order Qty: </label>
                               <div class="col-md-8">
-                                <?php echo form_input(array('type'=>'number','id' => 'min_order_qty', 'name' => 'min_order_qty','style'=>'width:300px;float:left;margin-right:2px','class'=>'form-control')); ?> 
+                                <?php echo form_input(array('type'=>'number','id' => 'min_order_qty', 'name' => 'min_order_qty','style'=>'width:250px;float:left;margin-right:2px','class'=>'form-control')); ?> 
                                   <select id="min_order_qty_uom" name="min_order_qty_uom" style="width:100px" class="form-control">
                                     <option value="">UOM</option>
                                     <?php foreach($variants as $row)  {
@@ -327,9 +328,9 @@
                               <label class="col-md-4 col-form-label"> </label>
                               <div class="col-md-8">
                               Sale Item
-                              <?php echo form_input(array('type'=>'checkbox','id' => 'variants_name', 'name' => 'variants_name','style'=>'margin-bottom:5px;margin-left:15px')); ?>
+                              <?php echo form_input(array('type'=>'checkbox','id' => 'sale_item', 'name' => 'sale_item','style'=>'margin-bottom:5px;margin-left:15px','value'=>'sale_item')); ?>
                               Purchase Item
-                              <?php echo form_input(array('type'=>'checkbox','id' => 'variants_name', 'name' => 'variants_name','style'=>'margin-bottom:5px;margin-left:15px')); ?>       
+                              <?php echo form_input(array('type'=>'checkbox','id' => 'purchase_item', 'name' => 'purchase_item','style'=>'margin-bottom:5px;margin-left:15px','value'=>'purchase_item')); ?>       
                               </div>
                             </div>
                       </div>
@@ -359,14 +360,14 @@
                                <div class="form-group row">
                               <label class="col-md-4 col-form-label">Product Manufacturing: </label>
                               <div class="col-md-8">
-                                 <?php echo form_input(array('id' => 'product_manufacturing', 'name' => 'product_manufacturing','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'off','maxlength'=>'4')); ?>
+                                 <?php echo form_input(array('id' => 'product_manufacturing', 'name' => 'product_manufacturing','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'off','maxlength'=>'')); ?>
                               </div>
                             </div>
 
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label">Manufacturing Date: </label>
                               <div class="col-md-8">
-                                <?php echo form_input(array('type'=>'date','id' => 'manufacturing_date', 'name' => 'manufacturing_date','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'off','maxlength'=>'4')); ?>
+                                <?php echo form_input(array('type'=>'date','id' => 'manufacturing_date', 'name' => 'manufacturing_date','class'=>'form-control','autocomplete'=>'off')); ?>
                               </div>
                             </div>
 
@@ -404,21 +405,21 @@
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label">Purchase From Outside: </label>
                               <div class="col-md-8">
-                                <?php echo form_input(array('type'=>'checkbox','id' => 'variants_name', 'name' => 'variants_name','style'=>'margin-bottom:5px;')); ?>                 
+                                <?php echo form_input(array('type'=>'checkbox','id' => 'purchase_from_outsid', 'name' => 'purchase_from_outside','style'=>'margin-bottom:5px;', 'value' => 'purchase_from_outside')); ?>                 
                               </div>
                             </div>                         
                             
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label">Ok to Purchase: </label>
                               <div class="col-md-8">
-                                 <?php echo form_input(array('type'=>'checkbox','id' => 'variants_name', 'name' => 'variants_name','style'=>'margin-bottom:5px;margin-left:15px','checked'=>'checked')); ?>                  
+                                 <?php echo form_input(array('type'=>'checkbox','id' => 'ok_to_purchase', 'name' => 'ok_to_purchase','style'=>'margin-bottom:5px;margin-left:15px','checked'=>'checked', 'value' => 'ok_to_purchase')); ?>                  
                               </div>
                             </div>
                             
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label">Cannot be Purchase/ Manufacturing/Buy: </label>
                               <div class="col-md-8">
-                                <?php echo form_input(array('type'=>'checkbox','id' => 'variants_name', 'name' => 'variants_name','style'=>'margin-bottom:5px;margin-left:15px')); ?>
+                                <?php echo form_input(array('type'=>'checkbox','id' => 'cannot_be_purchase', 'name' => 'cannot_be_purchase','style'=>'margin-bottom:5px;margin-left:15px', 'value' => 'cannot_be_purchase')); ?>
                               </div>
                             </div> 
                         </div>                    
@@ -493,7 +494,7 @@
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label">Batch: </label>
                               <div class="col-md-8">
-                                 <?php echo form_input(array('type'=>'checkbox','id' => 'variants_name', 'name' => 'variants_name','style'=>'margin-bottom:5px;margin-left:15px','checked'=>'checked','class'>'form-control')); ?>
+                                 <?php echo form_input(array('type'=>'checkbox','id' => 'batch', 'name' => 'batch','style'=>'margin-bottom:5px;margin-left:15px','checked'=>'checked','class'>'form-control','value'=>'Batch')); ?>
                               </div>
                             </div> 
                                                 
@@ -570,7 +571,7 @@
                               </div>
                             </div>  
                             <div class="form-group row">
-                              <label class="col-md-4 col-form-label">saPurchase Price: </label>
+                              <label class="col-md-4 col-form-label">Purchase Price: </label>
                               <div class="col-md-8">
                                 <?php echo form_input(array('type'=>'number','id' => 'purchase_price', 'name' => 'purchase_price','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true')); ?>
                               </div>
@@ -646,7 +647,7 @@ $('#plant').change(function(){
               $.each(jsonArray, function(index,jsonObject){
                   $('#storage_location_id')
                   .append($("<option></option>")
-                  .attr("value",jsonObject['first_name'])
+                  .attr("value",jsonObject['id'])
                   .text(jsonObject['first_name']));               
             });         
           },

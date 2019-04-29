@@ -16,7 +16,7 @@
 			     <li>
               <div class="panel">
                 <figure class="overlay overlay-hover animation-hover">
-                  <img class="caption-figure overlay-figure dashboard-icon" src="<?php echo base_url();?>assets/images/indianex_images/master/line_of_business.png">
+                  <img class="caption-figure overlay-figure dashboard-icon" src="<?php echo base_url();?>assets/images/indianex_images/company.png">
                   <figcaption class="overlay-panel overlay-background overlay-fade text-center vertical-align">
                     <div class="btn-group">
 					             <div class="dropdown float-left">
@@ -24,7 +24,7 @@
                         </div>
                       </div>
                     </div>
-                    <a class="btn btn-inverse project-button" href="<?php echo site_url('Masters/line_of_business_sub');?>">COMPANY</a>                    
+                    <a class="btn btn-inverse project-button" href="<?php echo site_url('Setup/company_sub');?>">COMPANY</a>                    
                   </figcaption>
                 </figure>
                 <div class="text-truncate">COMPANY</div>
@@ -83,28 +83,14 @@
                 <div class="text-truncate">STORAGE LOCATION</div>
               </div>
             </li>
-            <li>
-              <div class="panel">
-                <figure class="overlay overlay-hover animation-hover">
-                  <img class="caption-figure overlay-figure dashboard-icon" src="<?php echo base_url();?>assets/images/indianex_images/master/holiday_list.png">
-                  <figcaption class="overlay-panel overlay-background overlay-fade text-center vertical-align">
-                    <div class="btn-group">
-                      <div class="dropdown float-left">
-                        <div class="dropdown-menu" role="menu">
-                        </div>
-                      </div>
-                    </div>
-                     <a class="btn btn-inverse project-button" href="<?php echo site_url('Masters/holiday_list_sub');?>">HOLIDAY LIST</a>  
-                    
-                  </figcaption>
-                </figure>
-                <div class="text-truncate">HOLIDAY LIST</div>
-              </div>
+
+             
             </li>
+           
             <li>
               <div class="panel">
                 <figure class="overlay overlay-hover animation-hover">
-                  <img class="caption-figure overlay-figure dashboard-icon" src="<?php echo base_url();?>assets/images/indianex_images/master/holiday_list.png">
+                  <img class="caption-figure overlay-figure dashboard-icon" src="<?php echo base_url();?>assets/images/indianex_images/vendor_acc.png">
                   <figcaption class="overlay-panel overlay-background overlay-fade text-center vertical-align">
                     <div class="btn-group">
                       <div class="dropdown float-left">
@@ -122,7 +108,7 @@
             <li>
               <div class="panel">
                 <figure class="overlay overlay-hover animation-hover">
-                  <img class="caption-figure overlay-figure dashboard-icon" src="<?php echo base_url();?>assets/images/indianex_images/master/holiday_list.png">
+                  <img class="caption-figure overlay-figure dashboard-icon" src="<?php echo base_url();?>assets/images/indianex_images/customer_acc.png">
                   <figcaption class="overlay-panel overlay-background overlay-fade text-center vertical-align">
                     <div class="btn-group">
                       <div class="dropdown float-left">
@@ -138,7 +124,24 @@
               </div>
             </li>
 
-            
+             <li>
+              <div class="panel">
+                <figure class="overlay overlay-hover animation-hover">
+                  <img class="caption-figure overlay-figure dashboard-icon" src="<?php echo base_url();?>assets/images/indianex_images/holiday_list.png">
+                  <figcaption class="overlay-panel overlay-background overlay-fade text-center vertical-align">
+                    <div class="btn-group">
+                      <div class="dropdown float-left">
+                        <div class="dropdown-menu" role="menu">
+                        </div>
+                      </div>
+                    </div>
+                     <a class="btn btn-inverse project-button" href="<?php echo site_url('Masters/holiday_list_sub');?>">HOLIDAY LIST</a>  
+                    
+                  </figcaption>
+                </figure>
+                <div class="text-truncate">HOLIDAY LIST</div>
+              </div>
+            </li>
           </ul>
         </div>
 

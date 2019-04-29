@@ -6,9 +6,8 @@
       <div class="page-header">
         <ol class="breadcrumb">          
           <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard');?>">Dashboard</a></li>
-          <li class="breadcrumb-item"><a href="<?php echo site_url('Masters');?>">Master</a></li>
-          <li class="breadcrumb-item"><a href="<?php echo site_url('Vendors/vendor_main');?>">Vendor</a></li>
-          <li class="breadcrumb-item"><a href="<?php echo site_url('Vendors/vendor_account_sub');?>">Vendor Group</a></li>       
+          <li class="breadcrumb-item"><a href="<?php echo site_url('Setup');?>">Setup</a></li>
+          <li class="breadcrumb-item"><a href="<?php echo site_url('Vendors/vendor_account_sub');?>">Account Group</a></li>   
           <li class="breadcrumb-item active">Display</li>
         </ol>
     
@@ -20,7 +19,7 @@
                   <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                       <table class="table table-bordered" style="width:100%">
                       <tr>
-                       <th>Sl</th><th>Account Group Id</th><th>Group Name</th><th>Range From</th><th>Range To</th>
+                       <th>Sl</th><th>Account Group Id</th><th>Group Name</th><th>Range From</th><th>Range To</th><th>Current Status</th>
                       </tr>
                       <tbody>
                           <?php 
@@ -30,11 +29,11 @@
 
                             <tr>  
                               <td><?php echo  $i;?>    </td>                       
-                              <td><?php echo  $row->vendor_group_id;?></td> 
+                              <td><?php echo  str_pad($row->vendor_group_id, 4, '0', STR_PAD_LEFT);?></td> 
                               <td><?php echo  ucwords($row->group_name);?></td> 
                               <td><?php echo  $row->range_from;?></td> 
                               <td><?php echo  $row->range_to;?></td> 
-                              
+                              <td><?php echo  $row->total;?></td>                              
                             </tr>  
                             
                            <?php }  ?>

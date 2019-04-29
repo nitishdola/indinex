@@ -38,6 +38,16 @@ class customer_model extends CI_Model
     return $query->result();     
 
   }  
+  public function filter_customer_details($code)  
+  {  
+    $this->db->select('*');
+    $this->db->from('customer_details');
+    $this->db->join('customer_group', 'customer_group.id = customer_details.customer_group_id','left');    
+    $this->db->where('customer_details.customer_code',$code);  
+    $query = $this->db->get();      
+    return $query->result();     
+
+  }  
   public function customer_details($customer_id)  
   {  
     $this->db->select('*');
@@ -79,6 +89,23 @@ class customer_model extends CI_Model
   public function change_customer_payment($customer_id,$payment_term,$cr_memo_term,$payment_method)
   {
     $query=$this->db->query("update customer_details SET payment_term='$payment_term',cr_memo_term='$cr_memo_term',payment_method='$payment_method' where customer_id='$customer_id'");
+    return true;
+  }
+
+
+  public function fetchCustomerGroup()  
+  { 
+    $this->db->select('customer_group.*,customer_details.customer_group_id,COUNT(customer_details.customer_id) as total');
+    $this->db->from('customer_group');
+    $this->db->join('customer_details','customer_details.customer_group_id = customer_group.id','left');
+    $this->db->group_by('customer_group.id');
+    $query = $this->db->get();  
+    return $query->result();
+  }
+
+  public function deleteRecord($id){
+    $this->db->where('customer_id', $id);
+    $this->db->delete('customer_details');
     return true;
   }
 } 

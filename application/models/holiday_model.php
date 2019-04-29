@@ -12,8 +12,9 @@ class Holiday_Model extends CI_Model
 
   public function select()  
   {  
-    $query = $this->db->get('holiday_list');  
-    return $query;  
+    $query = $this->db->get('holiday_list'); 
+    $this->db->order_by("date_from", "DESC"); 
+    return $query->result();  
   }
       
   	

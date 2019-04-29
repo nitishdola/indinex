@@ -14,28 +14,16 @@ class Product_Master_Model extends CI_Model
     $this->db->insert('product_accounting_data', $accounting_data);
 	}
 
- /* function form_purchase($data){
-  
-    $this->db->insert('product_purchase_data', $data);
+  public function fetchProductName($category_id)
+  {
+    $this->db->where('product_category',$category_id);
+    $query = $this->db->get('product_general_data');
+    return $query->result();
   }
-  function form_manufacture($data){
-  
-    $this->db->insert('product_manufacture_data', $data);
-  }
-  function form_storage($data){
-  
-    $this->db->insert('product_storage_data', $data);
-  }
-  function form_accounts($data){
-  
-    $this->db->insert('product_accounting_data', $data);
-  } */
+
 	public function select()  
 	{  
-   	/*$query = $this->db->get('product_general_data');  
-   	return $query; */
-
-    $this->db->select('*');
+   	$this->db->select('*');
     $this->db->select('product_general_data.id as product_general_data_id');
     $this->db->from('product_general_data');
     //$this->db->join('product_category','product_category.id = product_general_data.product_category');
@@ -45,6 +33,24 @@ class Product_Master_Model extends CI_Model
     return $query; 
 
 	}  
+
+  public function filterData($code=null)   
+  {  
+    if($code!=''){
+      $where=$this->db->where('product_general_data.product_code',$code); 
+    }     
+      $this->db->select('*');
+      $this->db->from('product_general_data');      
+      $this->db->join('product_manufacture_data','product_manufacture_data.product_code = product_general_data.product_code','left');
+      $this->db->join('product_storage_data','product_storage_data.product_code = product_general_data.product_code','left'); 
+      $this->db->join('product_accounting_data',' product_accounting_data.product_code = product_general_data.product_code','left');      
+      $this->db->join('product_category',' product_category.id = product_general_data.product_category','left');
+      $this->db->join('product_purchase_data','product_purchase_data.product_code = product_general_data.product_code','left');
+      $this->db->join('storage_type',' storage_type.storage_id = product_purchase_data.plant','left');
+      $where;
+      $query = $this->db->get();
+      return $query;  
+  }
   	public function select_tmparature()  
   	{  
      	$this->db->where('condition_types','Temparature');
@@ -122,7 +128,7 @@ class Product_Master_Model extends CI_Model
       $this->db->join('product_accounting_data',' product_accounting_data.product_code = product_general_data.product_code','left');      
       $this->db->join('product_category',' product_category.id = product_general_data.product_category','left');
       $this->db->join('product_purchase_data','product_purchase_data.product_code = product_general_data.product_code','left');
-      $this->db->join('storage_type',' storage_type.id = product_purchase_data.plant','left');
+      $this->db->join('storage_type',' storage_type.storage_id = product_purchase_data.plant','left');
       //$this->db->join('storage_location',' storage_location.plant_id = storage_type.id','left');
       $this->db->where('product_general_data.product_code',$product_code);  
       $query = $this->db->get();      
@@ -140,8 +146,8 @@ class Product_Master_Model extends CI_Model
     $query=$this->db->query("update product_general_data SET product_category='$product_category',product_description='$product_description',product_group='$product_group',picture='$picture',old_material_no='$old_material_no',net_weight='$net_weight',net_uom='$net_uom',gross_weight='$gross_weight',gross_uom='$gross_uom',size='$size',color='$color',conversion_factor_from='$conversion_factor_from',factor_from_uom='$factor_from_uom',conversion_factor_to='$conversion_factor_to',factor_to_uom='$factor_to_uom' where product_code='$product_code'");
     return true;
   }
-  public function change_product_purchase_data($product_code,$plant,$storage_location,$packaging,$packaging_uom,$order_unit_uom,$order_unit,$shipping_instructions,$tolerance,$min_order_qty,$min_order_qty_uom,$manufacture_part_no,$manufacturer_name){
-    $query=$this->db->query("update product_purchase_data SET plant='$plant',storage_location='$storage_location',packaging='$packaging',packaging_uom='$packaging_uom',order_unit_uom='$order_unit_uom',shipping_instructions='$shipping_instructions',tolerance='$tolerance',min_order_qty='$min_order_qty',min_order_qty_uom='$min_order_qty_uom',manufacture_part_no='$manufacture_part_no',manufacturer_name='$manufacturer_name' where product_code='$product_code'");
+  public function change_product_purchase_data($product_code,$plant,$storage_location,$packaging,$packaging_uom,$order_unit_uom,$order_unit,$shipping_instructions,$max_tolerance,$min_tolerance,$min_order_qty,$min_order_qty_uom,$manufacture_part_no,$manufacturer_name){
+    $query=$this->db->query("update product_purchase_data SET plant='$plant',storage_location='$storage_location',packaging='$packaging',packaging_uom='$packaging_uom',order_unit_uom='$order_unit_uom',shipping_instructions='$shipping_instructions',max_tolerance='$max_tolerance',min_tolerance='$min_tolerance',min_order_qty='$min_order_qty',min_order_qty_uom='$min_order_qty_uom',manufacture_part_no='$manufacture_part_no',manufacturer_name='$manufacturer_name' where product_code='$product_code'");
     return true;
   }
 
@@ -157,8 +163,24 @@ class Product_Master_Model extends CI_Model
   public function change_product_accounting_data($product_code,$ledger,$currency,$sale_price,$custom_tax,$purchase_price){
     $query=$this->db->query("update  product_accounting_data SET product_code='$product_code',ledger='$ledger',currency='$currency',sale_price='$sale_price',custom_tax='$custom_tax',purchase_price='$purchase_price' where product_code='$product_code'");
     return true;
+  }
 
+  public function deleteRecord($id){
+    $this->db->where('product_code', $id);
+    $this->db->delete('product_general_data');
+    
+    $this->db->where('product_code', $id);
+    $this->db->delete('product_manufacture_data');
+    
+    $this->db->where('product_code', $id);
+    $this->db->delete('product_storage_data');
+    
+    $this->db->where('product_code', $id);
+    $this->db->delete('product_accounting_data'); 
 
+    $this->db->where('product_code', $id);
+    $this->db->delete('product_purchase_data');     
+    return true;
   }
 
 } 
