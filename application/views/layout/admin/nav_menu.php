@@ -11,10 +11,11 @@
           data-toggle="collapse">
           <i class="icon md-more" aria-hidden="true"></i>
         </button>
+        <a href="<?php echo site_url('dashboard');?>">
         <div class="navbar-brand navbar-brand-center site-gridmenu-toggle" data-toggle="gridmenu">
           <img class="navbar-brand-logo" src="<?php echo base_url();?>assets/images/logo.png" title="INDINEX">
           <span class="navbar-brand-text hidden-xs-down"> INDINEX</span>
-        </div>
+        </div></a>
         <button type="button" class="navbar-toggler collapsed" data-target="#site-navbar-search"
           data-toggle="collapse">
           <span class="sr-only">Toggle Search</span>

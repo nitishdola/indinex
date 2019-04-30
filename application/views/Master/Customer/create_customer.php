@@ -8,7 +8,7 @@
            <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard');?>">Dashboard</a></li>
            <li class="breadcrumb-item"><a href="<?php echo site_url('Welcome/master');?>">Master</a></li>
             <li class="breadcrumb-item"><a href="<?php echo site_url('Customers/customer_master_sub');?>">Customer Master</a></li>      
-          <li class="breadcrumb-item active">Create Vendor</li>
+          <li class="breadcrumb-item active">Create Customer</li>
         </ol>
         <div class="page-content">
           <div class="projects-wrap">
@@ -44,19 +44,19 @@
                               </div>
                             </div>  
                             
-                            <div class="form-group row">
+                            <!-- <div class="form-group row">
                               <label class="col-md-4 col-form-label">Company Code: </label>
                               <div class="col-md-8">
                                 
                                   <select class="form-control" name="company_code" id="company_code">
                                   <option value="">Select</option>
-                                  <?php foreach($company as $row)
+                                  <?php /*foreach($company as $row)
                                     {
                                       echo '<option value="'.$row->id.'">'.$row->title.''.$row->company_name.''.$row->company_name2.''.$row->company_name3.'</option>';
-                                    } ?>  
+                                    } */ ?>  
                                 </select>
                               </div>
-                            </div>                       
+                            </div>  -->                     
                         </div>
                       </div>                     
                     </div>

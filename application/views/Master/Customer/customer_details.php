@@ -13,7 +13,7 @@
 <div class="page">
 <div class="page-header">
 <ol class="breadcrumb">
-  <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+  <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard');?>">Dashboard</a></li>
   <li class="breadcrumb-item"><a href="<?php echo site_url('Welcome/master');?>">Master</a></li>
   <li class="breadcrumb-item"><a href="<?php echo site_url('Customers/customer_master_sub');?>">Customer Master</a></li>
  
@@ -58,10 +58,10 @@
                      <?php 
                       $vcode          = $this->input->get('vcode');
                       $group_id       = $this->input->get('group_id');
-                      $company_code   = $this->input->get('ccode'); ?>
+                      //$company_code   = $this->input->get('ccode'); ?>
                       <?php echo form_input(array('type' =>'hidden', 'name' => 'vcode','value'=>$vcode)); ?>
                       <?php echo form_input(array('type' =>'hidden', 'name' => 'group_id','value'=>$group_id)); ?>
-                      <?php echo form_input(array('type' =>'hidden', 'name' => 'company_code','value'=>$company_code)); ?>
+                      <?php //echo form_input(array('type' =>'hidden', 'name' => 'company_code','value'=>$company_code)); ?>
                         <div class="row row-lg">                
                           <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
 
@@ -411,7 +411,7 @@
                           <div class="col-md-12">
                               <div class="form-group row">
                                 <div class="col-md-9">
-                                  <?php echo form_input(array('type' =>'hidden', 'name' => 'vendor_code','id'=>'vendor_code')); ?>
+                                  <?php /*echo form_input(array('type' =>'hidden', 'name' => 'vendor_code','id'=>'vendor_code'));*/ ?>
                                   <input type="hidden" name="sub" value="1">
                                   <button type="submit" class="btn btn-primary">Submit </button>
                                

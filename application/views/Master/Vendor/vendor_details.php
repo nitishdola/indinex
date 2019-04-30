@@ -180,7 +180,7 @@
                               </div> 
                                <div class="col-md-12">
                                   <div class="form-group row">
-                                    <div class="col-md-9">
+                                    <div class="col-md-9"><button type="button" id="changetabbutton" class="btn btn-primary btnNext">Set next tab</button>
                                      <button class="btn btn-primary continue" style="color:white">Continue</button>
                                     </div>
                                   </div>
@@ -222,7 +222,7 @@
                 </div>
                <div class="col-md-12">
                 <div class="form-group row">
-                  <div class="col-md-9">
+                  <div class="col-md-9"><button type="button" id="changetabbutton1" class="btn btn-primary btnNext">Set next tab</button>
                    <button class="btn btn-primary continue" style="color:white">Continue</button>
                   </div>
                 </div>
@@ -437,6 +437,10 @@
 <?php $this->load->view('layout/admin/footer'); ?>
 
 <script>
+ $('.btnNext').click(function(){
+  alert("hi");
+  $('.nav-tabs > .active').next('li').find('a').trigger('click');
+});
 $('#region_id').change(function(){
     var region_id       =$('#region_id').val();
     $('#city_id').empty(); 
@@ -487,8 +491,8 @@ $('#bank_region').change(function(){
        });
   });
 
-$('.continue').click(function(){
-  alert("hi");
+$('.continuee').click(function(){
+  //alert("hi");
     var title                   =$('#title').val();
     var first_name              =$('#first_name').val(); 
     var mobile_id               =$('#mobile_id').val();

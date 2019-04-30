@@ -82,9 +82,9 @@ class Customers extends CI_Controller {
 
  			$customer_code 			= $this->input->post('customer_code');
  			$customer_group_id		= $this->input->post('customer_account_group_id');
- 			$company_code 			= $this->input->post('company_code');
+ 			//$company_code 			= $this->input->post('company_code');
 
- 			redirect(site_url('Customers/customer_details?vcode='.$customer_code.'&group_id='.$customer_group_id.'&ccode='.$company_code));
+ 			redirect(site_url('Customers/customer_details?vcode='.$customer_code.'&group_id='.$customer_group_id));
  		}
  		$this->load->view('Master/Customer/create_customer',$data);	
 	}
@@ -98,13 +98,15 @@ class Customers extends CI_Controller {
 		$data['states'] = $this->country_model->getAllStates();	
 		
 		if($this->input->post('sub'))
-		{		
+		{	
+			//var_dump($_POST)	;
+			//exit();
 			$mobile= $this->input->post('mobile');
 
 			$data = array(
 				'customer_code' 			=> $this->input->post('vcode'),
 				'customer_group_id' 		=> $this->input->post('group_id'),
-				'company_code' 				=> $this->input->post('company_code'),
+				//'company_code' 				=> $this->input->post('company_code'),
 				'title'						=> $this->input->post('title'),
 				'first_name' 				=> $this->input->post('first_name'),
 				'middle_name' 				=> $this->input->post('middle_name'),
@@ -143,7 +145,7 @@ class Customers extends CI_Controller {
 			$this->load->model('customer_model'); 
 			$this->customer_model->insert_customer($data);
 			$this->session->set_flashdata('response',"<div class='alert alert-success'><strong>Success!</strong>&nbsp;&nbsp;record inserted</div>");
-			redirect(site_url('Customers/customer_details/'));
+			redirect(site_url('Customers/create_customer/'));
 		}
 		$this->load->view('Master/Customer/customer_details',$data);	
 	}
