@@ -16,7 +16,7 @@
           <div class="form-group row">
             <label class="col-md-4 col-form-label">Receipt Number : </label>
             <div class="col-md-5">
-               <input id="receipt_number" name="receipt_number" class="form-control" required="required">
+               <input id="receipt_number" name="receipt_number" value="<?php echo $receipt_number; ?>" class="form-control" required="required">
             </div>
           </div>          
           <table class="table table-condensed table-bordered">

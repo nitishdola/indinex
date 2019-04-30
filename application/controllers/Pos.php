@@ -29,10 +29,11 @@ class Pos extends CI_Controller {
         $this->load->view('layout/admin/nav_menu'); 
         $this->load->model('product_master_model'); 
         $this->load->model('customer_model'); 
+        $this->load->model('sales_model'); 
 
         $data['all_products'] = $this->product_master_model->select()->result();
         $data['all_customers'] = $this->customer_model->select()->result();
-
+        $data['receipt_number']   = $this->sales_model->receiptNumber();
         /*echo '<pre>';
         var_dump($data);
         echo '</pre>';*/
@@ -124,17 +125,16 @@ class Pos extends CI_Controller {
     } 
 
     public function view_receipt($sale_id) {
-        
         $this->load->view('layout/admin/header');           
         $this->load->view('layout/admin/nav_menu'); 
 
         $this->load->model('sales_model'); 
         $this->load->model('sales_items_model'); 
-
         $data['sales_details'] = $this->sales_model->fetchSalesDetails($sale_id)[0];
         $data['sales_items']   = $this->sales_items_model->fetchSalesItems($sale_id);
+        
 
-              
+        
         $this->load->view('pos/view_receipt',$data);
         $this->load->view('layout/admin/footer');   
     }

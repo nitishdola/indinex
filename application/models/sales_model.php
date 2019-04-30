@@ -29,4 +29,24 @@ class Sales_Model extends CI_Model
 
     return $query->result();
   }
+
+  public function receiptNumber() {
+    //$this->db->from('sales');
+    //$query = $this->db->get();
+
+    //$result = $query->row_array();
+    $count = $this->db->count_all_results('sales');
+
+    if(!$count) {
+      return 1;
+    }else{
+      $this->db->select_max('receipt_number');
+      $this->db->from('sales');
+      $query=$this->db->get();
+      $last_serial=$query->result_array();
+      $last_serial=$last_serial[0]['receipt_number'];
+      return $last_serial+1;
+    }
+
+  }
 }
