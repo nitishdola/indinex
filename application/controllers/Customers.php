@@ -45,6 +45,30 @@ class Customers extends CI_Controller {
 			redirect(site_url('Customers/create_acount_group'));
  		}	
 	}
+
+	public function edit_acount_group($id=null)
+	{
+		$this->load->model('customer_model');        
+		$data['result'] = $this->customer_model->select_customer_group();
+		//var_dump($data['result']);
+		
+		if($this->input->post('sub'))
+ 		{
+ 			$data = array(
+ 				$id 					= $this->input->post('h1'),
+				$group_name 			= $this->input->post('group_name'),
+				$range_from 			= $this->input->post('range_from'),
+				$range_to				= $this->input->post('range_to')			
+			);	  
+	       	
+			$this->customer_model->change_customer_group($id,$group_name,$range_from,$range_to);
+			$this->session->set_flashdata('response',"<div class='alert alert-success'><strong>Success!</strong>&nbsp;&nbsp;record inserted</div>");			
+			redirect(site_url('Customers/edit_acount_group?id='.$id));
+ 		}	
+ 		$this->load->view('Master/Customer/edit_acount_group',$data);
+	}
+
+
 	public function range_if_exist($range_from=1000)
 	{
 		

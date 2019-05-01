@@ -88,7 +88,7 @@ body {font-family: Verdana, sans-serif;}
     <div class="page">
       <div class="page-header">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard');?>">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard');?>">Home</a></li>
         <li class="breadcrumb-item"><a href="<?php echo site_url('Setup');?>">Setup</a></li>
         <li class="breadcrumb-item"><a href="<?php echo site_url('Masters/holiday_list_sub');?>">Holiday Calender</a></li>
         <li class="breadcrumb-item active">Display</li>

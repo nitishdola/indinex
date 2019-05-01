@@ -52,6 +52,27 @@ class Vendors extends CI_Controller {
 			redirect(site_url('Vendors/create_acount_group'));
  		}	
 	}
+	public function edit_acount_group($id=null)
+	{
+		$this->load->model('vendor_model');        
+		$data['checkrecord'] = $this->vendor_model->check_last_record();
+		$data['result'] = $this->vendor_model->fetchAllGroupData();
+		$this->load->view('Master/Vendor/edit_acount_group',$data);
+		
+		if($this->input->post('sub'))
+ 		{
+ 			$data = array(
+ 				$id 					= $this->input->post('h1'),
+				$group_name 			= $this->input->post('group_name'),
+				$range_from 			= $this->input->post('range_from'),
+				$range_to				= $this->input->post('range_to')			
+			);	       	
+			$this->vendor_model->change_vendor_group($id,$group_name,$range_from,$range_to);
+			$this->session->set_flashdata('response',"<div class='alert alert-success'><strong>Success!</strong>&nbsp;&nbsp;record Update</div>");
+			redirect(site_url('Vendors/edit_acount_group?id='.$id));
+ 		}	
+	}
+
 	public function range_if_exist($range_from=1000)
 	{
 		
@@ -496,6 +517,7 @@ public function change_acount_group_list(){
 	$vendor_code = $this->input->get('id');
 	$this->load->model('vendor_model');
 	$data['vendor_group']=$this->vendor_model->select_vendor_group();	
+	//var_dump($data['vendor_group']);
 	$this->load->view('Master/Vendor/change_acount_group_list',$data);	
 }
 

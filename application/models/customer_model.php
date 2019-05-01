@@ -1,5 +1,5 @@
 <?php 
-class customer_model extends CI_Model 
+class Customer_model extends CI_Model 
 {
  	function __construct() {
 	parent::__construct();
@@ -96,11 +96,15 @@ class customer_model extends CI_Model
     return true;
   }
 
+public function change_customer_group($id,$group_name,$range_from,$range_to){
+    $query=$this->db->query("update customer_group SET group_name='$group_name',range_from='$range_from',range_to='$range_to' where id='$id'");
+    return true;
 
+  }
   public function fetchCustomerGroup()  
   { 
     $this->db->order_by("customer_group.id", "asc");
-    $this->db->select('customer_group.customer_group_id as group,customer_group.group_name,customer_group.range_from,customer_group.range_to,customer_details.customer_group_id,COUNT(customer_details.customer_id) as total');
+    $this->db->select('customer_group.id,customer_group.customer_group_id as group,customer_group.group_name,customer_group.range_from,customer_group.range_to,customer_details.customer_group_id,COUNT(customer_details.customer_id) as total');
     $this->db->from('customer_group');
     $this->db->join('customer_details','customer_details.customer_group_id = customer_group.id','left');
     $this->db->group_by('customer_group.id');

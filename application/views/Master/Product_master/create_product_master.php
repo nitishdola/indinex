@@ -26,7 +26,7 @@
     <div class="page">
       <div class="page-header">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+         <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard');?>">Home</a></li>
         <li class="breadcrumb-item"><a href="<?php echo site_url('Welcome/master');?>">Master</a></li>
         <li class="breadcrumb-item"><a href="<?php echo site_url('Masters/product_master_sub');?>">Product Master</a></li>
         <li class="breadcrumb-item active">Create</li>
@@ -133,13 +133,13 @@
                                   <div class="form-group row">
                               <label class="col-md-4 col-form-label">Old Material Number: </label>
                               <div class="col-md-8">
-                               <?php echo form_input(array('type'=>'number','id' => 'old_material_no', 'name' => 'old_material_no','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'off')); ?>
+                               <?php echo form_input(array('type'=>'text','id' => 'old_material_no', 'name' => 'old_material_no','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'off')); ?>
                               </div>
                             </div>
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label">Net Weight: </label>
                               <div class="col-md-8">
-                                  <?php echo form_input(array('type'=>'number','id' => 'net_weight', 'name' => 'net_weight','style'=>'width:250px;float:left;margin-right:10px','class'=>'form-control')); ?> 
+                                  <?php echo form_input(array('type'=>'text','id' => 'net_weight', 'name' => 'net_weight','style'=>'width:250px;float:left;margin-right:10px','class'=>'form-control')); ?> 
                                   <select id="net_uom" name="net_uom" class="form-control" style="width:100px"><option value="">UOM</option> 
                                   <?php foreach($variants as $row)  {
                                     echo '<option value="'.$row->variants_name.'">'.$row->variants_name.'</option>';                           
@@ -150,7 +150,7 @@
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label">Gross Weight: </label>
                               <div class="col-md-8">
-                                 <?php echo form_input(array('type'=>'number','id' => 'gross_weight', 'name' => 'gross_weight','style'=>'width:250px;float:left;margin-right:10px','class'=>'form-control')); ?> 
+                                 <?php echo form_input(array('type'=>'text','id' => 'gross_weight', 'name' => 'gross_weight','style'=>'width:250px;float:left;margin-right:10px','class'=>'form-control')); ?> 
                                 <select id="gross_uom" name="gross_uom" style="width:100px" class="form-control">
                                     <option value="">UOM</option>
                                     <?php foreach($variants as $row)  {
@@ -187,14 +187,14 @@
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label">Conversion Factor: </label>
                               <div class="col-md-8">
-                                <?php echo form_input(array('type'=>'number','id' => 'conversion_factor_from', 'name' => 'conversion_factor_from','style'=>'width:80px;float:left;margin-right:10px','class'=>'form-control')); ?> 
+                                <?php echo form_input(array('type'=>'text','id' => 'conversion_factor_from', 'name' => 'conversion_factor_from','style'=>'width:80px;float:left;margin-right:10px','class'=>'form-control')); ?> 
                                 <select id="factor_from_uom" class="form-control" name="factor_from_uom" style="width:80px;float:left;margin-right:2px">
                                     <option value="">UOM</option>
                                     <?php foreach($variants as $row)  {
                                     echo '<option value="'.$row->variants_name.'">'.$row->variants_name.'</option>';                           
                                   } ?>
                                 </select>
-                                <?php echo form_input(array('type'=>'number','id' => 'conversion_factor_to', 'name' => 'conversion_factor_to','style'=>'width:80px;float:left;margin-right:10px','class'=>'form-control')); ?> 
+                                <?php echo form_input(array('type'=>'text','id' => 'conversion_factor_to', 'name' => 'conversion_factor_to','style'=>'width:80px;float:left;margin-right:10px','class'=>'form-control')); ?> 
                                 <select id="factor_to_uom" name="factor_to_uom" class="form-control" style="width:80px;margin-right:2px">
                                     <option value="">UOM</option>
                                     <?php foreach($variants as $row)  {   
@@ -202,7 +202,7 @@
                                   } ?>
                                 </select> 
                                 <br>
-                                1 BDL= 10 PC
+                                Example :1 BDL= 10 PC
                                   </div>
                                   </div> 
                                 </div>                    
@@ -328,9 +328,9 @@
                               <label class="col-md-4 col-form-label"> </label>
                               <div class="col-md-8">
                               Sale Item
-                              <?php echo form_input(array('type'=>'checkbox','id' => 'sale_item', 'name' => 'sale_item','style'=>'margin-bottom:5px;margin-left:15px','value'=>'sale_item')); ?>
+                              <?php echo form_input(array('type'=>'radio','id' => 'sale_item', 'name' => 'items','style'=>'margin-bottom:5px;margin-left:15px','value'=>'sale_item','checked'=>'checked')); ?>
                               Purchase Item
-                              <?php echo form_input(array('type'=>'checkbox','id' => 'purchase_item', 'name' => 'purchase_item','style'=>'margin-bottom:5px;margin-left:15px','value'=>'purchase_item')); ?>       
+                              <?php echo form_input(array('type'=>'radio','id' => 'purchase_item', 'name' => 'items','style'=>'margin-bottom:5px;margin-left:15px','value'=>'purchase_item')); ?>       
                               </div>
                             </div>
                       </div>
@@ -396,18 +396,18 @@
                                  <?php echo form_input(array('type' => 'text','id' => 'in_house_production', 'name' => 'in_house_production','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'off')); ?>
                               </div>
                             </div> 
-                            <div class="form-group row">
+                           <!-- <div class="form-group row">
                               <label class="col-md-4 col-form-label">In House Manufacturing: </label>
                               <div class="col-md-8">
-                               <?php echo form_input(array('id' => 'in_house_manufacturing', 'name' => 'in_house_manufacturing','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'off')); ?>
+                               <?php //echo form_input(array('id' => 'in_house_manufacturing', 'name' => 'in_house_manufacturing','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'off')); ?>
                               </div>
-                            </div>
-                            <div class="form-group row">
+                            </div> -->
+                            <!--<div class="form-group row">
                               <label class="col-md-4 col-form-label">Purchase From Outside: </label>
                               <div class="col-md-8">
-                                <?php echo form_input(array('type'=>'checkbox','id' => 'purchase_from_outsid', 'name' => 'purchase_from_outside','style'=>'margin-bottom:5px;', 'value' => 'purchase_from_outside')); ?>                 
+                                <?php //echo form_input(array('type'=>'checkbox','id' => 'purchase_from_outsid', 'name' => 'purchase_from_outside','style'=>'margin-bottom:5px;', 'value' => 'purchase_from_outside')); ?>                 
                               </div>
-                            </div>                         
+                            </div> -->                         
                             
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label">Ok to Purchase: </label>
@@ -447,7 +447,7 @@
                          <div class="form-group row">
                               <label class="col-md-4 col-form-label">Unit of issue: </label>
                               <div class="col-md-8">
-                                  <?php echo form_input(array('type'=>'number','id' => 'unit_of_issue', 'name' => 'unit_of_issue','style'=>'width:290px;float:left;margin-right:2px','class'=>'form-control')); ?> 
+                                  <?php echo form_input(array('type'=>'text','id' => 'unit_of_issue', 'name' => 'unit_of_issue','style'=>'width:290px;float:left;margin-right:2px','class'=>'form-control')); ?> 
                                   <select id="unit_of_issue_uom" name="unit_of_issue_uom" style="width:100px" class="form-control">
                                     <option value="">UOM</option> 
                                     <?php foreach($variants as $row)  {
@@ -509,14 +509,14 @@
                               <label class="col-md-4 col-form-label">Maximum Storage Period: </label>
                               <div class="col-md-8">
                                  
-                                  <?php echo form_input(array('type'=>'date','id' => 'max_storage_period', 'name' => 'max_storage_period','class'=>'form-control','style'=>'margin-bottom:5px')); ?>
+                                  <?php echo form_input(array('type'=>'text','id' => 'max_storage_period', 'name' => 'max_storage_period','class'=>'form-control','style'=>'margin-bottom:5px')); ?>
                               </div>
                             </div>
                             
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label">Remaining Period: </label>
                               <div class="col-md-8">
-                                <?php echo form_input(array('type'=>'date','id' => 'remaining_period', 'name' => 'remaining_period','class'=>'form-control','style'=>'margin-bottom:5px')); ?>
+                                <?php echo form_input(array('type'=>'text','id' => 'remaining_period', 'name' => 'remaining_period','class'=>'form-control','style'=>'margin-bottom:5px')); ?>
                               </div>
                             </div>
                         </div>
@@ -564,12 +564,12 @@
                                  <?php echo form_input(array('type'=>'number','id' => 'sale_price', 'name' => 'sale_price','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true')); ?>
                               </div>
                             </div>
-                            <div class="form-group row">
+                            <!--<div class="form-group row">
                               <label class="col-md-4 col-form-label">Custom Tax: </label>
                               <div class="col-md-8">
-                                <?php echo form_input(array('type'=>'number','id' => 'custom_tax', 'name' => 'custom_tax','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true')); ?>
+                                <?php //echo form_input(array('type'=>'number','id' => 'custom_tax', 'name' => 'custom_tax','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true')); ?>
                               </div>
-                            </div>  
+                            </div>   -->
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label">Purchase Price: </label>
                               <div class="col-md-8">

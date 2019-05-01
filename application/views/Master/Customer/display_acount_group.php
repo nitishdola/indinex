@@ -5,7 +5,7 @@
     <div class="page">
       <div class="page-header">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard');?>">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard');?>">Home</a></li>
         <li class="breadcrumb-item"><a href="<?php echo site_url('Setup');?>">Setup</a></li>          
         <li class="breadcrumb-item"><a href="<?php echo site_url('Customers/Customer_account_sub');?>">Account Group</a></li>
         <li class="breadcrumb-item active">Display</li>
@@ -32,7 +32,7 @@
                               <td><?php echo  ucwords($row->group_name);?></td> 
                               <td><?php echo  $row->range_from;?></td> 
                               <td><?php echo  $row->range_to;?></td> 
-                              <td><?php echo  $row->total;?></td> 
+                              <td><?php echo  ($row->range_from + $row->total)-1;?></td> 
                             </tr>  
                             
                            <?php }  ?>

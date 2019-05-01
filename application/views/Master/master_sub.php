@@ -4,8 +4,8 @@
       <div class="page">
       <div class="page-header">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard/');?>">Dashboard</a></li>
-        <li class="breadcrumb-item active">Master</li>
+        <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard/');?>">Home</a></li>
+        <li class="breadcrumb-item active">Masters</li>
       </ol>
 
       <div class="page-content">
@@ -119,7 +119,7 @@
                         </div>
                       </div>
                     </div>
-                    <a class="btn btn-inverse project-button" href="<?php echo site_url('product_masters/product_master_sub');?>">PRODUCT MASTER</a> 
+                    <a class="btn btn-inverse project-button" href="<?php echo site_url('Product_masters/product_master_sub');?>">PRODUCT MASTER</a> 
                   </figcaption>
                 </figure>
                 <div class="text-truncate">PRODUCT MASTER</div>

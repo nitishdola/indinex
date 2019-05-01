@@ -13,7 +13,8 @@
 <div class="page">
 <div class="page-header">
 <ol class="breadcrumb">
-  <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+  
+  <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard');?>">Home</a></li>
   <li class="breadcrumb-item"><a href="<?php echo site_url('Welcome/master');?>">Master</a></li>
   <li class="breadcrumb-item"><a href="<?php echo site_url('Vendors/vendor_master_sub');?>">Vendor</a></li>
   <li class="breadcrumb-item"><a href="<?php echo site_url('Vendors/vendor_master_sub');?>">Vendor Master</a></li>
@@ -201,13 +202,13 @@
                         <div class="form-group row">
                           <label class="col-md-6 col-form-label">GST No: </label>
                           <div class="col-md-6">
-                             <?php echo form_input(array('type' =>'text', 'name' => 'gst_no','id'=>'gst_no','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'off')); ?>
+                             <?php echo form_input(array('type' =>'text', 'name' => 'gst_no','id'=>'gst_no','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'off','required'=>'true','value'=>'N/A')); ?>
                           </div>
                         </div> 
                         <div class="form-group row">
                           <label class="col-md-6 col-form-label">PAN No: </label>
                           <div class="col-md-6">
-                             <?php echo form_input(array('type' => 'text','id' => 'pan_no', 'name' =>'pan_no','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'false','maxlength'=>'10')); ?>
+                             <?php echo form_input(array('type' => 'text','id' => 'pan_no', 'name' =>'pan_no','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'false','maxlength'=>'10','value'=>'N/A')); ?>
                           </div>
                         </div>
 

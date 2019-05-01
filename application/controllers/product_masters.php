@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class product_masters extends CI_Controller {
+class Product_masters extends CI_Controller {
 
 	public function __construct() {
         parent::__construct();
@@ -13,7 +13,7 @@ class product_masters extends CI_Controller {
     }
 
     public function product_master_sub(){
-    	$this->load->view('Master/Product_master/product_master_sub');
+    	$this->load->view('Master/product_master/product_master_sub');
     }
     public function create_product_master(){
     	

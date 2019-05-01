@@ -5,7 +5,7 @@
     <div class="page">
       <div class="page-header">
         <ol class="breadcrumb">          
-          <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard');?>">Dashboard</a></li>
+          <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard');?>">Home  </a></li>
           <li class="breadcrumb-item"><a href="<?php echo site_url('Setup');?>">Setup</a></li>          
           <li class="breadcrumb-item"><a href="<?php echo site_url('Vendors/vendor_account_sub');?>">Vendor Group</a></li>       
           <li class="breadcrumb-item active">Change</li>
@@ -19,7 +19,7 @@
                   <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                       <table class="table table-bordered" style="width:100%">
                       <tr>
-                       <th>Sl</th><th>Account Group Id</th><th>Group Name</th><th>Range From</th><th>Range To</th><th>Current Status</th>
+                       <th>Sl</th><th>Account Group Id</th><th>Group Name</th><th>Range From</th><th>Range To</th><th>Current Status</th><th>Edit</th>
                       </tr>
                       <tbody>
                           <?php 
@@ -33,9 +33,9 @@
                               <td><?php echo  ucwords($row->group_name);?></td> 
                               <td><?php echo  $row->range_from;?></td> 
                               <td><?php echo  $row->range_to;?></td> 
-                              <td><?php echo  $row->total;?></td> 
-                            </tr>  
-                            
+                              <td><?php echo  ($row->range_from + $row->total)-1;?></td> 
+                              <td><a href="<?php echo site_url('Vendors/edit_acount_group?id='.$row->id);?>" class="btn btn-info btn-sm"  style="margin: 5px">Edit</a></td>
+                            </tr>                              
                            <?php }  ?>
                         </tbody>
                       </table>

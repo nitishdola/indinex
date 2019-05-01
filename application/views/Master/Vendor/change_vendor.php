@@ -3,7 +3,7 @@
    <?php $this->load->view('layout/admin/nav_menu'); ?>
 
   <ol class="breadcrumb">
-  <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard');?>">Dashboard</a></li>
+  <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard');?>">Home</a></li>
     <li class="breadcrumb-item"><a href="<?php echo site_url('Welcome/master');?>">Master</a></li>        
     <li class="breadcrumb-item"><a href="<?php echo site_url('Vendors/vendor_master_sub');?>">Vendor Master</a></li>
     <li class="breadcrumb-item active">Change</li>

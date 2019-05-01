@@ -1,6 +1,6 @@
 
 <ol class="breadcrumb">
-  <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard'); ?>">Dashboard</a></li>
+  <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard'); ?>">Home</a></li>
   <li class="breadcrumb-item"><a href="<?php echo site_url('pos/view_all_sales'); ?>">View All Recipts</a></li>
   <li class="breadcrumb-item active">Receipt Details</li>
 </ol>

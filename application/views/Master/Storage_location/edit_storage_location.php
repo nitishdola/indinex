@@ -6,7 +6,7 @@
         <div class="page">
       <div class="page-header">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+         <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard');?>">Home</a></li>
         <li class="breadcrumb-item"><a href="<?php echo site_url('setup');?>">Setup</a></li>
         <li class="breadcrumb-item"><a href="<?php echo site_url('Masters/storage_location_sub');?>">Storage Location</a></li>
         <li class="breadcrumb-item active">Update</li>

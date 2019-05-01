@@ -1,5 +1,5 @@
 <?php 
-class Goods_Tracking_Model extends CI_Model 
+class Goods_tracking_model extends CI_Model 
 {
  	function __construct() {
 	parent::__construct();

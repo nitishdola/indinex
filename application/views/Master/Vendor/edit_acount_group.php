@@ -1,7 +1,7 @@
 <?php $this->load->view('layout/admin/header'); ?>
 <body class="animsition app-projects">
    <?php $this->load->view('layout/admin/nav_menu'); ?>
-    
+   
     <div class="page">
       <div class="page-header">
         <ol class="breadcrumb">
@@ -20,37 +20,38 @@
                       <!-- Example Horizontal Form -->
                       <div class="example-wrap">
                         <h4 class="example-title">Create Account Group</h4> 
-                        
+                         <?php $id= $this->input->get('id'); ?>
                          <?php echo $this->session->flashdata('response'); ?>
-                        
+                        <?php foreach($result as $r){   ?>      
                         <div class="example">                    
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label">Account Group Id </label>
                               <div class="col-md-8">
-                              <?php echo form_input(array('type' =>'text', 'name' => 'vendor_group_id','id'=>'vendor_group_id','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off')); ?>
-                              <span><p  id="code_div" style="color:red;display:none">Code already existed</p></span>
+                              <?php echo form_input(array('type' =>'text', 'name' => 'vendor_group_id','id'=>'','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off','value'=>$r->vendor_group_id,'readonly'=>'true')); ?>
+                               <?php echo form_input(array('type' => 'hidden', 'name' => 'h1','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off','value'=>$id,'readonly'=>'true')); ?>
                               </div>
                             </div>                      
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label">Group Name: </label>
                               <div class="col-md-8">
-                              <?php echo form_input(array('id' => 'group_name', 'name' => 'group_name','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true')); ?>
+                              <?php echo form_input(array('id' => 'group_name', 'name' => 'group_name','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','value'=>$r->group_name)); ?>
                               </div>
                             </div> 
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label">Range From: </label>
                               <div class="col-md-8">
-                              <?php echo form_input(array('type' => 'number','id' => 'range_from', 'name' => 'range_from','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'false','maxlength'=>'10')); ?>
+                              <?php echo form_input(array('type' => 'number','id' => 'range_from', 'name' => 'range_from','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'false','maxlength'=>'10','value'=>$r->range_from)); ?>
                               </div>
                             </div> 
                             <span><p  id="range_div" style="color:red;display:none">Out of range</p></span>  
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label">Range To: </label>
                               <div class="col-md-8">
-                                <?php echo form_input(array('type' => 'number','id' => 'range_to', 'name' => 'range_to','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'false','maxlength'=>'10')); ?>
+                                <?php echo form_input(array('type' => 'number','id' => 'range_to', 'name' => 'range_to','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'false','maxlength'=>'10','value'=>$r->range_to)); ?>
                               </div>
                             </div>                       
                         </div>
+                         <?php } ?>
                       </div>                     
                     </div>
                   

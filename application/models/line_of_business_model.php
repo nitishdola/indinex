@@ -1,5 +1,5 @@
 <?php 
-class Line_Of_Business_Model extends CI_Model 
+class Line_of_business_model extends CI_Model 
 {
  	function __construct() {
 	parent::__construct();

@@ -1,5 +1,5 @@
 <?php 
-class Vendor_Model extends CI_Model 
+class Vendor_model extends CI_Model 
 {
  	function __construct() {
 	parent::__construct();
@@ -70,6 +70,21 @@ class Vendor_Model extends CI_Model
     $query = $this->db->get();  
     return $query->result();
   }
+  public function fetchAllGroupData()  
+  { 
+    $this->db->order_by("vendor_group.id", "asc");
+    $this->db->from('vendor_group');
+   
+    $query = $this->db->get();  
+    return $query->result();
+  }
+
+  public function change_vendor_group($id,$group_name,$range_from,$range_to){
+    $query=$this->db->query("update vendor_group SET group_name='$group_name',range_from='$range_from',range_to='$range_to' where id='$id'");
+    return true;
+
+  }
+
   function insert_vendor($data){  
     $this->db->insert('vendor_details',$data);
   }

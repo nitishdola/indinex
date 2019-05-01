@@ -1,5 +1,5 @@
 <?php 
-class city_model extends CI_Model 
+class City_model extends CI_Model 
 {
  	function __construct() {
 	parent::__construct();

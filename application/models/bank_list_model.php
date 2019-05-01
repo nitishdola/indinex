@@ -1,5 +1,5 @@
 <?php 
-class bank_list_model extends CI_Model 
+class Bank_list_model extends CI_Model 
 {
  	function __construct() {
 	parent::__construct();

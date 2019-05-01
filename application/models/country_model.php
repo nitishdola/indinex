@@ -1,5 +1,5 @@
 <?php 
-class Country_Model extends CI_Model 
+class Country_model extends CI_Model 
 {
  	function __construct() {
 	parent::__construct();

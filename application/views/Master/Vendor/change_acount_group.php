@@ -5,7 +5,7 @@
     <div class="page">
       <div class="page-header">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
         <li class="breadcrumb-item"><a href="<?php echo site_url('Welcome/master');?>">Master</a></li>
         <li class="breadcrumb-item"><a href="<?php echo site_url('Vendors/vendor_main');?>">Vendor</a></li>
         <li class="breadcrumb-item"><a href="<?php echo site_url('Vendors/vendor_account_sub');?>">Account Group</a></li>

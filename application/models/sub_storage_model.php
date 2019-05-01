@@ -1,5 +1,5 @@
 <?php 
-class Sub_Storage_Model extends CI_Model 
+class Sub_storage_model extends CI_Model 
 {
  	function __construct() {
 	parent::__construct();

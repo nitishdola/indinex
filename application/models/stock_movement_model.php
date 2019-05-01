@@ -1,5 +1,5 @@
 <?php 
-class stock_movement_model extends CI_Model 
+class Stock_movement_model extends CI_Model 
 {
  	function __construct() {
 	parent::__construct();

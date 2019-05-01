@@ -1,5 +1,5 @@
 <?php 
-class Product_Master_Model extends CI_Model 
+class Product_master_model extends CI_Model 
 {
  	function __construct()
    {

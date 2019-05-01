@@ -5,7 +5,7 @@
     <div class="page">
       <div class="page-header">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard/');?>">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard/');?>">Home</a></li>
         <li class="breadcrumb-item active"><a href="<?php echo site_url('goods_tracking/goods_tracking_menu');?>">Goods Tracking</a></li>
         <li class="breadcrumb-item active">Change</li>
       </ol>

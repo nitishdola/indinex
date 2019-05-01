@@ -1,5 +1,5 @@
 <?php 
-class Supplier_Group_Model extends CI_Model 
+class Supplier_group_model extends CI_Model 
 {
  	function __construct() 	
  	{

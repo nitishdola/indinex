@@ -1,5 +1,5 @@
 <?php 
-class Product_Variants_Type_Model extends CI_Model 
+class Product_variants_type_model extends CI_Model 
 {
  	function __construct() {
 	parent::__construct();

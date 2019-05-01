@@ -1,5 +1,5 @@
 <ol class="breadcrumb">
-  <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard'); ?>">Dashboard</a></li>
+  <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard'); ?>">Home</a></li>
   <li class="breadcrumb-item"><a href="<?php echo site_url('transactions/pos_sub'); ?>">Purchase Order</a></li>
   <li class="breadcrumb-item active">Create New Purchase Order</li>
 </ol>

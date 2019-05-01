@@ -669,8 +669,8 @@ class Masters extends CI_Controller {
     }
     public function change_product_variants(){
     	$this->load->database();          
-        $this->load->model('product_variants_Model'); 
-        $data['result']=$this->product_variants_Model->select();  
+        $this->load->model('product_variants_model'); 
+        $data['result']=$this->product_variants_model->select();  
 
         $this->load->model('product_variants_type_model'); 		
 		$data['variants'] = $this->product_variants_type_model->getAllTypes();
@@ -678,8 +678,8 @@ class Masters extends CI_Controller {
     }
     public function display_product_variants(){
     	$this->load->database();          
-        $this->load->model('product_variants_Model'); 
-        $data['result']=$this->product_variants_Model->select();  
+        $this->load->model('product_variants_model'); 
+        $data['result']=$this->product_variants_model->select();  
 
         $this->load->model('product_variants_type_model'); 		
 		$data['variants'] = $this->product_variants_type_model->getAllTypes();
@@ -904,8 +904,8 @@ class Masters extends CI_Controller {
 	public function product_variants()
 	{
 		$this->load->database();          
-        $this->load->model('product_variants_Model'); 
-        $data['res']=$this->product_variants_Model->select();  
+        $this->load->model('product_variants_model'); 
+        $data['res']=$this->product_variants_model->select();  
 
         $this->load->model('product_variants_type_model'); 		
 		$data['variants'] = $this->product_variants_type_model->getAllTypes();
@@ -920,7 +920,7 @@ class Masters extends CI_Controller {
 				'variants_name' => $this->input->post('variants_name')
 			);
 	       	
-			$this->product_variants_Model->form_insert($data);
+			$this->product_variants_model->form_insert($data);
 			$this->session->set_flashdata('response',"Record Inserted Successfully");
 			//redirect(site_url());
 			
