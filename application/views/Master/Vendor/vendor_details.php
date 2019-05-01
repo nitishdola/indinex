@@ -33,19 +33,19 @@
             <div class="container tabs-wrap">
               <div id="tabs">
                 <ul class="nav nav-tabs" role="tablist">
-                  <li role="presentation" class="active">
+                  <li role="presentation" class="active" id="general_li"> 
                     <a class="nav-item nav-link active" href="#general" aria-controls="general" role="tab" data-toggle="tab" aria-expanded="true">General Data</a>
                   </li>
-                  <li>
+                  <li id="account_li">
                     <a class="nav-item nav-link" href="#shipping" aria-controls="shipping" role="tab" data-toggle="tab" aria-expanded="true">Account Control</a>
                   </li>
-                  <li>
+                  <li id="bank_li">
                     <a class="nav-item nav-link" href="#review" aria-controls="review" role="tab" data-toggle="tab" aria-expanded="true">Bank Details</a>
                   </li>
-                  <li>
+                  <li id="ac_inform_li">
                     <a class="nav-item nav-link" href="#information" aria-controls="information" role="tab" data-toggle="tab" aria-expanded="false">Account Information</a>
                   </li>
-                  <li>
+                  <li id="payment_li">
                     <a class="nav-item nav-link" href="#payment" aria-controls="payment" role="tab" data-toggle="tab" aria-expanded="false">Payment Data</a>
                   </li>
                 </ul>
@@ -181,8 +181,7 @@
                               </div> 
                                <div class="col-md-12">
                                   <div class="form-group row">
-                                    <div class="col-md-9"><button type="button" id="changetabbutton" class="btn btn-primary btnNext">Set next tab</button>
-                                     <button class="btn btn-primary continue" style="color:white">Continue</button>
+                                    <div class="col-md-9"><button type="button" id="changetabbutton" class="btn btn-primary btnNext1">Continue</button>                                    
                                     </div>
                                   </div>
                               </div>                                    
@@ -223,8 +222,7 @@
                 </div>
                <div class="col-md-12">
                 <div class="form-group row">
-                  <div class="col-md-9"><button type="button" id="changetabbutton1" class="btn btn-primary btnNext">Set next tab</button>
-                   <button class="btn btn-primary continue" style="color:white">Continue</button>
+                  <div class="col-md-9"><button type="button" id="changetabbutton" class="btn btn-primary btnNext2">Continue</button>   
                   </div>
                 </div>
             </div>    
@@ -337,7 +335,7 @@
                 <div class="col-md-12">
                     <div class="form-group row">
                       <div class="col-md-9">
-                       <!-- <button class="btn btn-primary continue" style="color:white">Continue</button> -->
+                        <button type="button" id="changetabbutton" class="btn btn-primary btnNext3">Continue</button>   
                       </div>
                     </div>
                 </div>                                                     
@@ -364,7 +362,7 @@
               <div class="col-md-12">
                   <div class="form-group row">
                     <div class="col-md-9">
-                      <!-- <button class="btn btn-primary continue" style="color:white">Continue</button>             -->                        
+                      <button type="button" id="changetabbutton" class="btn btn-primary btnNext4">Continue</button>                          
                     </div>
                   </div>
               </div>            
@@ -438,10 +436,37 @@
 <?php $this->load->view('layout/admin/footer'); ?>
 
 <script>
- $('.btnNext').click(function(){
-  alert("hi");
-  $('.nav-tabs > .active').next('li').find('a').trigger('click');
-});
+$('.btnNext1').click(function(){
+    $('.nav-tabs > .active').next('li').find('a').trigger('click');
+}); 
+
+$('.btnNext2').click(function(){
+    $('#general_li').removeClass('active');    
+    $('#account_li').addClass('active');
+    $('.nav-tabs > .active').next('li').find('a').trigger('click');
+
+}); 
+$('.btnNext3').click(function(){
+    $('#account_li').removeClass('active');
+    $('#bank_li').addClass('active');
+    $('.nav-tabs > .active').next('li').find('a').trigger('click');
+
+}); 
+$('.btnNext4').click(function(){
+    $('#bank_li').removeClass('active');
+    $('#ac_inform_li').addClass('active');
+    $('.nav-tabs > .active').next('li').find('a').trigger('click');
+
+}); 
+$('.btnNext5').click(function(){
+    $('#ac_inform_li').removeClass('active');
+    $('#payment_li').addClass('active');
+    $('.nav-tabs > .active').next('li').find('a').trigger('click');
+
+}); 
+
+
+
 $('#region_id').change(function(){
     var region_id       =$('#region_id').val();
     $('#city_id').empty(); 

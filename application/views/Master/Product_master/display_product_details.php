@@ -63,9 +63,7 @@
                         <th width="25%">Product Manufacturing : </th><td width="25%"><?php echo $row->product_manufacturing;?></td>
                         <th width="25%">In House Production: </th><td width="25%"><?php echo $row->in_house_production?></td>
                       </tr>
-                       <tr>
-                        <th width="25%">Manufacturing Date : </th><td width="25%"><?php echo date('d-m-Y',strtotime($row->manufacturing_date));?></td><th width="25%">In House Manufacturing: </th><td width="25%"><?php echo $row->in_house_manufacturing?></td>
-                      </tr>
+                      
                        <tr>
                         <th width="25%">Product Purchase : </th><td width="25%"><?php echo $row->product_purchase?></td><th width="25%">Purchase From Outside: </th><td width="25%"><?php echo $row->category_name?></td>
                       </tr>
@@ -95,9 +93,7 @@
                       </tr>
                       <th colspan="4"><h5>Accounting Data</h5></th>
                       </tr>
-                      <tr>
-                        <th width="25%">Ledger : </th><td width="25%"><?php echo $row->ledger?></td><th width="25%">Custom Tax : </th><td width="25%"><?php echo $row->custom_tax;?></td>
-                      </tr>
+                     
                        <tr>
                         <th width="25%">Currency </th><td width="25%"><?php echo $row->currency?></td><th width="25%">Purchase Price: </th><td width="25%"><?php echo $row->purchase_price?></td>
                       </tr>

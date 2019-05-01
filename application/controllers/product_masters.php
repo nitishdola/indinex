@@ -5,16 +5,26 @@ class Product_masters extends CI_Controller {
 
 	public function __construct() {
         parent::__construct();
-        $this->load->helper('url');
-		$this->load->library('session');		
+        
+		$this->load->library('session');
 		$this->load->helper('form');		
 		$dbconnect = $this->load->database();
+		$this->load->library(['ion_auth', 'form_validation']);
+        $this->load->helper(['url', 'language']);
+
+        $this->lang->load('auth');
+
+        if (!$this->ion_auth->logged_in())
+        {
+            redirect('auth/login', 'refresh');
+        }
 		
     }
 
     public function product_master_sub(){
-    	$this->load->view('Master/product_master/product_master_sub');
+    	$this->load->view('Master/Product_master/product_master_sub');
     }
+
     public function create_product_master(){
     	
     	$this->load->database();          
@@ -36,7 +46,7 @@ class Product_masters extends CI_Controller {
         $this->load->model('main_storage_model'); 		
 		$data['plant'] = $this->main_storage_model->getAllPlant();		
 
-		$this->load->view('Master/product_master/create_product_master',$data);	
+		$this->load->view('Master/Product_master/create_product_master',$data);	
 
 		if($this->input->post('sub'))
  		{
@@ -114,7 +124,7 @@ class Product_masters extends CI_Controller {
 				'product_purchase' 			=> $this->input->post('product_purchase'),
 				'product_make_to_order' 	=> $this->input->post('product_make_to_order'),
 				'in_house_production' 		=> $this->input->post('in_house_production'),
-				'in_house_manufacturing' 	=> $this->input->post('in_house_manufacturing'),
+				//'in_house_manufacturing' 	=> $this->input->post('in_house_manufacturing'),
 				'purchase_from_outside' 	=> $this->input->post('purchase_from_outside'),
 				'ok_to_purchase' 			=> $this->input->post('ok_to_purchase'),
 				'cannot_be_purchase' 		=> $this->input->post('cannot_be_purchase')
@@ -136,7 +146,7 @@ class Product_masters extends CI_Controller {
 				'ledger' 					=> $this->input->post('ledger'),
 				'currency' 					=> $this->input->post('currency'),
 				'sale_price' 				=> $this->input->post('sale_price'),
-				'custom_tax' 				=> $this->input->post('custom_tax'),
+				// /'custom_tax' 				=> $this->input->post('custom_tax'),
 				'purchase_price' 			=> $this->input->post('purchase_price')
 
 			);
@@ -207,7 +217,7 @@ public function change_product_master(){
 		$data['plant'] 				= $this->main_storage_model->getAllPlant();
 		$this->load->model('sub_storage_model'); 
         $data['storage']			=$this->sub_storage_model->select(); 
-		$this->load->view('Master/product_master/edit_product_master',$data);
+		$this->load->view('Master/Product_master/edit_product_master',$data);
 
 
 		if($this->input->post('sub_1'))
@@ -236,7 +246,7 @@ public function change_product_master(){
 			
 			$this->session->set_flashdata('response',"<div class='alert alert-success'><strong>Success!</strong>&nbsp;&nbsp;General Data inserted</div>");
 		
-		redirect(site_url('product_masters/edit_product_master?product_code='.$product_code));
+		redirect(site_url('Product_masters/edit_product_master?product_code='.$product_code));
     	}
 
     	if($this->input->post('sub_2')){
@@ -258,7 +268,7 @@ public function change_product_master(){
 
 		    	$this->product_master_model->change_product_purchase_data($product_code,$plant,$storage_location,$packaging,$packaging_uom,$order_unit_uom,$order_unit,$shipping_instructions,$max_tolerance,$min_tolerance,$min_order_qty,$min_order_qty_uom,$manufacture_part_no,$manufacturer_name);
 				$this->session->set_flashdata('response',"<div class='alert alert-success'><strong>Success!</strong>&nbsp;&nbsp;Purchase Data Changed</div>");					
-    			redirect(site_url('product_masters/edit_product_master?product_code='.$product_code));
+    			redirect(site_url('Product_masters/edit_product_master?product_code='.$product_code));
     		}
 
 
@@ -276,7 +286,7 @@ public function change_product_master(){
 				
 				$this->session->set_flashdata('response',"<div class='alert alert-success'><strong>Success!</strong>&nbsp;&nbsp;Manufacturing Data Changed</div>");	
 								
-    			redirect(site_url('product_masters/edit_product_master?product_code='.$product_code));
+    			redirect(site_url('Product_masters/edit_product_master?product_code='.$product_code));
     		}
 
     		if($this->input->post('sub_4')){
@@ -294,7 +304,7 @@ public function change_product_master(){
 				
 				$this->session->set_flashdata('response',"<div class='alert alert-success'><strong>Success!</strong>&nbsp;&nbsp;Storage Data Changed</div>");	
 				
-				redirect(site_url('product_masters/edit_product_master?product_code='.$product_code));
+				redirect(site_url('Product_masters/edit_product_master?product_code='.$product_code));
     		}
 
     		if($this->input->post('sub_5')){
@@ -309,7 +319,7 @@ public function change_product_master(){
 		    	$this->product_master_model->change_product_accounting_data($product_code,$ledger,$currency,$sale_price,$custom_tax,$purchase_price);
 				
 				$this->session->set_flashdata('response',"<div class='alert alert-success'><strong>Success!</strong>&nbsp;&nbsp;Accounting Data Changed</div>");	
-				redirect(site_url('product_masters/edit_product_master?product_code='.$product_code));
+				redirect(site_url('Product_masters/edit_product_master?product_code='.$product_code));
     		}    
     }
 
@@ -337,7 +347,7 @@ public function change_product_master(){
 		$data['plant'] 				= $this->main_storage_model->getAllPlant();
 		$this->load->model('sub_storage_model'); 
         $data['storage']			=$this->sub_storage_model->select(); 
-		$this->load->view('Master/product_master/display_product_details',$data);
+		$this->load->view('Master/Product_master/display_product_details',$data);
 
 
 	}

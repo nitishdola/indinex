@@ -23,7 +23,7 @@ class Reports extends CI_Controller {
 
 	public function reports_sub()
 	{
-		$this->load->view('reports/reports_sub');
+		$this->load->view('Reports/reports_sub');
 	}
 	
 

@@ -25,13 +25,13 @@
                         </div>
                       </div>
                     </div>
-                    <a href="<?php echo site_url('product_masters/create_product_master');?>" class="btn btn-inverse project-button">CREATE</a>
+                    <a href="<?php echo site_url('Product_masters/create_product_master');?>" class="btn btn-inverse project-button">CREATE</a>
                   </figcaption>
                 </figure>
                 <div class="text-truncate">CREATE</div>
               </div>
             </li>
-      <li>
+            <li>
               <div class="panel">
                 <figure class="overlay overlay-hover animation-hover">
                   <img class="caption-figure overlay-figure dashboard-icon" src="<?php echo base_url();?>assets/images/indianex_images/master_entry_icons/edit.png">
@@ -42,7 +42,7 @@
                         </div>
                       </div>
                     </div>
-                     <a href="<?php echo site_url('product_masters/change_product_master');?>" class="btn btn-inverse project-button">CHANGE</a>
+                     <a href="<?php echo site_url('Product_masters/change_product_master');?>" class="btn btn-inverse project-button">CHANGE</a>
                     
                   </figcaption>
                 </figure>
@@ -62,7 +62,7 @@
                         </div>
                       </div>
                     </div>
-                     <a href="<?php echo site_url('product_masters/display_product_master');?>" class="btn btn-inverse project-button">DISPLAY</a>                    
+                     <a href="<?php echo site_url('Product_masters/display_product_master');?>" class="btn btn-inverse project-button">DISPLAY</a>                    
                   </figcaption>
                 </figure>
                 <div class="text-truncate">DISPLAY</div>

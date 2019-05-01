@@ -393,7 +393,16 @@
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label">In House Production: </label>
                               <div class="col-md-8">
-                                 <?php echo form_input(array('type' => 'text','id' => 'in_house_production', 'name' => 'in_house_production','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'off')); ?>
+                               <div class="form-group row">
+                                  <label class="col-md-3 col-form-label"> </label>
+                                  <div class="col-md-8">
+                                  Yes
+                                  <?php echo form_input(array('type'=>'radio','id' => 'Yes', 'name' => 'in_house_production','style'=>'margin-bottom:5px;margin-left:15px','value'=>'Yes','checked'=>'checked')); ?>
+                                  No
+                                  <?php echo form_input(array('type'=>'radio','id' => 'purchase_item', 'name' => 'in_house_production','style'=>'margin-bottom:5px;margin-left:15px','value'=>'No')); ?>       
+                                  </div>
+                                </div>
+                                 <?php //echo form_input(array('type' => 'text','id' => 'in_house_production', 'name' => 'in_house_production','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'off')); ?>
                               </div>
                             </div> 
                            <!-- <div class="form-group row">
@@ -462,33 +471,20 @@
                               <div class="col-md-8">
                                 <select id="temp_condition" name="temp_condition" class="form-control">
                                 <option value="">Select</option> 
-                                <?php foreach($temperature as $row)  {
-                                  echo '<option value="'.$row->condition_name.'">'.$row->condition_name.'</option>';                           
-                                } ?>
-                                </select>
+                                <?php echo form_input(array('type'=>'text','id' => 'temp_condition', 'name' => 'temp_condition','class'=>'form-control','autocomplete'=>'off')); ?>
                               </div>
                             </div>
 
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label">Storage Condition: </label>
                               <div class="col-md-8">
-                                 <select id="storage_condition" name="storage_condition" class="form-control">
-                                  <option value="">Select</option> 
-                                  <?php foreach($storage as $row)  {
-                                    echo '<option value="'.$row->condition_name.'">'.$row->condition_name.'</option>';                           
-                                  } ?>
-                                  </select>
+                                  <?php echo form_input(array('type'=>'special_condition','id' => 'storage_condition', 'name' => 'storage_condition','class'=>'form-control','autocomplete'=>'off')); ?>
                               </div>
                             </div>
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label">Special Condition: </label>
                               <div class="col-md-8">
-                                <select id="special_condition" name="special_condition" class="form-control">
-                                <option value="">Select</option> 
-                                <?php foreach($special as $row)  {
-                                  echo '<option value="'.$row->condition_name.'">'.$row->condition_name.'</option>';                           
-                                } ?>
-                                </select>
+                                <?php echo form_input(array('type'=>'text','id' => 'special_condition', 'name' => 'special_condition','class'=>'form-control','autocomplete'=>'off')); ?>
                               </div>
                             </div>  
                             <div class="form-group row">

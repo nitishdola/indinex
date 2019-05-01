@@ -53,10 +53,10 @@
             <li>
               <div class="panel">
                 <figure class="overlay overlay-hover animation-hover">
-                  <img class="caption-figure overlay-figure dashboard-icon" src="<?php echo base_url();?>assets/images/indianex_images/customer_acc.png">
+                  <img class="caption-figure overlay-figure dashboard-icon" src="<?php echo base_url();?>assets/images/indianex_images/customer_acc.jpg">
                   <figcaption class="overlay-panel overlay-background overlay-fade text-center vertical-align">
                     <div class="btn-group">
-					<div class="dropdown float-left">
+					            <div class="dropdown float-left">
                         <div class="dropdown-menu" role="menu">
                         </div>
                       </div>
@@ -66,7 +66,7 @@
                 </figure>
                 <div class="text-truncate">CUSTOMER</div>
               </div>
-            </li>
+            </li> 
 			
 			
             <!--<li>

@@ -396,12 +396,7 @@
                                  <?php echo form_input(array('type' => 'text','id' => 'in_house_production', 'name' => 'in_house_production','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'off','value'=>$row->in_house_production)); ?>
                               </div>
                             </div> 
-                            <div class="form-group row">
-                              <label class="col-md-4 col-form-label">In House Manufacturing: </label>
-                              <div class="col-md-8">
-                               <?php echo form_input(array('id' => 'in_house_manufacturing', 'name' => 'in_house_manufacturing','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'off','value'=>$row->in_house_manufacturing)); ?>
-                              </div>
-                            </div>
+                            
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label">Purchase From Outside: </label>
                               <div class="col-md-8">
@@ -515,14 +510,14 @@
                               <label class="col-md-4 col-form-label">Maximum Storage Period: </label>
                               <div class="col-md-8">
                                  
-                                  <?php echo form_input(array('type'=>'date','id' => 'max_storage_period', 'name' => 'max_storage_period','class'=>'form-control','style'=>'margin-bottom:5px','value'=>$row->max_storage_period)); ?>
+                                  <?php echo form_input(array('type'=>'text','id' => 'max_storage_period', 'name' => 'max_storage_period','class'=>'form-control','style'=>'margin-bottom:5px','value'=>$row->max_storage_period)); ?>
                               </div>
                             </div>
                             
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label">Remaining Period: </label>
                               <div class="col-md-8">
-                                <?php echo form_input(array('type'=>'date','id' => 'remaining_period', 'name' => 'remaining_period','class'=>'form-control','style'=>'margin-bottom:5px','value'=>$row->remaining_period)); ?>
+                                <?php echo form_input(array('type'=>'text','id' => 'remaining_period', 'name' => 'remaining_period','class'=>'form-control','style'=>'margin-bottom:5px','value'=>$row->remaining_period)); ?>
                               </div>
                             </div>                          
 
@@ -579,12 +574,7 @@
                                  <?php echo form_input(array('id' => 'sale_price', 'name' => 'sale_price','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','value'=>$row->sale_price)); ?>
                               </div>
                             </div>
-                            <div class="form-group row">
-                              <label class="col-md-4 col-form-label">Custom Tax: </label>
-                              <div class="col-md-8">
-                                <?php echo form_input(array('id' => 'custom_tax', 'name' => 'custom_tax','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','value'=>$row->custom_tax)); ?>
-                              </div>
-                            </div>  
+                            
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label">Purchase Price: </label>
                               <div class="col-md-8">

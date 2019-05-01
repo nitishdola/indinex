@@ -8,6 +8,15 @@ class Stock_movement extends CI_Controller {
 		$this->load->library('session');		
 		$this->load->helper('form');		
 		$dbconnect = $this->load->database();
+		$this->load->library(['ion_auth', 'form_validation']);
+        $this->load->helper(['url', 'language']);
+
+        $this->lang->load('auth');
+
+        if (!$this->ion_auth->logged_in())
+        {
+            redirect('auth/login', 'refresh');
+        }
 		
     }
 	public function stock_movement()
