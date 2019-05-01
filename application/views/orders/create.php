@@ -17,13 +17,13 @@
                          <?php echo $this->session->flashdata('response'); ?>
       
                            <div class="form-group row">
-                              <label class="col-md-3 col-form-label">Select Vendor: </label>
+                              <label class="col-md-3 col-form-label">Select Customer: </label>
                               <div class="col-md-9">
-                                 <select name="vendor_details_id" class="form-control" id="vendor_name">
+                                 <select name="customer_id" class="form-control" id="customer_id">
                                     <option value="0">Select</option>
-                                       <?php foreach($vendors->result() as $row) 
+                                       <?php foreach($customers as $row) 
                                          {
-                                           echo '<option value="'.$row->vendor_id.'">'.$row->first_name.'&nbsp;'.$row->middle_name.'&nbsp;'.$row->last_name.'</option>';
+                                           echo '<option value="'.$row->customer_id.'">'.$row->first_name.'&nbsp;'.$row->middle_name.'&nbsp;'.$row->last_name.'</option>';
                                          } ?>
                                  </select>
                               </div>
@@ -31,9 +31,9 @@
                               
                            </div>
                            <div class="form-group row">
-                              <label class="col-md-3 col-form-label">Vendor Address : </label>
+                              <label class="col-md-3 col-form-label">Customer Address : </label>
                               <div class="col-md-9">
-                                 <textarea class="form-control" id="vendor_address" name="vendor_address" placeholder="Vendor Address " autocomplete="off" rows="4"></textarea>
+                                 <textarea class="form-control" id="customer_address" name="customer_address" placeholder="Customer Address " autocomplete="off" rows="4"></textarea>
                               </div>
                            </div>
                         </div>
@@ -48,7 +48,7 @@
                            <div class="form-group row">
                               <label class="col-md-3 col-form-label">Order No: </label>
                               <div class="col-md-9">
-                                 <input type="text" class="form-control" name="order_number" placeholder="Order No" autocomplete="off" required="true"/>
+                                 <input type="text" class="form-control" name="order_number" placeholder="Order No" value="<?php echo $order_number; ?>" autocomplete="off" required="true"/>
                               </div>
                            </div>
                            <div class="form-group row">
@@ -261,6 +261,44 @@
 <?php $this->load->view('layout/admin/footer_with_js'); ?>
 <script>
 
+    $('#customer_id').change(function() {
+      $customer_id = $(this).val();
+      if($customer_id > 0 && $customer_id != '') {
+        $('#customer_address').text('');
+        //alert($customer_id);
+        url = data = '';
+
+        url += "<?php echo base_url(); ?>index.php/rest/get_customer_details";
+        data += "&customer_id="+$customer_id;
+
+        $.blockUI();
+
+        $.ajax({
+          data : data,
+          type : 'post',
+          dataType : 'json',
+          url : url,
+
+          error : function(resp) {
+            $.unblockUI();
+            $('#customer_address').text('');
+          },
+
+          success : function(resp) {
+            $.unblockUI();
+            $customer_address = '';
+            $customer_address += 'Customer Code : '+resp.customer_code;
+            $customer_address += '\nCity : '+resp.city;
+            $customer_address += '\nPostal Address : '+resp.postal_address;
+
+            $('#customer_address').text($customer_address);
+          }
+        })
+
+      }
+    });
+
+
    $('#add_new_row').click(function() {
 
       var length = $('.slno').length;
@@ -326,37 +364,6 @@
 
       $parentTr.find(".total_price").val(quantity*price);
    }
-
-
-   $('#vendor_name').change(function(event){
-
-        var vendor_code= $('#vendor_name').val(); 
-         
-         if(vendor_code > 0) { 
-
-         $('#vendor_address').val(''); 
-
-         $.blockUI();
-
-         jQuery.ajax({
-            type: 'GET',        
-            url: "<?php echo base_url(); ?>" + "index.php/transactions/user_data_submit",
-            dataType: 'json',
-            data: {vendor_code: vendor_code},
-            success: function (resp) {      
-               $.unblockUI();
-               //$('#vendor_code').val(resp['vendor_code']);            
-               $('#vendor_address').val(resp.vendor_address);            
-          
-            },
-
-            error: function (jqXhr, textStatus, errorMessage) {
-               $.unblockUI();
-               $('p').append('Error' + errorMessage);
-            }
-         }); 
-      }
-    });
 </script>
 
 <?php $this->load->view('layout/admin/footer_with_js_close'); ?>

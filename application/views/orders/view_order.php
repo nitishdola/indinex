@@ -33,7 +33,7 @@
 
 
                             <tr>
-                              <th>Vendor : </th>
+                              <th>Customer : </th>
                               <td><?php echo ucfirst($order_details->first_name).' '.ucfirst($order_details->middle_name).' '.ucfirst($order_details->last_name).' / Mobile - '.$order_details->mobile.' / Contact Person - '.$order_details->contact_person; ?></td>
 
                             </tr>
