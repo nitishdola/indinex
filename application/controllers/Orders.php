@@ -10,7 +10,7 @@ class Orders extends CI_Controller {
 
 		$this->load->library(['ion_auth', 'form_validation', 'session']);
 		$this->load->helper(['url', 'language']);
-
+        $this->load->model('order_model'); 
 		$this->lang->load('auth');
 
 		if (!$this->ion_auth->logged_in())
@@ -41,23 +41,15 @@ class Orders extends CI_Controller {
         $this->load->model('sub_storage_model'); 
         $data['storage']=$this->sub_storage_model->select(); 
 
-        $this->load->model('vendor_model'); 
-        $data['vendors']=$this->vendor_model->select();
+        $data['order_number']   = $this->order_model->orderNumber();
+
+        $data['customers'] = $this->customer_model->select_customer_details();
 
         $this->load->view('orders/create',$data);
     }
 
 
     public function save_order() {
-
-        /*echo '<pre>';
-        var_dump($this->input->post());
-        echo '</pre>';
-
-        exit;*/
-
-
-        $this->load->model('order_model'); 
         $this->load->model('order_item_model'); 
 
 
@@ -66,7 +58,7 @@ class Orders extends CI_Controller {
 
 
         $arr = [
-            'vendor_details_id' => $this->input->post('vendor_details_id'),
+            'customer_id'       => $this->input->post('customer_id'),
             'order_number'      => trim($this->input->post('order_number')),
             'order_date'        => date('Y-m-d', strtotime($this->input->post('order_date'))),
             'entered_by'        => $this->ion_auth->get_user_id(),
@@ -115,12 +107,12 @@ class Orders extends CI_Controller {
         else {
             $this->db->trans_commit();
             $this->session->set_flashdata('response',"Record Inserted Successfully");
-            redirect(site_url('orders/view_all_orders'));
+            redirect(site_url('orders/view_order/'.$order_id));
         }
 
 
         $this->session->set_flashdata('response',"Record Inserted Successfully");
-            redirect(site_url('orders/view_all_orders'));
+            redirect(site_url('orders/view_order/'.$order_id));
 
     }  
 

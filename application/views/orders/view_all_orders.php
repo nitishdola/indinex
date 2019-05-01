@@ -17,7 +17,7 @@
                           <th>Sl No</th>
                           <th>Order Number</th>
                           <th>Order Date</th>
-                          <th>Vendor</th>
+                          <th>Customer</th>
                           <th>Details</th>
                         </tr>
                       </thead>
