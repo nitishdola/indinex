@@ -67,7 +67,7 @@
             <li>
               <div class="panel">
                 <figure class="overlay overlay-hover animation-hover">
-                  <img class="caption-figure overlay-figure dashboard-icon" src="<?php echo base_url();?>assets/images/indianex_images/inventory.png">
+                  <img class="caption-figure overlay-figure dashboard-icon" src="<?php echo base_url();?>assets/images/indianex_images/goods.png">
                   <figcaption class="overlay-panel overlay-background overlay-fade text-center vertical-align">
                     <div class="btn-group">
           <div class="dropdown float-left">
@@ -126,7 +126,7 @@
              <li>
               <div class="panel">
                 <figure class="overlay overlay-hover animation-hover">
-                  <img class="caption-figure overlay-figure dashboard-icon" src="<?php echo base_url();?>assets/images/indianex_images/stock.png">
+                  <img class="caption-figure overlay-figure dashboard-icon" src="<?php echo base_url();?>assets/images/indianex_images/stocks.png">
                   <figcaption class="overlay-panel overlay-background overlay-fade text-center vertical-align">
                     <div class="btn-group">
                       <div class="dropdown float-left">
@@ -165,7 +165,7 @@
       <li>
               <div class="panel">
                 <figure class="overlay overlay-hover animation-hover">
-                  <img class="caption-figure overlay-figure dashboard-icon" src="<?php echo base_url();?>assets/images/indianex_images/Reports.png">
+                  <img class="caption-figure overlay-figure dashboard-icon" src="<?php echo base_url();?>assets/images/indianex_images/report.png">
                   <figcaption class="overlay-panel overlay-background overlay-fade text-center vertical-align">
                     <div class="btn-group">
           <div class="dropdown float-left">
@@ -173,10 +173,10 @@
                         </div>
                       </div>
                     </div>
-                    <button type="button" class="btn btn-inverse project-button">REPORTS</button>
+                     <a href="<?php echo site_url('reports/reports_sub'); ?>" class="btn btn-inverse project-button">Reports</a>
                   </figcaption>
                 </figure>
-                <div class="text-truncate">REPORTS</div>
+                <div class="text-truncate"><a href="<?php echo site_url('reports/reports_sub'); ?>" class="dashboard-links">REPORTS</a></div>
               </div>
             </li>
             <li>
@@ -199,7 +199,7 @@
             <li>
               <div class="panel">
                 <figure class="overlay overlay-hover animation-hover">
-                  <img class="caption-figure overlay-figure dashboard-icon" src="<?php echo base_url();?>assets/images/indianex_images/manufacturing.png">
+                  <img class="caption-figure overlay-figure dashboard-icon" src="<?php echo base_url();?>assets/images/indianex_images/stock.png">
                   <figcaption class="overlay-panel overlay-background overlay-fade text-center vertical-align">
                     <div class="btn-group">
                       <div class="dropdown float-left">

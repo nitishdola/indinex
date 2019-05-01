@@ -1,20 +1,7 @@
 <?php $this->load->view('layout/admin/header'); ?>
 <body class="animsition app-projects">
    <?php $this->load->view('layout/admin/nav_menu'); ?>
-    <?php 
-    if(!empty($checkrecord))
-    {     
-      foreach($checkrecord as $row)
-      {     
-          $vendor_group_id=$row->vendor_group_id;
-          $vendor_group_id++;
-          $vendor_group_id=str_pad($vendor_group_id, 4, '0', STR_PAD_LEFT);
-      } 
-    } else {      
-      $vendor_group_id=1;
-      $vendor_group_id=str_pad($vendor_group_id, 4, '0', STR_PAD_LEFT);
-    }
-    ?>
+    
     <div class="page">
       <div class="page-header">
         <ol class="breadcrumb">
@@ -93,7 +80,8 @@ $(function(){
     $('#code_div').hide();  
    });
   $('#vendor_group_id').blur(function(){
-    var vendor_group_id=$('#vendor_group_id').val();      
+    var vendor_group_id=$('#vendor_group_id').val(); 
+  
     var url= "<?php echo base_url(); ?>" + "index.php/Masters/ajax_account_group";  
       jQuery.ajax({ 
         type: 'GET',         

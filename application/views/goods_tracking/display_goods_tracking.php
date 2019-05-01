@@ -4,11 +4,30 @@
 
     <div class="page">
       <div class="page-header">
+
+      <?php 
+      $ch='';
+      if(isset($_GET['ch'])){
+      $ch=$_GET['ch'];
+      if($ch=='y'){ ?>
+        
+        <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard'); ?>">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="<?php echo site_url('reports/reports_sub'); ?>"> Reports</a></li>
+        <li class="breadcrumb-item active">View Goods Tracking</li>  
+        </ol>
+
+
+
+      <?php  } } else {  ?>
+         
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard/');?>">Dashboard</a></li>
         <li class="breadcrumb-item active"><a href="<?php echo site_url('goods_tracking/goods_tracking_menu');?>">Goods Tracking</a></li>
         <li class="breadcrumb-item active">Display</li>
       </ol>
+
+    <?php }  ?>
       <!-- Modal -->
   <div id="statusModal" class="modal fade" role="dialog">
     <div class="modal-dialog">

@@ -9,6 +9,10 @@ class customer_model extends CI_Model
     $query = $this->db->get('customer_details');  
     return $query; 
   }
+  public function form_insert($data){
+  
+    $this->db->insert('customer_group', $data);
+  }
 	function select_customer_code($customer_group_id) {
     $query ="select * from customer_group join customer_details ON customer_group.id=customer_details.customer_group_id where customer_details.customer_group_id=$customer_group_id order by customer_details.customer_id DESC limit 1";
     $res = $this->db->query($query);
@@ -95,7 +99,8 @@ class customer_model extends CI_Model
 
   public function fetchCustomerGroup()  
   { 
-    $this->db->select('customer_group.*,customer_details.customer_group_id,COUNT(customer_details.customer_id) as total');
+    $this->db->order_by("customer_group.id", "asc");
+    $this->db->select('customer_group.customer_group_id as group,customer_group.group_name,customer_group.range_from,customer_group.range_to,customer_details.customer_group_id,COUNT(customer_details.customer_id) as total');
     $this->db->from('customer_group');
     $this->db->join('customer_details','customer_details.customer_group_id = customer_group.id','left');
     $this->db->group_by('customer_group.id');
@@ -107,6 +112,13 @@ class customer_model extends CI_Model
     $this->db->where('customer_id', $id);
     $this->db->delete('customer_details');
     return true;
+  }
+
+  public function check_last_record()
+  { 
+    $query ="select id,customer_group_id from customer_group order by id DESC limit 1";
+    $res = $this->db->query($query);
+    return $res->result();
   }
 } 
 

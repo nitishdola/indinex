@@ -41,7 +41,7 @@ class Vendors extends CI_Controller {
 
  			//exit();
  			$data = array(
-				'vendor_group_id' 		=> $this->input->post('vendor_group_id'),
+				'vendor_group_id' 		=> ucfirst($this->input->post('vendor_group_id')),
 				'group_name' 			=> $this->input->post('group_name'),
 				'range_from' 			=> $this->input->post('range_from'),
 				'range_to' 				=> $this->input->post('range_to')				
@@ -76,7 +76,8 @@ class Vendors extends CI_Controller {
 	public function create_vendor()
 	{
 		$this->load->model('vendor_model');        
-		$data['groups'] = $this->vendor_model->select_vendor_group();	
+		$data['groups'] = $this->vendor_model->select_vendor_group();
+		//var_dump($this->vendor_model->select_vendor_group())	;
 		$this->load->model('company_model');        
 		$data['company'] = $this->company_model->fetch_all_data();
 
@@ -153,16 +154,18 @@ class Vendors extends CI_Controller {
 	}
 	public function ajax_get_vendor_code()
 	{
+		//19;
 		$vendor_group_id=$this->input->get('vendor_group_id');
 		$this->load->model('vendor_model'); 
         $arr['res']=$this->vendor_model->select_vendor_code($vendor_group_id);
+        //var_dump($this->vendor_model->select_vendor_code($vendor_group_id));
 
         if(!empty($this->vendor_model->select_vendor_code($vendor_group_id))){
 	        foreach($arr['res'] as $row){
 	        	$range_to= $row->range_to;        	
 	        	$vendor_code= ($row->vendor_code)+1; 
 	        	if($vendor_code<=$range_to){
-	        		echo str_pad($vendor_code, 4, '0', STR_PAD_LEFT);      
+	        		echo $vendor_code;      
 	        	} else {
 	        		echo "Out of Range";
 	        	}

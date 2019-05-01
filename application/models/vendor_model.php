@@ -62,7 +62,8 @@ class Vendor_Model extends CI_Model
   }
   public function select_vendor_group()  
   { 
-    $this->db->select('vendor_group.*,vendor_details.vendor_group_id,COUNT(vendor_details.vendor_id) as total');
+    $this->db->order_by("vendor_group.id", "asc");
+    $this->db->select('vendor_group.id,vendor_group.vendor_group_id as group,vendor_group.group_name,vendor_group.range_from,vendor_group.range_to,vendor_details.vendor_group_id,COUNT(vendor_details.vendor_id) as total');
     $this->db->from('vendor_group');
     $this->db->join('vendor_details','vendor_details.vendor_group_id = vendor_group.id','left');
     $this->db->group_by('vendor_group.id');
@@ -88,6 +89,12 @@ class Vendor_Model extends CI_Model
     $res = $this->db->query($query);
     return $res->result();*/   
   } 
+  /*function select_vendor($vendor_group_id) {
+    $query ="select * from vendor_group where vendor_group.vendor_group_id=$vendor_group_id";
+    $res = $this->db->query($query);
+    return $res->result();
+ 
+  } */
 
   function select_initial_range($vendor_group_id){  
     $query ="select * from vendor_group where id=$vendor_group_id";

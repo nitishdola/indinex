@@ -50,7 +50,7 @@
                             <option value="">Select</option>
                             <?php foreach($company->result() as $rw)     
                               {
-                                echo '<option value="'.$rw->id.'">'.$rw->company_name.'</option>';
+                                echo '<option value="'.$rw->id.'">'.ucwords($rw->company_name).'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-'.$rw->company_code.'</option>';
                               }   ?>  
                           </select>
                         </div>

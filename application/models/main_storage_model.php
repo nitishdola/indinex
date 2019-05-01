@@ -11,6 +11,7 @@ class Main_Storage_Model extends CI_Model
 
 	public function select()  
 	{  
+    $this->db->order_by("storage_id", "asc");
     $this->db->select('storage_type.*,states.id,states.name,company_setup.id,company_setup.company_name,company_setup.company_name2,company_setup.company_name3');
     $this->db->from('storage_type');
     $this->db->join('states','states.id = storage_type.region','left');
@@ -23,6 +24,7 @@ class Main_Storage_Model extends CI_Model
 	} 
   public function filterData($code=null)  
   {  
+    //$this->db->order_by("storage_id", "asc");
     if($code!=''){
       $where=$this->db->where('storage_type.pcode',$code); 
     } 

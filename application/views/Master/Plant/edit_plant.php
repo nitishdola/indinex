@@ -38,7 +38,7 @@
                             <option value="">Select</option>
                             <?php foreach($company->result() as $rw)     
                               { ?>
-                                <option  <?php if($rw->id == $r->company_id){ echo 'selected="selected"'; } ?> value="<?php echo $rw->id;?>"><?php echo $rw->company_name;?></option>
+                                <option  <?php if($rw->id == $r->company_id){ echo 'selected="selected"'; } ?> value="<?php echo $rw->id;?>"><?php echo $rw->company_name.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-'.$rw->company_code;?></option>
                               <?php }   ?>  
                           </select>
                         </div>
