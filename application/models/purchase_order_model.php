@@ -15,7 +15,7 @@ class Purchase_order_model extends CI_Model
 
   public function select()  
   {  
-    $query = $this->db->get('purchase_order_type');  
+    $query = $this->db->get('product_category');  
     return $query;  
   }
 
@@ -110,7 +110,18 @@ class Purchase_order_model extends CI_Model
 
   public function update_po_status2($purchase_order_id)
   {
-    $query=$this->db->query("update  purchase_order SET order_status=3 where purchase_order_id='".$purchase_order_id."'");
+    $query=$this->db->query("update purchase_order SET order_status=3 where purchase_order_id='".$purchase_order_id."'");
+  } 
+
+  function select_purchase_order_no($id) {
+    $query ="select * from product_category join product_general_data ON product_category.id=product_general_data.product_category where product_general_data.product_category=$id order by product_general_data.id DESC limit 1";
+    $res = $this->db->query($query);
+    return $res->result();    
+  } 
+  function select_initial_range($id){  
+    $query ="select * from product_category where id=$id";
+    $res = $this->db->query($query);
+    return $res->result();
   } 
     
 } 

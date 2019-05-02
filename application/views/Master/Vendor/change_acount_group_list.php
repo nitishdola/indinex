@@ -33,7 +33,14 @@
                               <td><?php echo  ucwords($row->group_name);?></td> 
                               <td><?php echo  $row->range_from;?></td> 
                               <td><?php echo  $row->range_to;?></td> 
-                              <td><?php echo  ($row->range_from + $row->total)-1;?></td> 
+                              <?php //echo  ($row->range_from + $row->total)-1;?>
+                              <td><?php if($row->total>=1){
+                                  echo  ($row->range_from + $row->total)-1;
+                                } else {
+                                  echo "N/A";
+                                }
+                              ?>   
+                              </td>
                               <td><a href="<?php echo site_url('Vendors/edit_acount_group?id='.$row->id);?>" class="btn btn-info btn-sm"  style="margin: 5px">Edit</a></td>
                             </tr>                              
                            <?php }  ?>

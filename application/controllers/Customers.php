@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+	<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Customers extends CI_Controller {
 	public function __construct() {
@@ -58,8 +58,7 @@ class Customers extends CI_Controller {
 	{
 		$this->load->model('customer_model');        
 		$data['result'] = $this->customer_model->select_customer_group();
-		//var_dump($data['result']);
-		
+				
 		if($this->input->post('sub'))
  		{
  			$data = array(
@@ -128,6 +127,9 @@ class Customers extends CI_Controller {
 
 		$this->load->model('country_model'); 
 		$data['states'] = $this->country_model->getAllStates();	
+
+		//$this->load->model('district_model'); 
+		///$data['districts'] = $this->district_model->select_all();	
 		
 		if($this->input->post('sub'))
 		{	

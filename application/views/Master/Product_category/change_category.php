@@ -15,7 +15,7 @@
           <div class="panel">
             <div class="panel-body container-fluid">            
             <div class="row row-lg">
-              <div class="col-md-9 col-lg-9col-sm-12 col-xs-12">
+              <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                 <!-- Example Horizontal Form -->
                 <div class="example-wrap">
                   <h4 class="example-title">Change Product Category</h4>                  
@@ -23,7 +23,7 @@
                     <?php echo form_open(); ?>
                       <div class="form-group row">                                                    
                         <div class="col-md-2">                       
-                          <?php echo form_input(array('type' =>'number', 'name' => 'code','id'=>'ccode','class'=>'form-control','style'=>'margin-bottom:5px','placeholder'=>'Product Code','autocomplete'=>'off')); ?>  
+                          <?php echo form_input(array('type' =>'text', 'name' => 'code','id'=>'ccode','class'=>'form-control','style'=>'margin-bottom:5px','placeholder'=>'Category Code','autocomplete'=>'off')); ?>  
                         </div>
 
                          <input type="hidden" name="search" value="1">
@@ -35,7 +35,7 @@
                      <?php if($result->result())  { ?>
                       <table class="table table-bordered">
                       <tr>
-                       <th>Sl</th><th>Category Code</th><th>Category Name</th><th>Edit</th><th>Delete</th>
+                       <th>Sl</th><th>Category Code</th><th>Category Name</th><th>Range From</th><th>Range To</th><th>Current Status</th><th>Edit</th><th>Delete</th>
                       </tr>
                       <tbody>
                   <?php 
@@ -47,6 +47,16 @@
                       <td><?php echo  $i;?>   </td>
                       <td><?php echo  str_pad($row->category_code, 4, '0', STR_PAD_LEFT);?></td>
                       <td><?php echo  ucwords($row->category_name);?></td> 
+                     
+                      <td><?php echo  $row->range_from;?>   </td>
+                      <td><?php echo  $row->range_to;?>   </td>
+                      <td><?php if($row->total>=1){
+                          echo  ($row->range_from + $row->total)-1;
+                        } else {
+                          echo "N/A";
+                        }
+                        ?>   
+                      </td>
                       <td><a href="<?php echo site_url('Masters/edit_product_category?id='.$row->id);?>" class="btn btn-info btn-sm"  style="margin: 5px">Edit</a></td>
                       <td><button id="del_<?php echo $row->id; ?>" class="btn btn-danger btn-sm del"  style="margin: 5px">Delete</button> </td>
                       </tr>  

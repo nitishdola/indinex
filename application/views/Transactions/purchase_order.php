@@ -18,11 +18,11 @@
                            <div class="form-group row">
                               <label class="col-md-3 col-form-label">Purchase Order Type : </label>
                               <div class="col-md-9">
-                                 <select id="order_types" name="purchase_order_type" class="form-control">
+                                 <select id="purchase_order_type_id" name="purchase_order_type" class="form-control">
                                     <option value="">Select</option>
                                     <?php foreach($purchase_types->result() as $row) 
                                       {
-                                        echo '<option value="'.$row->order_types.'">'.$row->order_types.'</option>';
+                                        echo '<option value="'.$row->id.'">'.$row->category_name.'</option>';
                                       } ?>
                                   </select> 
                               </div>
@@ -65,7 +65,7 @@
                            <div class="form-group row">
                               <label class="col-md-3 col-form-label">Purchase Order No: </label>
                               <div class="col-md-9">
-                                 <input type="text" class="form-control" name="purchase_order_no" placeholder="Purchase Order No" autocomplete="off" required="true"/>
+                                 <input type="text" class="form-control" name="purchase_order_no" id="purchase_order_no_id" placeholder="Purchase Order No" autocomplete="off" required="true"/>
                               </div>
                            </div>
                            <div class="form-group row">
@@ -279,6 +279,26 @@
 
 <?php $this->load->view('layout/admin/footer_with_js'); ?>
 <script>
+$('#purchase_order_type_id').change(function(){
+
+  var id=$('#purchase_order_type_id').val();
+  var url= "<?php echo base_url(); ?>" + "index.php/Transactions/ajax_get_purchase_order"; 
+      jQuery.ajax({ 
+        type: 'GET',         
+        url: url,         
+        data: {id: id}, 
+        success: function (response) {
+                        
+            $('#purchase_order_no_id').val(response);  
+            $('#purchase_order_no_id').prop('readonly',true);          
+        },
+        error: function (jqXhr, textStatus, errorMessage) { 
+          // $.unblockUI(); 
+           $('p').append('Error' + errorMessage); 
+        } 
+     });
+
+});
 
    $('#add_new_row').click(function() {
 

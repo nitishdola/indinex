@@ -100,7 +100,13 @@
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label">Product Group: </label>
                               <div class="col-md-8">
-                                 <?php echo form_input(array('id' => 'product_group', 'name' => 'product_group','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off','required'=>'required','value'=>$row->product_group)); ?>
+                                 <select name="product_group" id="product_group" class="form-control" required="required">
+                                 <option value="">Select</option> 
+                                  <?php  foreach($pgroup->result() as $gp)  
+                                    { ?>
+                                      <option  <?php if($gp->id == $row->product_group){ echo 'selected="selected"'; } ?>  value="<?php echo $gp->id;?>"><?php echo $gp->group_name;?>&nbsp;&nbsp;&nbsp;-<?php echo $gp->gcode;?></option>
+                                   <?php  } ?>
+                               </select>
                               </div>
                             </div>  
                             <div class="form-group row">
@@ -192,7 +198,7 @@
                                   <?php } ?>
                                 </select> 
                                 <br>
-                                1 BDL= 10 PC
+                                Example: BDL= 10 PC
                               </div>
                         </div> 
                           </div>                    

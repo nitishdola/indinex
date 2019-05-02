@@ -2,7 +2,7 @@
 <body class="animsition app-projects">
    <?php $this->load->view('layout/admin/nav_menu'); ?>
     <?php 
-    if(!empty($record))
+    /*if(!empty($record))
     {     
       foreach($record as $row)
       {     
@@ -13,7 +13,7 @@
     } else {      
       $category_code=1;
       $category_code=str_pad($category_code, 4, '0', STR_PAD_LEFT);
-    }
+    } */
     ?>
     <div class="page">
       <div class="page-header">
@@ -40,7 +40,7 @@
                       <div class="form-group row">
                         <label class="col-md-3 col-form-label">Code: </label>
                         <div class="col-md-9">
-                          <?php echo form_input(array('id' => 'category_code', 'name' => 'category_code','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off','value'=>$category_code,'readonly'=>'true')); ?>
+                          <?php echo form_input(array('id' => 'category_code', 'name' => 'category_code','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off','value'=>ucfirst($r->category_code),'readonly'=>'true')); ?>
                        <?php echo form_input(array('type' => 'hidden', 'name' => 'h1','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off','value'=>$r->id,'readonly'=>'true')); ?>
                         </div>
                       </div>

@@ -56,8 +56,8 @@ class Vendors extends CI_Controller {
 	{
 		$this->load->model('vendor_model');        
 		$data['checkrecord'] = $this->vendor_model->check_last_record();
-		$data['result'] = $this->vendor_model->fetchAllGroupData();
-		$this->load->view('Master/Vendor/edit_acount_group',$data);
+		$data['result'] = $this->vendor_model->filterAllGroupData($id);
+		var_dump($data['result']);
 		
 		if($this->input->post('sub'))
  		{
@@ -70,7 +70,8 @@ class Vendors extends CI_Controller {
 			$this->vendor_model->change_vendor_group($id,$group_name,$range_from,$range_to);
 			$this->session->set_flashdata('response',"<div class='alert alert-success'><strong>Success!</strong>&nbsp;&nbsp;record Update</div>");
 			redirect(site_url('Vendors/edit_acount_group?id='.$id));
- 		}	
+ 		}
+ 		$this->load->view('Master/Vendor/edit_acount_group',$data);	
 	}
 
 	public function range_if_exist($range_from=1000)
@@ -122,7 +123,8 @@ class Vendors extends CI_Controller {
 
 		$this->load->model('country_model'); 
 		$data['states'] = $this->country_model->getAllStates();	
-		
+		$this->load->model('district_model'); 
+		$data['districts'] = $this->district_model->select_all();
 		if($this->input->post('sub'))
 		{		
 			$mobile= $this->input->post('mobile');

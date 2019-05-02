@@ -618,6 +618,8 @@ class Masters extends CI_Controller {
     public function change_category(){
     	$this->load->database();          
         $this->load->model('product_category_model'); 
+
+        
         if($this->input->post('search'))
         {
             //var_dump($_POST);exit();
@@ -1031,10 +1033,7 @@ class Masters extends CI_Controller {
         $id = $this->input->get('id');
         $this->load->model('product_category_model');
         $data['category']=$this->product_category_model->category_details($id);
-        //var_dump($data['business']=$this->Line_Of_Business_Model->business_details($id));
-        $this->load->model('product_category_model'); 
-
-  
+        
         if($this->input->post('sub'))
         {               
            $category_code  = $this->input->post('category_code');
@@ -1059,6 +1058,84 @@ class Masters extends CI_Controller {
         }  else {
             echo 0;
         }
+    }
+    public function product_group_sub(){
+
+        $this->load->view('Master/product_group_sub');
+
+    }
+    public function create_product_group()
+    {
+        $this->load->database();          
+        $this->load->model('product_group_model'); 
+       $data['record'] = $this->product_group_model->check_last_record();
+        
+        if($this->input->post('sub'))
+        {
+            
+            $data = array(
+                'gcode' => $this->input->post('gcode'),
+                'group_name' => $this->input->post('group_name')              
+            );
+            
+            $this->product_group_model->form_insert($data);
+            $this->session->set_flashdata('response',"<div class='alert alert-success'><strong>Success!</strong>&nbsp;&nbsp;record inserted</div>");
+            redirect(site_url('Masters/create_product_group'));
+
+        }
+        $this->load->view('Master/Product_group/create_product_group',$data);
+    }
+    public function ajax_product_group(){
+
+        $bcode=$this->input->get('gcode');
+        $this->load->model('product_group_model'); 
+        $arr['res']=$this->product_group_model->ifAlreadyExist($gcode);
+        
+        if(!empty($this->product_group_model->ifAlreadyExist($gcode))){
+            echo 1;
+        }  else {
+            echo 0;
+        }
+    }
+    public function change_product_group()
+    {
+        $this->load->database();          
+        $this->load->model('product_group_model');  
+        $data['result'] = $this->product_group_model->select();
+        $this->load->view('Master/product_group/change_product_group',$data);
+        
+    }
+     public function edit_product_group($id=null)
+    {
+        $id = $this->input->get('id');
+        $this->load->model('product_group_model');
+        $data['group']=$this->product_group_model->group_type($id);;
+        var_dump($data['group']=$this->product_group_model->group_type($id));
+        //var_dump($data['business']=$this->Line_Of_Business_Model->business_details($id));
+        $this->load->view('Master/product_group/edit_product_group',$data);
+        $this->load->model('product_group_model'); 
+
+  
+        if($this->input->post('sub'))
+        {               
+            
+            $group_name     = $this->input->post('group_name');
+            $id             = $this->input->post('h1');
+
+            //exit();
+            $this->product_group_model->insert_update($id,$group_name);
+            $this->session->set_flashdata('response',"<div class='alert alert-success'><strong>Success!</strong>&nbsp;&nbsp;record Update</div>");
+            redirect(site_url('Masters/edit_product_group?id='.$id));
+
+        }
+
+    }
+     public function display_product_group()
+    {
+        $this->load->database();          
+        $this->load->model('product_group_model');  
+        $data['result'] = $this->product_group_model->select();
+        $this->load->view('Master/product_group/display_product_group',$data);
     }
 
 }

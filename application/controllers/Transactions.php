@@ -198,4 +198,31 @@ class Transactions extends CI_Controller {
 
 	}
 
+
+	public function ajax_get_purchase_order()
+	{
+		$id=$this->input->get('id');
+		$this->load->model('purchase_order_model'); 
+        $arr['res']=$this->purchase_order_model->select_purchase_order_no($id);
+        
+        if(!empty($this->purchase_order_model->select_purchase_order_no($id))){
+	        foreach($arr['res'] as $row){
+	        	$range_to= $row->range_to;        	
+	        		$product_code= ($row->product_code)+1; 
+	        	if($product_code<=$range_to){
+	        		echo str_pad($product_code, 4, '0', STR_PAD_LEFT);      
+	        	} else {
+	        		echo "Out of Range";
+	        	}
+	        }
+	    }	 else {
+	    	$arr['range']=$this->purchase_order_model->select_initial_range($id);
+	    	foreach($arr['range'] as $row){
+	        	echo $range_from=str_pad( $row->range_from, 4, '0', STR_PAD_LEFT);  
+
+	        }
+	    }
+	}
+
+
 }

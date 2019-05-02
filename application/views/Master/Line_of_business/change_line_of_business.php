@@ -23,7 +23,7 @@
                   <?php if(!empty($result->result()))  { ?>                  
                       <table class="table table-bordered">
                       <tr>
-                       <th>Sl</th><th>Product Code</th><th>Product Description</th><th>Edit</th><th>Delete</th>
+                       <th>Sl</th><th>LOB Code</th><th>LOB Description</th><th>Edit</th><th>Delete</th>
                       </tr>
                       <tbody>
                         <?php 
