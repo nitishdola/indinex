@@ -103,17 +103,21 @@
                                     <?php echo number_format((float)($sales_details->gst), 2, '.', ''); ?> % )
                                   </td>
 
+                                </tr>
 
-                                  
+                                <tr  style="text-align: right;">
+                                  <td colspan="4"> Discount </td>
+                                  <td> <?php echo number_format((float)($sales_details->discount), 2, '.', ''); ?>
+                                  </td>
 
                                 </tr>
 
                                 <tr  style="text-align: right;">
                                     <td colspan="4"> Total Amount to be Paid </td>
-                                    <td> <?php echo number_format((float)($ttl+$tax), 2, '.', ''); ?>
+                                    <td> <?php echo number_format((float)(($ttl+$tax) - $sales_details->discount ), 2, '.', ''); ?>
                                     <br>
                                     <br>
-                                    (<?php echo ucwords(convertToText($ttl+$tax)); ?>) only 
+                                    (<?php echo ucwords(convertToText(($ttl+$tax) - $sales_details->discount)); ?>) only 
                                     </td>
 
                                   </tr>

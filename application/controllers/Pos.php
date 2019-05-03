@@ -65,6 +65,7 @@ class Pos extends CI_Controller {
             'entered_by'    => $this->ion_auth->get_user_id(),
             'discount'      => trim($this->input->post('discount')),
             'gst'           => trim($this->input->post('gst')),
+            'discount'      => trim($this->input->post('discount')),
             'created_at'    => date('Y-m-d H:i:s'),
             'receipt_date'  => date('Y-m-d'),
         ];
@@ -133,7 +134,7 @@ class Pos extends CI_Controller {
         $data['sales_details'] = $this->sales_model->fetchSalesDetails($sale_id)[0];
         $data['sales_items']   = $this->sales_items_model->fetchSalesItems($sale_id);
         
-
+        //var_dump($data); exit;
         
         $this->load->view('pos/view_receipt',$data);
         $this->load->view('layout/admin/footer');   
