@@ -43,6 +43,9 @@ class Product_masters extends CI_Controller {
         $data['special']=$this->product_master_model->select_special();
 		//$data['record'] = $this->product_master_model->last_record();
 
+		$this->load->model('product_group_model'); 
+        $data['pgroup']=$this->product_group_model->select();
+        
         $this->load->model('main_storage_model'); 		
 		$data['plant'] = $this->main_storage_model->getAllPlant();		
 
@@ -132,14 +135,14 @@ class Product_masters extends CI_Controller {
 
 			$storage_data = array(
 				'product_code' 				=> $this->input->post('product_code'),
-				'unit_of_issue' 			=> $this->input->post('unit_of_issue'),
-				'unit_of_issue_uom' 		=> $this->input->post('unit_of_issue_uom'),
+				//'unit_of_issue' 			=> $this->input->post('unit_of_issue'),
+				//'unit_of_issue_uom' 		=> $this->input->post('unit_of_issue_uom'),
 				'temp_condition'			=> $this->input->post('temp_condition'),
 				'storage_condition' 		=> $this->input->post('storage_condition'),
 				'special_condition' 		=> $this->input->post('special_condition'),
 				'max_storage_period'		=> $this->input->post('max_storage_period'),
 				'remaining_period' 			=> $this->input->post('remaining_period'),
-				'batch' 					=> $this->input->post('batch')
+				//'batch' 					=> $this->input->post('batch')
 			);
 			$accounting_data = array(
 				'product_code' 				=> $this->input->post('product_code'),
@@ -212,6 +215,9 @@ public function change_product_master(){
         $data['temperature'] 		=$this->product_master_model->select_tmparature();
         $data['storage'] 			=$this->product_master_model->select_storage();
         $data['special'] 			=$this->product_master_model->select_special();
+
+        $this->load->model('product_group_model'); 
+        $data['pgroup']=$this->product_group_model->select();
 
         $this->load->model('main_storage_model'); 		
 		$data['plant'] 				= $this->main_storage_model->getAllPlant();

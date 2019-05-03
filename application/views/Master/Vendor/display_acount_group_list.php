@@ -33,7 +33,13 @@
                               <td><?php echo  ucwords($row->group_name);?></td> 
                               <td><?php echo  $row->range_from;?></td> 
                               <td><?php echo  $row->range_to;?></td> 
-                              <td><?php echo  ($row->range_from + $row->total)-1;?></td>                             
+                              <td><?php if($row->total>=1){
+                                  echo  ($row->range_from + $row->total)-1;
+                                } else {
+                                  echo "N/A";
+                                }
+                              ?>   
+                              </td>                             
                             </tr>  
                             
                            <?php }  ?>

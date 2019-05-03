@@ -94,7 +94,7 @@
                             <div class="form-group row">
                               <label class="col-md-6 col-form-label">Email: </label>
                               <div class="col-md-6">
-                                <?php echo form_input(array('type' => 'text','id' => 'email', 'name' => 'email','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'false','maxlength'=>'10','value'=>$row->email)); ?>
+                                <?php echo form_input(array('type' => 'text','id' => 'email', 'name' => 'email','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'false','maxlength'=>'100','value'=>$row->email)); ?>
                               </div>
                             </div>
                             <div class="form-group row">

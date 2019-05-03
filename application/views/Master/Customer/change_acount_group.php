@@ -32,7 +32,7 @@
                               <td><?php echo  ucwords($row->group_name);?></td> 
                               <td><?php echo  $row->range_from;?></td> 
                               <td><?php echo  $row->range_to;?></td> 
-                              <td><?php echo  ($row->range_from + $row->total)-1;?></td> 
+                              <td><?php echo  ($row->range_from + $row->total);?></td> 
                               <td><a href="<?php echo site_url('Customers/edit_acount_group?id='.$row->id);?>" class="btn btn-info btn-sm"  style="margin: 5px">Edit</a></td>
                             </tr>  
                             

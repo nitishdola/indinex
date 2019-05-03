@@ -105,7 +105,7 @@
                                     <div class="form-group row">
                                       <label class="col-md-6 col-form-label">Mobile: </label>
                                       <div class="col-md-6">
-                                         <?php echo form_input(array('type' => 'number','id' => 'mobile_id', 'name' => 'mobile','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off','maxlength'=>'12')); ?>
+                                         <?php echo form_input(array('type' => 'text','id' => 'mobile_id', 'name' => 'mobile','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off','maxlength'=>'12')); ?>
                                          <p id="mobile_div" style="color:red;display:none"> Mobile number is already registered</p>
                                       </div>
                                     </div>  
@@ -131,13 +131,13 @@
                                         <div class="form-group row">
                                       <label class="col-md-6 col-form-label">Contact Person: </label>
                                       <div class="col-md-6">
-                                        <?php echo form_input(array('type' => 'text','id' => 'contact_person', 'name' => 'contact_person','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'false','maxlength'=>'50')); ?>
+                                        <?php echo form_input(array('type' => 'text','id' => 'contact_person', 'name' => 'contact_person','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'false','maxlength'=>'50')); ?>
                                       </div>
                                     </div>
                                     <div class="form-group row">
                                       <label class="col-md-6 col-form-label">Contact Person Mobile:: </label>
                                       <div class="col-md-6">
-                                         <?php echo form_input(array('type' => 'number','id' => 'contact_person_mobile', 'name' => 'contact_person_mobile','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'false','maxlength'=>'12')); ?>
+                                         <?php echo form_input(array('type' => 'number','id' => 'contact_person_mobile', 'name' => 'contact_person_mobile','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'false','maxlength'=>'12')); ?>
                                       </div>
                                     </div>
                                     <div class="form-group row">
@@ -151,7 +151,7 @@
                                     <div class="form-group row">
                                       <label class="col-md-6 col-form-label">Region: </label>
                                       <div class="col-md-6">
-                                         <select class="form-control" id="region_id" name="region" >
+                                         <select class="form-control" id="region_id" name="region" required="true">
                                         <option value="">Select</option>  
                                           <?php foreach($states as $st2)     
                                           { ?>
@@ -163,7 +163,7 @@
                                     <div class="form-group row">
                                       <label class="col-md-6 col-form-label">City: </label>
                                       <div class="col-md-6">
-                                          <select id="city_id" name="city" class="form-control">
+                                          <select id="city_id" name="city" class="form-control" required="true">
                                             <option value="">Select</option>
                                           </select>
                                       </div>
@@ -181,7 +181,8 @@
                               </div> 
                                <div class="col-md-12">
                                   <div class="form-group row">
-                                    <div class="col-md-9"><button type="button" id="changetabbutton" class="btn btn-primary btnNext1">Continue</button>                                    
+                                    <div class="col-md-9">                                    
+                                    <button id="changetabbutton" class="btn btn-primary btnNext1">Continue</button>                                  
                                     </div>
                                   </div>
                               </div>                                    
@@ -207,14 +208,14 @@
                         <div class="form-group row">
                           <label class="col-md-6 col-form-label">PAN No: </label>
                           <div class="col-md-6">
-                             <?php echo form_input(array('type' => 'text','id' => 'pan_no', 'name' =>'pan_no','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'false','maxlength'=>'10','value'=>'N/A')); ?>
+                             <?php echo form_input(array('type' => 'text','id' => 'pan_no', 'name' =>'pan_no','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'false','maxlength'=>'50','value'=>'N/A')); ?>
                           </div>
                         </div>
 
                         <div class="form-group row">
                           <label class="col-md-6 col-form-label">Type Of Business: </label>
                           <div class="col-md-6">
-                           <?php echo form_input(array('type' => 'text','id' => 'type_of_business', 'name' => 'type_of_business','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'false','maxlength'=>'10')); ?>
+                           <?php echo form_input(array('type' => 'text','id' => 'type_of_business', 'name' => 'type_of_business','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'false','maxlength'=>'100')); ?>
                           </div>
                         </div>                                                                                            
                     </div>
@@ -222,7 +223,8 @@
                 </div>
                <div class="col-md-12">
                 <div class="form-group row">
-                  <div class="col-md-9"><button type="button" id="changetabbutton" class="btn btn-primary btnNext2">Continue</button>   
+                  <div class="col-md-9">
+                    <button id="changetabbutton" class="btn btn-primary btnNext2">Continue</button>
                   </div>
                 </div>
             </div>    
@@ -336,6 +338,7 @@
                     <div class="form-group row">
                       <div class="col-md-9">
                         <button type="button" id="changetabbutton" class="btn btn-primary btnNext3">Continue</button>   
+                        <!--<button type="button" id="changetabbutton" class="btn btn-primary btnprevious2">Next</button> -->
                       </div>
                     </div>
                 </div>                                                     
@@ -362,7 +365,7 @@
               <div class="col-md-12">
                   <div class="form-group row">
                     <div class="col-md-9">
-                      <button type="button" id="changetabbutton" class="btn btn-primary btnNext4">Continue</button>                          
+                      <button type="button" id="changetabbutton" class="btn btn-primary btnNext4">Continue</button><!--<button type="button" id="changetabbutton" class="btn btn-primary btnprevious3">Next</button>                       -->
                     </div>
                   </div>
               </div>            
@@ -397,7 +400,8 @@
                             <label class="col-md-6 col-form-label">Payment Method: </label>
                             <div class="col-md-6">                               
                                 <select name="payment_method" class="form-control" style='margin-bottom:5px' >
-                                  <option value="cash">Cash</option>                                  
+                                  <option value="cash">Cash</option>
+                                  <option value="Bank">Bank</option>                                    
                                 </select>
                             </div>
                           </div> 
@@ -436,8 +440,20 @@
 <?php $this->load->view('layout/admin/footer'); ?>
 
 <script>
+
 $('.btnNext1').click(function(){
+  var title         =$('#title').val();
+  var first_name    =$('#first_name').val();
+  var mobile_id     =$('#mobile_id').val();
+  var region_id     =$('#region_id').val();
+  var district_id   =$('#district_id').val();
+  var city_id       =$('#city_id').val();
+  
+  if(title!='' && first_name!='' && mobile_id!='' && region_id!='' ){
     $('.nav-tabs > .active').next('li').find('a').trigger('click');
+
+  }
+
 }); 
 
 $('.btnNext2').click(function(){
@@ -458,13 +474,23 @@ $('.btnNext4').click(function(){
     $('.nav-tabs > .active').next('li').find('a').trigger('click');
 
 }); 
-$('.btnNext5').click(function(){
-    $('#ac_inform_li').removeClass('active');
-    $('#payment_li').addClass('active');
-    $('.nav-tabs > .active').next('li').find('a').trigger('click');
 
-}); 
 
+
+$('.btnprevious1').click(function(){
+  alert("hi");
+  $('#account_li').removeClass('active');
+  $('#general_li').addClass('active');
+  $('.nav-tabs > .active').prev('li').find('a').trigger('click');
+});
+
+$('.btnprevious2').click(function(){
+  $('.nav-tabs > .active').prev('li').find('a').trigger('click');
+});
+
+$('.btnprevious3').click(function(){
+  $('.nav-tabs > .active').prev('li').find('a').trigger('click');
+});
 
 
 $('#region_id').change(function(){
@@ -517,7 +543,7 @@ $('#bank_region').change(function(){
        });
   });
 
-$('.continuee').click(function(){
+/* $('.continuee').click(function(){
   //alert("hi");
     var title                   =$('#title').val();
     var first_name              =$('#first_name').val(); 
@@ -536,7 +562,7 @@ $('.continuee').click(function(){
 
 $('.back').click(function(){
   $('.nav-tabs > .active').prev('li').find('a').trigger('click');
-});
+}); */
 
 $(function(){
 

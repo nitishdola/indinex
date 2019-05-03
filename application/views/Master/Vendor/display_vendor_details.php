@@ -46,13 +46,13 @@
                         <th colspan="4"><h5>Account Control Data</h5></th>
                       </tr>
                       <tr>
-                        <th width="25%">GST No: </th><td width="25%"><?php //echo $row->category_name?></td><th colspan="2"></th>
+                        <th width="25%">GST No: </th><td width="25%"><?php echo $row->gst_no?></td><th colspan="2"></th>
                       </tr>
                        <tr>
-                        <th width="25%">PAN No: </th><td ></td><th colspan="2"></th>
+                        <th width="25%">PAN No: </th><td ><?php echo $row->pan_no;?></td><th colspan="2"></th>
                       </tr>
                        <tr>
-                        <th width="25%">Type Of Business : </th><td width="25%"><?php //echo $row->packaging;?></td><th colspan="2"></th>
+                        <th width="25%">Type Of Business : </th><td width="25%"><?php echo $row->type_of_business;?></td><th colspan="2"></th>
                       </tr>
                       
                       <tr>

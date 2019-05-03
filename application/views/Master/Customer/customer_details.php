@@ -31,19 +31,19 @@
             <div class="container tabs-wrap">
               <div id="tabs">
                 <ul class="nav nav-tabs" role="tablist">
-                  <li role="presentation" class="active">
+                  <li role="presentation" class="active" id="general_li"> 
                     <a class="nav-item nav-link active" href="#general" aria-controls="general" role="tab" data-toggle="tab" aria-expanded="true">General Data</a>
                   </li>
-                  <li>
+                  <li id="account_li">
                     <a class="nav-item nav-link" href="#shipping" aria-controls="shipping" role="tab" data-toggle="tab" aria-expanded="true">Account Control</a>
                   </li>
-                  <li>
+                  <li id="bank_li">
                     <a class="nav-item nav-link" href="#review" aria-controls="review" role="tab" data-toggle="tab" aria-expanded="true">Bank Details</a>
                   </li>
-                  <li>
+                  <li id="ac_inform_li">
                     <a class="nav-item nav-link" href="#information" aria-controls="information" role="tab" data-toggle="tab" aria-expanded="false">Account Information</a>
                   </li>
-                  <li>
+                  <li id="payment_li">
                     <a class="nav-item nav-link" href="#payment" aria-controls="payment" role="tab" data-toggle="tab" aria-expanded="false">Payment Data</a>
                   </li>
                 </ul>
@@ -116,7 +116,7 @@
                                     <div class="form-group row">
                                       <label class="col-md-6 col-form-label">Fax: </label>
                                       <div class="col-md-6">
-                                        <?php echo form_input(array('type' => 'text','id' => 'fax', 'name' => 'fax','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'false','maxlength'=>'')); ?>
+                                        <?php echo form_input(array('type' => 'text','id' => 'fax', 'name' => 'fax','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'false','maxlength'=>'20')); ?>
                                       </div>                             
                                     </div>                    
                                 </div>
@@ -129,13 +129,13 @@
                                         <div class="form-group row">
                                       <label class="col-md-6 col-form-label">Contact Person: </label>
                                       <div class="col-md-6">
-                                        <?php echo form_input(array('type' => 'text','id' => 'contact_person', 'name' => 'contact_person','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'false','maxlength'=>'50')); ?>
+                                        <?php echo form_input(array('type' => 'text','id' => 'contact_person', 'name' => 'contact_person','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'false','maxlength'=>'50')); ?>
                                       </div>
                                     </div>
                                     <div class="form-group row">
                                       <label class="col-md-6 col-form-label">Contact Person Mobile: </label>
                                       <div class="col-md-6">
-                                         <?php echo form_input(array('type' => 'number','id' => 'contact_person_mobile', 'name' => 'contact_person_mobile','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'false','maxlength'=>'12')); ?>
+                                         <?php echo form_input(array('type' => 'number','id' => 'contact_person_mobile', 'name' => 'contact_person_mobile','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'false','maxlength'=>'12')); ?>
                                       </div>
                                     </div>
                                     <div class="form-group row">
@@ -149,7 +149,7 @@
                                     <div class="form-group row">
                                       <label class="col-md-6 col-form-label">Region: </label>
                                       <div class="col-md-6">
-                                         <select class="form-control" id="region_id" name="region" >
+                                         <select class="form-control" id="region_id" name="region" required="true">
                                         <option value="">Select</option>  
                                           <?php foreach($states as $st2)     
                                             { ?>
@@ -157,11 +157,23 @@
                                             <?php }  ?>  
                                         </select>
                                       </div>
+                                    </div>   
+                                    <div class="form-group row">
+                                      <label class="col-md-6 col-form-label">District: </label>
+                                      <div class="col-md-6">
+                                         <select class="form-control" id="district_id" name="district" required="true">
+                                        <option value="">Select</option>  
+                                          <?php /*foreach($districts as $dt)     
+                                          { ?>
+                                          <option value="<?php echo $dt->district_id?>"><?php echo $dt->district_name;?> </option>
+                                          <?php } */ ?>  
+                                        </select>
+                                      </div>
                                     </div>                            
                                     <div class="form-group row">
                                       <label class="col-md-6 col-form-label">City: </label>
                                       <div class="col-md-6">
-                                          <select id="city_id" name="city" class="form-control">
+                                          <select id="city_id" name="city" class="form-control" required="true">
                                             <option value="">Select</option>
                                           </select>
                                       </div>
@@ -180,7 +192,7 @@
                                <div class="col-md-12">
                                   <div class="form-group row">
                                     <div class="col-md-9">
-                                     <button class="btn btn-primary continue" style="color:white">Continue</button>
+                                     <button id="changetabbutton" class="btn btn-primary btnNext1">Continue</button>
                                     </div>
                                   </div>
                               </div>                                    
@@ -212,7 +224,7 @@
                         <div class="form-group row">
                           <label class="col-md-6 col-form-label">Type Of Business: </label>
                           <div class="col-md-6">
-                           <?php echo form_input(array('type' => 'text','id' => 'type_of_business', 'name' => 'type_of_business','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'false','maxlength'=>'10')); ?>
+                           <?php echo form_input(array('type' => 'text','id' => 'type_of_business', 'name' => 'type_of_business','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'false','maxlength'=>'10')); ?>
                           </div>
                         </div>                                                                                            
                     </div>
@@ -221,8 +233,7 @@
                <div class="col-md-12">
                 <div class="form-group row">
                   <div class="col-md-9">
-                   <button class="btn btn-primary continue2" style="color:white">Continue</button>
-                                    
+                  <button id="changetabbutton" class="btn btn-primary btnNext2">Continue</button>                 
                   </div>
                 </div>
             </div>    
@@ -335,8 +346,7 @@
                 <div class="col-md-12">
                     <div class="form-group row">
                       <div class="col-md-9">
-                       <button class="btn btn-primary continue" style="color:white">Continue</button>
-                                    
+                      <button type="button" id="changetabbutton" class="btn btn-primary btnNext3">Continue</button>             
                       </div>
                     </div>
                 </div>                                                     
@@ -363,7 +373,7 @@
               <div class="col-md-12">
                   <div class="form-group row">
                     <div class="col-md-9">
-                      <button class="btn btn-primary continue" style="color:white">Continue</button>                                    
+                     <button type="button" id="changetabbutton" class="btn btn-primary btnNext4">Continue</button>                    
                     </div>
                   </div>
               </div>            
@@ -398,7 +408,8 @@
                             <label class="col-md-6 col-form-label">Payment Method: </label>
                             <div class="col-md-6">                               
                                 <select name="payment_method" class="form-control" style='margin-bottom:5px' >
-                                  <option value="cash">Cash</option>                                  
+                                  <option value="cash">Cash</option>
+                                  <option value="Bank">Bank</option>                                
                                 </select>
                             </div>
                           </div> 
@@ -437,6 +448,42 @@
 <?php $this->load->view('layout/admin/footer'); ?>
 
 <script>
+
+$('.btnNext1').click(function(){
+  var title         =$('#title').val();
+  var first_name    =$('#first_name').val();
+  var mobile_id     =$('#mobile_id').val();
+  var region_id     =$('#region_id').val();
+  var district_id   =$('#district_id').val();
+  var city_id       =$('#city_id').val();
+  
+  if(title!='' && first_name!='' && mobile_id!='' && region_id!='' ){
+    $('.nav-tabs > .active').next('li').find('a').trigger('click');
+
+  }
+
+}); 
+
+$('.btnNext2').click(function(){
+    $('#general_li').removeClass('active');    
+    $('#account_li').addClass('active');
+    $('.nav-tabs > .active').next('li').find('a').trigger('click');
+
+}); 
+$('.btnNext3').click(function(){
+    $('#account_li').removeClass('active');
+    $('#bank_li').addClass('active');
+    $('.nav-tabs > .active').next('li').find('a').trigger('click');
+
+}); 
+$('.btnNext4').click(function(){
+    $('#bank_li').removeClass('active');
+    $('#ac_inform_li').addClass('active');
+    $('.nav-tabs > .active').next('li').find('a').trigger('click');
+
+}); 
+
+
 $('#region_id').change(function(){
     var region_id       =$('#region_id').val();
     $('#city_id').empty(); 
@@ -485,7 +532,7 @@ $('#region_id').change(function(){
           }
        });
   });
-$('.continue').click(function(){
+/*$('.continue').click(function(){
     var title                   =$('#title').val();
     var first_name              =$('#first_name').val(); 
     var mobile_id               =$('#mobile_id').val();
@@ -507,7 +554,7 @@ $('.continue2').click(function(){
 
 $('.back').click(function(){
   $('.nav-tabs > .active').prev('li').find('a').trigger('click');
-});
+});*/
 
 $(function(){
 

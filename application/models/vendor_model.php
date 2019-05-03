@@ -70,6 +70,14 @@ class Vendor_model extends CI_Model
     $query = $this->db->get();  
     return $query->result();
   }
+  public function filterAllGroupData($id)  
+  { 
+    $this->db->order_by("vendor_group.id", "asc");
+    $this->db->from('vendor_group');
+    $this->db->where('vendor_group.id',$id); 
+    $query = $this->db->get();  
+    return $query->result();
+  }
   public function fetchAllGroupData()  
   { 
     $this->db->order_by("vendor_group.id", "asc");

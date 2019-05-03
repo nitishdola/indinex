@@ -11,7 +11,11 @@ class Product_category_model extends CI_Model
 
 	public function select()  
 	{  
-   	$query = $this->db->get('product_category');  
+    $this->db->select('product_category.id,product_category.category_code,product_category.category_name,product_category.range_from,product_category.range_to,COUNT(product_general_data.id) as total');
+    $this->db->from('product_category');
+    $this->db->join('product_general_data','product_general_data.product_category = product_category.id','left');
+    $this->db->group_by('product_category.id');
+   	$query = $this->db->get();  
    	return $query;  
 	}
 
@@ -20,9 +24,11 @@ class Product_category_model extends CI_Model
     if($code!=''){
       $where=$this->db->where('product_category.category_code',$code); 
     } 
-    $this->db->select('*');
+    $this->db->select('product_category.id,product_category.category_code,product_category.category_name,product_category.range_from,product_category.range_to,COUNT(product_general_data.id) as total');
     $this->db->from('product_category');
+    $this->db->join('product_general_data','product_general_data.product_category = product_category.id','left');
     $where;
+    $this->db->group_by('product_category.id');
     $this->db->order_by("product_category.id", "DESC");    
     $query = $this->db->get();  
     return $query;  
@@ -68,6 +74,16 @@ class Product_category_model extends CI_Model
     $this->db->where('id', $id);
     $this->db->delete('product_category');
     return true;
+  }
+  public function select_category_group()  
+  { 
+    $this->db->order_by("product_category.id", "asc");
+    $this->db->select('product_category.id,product_category.category_code,product_category.category_name,product_category.range_from,product_category.range_to');
+    $this->db->from('product_category');
+   // $this->db->join('product_general_data','product_general_data.product_category = product_category.id','left');
+    //$this->db->group_by('product_category.id');
+    $query = $this->db->get();  
+    return $query->result();
   }
 } 
 
