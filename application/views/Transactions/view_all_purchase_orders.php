@@ -45,7 +45,7 @@ if($ch=='y'){ ?>
                   <td><?php echo $v->purchase_order_type; ?></td>
                   <td><?php echo ucwords($v->first_name).'&nbsp;'.ucwords($v->middle_name).'&nbsp;'.ucwords($v->last_name); ?></td>
                   <td><?php echo $v->note; ?></td>
-                  <td><a href="<?php echo site_url('transactions/view_po_details/'.$this->encryption->encrypt($v->purchase_order_id)); ?>"> Details</a>
+                  <td><a href="<?php echo site_url('transactions/view_po_details/'.$v->purchase_order_id); ?>"> Details</a>
                   </td>
                 </tr>
             	<?php endforeach; ?>
