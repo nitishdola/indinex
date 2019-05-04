@@ -91,6 +91,7 @@
     <div class="col-md-8 text-center text-lg-left gallery">
       <?php foreach($all_products as $k => $v):  //var_dump($v);?>
         <div class="tab-content" id="pills-tabContent">
+        <?php // if($v->picture){ ?>
         <div class="tab-pane fade show active" id="showall" role="tabpanel" aria-labelledby="showall-tab">
           <div class="Portfolio"><a href="javascript:void(0)" onclick="addProductToCart(<?php echo $v->product_general_data_id; ?>, '<?php echo $v->product_description; ?>', '<?php echo $v->sale_price; ?>', '<?php echo $v->currency; ?>')"><img class="card-img" src="<?php echo base_url(); ?>uploads/images/<?php echo $v->picture; ?>" alt=""></a><div class="desc"><?php echo ucwords($v->product_description); ?> <br>
             <?php echo $v->sale_price; ?> <?php echo $v->currency; ?></div></div>

@@ -13,9 +13,11 @@
 <div class="page">
 <div class="page-header">
 <ol class="breadcrumb">
+  
   <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard');?>">Home</a></li>
   <li class="breadcrumb-item"><a href="<?php echo site_url('Welcome/master');?>">Master</a></li>
-  <li class="breadcrumb-item"><a href="<?php echo site_url('Customers/customer_master_sub');?>">Customer Master</a></li>
+  <li class="breadcrumb-item"><a href="<?php echo site_url('Vendors/vendor_master_sub');?>">Vendor</a></li>
+  <li class="breadcrumb-item"><a href="<?php echo site_url('Vendors/vendor_master_sub');?>">Vendor Master</a></li>
  
   <li class="breadcrumb-item active">Create</li>
 </ol>
@@ -58,10 +60,10 @@
                      <?php 
                       $vcode          = $this->input->get('vcode');
                       $group_id       = $this->input->get('group_id');
-                      //$company_code   = $this->input->get('ccode'); ?>
+                      $company_code   = $this->input->get('ccode'); ?>
                       <?php echo form_input(array('type' =>'hidden', 'name' => 'vcode','value'=>$vcode)); ?>
                       <?php echo form_input(array('type' =>'hidden', 'name' => 'group_id','value'=>$group_id)); ?>
-                      <?php //echo form_input(array('type' =>'hidden', 'name' => 'company_code','value'=>$company_code)); ?>
+                      <?php echo form_input(array('type' =>'hidden', 'name' => 'company_code','value'=>$company_code)); ?>
                         <div class="row row-lg">                
                           <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
 
@@ -103,7 +105,7 @@
                                     <div class="form-group row">
                                       <label class="col-md-6 col-form-label">Mobile: </label>
                                       <div class="col-md-6">
-                                         <?php echo form_input(array('type' => 'tel','id' => 'mobile_id', 'name' => 'mobile','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off','maxlength'=>'12')); ?>
+                                         <?php echo form_input(array('type' => 'text','id' => 'mobile_id', 'name' => 'mobile','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off','maxlength'=>'12')); ?>
                                          <p id="mobile_div" style="color:red;display:none"> Mobile number is already registered</p>
                                       </div>
                                     </div>  
@@ -116,7 +118,7 @@
                                     <div class="form-group row">
                                       <label class="col-md-6 col-form-label">Fax: </label>
                                       <div class="col-md-6">
-                                        <?php echo form_input(array('type' => 'text','id' => 'fax', 'name' => 'fax','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'false','maxlength'=>'20')); ?>
+                                        <?php echo form_input(array('type' => 'text','id' => 'fax', 'name' => 'fax','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'false','maxlength'=>'')); ?>
                                       </div>                             
                                     </div>                    
                                 </div>
@@ -133,7 +135,7 @@
                                       </div>
                                     </div>
                                     <div class="form-group row">
-                                      <label class="col-md-6 col-form-label">Contact Person Mobile: </label>
+                                      <label class="col-md-6 col-form-label">Contact Person Mobile:: </label>
                                       <div class="col-md-6">
                                          <?php echo form_input(array('type' => 'number','id' => 'contact_person_mobile', 'name' => 'contact_person_mobile','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'false','maxlength'=>'12')); ?>
                                       </div>
@@ -152,20 +154,8 @@
                                          <select class="form-control" id="region_id" name="region" required="true">
                                         <option value="">Select</option>  
                                           <?php foreach($states as $st2)     
-                                            { ?>
-                                            <option value="<?php echo $st2->id?>"><?php echo $st2->TIN_no?> -<?php echo $st2->name?> </option>
-                                            <?php }  ?>  
-                                        </select>
-                                      </div>
-                                    </div>   
-                                    <div class="form-group row">
-                                      <label class="col-md-6 col-form-label">District: </label>
-                                      <div class="col-md-6">
-                                         <select class="form-control" id="district_id" name="district" required="true">
-                                        <option value="">Select</option>  
-                                          <?php foreach($districts as $dt)     
                                           { ?>
-                                          <option value="<?php echo $dt->district_name?>"><?php echo $dt->district_name;?> </option>
+                                            <option value="<?php echo $st2->id?>"><?php echo $st2->TIN_no.'-'.$st2->name; ?> </option>
                                           <?php }  ?>  
                                         </select>
                                       </div>
@@ -191,8 +181,8 @@
                               </div> 
                                <div class="col-md-12">
                                   <div class="form-group row">
-                                    <div class="col-md-9">
-                                     <button id="changetabbutton" class="btn btn-primary btnNext1">Continue</button>
+                                    <div class="col-md-9">                                    
+                                    <button id="changetabbutton" class="btn btn-primary btnNext1">Continue</button>                                  
                                     </div>
                                   </div>
                               </div>                                    
@@ -206,18 +196,19 @@
                         <p>Account Control Form</p>
                   <!-- Example Horizontal Form -->
                   <div class="example-wrap">
-                  <h4 class="example-title"></h4>                   
+                  <h4 class="example-title"></h4> 
+                  
                     <div class="example">
                         <div class="form-group row">
                           <label class="col-md-6 col-form-label">GST No: </label>
                           <div class="col-md-6">
-                             <?php echo form_input(array('type' =>'text', 'name' => 'gst_no','id'=>'gst_no','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'off')); ?>
+                            <?php echo form_input(array('type' =>'text', 'name' => 'gst_no','id'=>'gst_no','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'off')); ?>
                           </div>
                         </div> 
                         <div class="form-group row">
                           <label class="col-md-6 col-form-label">PAN No: </label>
                           <div class="col-md-6">
-                             <?php echo form_input(array('type' => 'text','id' => 'pan_no', 'name' =>'pan_no','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'false','maxlength'=>'20')); ?>
+                             <?php echo form_input(array('type' => 'text','id' => 'pan_no', 'name' =>'pan_no','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'false','maxlength'=>'50','value'=>'N/A')); ?>
                           </div>
                         </div>
 
@@ -233,7 +224,7 @@
                <div class="col-md-12">
                 <div class="form-group row">
                   <div class="col-md-9">
-                  <button type="button" id="changetabbutton" class="btn btn-primary btnNext2">Continue</button>                 
+                    <button id="changetabbutton" class="btn btn-primary btnNext2">Continue</button>
                   </div>
                 </div>
             </div>    
@@ -327,7 +318,7 @@
                                 <option value="">Select</option>  
                                   <?php foreach($states as $st2)     
                                     { ?>
-                                    <option value="<?php echo $st2->id?>"><?php echo $st2->TIN_no?> - <?php echo $st2->name;?></option>
+                                    <option value="<?php echo $st2->id?>"><?php echo $st2->TIN_no.'-'.$st2->name?> </option>
                                     <?php }  ?>  
                                 </select>
                               </div>
@@ -335,8 +326,8 @@
                             <div class="form-group row">
                               <label class="col-md-6 col-form-label">City: </label>
                               <div class="col-md-6">
-                               <select id="bank_city" name="bank_city" class="form-control">
-                                 <option value="">Select</option>
+                                <select id="bank_city" name="bank_city" class="form-control">
+                                  <option value="">Select</option>
                                 </select>
                               </div>                             
                             </div>
@@ -346,7 +337,8 @@
                 <div class="col-md-12">
                     <div class="form-group row">
                       <div class="col-md-9">
-                      <button type="button" id="changetabbutton" class="btn btn-primary btnNext3">Continue</button>             
+                        <button type="button" id="changetabbutton" class="btn btn-primary btnNext3">Continue</button>   
+                        <!--<button type="button" id="changetabbutton" class="btn btn-primary btnprevious2">Next</button> -->
                       </div>
                     </div>
                 </div>                                                     
@@ -373,7 +365,7 @@
               <div class="col-md-12">
                   <div class="form-group row">
                     <div class="col-md-9">
-                     <button type="button" id="changetabbutton" class="btn btn-primary btnNext4">Continue</button>                    
+                      <button type="button" id="changetabbutton" class="btn btn-primary btnNext4">Continue</button><!--<button type="button" id="changetabbutton" class="btn btn-primary btnprevious3">Next</button>                       -->
                     </div>
                   </div>
               </div>            
@@ -409,7 +401,7 @@
                             <div class="col-md-6">                               
                                 <select name="payment_method" class="form-control" style='margin-bottom:5px' >
                                   <option value="cash">Cash</option>
-                                  <option value="Bank">Bank</option>                                
+                                  <option value="Bank">Bank</option>                                    
                                 </select>
                             </div>
                           </div> 
@@ -422,7 +414,7 @@
                           <div class="col-md-12">
                               <div class="form-group row">
                                 <div class="col-md-9">
-                                  <?php /*echo form_input(array('type' =>'hidden', 'name' => 'vendor_code','id'=>'vendor_code'));*/ ?>
+                                  <?php echo form_input(array('type' =>'hidden', 'name' => 'vendor_code','id'=>'vendor_code')); ?>
                                   <input type="hidden" name="sub" value="1">
                                   <button type="submit" class="btn btn-primary">Submit </button>
                                
@@ -456,9 +448,8 @@ $('.btnNext1').click(function(){
   var region_id     =$('#region_id').val();
   var district_id   =$('#district_id').val();
   var city_id       =$('#city_id').val();
-  var postal_address=$('#postal_address').val();
   
-  if(title!='' && first_name!='' && mobile_id!='' && region_id!='' && postal_address!='' && district_id!='' ){
+  if(title!='' && first_name!='' && mobile_id!='' && region_id!='' ){
     $('.nav-tabs > .active').next('li').find('a').trigger('click');
 
   }
@@ -466,12 +457,9 @@ $('.btnNext1').click(function(){
 }); 
 
 $('.btnNext2').click(function(){
-    var pan_no         =$('#title').val();
-    if(pan_no!=''){
-      $('#general_li').removeClass('active');    
-      $('#account_li').addClass('active');
-      $('.nav-tabs > .active').next('li').find('a').trigger('click');
-    }
+    $('#general_li').removeClass('active');    
+    $('#account_li').addClass('active');
+    $('.nav-tabs > .active').next('li').find('a').trigger('click');
 
 }); 
 $('.btnNext3').click(function(){
@@ -486,6 +474,23 @@ $('.btnNext4').click(function(){
     $('.nav-tabs > .active').next('li').find('a').trigger('click');
 
 }); 
+
+
+
+$('.btnprevious1').click(function(){
+  alert("hi");
+  $('#account_li').removeClass('active');
+  $('#general_li').addClass('active');
+  $('.nav-tabs > .active').prev('li').find('a').trigger('click');
+});
+
+$('.btnprevious2').click(function(){
+  $('.nav-tabs > .active').prev('li').find('a').trigger('click');
+});
+
+$('.btnprevious3').click(function(){
+  $('.nav-tabs > .active').prev('li').find('a').trigger('click');
+});
 
 
 $('#region_id').change(function(){
@@ -508,11 +513,12 @@ $('#region_id').change(function(){
 
           error: function (jqXhr, textStatus, errorMessage) {
             // $.unblockUI();
-             //$('p').append('Error' + errorMessage);
+             $('p').append('Error' + errorMessage);
           }
        });
   });
-  $('#bank_region').change(function(){
+
+$('#bank_region').change(function(){
     var region_id       =$('#bank_region').val();
     $('#bank_city').empty(); 
       var url= "<?php echo base_url(); ?>" + "index.php/Masters/ajax_get_cities";       
@@ -536,7 +542,9 @@ $('#region_id').change(function(){
           }
        });
   });
-/*$('.continue').click(function(){
+
+/* $('.continuee').click(function(){
+  //alert("hi");
     var title                   =$('#title').val();
     var first_name              =$('#first_name').val(); 
     var mobile_id               =$('#mobile_id').val();
@@ -552,20 +560,15 @@ $('#region_id').change(function(){
   }
 });
 
-$('.continue2').click(function(){
-  $('.nav-tabs > .active').next('li').find('a').trigger('click');
-});
-
 $('.back').click(function(){
   $('.nav-tabs > .active').prev('li').find('a').trigger('click');
-});*/
+}); */
 
 $(function(){
 
   $('#mobile_id').blur(function(){
     var mobile_no=$('#mobile_id').val(); 
-
-    var url= "<?php echo base_url(); ?>" + "index.php/Customers/ajax_check_mobile_no";     
+    var url= "<?php echo base_url(); ?>" + "index.php/vendors/ajax_check_mobile_no";     
      jQuery.ajax({ 
         type: 'GET',         
         url: url, 

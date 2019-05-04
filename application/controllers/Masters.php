@@ -385,14 +385,14 @@ class Masters extends CI_Controller {
     public function change_storage_location(){
     	$this->load->database();          
         $this->load->model('sub_storage_model'); 
-       // $data['result']=$this->sub_storage_model->select(); 
+       
         $this->load->model('main_storage_model'); 		
 		$data['plant'] = $this->main_storage_model->getAllPlant();
         if($this->input->post('search'))
         {
-           // var_dump($_POST);exit();
-            $code=$this->input->post('code');
-            $data['result'] = $this->sub_storage_model->filterData($code);
+            $plant_id   =$this->input->post('plant_id');            
+            $code       =$this->input->post('code');
+            $data['result'] = $this->sub_storage_model->filterData($plant_id,$code);
             $this->load->view('Master/Storage_location/change_storage_location',$data);
         } else {
             $data['result']=$this->sub_storage_model->select(); 
@@ -1102,7 +1102,7 @@ class Masters extends CI_Controller {
         $this->load->database();          
         $this->load->model('product_group_model');  
         $data['result'] = $this->product_group_model->select();
-        $this->load->view('Master/product_group/change_product_group',$data);
+        $this->load->view('Master/Product_group/change_product_group',$data);
         
     }
      public function edit_product_group($id=null)
@@ -1112,7 +1112,7 @@ class Masters extends CI_Controller {
         $data['group']=$this->product_group_model->group_type($id);;
         var_dump($data['group']=$this->product_group_model->group_type($id));
         //var_dump($data['business']=$this->Line_Of_Business_Model->business_details($id));
-        $this->load->view('Master/product_group/edit_product_group',$data);
+        $this->load->view('Master/Product_group/edit_product_group',$data);
         $this->load->model('product_group_model'); 
 
   
@@ -1135,7 +1135,7 @@ class Masters extends CI_Controller {
         $this->load->database();          
         $this->load->model('product_group_model');  
         $data['result'] = $this->product_group_model->select();
-        $this->load->view('Master/product_group/display_product_group',$data);
+        $this->load->view('Master/Product_group/display_product_group',$data);
     }
 
 }

@@ -76,7 +76,16 @@ class Purchase_order_model extends CI_Model
       $this->db->where($where);
       $this->db->from('purchase_order');
       $query = $this->db->get();
-
+      return $query->result(); 
+  }
+  public function fetchGoodsTracking()  
+  {  
+      $where['purchase_line_item.status'] = 1;
+      $this->db->where($where);
+      $this->db->from('purchase_order');
+      $this->db->join('purchase_line_item', 'purchase_line_item.purchase_order_id = purchase_order.purchase_order_id');
+      $this->db->group_by('purchase_line_item.purchase_order_id');
+      $query = $this->db->get();
       return $query->result(); 
   }
 
@@ -94,6 +103,7 @@ class Purchase_order_model extends CI_Model
 
   public function fetchPOItems($purchase_order_id) {
     $where['purchase_order_id'] = $purchase_order_id;
+    $where['purchase_line_item.status'] = 1;
     $this->db->where($where);
     $this->db->from('purchase_line_item');
     $this->db->join('product_general_data', 'product_general_data.id = purchase_line_item.product_id');
@@ -123,6 +133,23 @@ class Purchase_order_model extends CI_Model
     $res = $this->db->query($query);
     return $res->result();
   } 
+  function update_po_items_status($purchase_order_id,$product_id){
+
+    $query=$this->db->query("update purchase_line_item SET status='2' where purchase_order_id='$purchase_order_id' AND product_id='$product_id'");
+  }
+
+  function calculate_received_qty($purchase_order_id,$product_id){
+
+    $where['purchase_order_id'] = $purchase_order_id;
+    $where['purchase_line_item_id'] = $product_id;
+    $this->db->where($where);
+    $this->db->select('SUM(received_quantity) as total_qty');
+    $this->db->from('goods_tracking_items');
+    
+    $query = $this->db->get();  
+    return $query->result();
+
+  }
     
 } 
 

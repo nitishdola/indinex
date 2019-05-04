@@ -33,16 +33,16 @@
                         <th width="25%">Product Category : </th><td width="25%"><?php echo $row->category_name?></td><th width="25%">Gross Weight: </th><td width="25%"><?php echo $row->gross_weight?>&nbsp;<?php echo $row->gross_uom?></td>
                       </tr>
                        <tr>
-                        <th width="25%">Product Group : </th><td width="25%"><?php echo $row->product_group?></td><th width="25%">Size: </th><td width="25%"><?php echo $row->size?></td>
+                        <th width="25%">Product Group : </th><td width="25%"><?php echo $row->group_name?></td><th width="25%">Size: </th><td width="25%"><?php echo $row->size?></td>
                       </tr>
                        <tr>
-                        <th width="25%">Photo : </th><td width="25%"><?php echo $row->picture?></td><th width="25%">Color : </th><td width="25%"><?php echo $row->color ?></td>
+                        <th width="25%">Photo : </th><td width="25%"><img width="200" src='<?php echo base_url();?>uploads/images/<?php echo $row->picture;?>'></td><th width="25%">Color : </th><td width="25%"><?php echo $row->color ?></td>
                       </tr>
                       <tr>
                         <th colspan="4"><h5>Purchase Data</h5></th>
                       </tr>
                       <tr>
-                        <th width="25%">Plant : </th><td width="25%"><?php //echo $row->category_name?></td><th width="25%">Tolerance : </th><td width="25%">Min:&nbsp;<?php echo $row->min_tolerance?>&nbsp;Max:&nbsp;<?php echo $row->max_tolerance?></td>
+                        <th width="25%">Plant : </th><td width="25%"><?php echo $row->first_name.'&nbsp;'.$row->middle_name.'&nbsp;'.$row->last_name;?></td><th width="25%">Tolerance : </th><td width="25%">Min:&nbsp;<?php echo $row->min_tolerance?>&nbsp;Max:&nbsp;<?php echo $row->max_tolerance?></td>
                       </tr>
                        <tr>
                         <th width="25%">Storage Location : </th><td width="25%"><?php echo $row->storage_location;?></td><th width="25%">Min Order Qty: </th><td width="25%"><?php echo $row->min_order_qty?>&nbsp;<?php echo $row->min_order_qty_uom;?></td>
@@ -76,14 +76,12 @@
                       <tr>
                       <th colspan="4"><h5>Storage Data</h5></th>
                       </tr>
-                      <tr>
-                        <th width="25%">Unit of issue : </th><td width="25%"><?php echo $row->unit_of_issue;?>&nbsp;<?php echo $row->unit_of_issue_uom;?></td><th width="25%">Maximum Storage Period : </th><td width="25%"><?php echo date('d-m-Y',strtotime($row->max_storage_period));?></td>
+                      
+                       <tr>
+                        <th width="25%">Temparature Condition : </th><td width="25%"><?php echo $row->temp_condition;?></td><th width="25%">Maximum Storage Period : </th><td width="25%"><?php echo$row->max_storage_period;?></td>
                       </tr>
                        <tr>
-                        <th width="25%">Temparature Condition : </th><td w;idth="25%"><?php echo $row->temp_condition;?></td><th width="25%">Remaining Period: </th><td width="25%"><?php echo date('d-m-Y',strtotime($row->remaining_period));?></td>
-                      </tr>
-                       <tr>
-                        <th width="25%">Storage Condition : </th><td width="25%"><?php echo $row->storage_condition;?></td><th width="25%"></th><td width="25%"></td>
+                        <th width="25%">Storage Condition : </th><td width="25%"><?php echo $row->storage_condition;?></td><th width="25%">Remaining Period: </th><td width="25%"><?php echo $row->remaining_period;?></td>
                       </tr>
                        <tr>
                         <th width="25%">Special Condition : </th><td width="25%"><?php echo $row->special_condition;?></td><th width="25%"></th><td width="25%"></td>
@@ -95,11 +93,15 @@
                       </tr>
                      
                        <tr>
-                        <th width="25%">Currency </th><td width="25%"><?php echo $row->currency?></td><th width="25%">Purchase Price: </th><td width="25%"><?php echo $row->purchase_price?></td>
+                        <th width="25%">Currency </th><td width="25%"><?php echo $row->currency;?></td>
+                        <?php if($row->purchase_price !=0){ ?>
+                        <th width="25%">Purchase Price: </th>
+                        <td width="25%"><?php echo $row->purchase_price;?></td>
+                        <?php } else { ?>
+                          <th width="25%">Sale Price: : </th><td width="25%"><?php echo $row->sale_price?></td><th width="25%"></th><td width="25%"></td>
+                          <?php } ?>
                       </tr>
-                       <tr>
-                        <th width="25%">Sale Price: : </th><td width="25%"><?php echo $row->sale_price?></td><th width="25%"></th><td width="25%"></td>
-                      </tr>
+                       
                     </table>
                     <?php } ?>
                 </div>

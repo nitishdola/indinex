@@ -376,7 +376,7 @@
                   <div class="example">                    
                     <table class="table table-bordered">
                     <tr>
-                     <th>Sl</th><th>Customer Account Group</th><th>Type of Business</th><th>Customer Name</th><th>Customer Code</th><th>Company Code</th><th>Change</th>
+                     <th>Sl</th><th>Customer Account Group</th><th>Type of Business</th><th>Customer Name</th><th>Customer Code</th><th>Change</th>
                     </tr>                    
                     <tbody>
                     <?php 
@@ -388,8 +388,7 @@
                         <td><?php echo  $row->group_name;?></td>  
                         <td><?php echo  $row->type_of_business;?></td>  
                         <td><?php echo  $row->title.'&nbsp;'.$row->first_name.'&nbsp;'.$row->middle_name .'&nbsp;'.$row->last_name;?></td>    
-                        <td><?php echo  str_pad($row->customer_code, 4, '0', STR_PAD_LEFT);?></td>
-                        <td><?php echo  $row->company_code;?></td>                       
+                        <td><?php echo  str_pad($row->customer_code, 4, '0', STR_PAD_LEFT);?></td>                       
                         <td><a href="<?php echo site_url('customers/display_customer_details?id='.$row->customer_id);?>" class="btn btn-info btn-sm"  style="margin: 5px">Display</a>
                         </td>
                       </tr>  

@@ -202,13 +202,13 @@
                         <div class="form-group row">
                           <label class="col-md-6 col-form-label">GST No: </label>
                           <div class="col-md-6">
-                             <?php echo form_input(array('type' =>'text', 'name' => 'gst_no','id'=>'gst_no','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'off','required'=>'true','value'=>'N/A')); ?>
+                            <?php echo form_input(array('type' =>'text', 'name' => 'gst_no','id'=>'gst_no','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'off')); ?>
                           </div>
                         </div> 
                         <div class="form-group row">
                           <label class="col-md-6 col-form-label">PAN No: </label>
                           <div class="col-md-6">
-                             <?php echo form_input(array('type' => 'text','id' => 'pan_no', 'name' =>'pan_no','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'false','maxlength'=>'50','value'=>'N/A')); ?>
+                            <?php echo form_input(array('type' => 'text','id' => 'pan_no', 'name' =>'pan_no','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'false','maxlength'=>'20')); ?>
                           </div>
                         </div>
 
@@ -224,7 +224,7 @@
                <div class="col-md-12">
                 <div class="form-group row">
                   <div class="col-md-9">
-                    <button id="changetabbutton" class="btn btn-primary btnNext2">Continue</button>
+                    <button type="button" id="changetabbutton" class="btn btn-primary btnNext2">Continue</button>
                   </div>
                 </div>
             </div>    
@@ -337,8 +337,7 @@
                 <div class="col-md-12">
                     <div class="form-group row">
                       <div class="col-md-9">
-                        <button type="button" id="changetabbutton" class="btn btn-primary btnNext3">Continue</button>   
-                        <!--<button type="button" id="changetabbutton" class="btn btn-primary btnprevious2">Next</button> -->
+                       <button type="button" id="changetabbutton" class="btn btn-primary btnNext3">Continue</button> 
                       </div>
                     </div>
                 </div>                                                     
@@ -365,7 +364,7 @@
               <div class="col-md-12">
                   <div class="form-group row">
                     <div class="col-md-9">
-                      <button type="button" id="changetabbutton" class="btn btn-primary btnNext4">Continue</button><!--<button type="button" id="changetabbutton" class="btn btn-primary btnprevious3">Next</button>                       -->
+                      <button type="button" id="changetabbutton" class="btn btn-primary btnNext4">Continue</button>    
                     </div>
                   </div>
               </div>            
@@ -448,8 +447,9 @@ $('.btnNext1').click(function(){
   var region_id     =$('#region_id').val();
   var district_id   =$('#district_id').val();
   var city_id       =$('#city_id').val();
+  var postal_address=$('#postal_address').val();
   
-  if(title!='' && first_name!='' && mobile_id!='' && region_id!='' ){
+  if(title!='' && first_name!='' && mobile_id!='' && region_id!='' && postal_address!='' && district_id!='' ){
     $('.nav-tabs > .active').next('li').find('a').trigger('click');
 
   }
@@ -457,9 +457,12 @@ $('.btnNext1').click(function(){
 }); 
 
 $('.btnNext2').click(function(){
-    $('#general_li').removeClass('active');    
-    $('#account_li').addClass('active');
-    $('.nav-tabs > .active').next('li').find('a').trigger('click');
+    var pan_no         =$('#title').val();
+    if(pan_no!=''){
+      $('#general_li').removeClass('active');    
+      $('#account_li').addClass('active');
+      $('.nav-tabs > .active').next('li').find('a').trigger('click');
+    }
 
 }); 
 $('.btnNext3').click(function(){
@@ -473,7 +476,7 @@ $('.btnNext4').click(function(){
     $('#ac_inform_li').addClass('active');
     $('.nav-tabs > .active').next('li').find('a').trigger('click');
 
-}); 
+});
 
 
 

@@ -54,11 +54,11 @@ class Vendors extends CI_Controller {
 	}
 	public function edit_acount_group($id=null)
 	{
+		$id = $this->input->get('id');
 		$this->load->model('vendor_model');        
 		$data['checkrecord'] = $this->vendor_model->check_last_record();
 		$data['result'] = $this->vendor_model->filterAllGroupData($id);
-		var_dump($data['result']);
-		
+			
 		if($this->input->post('sub'))
  		{
  			$data = array(

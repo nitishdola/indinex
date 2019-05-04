@@ -42,14 +42,14 @@
                     <?php 
                     $i=0;                           
                     foreach($product_details->result() as $row)  
-                    { $i++;?>
+                    { $i++; //var_dump($row);?>
                     <tr>  
                       <td><?php echo  $i;?> </td>
                       <td><img width="50" src='<?php echo base_url();?>uploads/images/<?php echo $row->picture;?>'</td>                       
                       <td><?php echo  str_pad($row->product_code, 4, '0', STR_PAD_LEFT);?></td> 
-                      <td><?php echo  $row->product_category;?></td>  
+                      <td><?php echo  $row->category_name;?></td>  
                       <td><?php echo  $row->product_description;?></td>                        
-                      <td><?php echo  $row->product_group;?></td>
+                      <td><?php echo  $row->group_name;?></td>
                       <td><?php echo  $row->size;?></td> 
                       <td><?php echo  $row->color;?></td>  
                       <td> <a href="<?php echo site_url('product_masters/edit_product_master?product_code='.$row->product_code);?>" class="btn btn-info btn-sm"  style="margin: 5px">Change</a></td>

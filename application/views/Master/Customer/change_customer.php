@@ -34,7 +34,7 @@
                      <?php if($customer_details)  { ?>                    
                     <table class="table table-bordered">
                     <tr>
-                     <th>Sl</th><th>Customer Account Group</th><th>Type of Business</th><th>Customer Name</th><th>Customer Code</th><th>Change</th><th>Delete</th>
+                     <th>Sl</th><th>Customer Account Group</th><th>Type of Business</th><th>Customer Name</th><th>Change</th><th>Delete</th>
                     </tr>                    
                     <tbody>
                     <?php 
@@ -46,7 +46,7 @@
                         <td><?php echo  $row->group_name;?></td>  
                         <td><?php echo  $row->type_of_business;?></td>  
                         <td><?php echo  $row->title.'&nbsp;'.$row->first_name.'&nbsp;'.$row->middle_name .'&nbsp;'.$row->last_name;?></td>    
-                        <td><?php echo  str_pad($row->customer_code, 4, '0', STR_PAD_LEFT);?></td>
+                        
                          <td><a href="<?php echo site_url('customers/edit_customer?id='.$row->customer_id);?>" class="btn btn-info btn-sm"  style="margin: 5px">Change</a>
                         </td>
                         <td><button id="del_<?php echo $row->customer_id; ?>" class="btn btn-danger btn-sm del"  style="margin: 5px">Delete</button> </td>
