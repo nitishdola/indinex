@@ -1,16 +1,32 @@
 <?php $this->load->view('layout/admin/header'); ?>
-<body class="animsition app-projects">
-   <?php $this->load->view('layout/admin/nav_menu'); ?>
 
-  <ol class="breadcrumb">
+   <?php $this->load->view('layout/admin/nav_menu'); ?>
+   <style>
+    .card-2 {
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+</style>
+<ol class="breadcrumb">
   <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard'); ?>">Home</a></li>
-  <li class="breadcrumb-item"><a href="<?php echo site_url('grn/view_all_grns'); ?>">View All Receipts</a></li>
+  <li class="breadcrumb-item"><a href="<?php echo site_url('pos/view_all_sales'); ?>">View All Receipts</a></li>
   <li class="breadcrumb-item active">Create New Sale</li>
 </ol>
 
-<div class="container">
+<div class="container" style="margin-bottom: 150px;">
   <div class="row">
-    <div class="col-md-4">
+    <?php if($all_products){ ?>
+    <div class="col-md-7 text-center text-lg-left gallery">
+      <?php foreach($all_products as $k => $v):  //var_dump($v);?>
+        <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="showall" role="tabpanel" aria-labelledby="showall-tab">
+          <div class="Portfolio"><a href="javascript:void(0)" onclick="addProductToCart(<?php echo $v->product_general_data_id; ?>, '<?php echo $v->product_description; ?>', '<?php echo $v->sale_price; ?>', '<?php echo $v->currency; ?>')"><img class="card-img" src="<?php echo base_url(); ?>uploads/images/<?php echo $v->picture; ?>" alt=""></a><div class="desc"><?php echo ucwords($v->product_description); ?> <br>
+            <?php echo $v->sale_price; ?> <?php echo $v->currency; ?></div></div>
+        </div>
+      </div>  
+      <?php endforeach; ?>
+    </div>
+
+    <div class="col-md-5 card-2" style="padding-top: 14px; padding-bottom: 15px; margin-top: -64px;">
         <?php echo form_open('pos/save_pos'); ?>
         <div id="cart" style="display: none;">
           <div class="form-group row">
@@ -18,12 +34,27 @@
             <div class="col-md-5">
                <input id="receipt_number" name="receipt_number" value="<?php echo $receipt_number; ?>" class="form-control" required="required">
             </div>
-          </div>          
+          </div> 
+
+          <div class="form-group row">
+            <label class="col-md-4 col-form-label">Select Customer : </label>
+            <div class="col-md-5">
+              
+              <select id="order_types" required="required" name="customer_id" class="selectize">
+                <option value="1">Select</option>
+                <?php foreach($all_customers as $row) 
+                  {
+                    echo '<option value="'.$row->customer_id.'">'.ucwords($row->first_name).'&nbsp;'.ucwords($row->middle_name).''.ucwords($row->last_name).'</option>';
+                  } ?>
+              </select>
+            </div>
+          </div>
+
           <table class="table table-condensed table-bordered">
             <thead class="table-thead">
               <tr style="font-weight: bold;">
                 <th>Sl</th>
-                <th>Product Description</th>
+                <th>Product</th>
                 <th>Quantity</th>
                 <th>Unit Price</th>
                 <th>Total Price</th>
@@ -49,27 +80,17 @@
                 <td id="gstAmount"></td>
               </tr>
 
+              <tr>
+                <td colspan="4">Discount(if any)</td>
+                <td>
+                  <input type="number" id="discount" required="required" step="0.01" name="discount" onkeyup="calculateDiscount()" class="form-control" />
+                </td>
+              </tr>
 
               <tr>
                 <td colspan="4">Total Amount after GST</td>
                 <td id="amountAfterGst"></td>
               </tr>
-
-              <tr>
-                <td colspan="2">Select Customer</td>
-                <td colspan="3">
-                  
-                  <select id="order_types" required="required" name="customer_id" class="selectize">
-                    <option value="1">Select</option>
-                    <?php foreach($all_customers as $row) 
-                      {
-                        echo '<option value="'.$row->customer_id.'">'.ucwords($row->first_name).'&nbsp;'.ucwords($row->middle_name).''.ucwords($row->last_name).'</option>';
-                      } ?>
-                  </select>
-                </td>
-              </tr>
-
-
             </tfoot>
           </table>
 
@@ -87,6 +108,7 @@
         </div>
     </div>
 
+<<<<<<< HEAD
     <?php if($all_products){ ?>
     <div class="col-md-8 text-center text-lg-left gallery">
       <?php foreach($all_products as $k => $v):  //var_dump($v);?>
@@ -101,10 +123,12 @@
       <?php endforeach; ?>
     </div>
 
+=======
+>>>>>>> 84740b3998975169015908c42963fa5a0cc55a51
   </div><?php }  else { echo "<div class='alert alert-warning'><h2>No Product to Display</h2></div>";} ?>
 </div>
-</div>
-</body>
+
+
 
 <?php $this->load->view('layout/admin/footer_with_js'); ?>
 
@@ -186,6 +210,14 @@ calculateTotalPrice = function(prd_id) {
 calculateGST = function() {
   gst = $('#gst').val();
 
+
+  $mainTotal = 0;
+  $(".ttlpriceunit").each(function() {
+      $mainTotal += parseFloat($(this).text());
+  });
+
+  $totalPrc = $mainTotal;
+
   if(gst > 0 && gst != '') {
     $totalPrc = parseFloat($('#totalPrice').text());
 
@@ -199,6 +231,34 @@ calculateGST = function() {
     $('#gstAmount').text($ttlGst);
     $('#amountAfterGst').text($priceAfterGst);
   }
+}
+
+calculateDiscount = function() {
+
+  $mainTotal = 0;
+  $(".ttlpriceunit").each(function() {
+      $mainTotal += parseFloat($(this).text());
+  });
+
+  $totalPrc = $mainTotal;
+
+  discount = $('#discount').val();
+  if($('#gst').val() != '') {
+    if(discount > 0 && discount != '') {
+      $amountAfterGst = parseFloat($('#amountAfterGst').text());
+
+      $totalDiscount = parseFloat(discount);
+
+      $priceAfterDiscount = $amountAfterGst - $totalDiscount;
+
+      $('#amountAfterGst').text($priceAfterDiscount.toFixed(2));
+
+    }
+  }else{
+    alert('Please enter GST amount');
+    $('#discount').val('');
+  }
+  
 }
 </script>
 <?php $this->load->view('layout/admin/footer_with_js_close'); ?>

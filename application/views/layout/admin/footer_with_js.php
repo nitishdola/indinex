@@ -31,6 +31,7 @@
     <script src="<?php echo base_url();?>global/js/Base.js"></script>
     <script src="<?php echo base_url();?>global/js/Config.js"></script>
     
+   
     <script src="<?php echo base_url();?>assets/js/Section/Menubar.js"></script>
     <script src="<?php echo base_url();?>assets/js/Section/Sidebar.js"></script>
     <script src="<?php echo base_url();?>assets/js/Section/PageAside.js"></script>
