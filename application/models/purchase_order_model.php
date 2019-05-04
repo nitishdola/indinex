@@ -13,6 +13,42 @@ class Purchase_order_model extends CI_Model
     $this->db->insert('purchase_line_item', $data);
   }
 
+
+  public function purchaseOrderNumber() {
+    $count = $this->db->count_all_results('purchase_order');
+
+    if(!$count) {
+      return 1;
+    }else{
+      $this->db->select_max('purchase_order_no');
+      $this->db->from('purchase_order');
+      $query=$this->db->get();
+      $last_serial=$query->result_array();
+      $last_serial=$last_serial[0]['purchase_order_no'];
+      return $last_serial+1;
+    }
+  }
+
+  function get_linedata($line_item_id){
+
+    $this->db->where('line_item_id',$line_item_id);
+    $query = $this->db->get('purchase_line_item');
+    /*echo $line_item_id;
+    var_dump($query->result()); exit;*/
+    return $query->result(); 
+  }
+
+  public function select_po_line_item_data()  
+  {  
+
+    $this->db->from('purchase_line_item');
+    $this->db->select('purchase_line_item.line_item_id as `purchase_line_item_id`, product_general_data.product_description as `product_description`');
+    $this->db->join('product_general_data', 'product_general_data.id = purchase_line_item.product_id');
+
+    $query = $this->db->get();
+    return $query->result(); 
+  }
+
   public function select()  
   {  
     $query = $this->db->get('product_category');  

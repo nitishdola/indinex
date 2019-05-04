@@ -27,7 +27,8 @@ class Grn extends CI_Controller {
         $this->load->view('layout/admin/nav_menu'); 
         $this->load->model('purchase_order_model'); 
         
-        $data['all_purchase_orders'] = $this->purchase_order_model->fetchAllPurchaseOrders();
+        
+        $data['all_purchase_orders']    = $this->purchase_order_model->fetchAllPurchaseOrders();
         /*$data['storage_locations'] = $this->location_model->selectAllLocations(); var_dump($data); exit;*/
     	$this->load->view('grns/create_grn', $data);
         //$this->load->view('layout/admin/footer');
@@ -39,13 +40,15 @@ class Grn extends CI_Controller {
 
         $this->load->view('layout/admin/header');           
         $this->load->view('layout/admin/nav_menu'); 
-        $this->load->model(['purchase_order_model', 'location_model']); 
+        $this->load->model(['purchase_order_model', 'location_model', 'grn_model']); 
         $data['po_details'] = $this->purchase_order_model->fetchPODetails($this->input->get('purchase_order_id'))[0];
         $data['po_items'] = $this->purchase_order_model->fetchPOItems($this->input->get('purchase_order_id'));
         
         $data['storage_locations'] = $this->location_model->selectAllLocations(); 
 
         $data['purchase_order_id'] = $purchase_order_id;
+
+        $data['grn_number']             = $this->grn_model->grnNumber();
 
         $stock_types[0]['id'] = 'QC Stock';
         $stock_types[0]['value'] = 'QC Stock';
@@ -64,6 +67,10 @@ class Grn extends CI_Controller {
     public function save_grn() {
         $this->load->model('grn_model'); 
         $this->load->model('grn_items_model'); 
+        $this->load->model('product_master_model'); 
+        $this->load->model('ledger_model'); 
+        $this->load->model('purchase_order_model');
+
 
     	$data = $this->input->post();
                 
@@ -102,7 +109,7 @@ class Grn extends CI_Controller {
             $stock_type             = $this->input->post('stock_types')[$i];
 
 
-            if(isset($_FILES['images']['name'][$i])):
+            if(isset($_FILES['images']['name'][$i]) && $_FILES['images']['name'][$i] != ''):
                 $_FILES['file']['name']      = $_FILES['images']['name'][$i];
                 $_FILES['file']['type']      = $_FILES['images']['type'][$i];
                 $_FILES['file']['tmp_name']  = $_FILES['images']['tmp_name'][$i];
@@ -124,29 +131,79 @@ class Grn extends CI_Controller {
                 
                 // Upload file to server
                 $fileData = NULL;
+                $product_image = NULL;
+
                 if($this->upload->do_upload('file')){
                     // Uploaded file data
                     $fileData = $this->upload->data();
+                    $product_image = $fileData['file_name'];
                 }else{
                     $error = array('error' => $this->upload->display_errors());
 
                     var_dump($error);
                 }
 
-                $product_arr = [
-                    'grn_id'                => $grn_id,
-                    'purchase_line_item_id' => $purchase_line_item_id,
-                    'ordered_quantity'      => $ordered_quantity,
-                    'received_quantity'     => $received_quantity,
-                    'storage_location_id'   => $storage_location_id,
-                    'stock_type'            => $stock_type,
-                    'product_image'         => $fileData['file_name'],
-                ];
-                
-                //var_dump($product_arr);
-                $this->grn_items_model->form_insert($product_arr);
-                //exit();
-            endif;
+
+            endif; 
+
+
+
+            $purchase_line_item = $this->purchase_order_model->get_linedata($purchase_line_item_id);
+            //var_dump($purchase_line_item[0]->product_id); exit;
+
+            $product_id = $purchase_line_item[0]->product_id;
+
+            $product_info = $this->product_master_model->getProductInfo($product_id);
+
+            $previous_product_quantity = $product_info->current_stock;
+
+            $new_stock  = $previous_product_quantity + $received_quantity;
+
+            //update stock
+
+            $product_update_data = [];
+
+            $product_update_data = [
+
+                'current_stock' => $new_stock,
+            ];
+
+            $this->product_master_model->update_product_general_data($product_id, $product_update_data);
+
+
+            $product_arr = [
+                'grn_id'                => $grn_id,
+                'purchase_line_item_id' => $purchase_line_item_id,
+                'ordered_quantity'      => $ordered_quantity,
+                'received_quantity'     => $received_quantity,
+                'storage_location_id'   => $storage_location_id,
+                'stock_type'            => $stock_type,
+                'product_image'         => $product_image,
+                'previous_stock'        => $previous_product_quantity,
+                'current_stock'         => $new_stock,
+            ];
+            
+            //var_dump($product_arr);
+            $this->grn_items_model->form_insert($product_arr);
+            //exit();
+
+            //update Ledger
+            $ledger_arr = [];
+
+            $ledger_arr = [
+                'grn_id'                => $grn_id,
+                'product_id'            => $product_id,
+                'product_received'      => $received_quantity,
+                'grn_number'            => trim($this->input->post('grn_number')),
+                'previous_stock'        => $previous_product_quantity,
+                'current_stock'         => $new_stock,
+                'ledger_date'           => date('Y-m-d'),
+            ];
+
+            $this->ledger_model->form_insert($ledger_arr);
+
+
+            
         }
 
         $this->db->trans_complete();
@@ -159,7 +216,7 @@ class Grn extends CI_Controller {
             $this->db->trans_commit();
             //return TRUE;
             $this->session->set_flashdata('response',"Record Inserted Successfully");
-            redirect(site_url('grn/view_all_grns'));
+            redirect(site_url('grn/view_grn_details/'.$grn_id));
 
         }
 
@@ -193,10 +250,10 @@ class Grn extends CI_Controller {
         $data['grn_details'] = $this->grn_model->fetchGRNDetails($grn_id)[0];
         $data['grn_items']   = $this->grn_items_model->fetchGRNItems($grn_id);
 
-       // echo '<pre>';
-       // var_dump($data);
-       // echo '</pre>';
-       // exit;
+       /*echo '<pre>';
+       var_dump($data);
+       echo '</pre>';
+       exit;*/
         
         $this->load->view('grns/view_grn_details',$data);
         $this->load->view('layout/admin/footer');   

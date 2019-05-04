@@ -32,6 +32,9 @@ class Transactions extends CI_Controller {
 		$this->load->view('layout/admin/header');			
 		$this->load->view('layout/admin/nav_menu');	
 		$this->load->model('purchase_order_model'); 
+
+		$data['purchase_order_number'] = $this->purchase_order_model->purchaseOrderNumber();
+
         $data['purchase_types']=$this->purchase_order_model->select();
         $data['general_data']=$this->purchase_order_model->select_general_data();
 
@@ -93,7 +96,7 @@ class Transactions extends CI_Controller {
  			}
 	       				
 			$this->session->set_flashdata('response',"<div class='alert alert-success'><strong>Success!</strong>&nbsp;&nbsp;record inserted</div>");
-			redirect(site_url('transactions/purchase_order'));
+			redirect(site_url('transactions/view_po_details/'.$po_id));
  		}
 	}
 

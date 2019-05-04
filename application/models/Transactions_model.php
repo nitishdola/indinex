@@ -24,6 +24,11 @@ class Purchase_order_model extends CI_Model
     $query = $this->db->get('product_general_data');  
     return $query;  
   }
+
+
+  
+
+
   public function select_color()  
   {  
     $this->db->where('variants_type',1);

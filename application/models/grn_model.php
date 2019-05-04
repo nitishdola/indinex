@@ -19,6 +19,21 @@ class Grn_model extends CI_Model
     return $query->result();
   }
 
+  public function grnNumber() {
+    $count = $this->db->count_all_results('grns');
+
+    if(!$count) {
+      return 1;
+    }else{
+      $this->db->select_max('grn_number');
+      $this->db->from('grns');
+      $query=$this->db->get();
+      $last_serial=$query->result_array();
+      $last_serial=$last_serial[0]['grn_number'];
+      return $last_serial+1;
+    }
+  }
+
 
   public function fetchGRNDetails($grn_id) {
     $where['id'] = $grn_id;

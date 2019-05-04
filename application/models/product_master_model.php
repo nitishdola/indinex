@@ -183,6 +183,19 @@ class Product_master_model extends CI_Model
     return true;
   }
 
+  public function getProductInfo($product_id) {
+    $this->db->select('*');
+    $this->db->from('product_general_data');
+    $this->db->where('id',$product_id);  
+    $query = $this->db->get(); 
+    return $query->result()[0];
+  }
+
+  public function update_product_general_data($id,$data){
+    $this->db->where('id', $id);
+    $this->db->update('product_general_data', $data);
+  }
+
 } 
 
 ?>

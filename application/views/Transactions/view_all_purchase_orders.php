@@ -19,10 +19,13 @@ if($ch=='y'){ ?>
 <?php }  ?>
 <div class="page-content">
    <div class="projects-wrap">
+    <?php if(count($results)) : ?>
       <div class="panel">
          	<div class="panel-body container-fluid">
 
 	               <div class="row row-lg">
+
+              
 	               		<table class="table table-hover data-table table-striped table-bordered w-full">
               <thead>
                 <tr>
@@ -52,9 +55,25 @@ if($ch=='y'){ ?>
                 
               </tbody>
             </table>
+
+            
 	               </div>
         	</div>
     	</div>
+
+      <?php else: ?>
+
+              <div class="alert alert-warning">
+                <h3>No Purchase Orders Added ! </h3>
+
+                <p>
+                  <a href="<?php echo site_url('Transactions/purchase_order');?>" class="btn btn-link">CREATE NEW PURCHASE ORDER <i class="fa fa-plus-circle" aria-hidden="true"></i> </a>
+                </p>
+
+              </div>
+
+            <?php endif; ?>
+
 	</div>
 </div>
 

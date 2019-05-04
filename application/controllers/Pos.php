@@ -53,6 +53,8 @@ class Pos extends CI_Controller {
 
         $this->load->model('sales_model'); 
         $this->load->model('sales_items_model'); 
+        $this->load->model('product_master_model');
+        $this->load->model('ledger_model');
 
 
         $this->db->trans_start(); # Starting Transaction
@@ -92,6 +94,40 @@ class Pos extends CI_Controller {
             ];
 
             $this->sales_items_model->form_insert($product_arr);
+
+
+            $product_info = $this->product_master_model->getProductInfo($product_id);
+
+            $previous_product_quantity = $product_info->current_stock;
+
+            $new_stock  = $previous_product_quantity - $quantity;
+
+            //update stock
+
+            $product_update_data = [];
+
+            $product_update_data = [
+
+                'current_stock' => $new_stock,
+            ];
+
+            $this->product_master_model->update_product_general_data($product_id, $product_update_data);
+
+            //Ledger
+            $ledger_arr = [];
+
+            $ledger_arr = [
+                'sales_id'              => $sale_id,
+                'product_id'            => $product_id,
+                'product_dispatched'    => $quantity,
+                'sales_receipt_number'  => trim($this->input->post('receipt_number')),
+                'previous_stock'        => $previous_product_quantity,
+                'current_stock'         => $new_stock,
+                'ledger_date'           => date('Y-m-d'),
+            ];
+
+            $this->ledger_model->form_insert($ledger_arr);
+
         }
 
         $this->db->trans_complete();

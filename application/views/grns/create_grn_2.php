@@ -66,7 +66,7 @@
                           <table class="table table-bordered">
                             <tr>
                               <th>GRN Number* : </th>
-                              <td><input type="text" class="form-control" name="grn_number" placeholder="GRN Number" autocomplete="off" required="required" 
+                              <td><input type="text" class="form-control" name="grn_number" value="<?php echo $grn_number; ?>" placeholder="GRN Number" autocomplete="off" required="required" 
                                     /></td>
 
                               <th>GRN Date* : </th>
@@ -140,7 +140,7 @@
                                     <td> <?php echo $k+1; ?></td>
                                     <td> 
                                       <div class="pretty p-default">
-                                        <input type="checkbox" name="purchase_line_item_ids[]" value="<?php echo $v->id; ?>" checked="checked" onclick="hideMe(<?php echo $k; ?>)" />
+                                        <input type="checkbox" name="purchase_line_item_ids[]" value="<?php echo $v->line_item_id; ?>" checked="checked" onclick="hideMe(<?php echo $k; ?>)" />
                                         <div class="state p-success">
                                             <label>Remove Product</label>
                                         </div>
