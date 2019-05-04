@@ -85,22 +85,26 @@ class Pos extends CI_Controller {
             $quantity               = $this->input->post('quantities')[$i];
             $price                  = $this->input->post('prices')[$i];
 
+            $product_info = $this->product_master_model->getProductInfo($product_id);
+
+            $previous_product_quantity = $product_info->current_stock;
+
+            $new_stock  = $previous_product_quantity - $quantity;
+
 
             $product_arr = [
                 'sale_id'       => $sale_id,
                 'product_id'    => $product_id,
                 'quantity'      => $quantity,
                 'price'         => $price,
+                'previous_stock' => $previous_product_quantity,
+                'current_stock' => $new_stock,
             ];
 
             $this->sales_items_model->form_insert($product_arr);
 
 
-            $product_info = $this->product_master_model->getProductInfo($product_id);
-
-            $previous_product_quantity = $product_info->current_stock;
-
-            $new_stock  = $previous_product_quantity - $quantity;
+            
 
             //update stock
 
