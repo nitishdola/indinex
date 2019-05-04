@@ -56,8 +56,9 @@ class Customers extends CI_Controller {
 
 	public function edit_acount_group($id=null)
 	{
+		$id = $this->input->get('id');
 		$this->load->model('customer_model');        
-		$data['result'] = $this->customer_model->select_customer_group();
+		$data['result'] = $this->customer_model->filterAllGroupData($id);
 				
 		if($this->input->post('sub'))
  		{
@@ -128,8 +129,8 @@ class Customers extends CI_Controller {
 		$this->load->model('country_model'); 
 		$data['states'] = $this->country_model->getAllStates();	
 
-		//$this->load->model('district_model'); 
-		///$data['districts'] = $this->district_model->select_all();	
+		$this->load->model('district_model'); 
+		$data['districts'] = $this->district_model->select_all();	
 		
 		if($this->input->post('sub'))
 		{	
@@ -150,6 +151,7 @@ class Customers extends CI_Controller {
 				'contact_person_mobile' 	=> $this->input->post('contact_person_mobile'),
 				'country' 					=> $this->input->post('country'),
 				'region' 					=> $this->input->post('region'),
+				'district' 					=> $this->input->post('district'),
 				'city' 						=> $this->input->post('city'),
 				'email' 					=> $this->input->post('email'),
 				'fax' 						=> $this->input->post('fax'),
@@ -260,6 +262,7 @@ class Customers extends CI_Controller {
 	{
 		$this->load->model('customer_model'); 
 		$data['customer_details']=$this->customer_model->select_customer_details();
+
 		$this->load->view('Master/Customer/display_customer',$data);		
 	}
 	
@@ -321,7 +324,8 @@ class Customers extends CI_Controller {
 	$this->load->model('bank_list_model');        
 	$data['bank_list'] = $this->bank_list_model->select_bank_list();
 
-	$this->load->view('Master/Customer/edit_customer',$data);		
+	$this->load->model('district_model'); 
+	$data['districts'] = $this->district_model->select_all();	
 
 	if($this->input->post('sub_1'))
 	{
@@ -337,12 +341,13 @@ class Customers extends CI_Controller {
 		$contact_person_mobile 	= $this->input->post('contact_person_mobile');
 		$country 				= $this->input->post('country');
 		$region 				= $this->input->post('region');
+		$district 				= $this->input->post('district');
 		$city 					= $this->input->post('city');
 		$email 					= $this->input->post('email');
 		$fax 					= $this->input->post('fax');
 		$postal_address 		= $this->input->post('postal_address');
 		
-		$this->customer_model->change_customer_general_data($firstname,$middlename,$lastname,$contact_person,$contact_person_mobile,$country,$region,$city,$email,$fax,$postal_address,$customer_id,$mobile);
+		$this->customer_model->change_customer_general_data($firstname,$middlename,$lastname,$contact_person,$contact_person_mobile,$country,$region,$district,$city,$email,$fax,$postal_address,$customer_id,$mobile);
 		$this->session->set_flashdata('response',"<div class='alert alert-success'><strong>Success!</strong>&nbsp;&nbsp;General Data Changed</div>");	
 		 
 		redirect(site_url('Customers/edit_customer?id='.$customer_id));
@@ -404,6 +409,8 @@ class Customers extends CI_Controller {
 		
 		redirect(site_url('Customers/edit_customer?id='.$customer_id));
 	}
+	
+	$this->load->view('Master/Customer/edit_customer',$data);	
 
 }
 

@@ -4,6 +4,18 @@ class Goods_tracking_model extends CI_Model
  	function __construct() {
 	parent::__construct();
 	}
+  function insert_goods_tracking($data){
+
+    $this->db->insert('goods_tracking',$data);    
+
+  }
+  public function select_items($purchase_order_id){
+      //$where['goods_tracking.status'] = $purchase_order_id;
+      //$this->db->where($where);
+      $this->db->from('purchase_order');
+      $query = $this->db->get();
+      return $query->result(); 
+  }
 	function form_insert($data){
 
     $this->db->insert('purchase_order', $data);

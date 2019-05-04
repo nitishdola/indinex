@@ -24,12 +24,27 @@
                   <div class="example">
                     <?php echo form_open(); ?>
                         <div class="form-group row">                                                    
-                          <div class="col-md-2">                       
-                            <?php echo form_input(array('type' =>'number', 'name' => 'code','id'=>'code','class'=>'form-control','style'=>'margin-bottom:5px','placeholder'=>'Storage Code','autocomplete'=>'off')); ?>  
+                          <div class="col-md-2"> 
+                          <select class="form-control" name="plant_id" id="plant_id" > 
+                            <option value="">Select Plant</option> 
+                            <?php foreach($plant as $pl) 
+                            { 
+                              echo '<option value="'.$pl->storage_id.'">'.$pl->first_name.'</option>'; 
+                            } ?>   
+                          </select>  
+                          </div>
+                          <!--<div class="col-md-2">                       
+                          <select class="form-control" name="storage_id" id="storage_id" > 
+                          <option value="">Select Storage Location</option> 
+                            
+                          </select> 
+                          </div> -->
+                           <div class="col-md-2">                       
+                          <?php echo form_input(array('type' =>'number', 'name' => 'code','id'=>'code','class'=>'form-control','style'=>'margin-bottom:5px','placeholder'=>'Storage Code','autocomplete'=>'off')); ?>  
                           </div>
 
-                           <input type="hidden" name="search" value="1">
-                            <button type="submit" class="btn btn-primary">Search </button>
+                          <input type="hidden" name="search" value="1">
+                          <button type="submit" class="btn btn-primary">Search </button>
                             
                         </div> 
                       </div>   

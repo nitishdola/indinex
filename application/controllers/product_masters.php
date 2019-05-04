@@ -117,9 +117,11 @@ class Product_masters extends CI_Controller {
 				'min_order_qty_uom' 		=> $this->input->post('min_order_qty_uom'),
 				'manufacture_part_no' 		=> $this->input->post('manufacture_part_no'),
 				'manufacturer_name' 		=> $this->input->post('manufacturer_name'),
-				'sale_item' 				=> $this->input->post('sale_item'),
-				'purchase_item' 			=> $this->input->post('purchase_item')
+				//'sale_item' 				=> $this->input->post('sale_item'),
+				//'purchase_item' 			=> $this->input->post('purchase_item')
+				'items' 					=> $this->input->post('items')
 			);
+		
 			$manufacturer_data = array(
 				'product_code' 				=> $this->input->post('product_code'),
 				'product_manufacturing' 	=> $this->input->post('product_manufacturing'),
@@ -403,5 +405,27 @@ public function change_product_master(){
 
     	$this->load->view('Master/Product_master/display_product_master',$data);
     }
-    
+    public function ajax_get_storage_location() {
+		
+		$plant_id=$this->input->get('plant_loc');
+		
+		$this->load->model('sub_storage_model'); 
+        $arr['storage']=$this->sub_storage_model->select_storage_location($plant_id);
+
+        //var_dump($this->stock_movement_model->select_storage_location($plant_id));
+        //die();
+        $i=0;
+        $array_loc = array();
+		foreach($arr['storage'] as $row)  
+        {        	  	 
+	    	$array_loc[$i]["id"]			=$row->id;
+	    	$array_loc[$i]["first_name"] 	=$row->first_name;
+	    	$array_loc[$i]["middle_name"] 	=$row->middle_name;
+	    	$array_loc[$i]["last_name"]		=$row->last_name; 
+	    	$i++;     	
+        }    
+        
+       	echo  json_encode($array_loc);	
+		
+	}
 }

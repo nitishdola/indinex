@@ -30,6 +30,14 @@ class Customer_model extends CI_Model
     $query = $this->db->get('customer_group');  
     return $query->result();
   }
+  public function filterAllGroupData($id)  
+  { 
+    $this->db->order_by("customer_group.id", "asc");
+    $this->db->from('customer_group');
+    $this->db->where('customer_group.id',$id); 
+    $query = $this->db->get();  
+    return $query->result();
+  }
   function insert_customer($data){  
     $this->db->insert('customer_details',$data);
   }
@@ -37,7 +45,8 @@ class Customer_model extends CI_Model
   {  
     $this->db->select('*');
     $this->db->from('customer_details');
-    $this->db->join('customer_group', 'customer_group.id = customer_details.customer_group_id');    
+    $this->db->join('customer_group', 'customer_group.id = customer_details.customer_group_id');
+    $this->db->join('states','states.id = customer_details.region');    
     $query = $this->db->get();      
     return $query->result();     
 
@@ -47,6 +56,7 @@ class Customer_model extends CI_Model
     $this->db->select('*');
     $this->db->from('customer_details');
     $this->db->join('customer_group', 'customer_group.id = customer_details.customer_group_id','left');    
+    $this->db->join('states', 'states.id = customer_details.region');   
     $this->db->where('customer_details.customer_code',$code);  
     $query = $this->db->get();      
     return $query->result();     
@@ -56,7 +66,8 @@ class Customer_model extends CI_Model
   {  
     $this->db->select('*');
     $this->db->from('customer_details');
-    $this->db->join('customer_group','customer_group.id = customer_details.customer_group_id','left');     
+    $this->db->join('customer_group','customer_group.id = customer_details.customer_group_id ','left');   
+    $this->db->join('states', 'states.id = customer_details.region','left');    
     $this->db->where('customer_details.customer_id',$customer_id);  
     $query = $this->db->get();      
     return $query->result();     
@@ -68,10 +79,10 @@ class Customer_model extends CI_Model
     $res = $this->db->query($query);
     return $res->result();
   }
-  public function change_customer_general_data($firstname,$middlename,$lastname,$contact_person,$contact_person_mobile,$country,$region,$city,$email,$fax,$postal_address,$customer_id,$mobile) 
+  public function change_customer_general_data($firstname,$middlename,$lastname,$contact_person,$contact_person_mobile,$country,$region,$district,$city,$email,$fax,$postal_address,$customer_id,$mobile) 
   {
 
-    $query=$this->db->query("update customer_details SET first_name='$firstname',middle_name='$middlename',last_name='$lastname',mobile='$mobile',contact_person='$contact_person',contact_person_mobile='$contact_person_mobile',country='$country',region='$region',city='$city',email='$email',fax='$fax' where customer_id='$customer_id'");
+    $query=$this->db->query("update customer_details SET first_name='$firstname',middle_name='$middlename',last_name='$lastname',mobile='$mobile',contact_person='$contact_person',contact_person_mobile='$contact_person_mobile',country='$country',region='$region',district='$district',city='$city',email='$email',fax='$fax' where customer_id='$customer_id'");
     return true;
   }
   public function change_customer_account_control($customer_id,$gst_no,$pan_no,$type_of_business)

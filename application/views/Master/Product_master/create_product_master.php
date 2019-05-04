@@ -140,7 +140,7 @@
                                   <div class="form-group row">
                               <label class="col-md-4 col-form-label">Old Material Number: </label>
                               <div class="col-md-8">
-                               <?php echo form_input(array('type'=>'text','id' => 'old_material_no', 'name' => 'old_material_no','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'off')); ?>
+                               <?php echo form_input(array('type'=>'text','id' => 'old_material_no', 'name' => 'old_material_no','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'off','maxlength'=>'50')); ?>
                               </div>
                             </div>
                             <div class="form-group row">
@@ -365,7 +365,7 @@
                                <div class="form-group row">
                               <label class="col-md-4 col-form-label">Product Manufacturing: </label>
                               <div class="col-md-8">
-                                 <?php echo form_input(array('id' => 'product_manufacturing', 'name' => 'product_manufacturing','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'off','maxlength'=>'150')); ?>
+                                 <?php echo form_input(array('id' => 'product_manufacturing', 'name' => 'product_manufacturing','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'off','maxlength'=>'50')); ?>
                               </div>
                             </div>
 
@@ -404,7 +404,7 @@
                                   
                                   <?php echo form_input(array('type'=>'radio','id' => 'Yes', 'name' => 'in_house_production','style'=>'margin-bottom:5px;margin-left:5px','value'=>'Yes','checked'=>'checked')); ?>Yes
                                   
-                                  <?php echo form_input(array('type'=>'radio','id' => 'purchase_item', 'name' => 'in_house_production','style'=>'margin-bottom:5px;margin-left:5px','value'=>'No')); ?>No       
+                                  <?php echo form_input(array('type'=>'radio','id' => 'in_house_production', 'name' => 'in_house_production','style'=>'margin-bottom:5px;margin-left:5px','value'=>'No')); ?>No       
                                   </div>
                                 </div>
                                  <?php //echo form_input(array('type' => 'text','id' => 'in_house_production', 'name' => 'in_house_production','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'off')); ?>
@@ -567,12 +567,7 @@
                                  <?php echo form_input(array('type'=>'text','id' => 'sale_price', 'name' => 'sale_price','class'=>'form-control','style'=>'margin-bottom:5px')); ?>
                               </div>
                             </div>
-                            <!--<div class="form-group row">
-                              <label class="col-md-4 col-form-label">Custom Tax: </label>
-                              <div class="col-md-8">
-                                <?php //echo form_input(array('type'=>'number','id' => 'custom_tax', 'name' => 'custom_tax','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true')); ?>
-                              </div>
-                            </div>   -->
+                           
                             <div class="form-group row"  id="purchase_price_div">
                               <label class="col-md-4 col-form-label">Purchase Price: </label>
                               <div class="col-md-8">
@@ -676,7 +671,7 @@ $('#plant').change(function(){
     $('#storage_location_id').empty().append('<option value=" ">Select</option>');
 
       var plant=$('#plant').val();           
-      var url= "<?php echo base_url(); ?>" + "index.php/stock_movement/ajax_get_storage_location";
+      var url= "<?php echo base_url(); ?>" + "index.php/Product_masters/ajax_get_storage_location";
 
       jQuery.ajax({
           type: 'GET',        
@@ -702,12 +697,16 @@ $('#sale_item').click(function(){
   $('#purchase_price_div').hide();
   $('#sale_price_div').show();
   $('#purchase_price').val('');
+  $('#purchase_price').prop('required',false);
+  $('#sale_price').prop('required',true);
 });
 $('#purchase_item').click(function(){
   
   $('#sale_price_div').hide();
   $('#purchase_price_div').show();
   $('#sale_price').val('');
+  $('#purchase_price').prop('required',true);
+  $('#sale_price').prop('required',false);
 
 });
 

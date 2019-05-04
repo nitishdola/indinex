@@ -614,4 +614,30 @@
   </div>
 </div>
 <?php $this->load->view('layout/admin/footer'); ?>
-  
+<script>
+$('#plant').change(function(){
+    $('#storage_location_id').empty().append('<option value=" ">Select</option>');
+
+      var plant=$('#plant').val();           
+      var url= "<?php echo base_url(); ?>" + "index.php/Product_masters/ajax_get_storage_location";
+
+      jQuery.ajax({
+          type: 'GET',        
+          url: url,
+          dataType: 'json',
+          data: {plant_loc: plant},
+          success: function (jsonArray) {      
+              $.each(jsonArray, function(index,jsonObject){
+                  $('#storage_location_id')
+                  .append($("<option></option>")
+                  .attr("value",jsonObject['id'])
+                  .text(jsonObject['first_name']));               
+            });         
+          },
+          error: function (jqXhr, textStatus, errorMessage) {
+            $('p').append('Error' + errorMessage);
+          }
+       });
+
+  });
+  </script>

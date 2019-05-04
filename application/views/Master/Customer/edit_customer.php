@@ -113,13 +113,13 @@
                                <div class="form-group row">
                               <label class="col-md-6 col-form-label">Contact Person: </label>
                               <div class="col-md-6">
-                                <?php echo form_input(array('type' => 'text','id' => 'contact_person', 'name' => 'contact_person','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'false','maxlength'=>'10','required'=>'true','value'=>$row->contact_person)); ?>
+                                <?php echo form_input(array('type' => 'text','id' => 'contact_person', 'name' => 'contact_person','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'false','maxlength'=>'100','value'=>$row->contact_person)); ?>
                               </div>
                             </div>
                             <div class="form-group row">
                               <label class="col-md-6 col-form-label">Contact Person Mobile:: </label>
                               <div class="col-md-6">
-                                 <?php echo form_input(array('type' => 'number','id' => 'contact_person_mobile', 'name' => 'contact_person_mobile','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'false','required'=>'true','maxlength'=>'10','value'=>$row->contact_person_mobile)); ?>
+                                 <?php echo form_input(array('type' => 'number','id' => 'contact_person_mobile', 'name' => 'contact_person_mobile','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'false','maxlength'=>'12','value'=>$row->contact_person_mobile)); ?>
                               </div>
                             </div> 
                             <div class="form-group row">
@@ -141,7 +141,19 @@
                                     <?php }  ?>  
                                 </select>
                               </div>
-                            </div>                            
+                            </div>    
+                            <div class="form-group row">
+                                      <label class="col-md-6 col-form-label">District: </label>
+                                      <div class="col-md-6">
+                                         <select class="form-control" id="district_id" name="district" required="true">
+                                        <option value="">Select</option>  
+                                          <?php foreach($districts as $dt)     
+                                          { ?>
+                                          <option <?php if($dt->district_name == $row->district){ echo 'selected="selected"'; } ?> value="<?php echo $dt->district_name?>"><?php echo $dt->district_name;?> </option>
+                                          <?php }  ?>  
+                                        </select>
+                                      </div>
+                                    </div>                             
                             <div class="form-group row">
                               <label class="col-md-6 col-form-label">City: </label>
                               <div class="col-md-6">
@@ -203,7 +215,7 @@
                             <div class="form-group row">
                               <label class="col-md-6 col-form-label">Type Of Business: </label>
                               <div class="col-md-6">
-                               <?php echo form_input(array('type' => 'text','id' => 'type_of_business', 'name' => 'type_of_business','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'false','required'=>'true','maxlength'=>'10','value'=>$row->type_of_business)); ?>
+                               <?php echo form_input(array('type' => 'text','id' => 'type_of_business', 'name' => 'type_of_business','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'false','maxlength'=>'10','value'=>$row->type_of_business)); ?>
                               </div>
                             </div>                                                                                            
                         </div>

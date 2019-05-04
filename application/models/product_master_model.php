@@ -28,6 +28,8 @@ class Product_master_model extends CI_Model
     $this->db->from('product_general_data');
     //$this->db->join('product_category','product_category.id = product_general_data.product_category');
     $this->db->join('product_accounting_data','product_accounting_data.product_code = product_general_data.product_code');
+    $this->db->join('group_type','group_type.id = product_general_data.product_group');
+    $this->db->join('product_category','product_category.id = product_general_data.product_category');
     $this->db->order_by("product_general_data.id", "desc");
     $query = $this->db->get();  
     return $query; 
@@ -47,6 +49,8 @@ class Product_master_model extends CI_Model
       $this->db->join('product_category',' product_category.id = product_general_data.product_category','left');
       $this->db->join('product_purchase_data','product_purchase_data.product_code = product_general_data.product_code','left');
       $this->db->join('storage_type',' storage_type.storage_id = product_purchase_data.plant','left');
+      $this->db->join('group_type','group_type.id = product_general_data.product_group');
+    
       $where;
       $query = $this->db->get();
       return $query;  
@@ -129,7 +133,9 @@ class Product_master_model extends CI_Model
       $this->db->join('product_category',' product_category.id = product_general_data.product_category','left');
       $this->db->join('product_purchase_data','product_purchase_data.product_code = product_general_data.product_code','left');
       $this->db->join('storage_type',' storage_type.storage_id = product_purchase_data.plant','left');
-      //$this->db->join('storage_location',' storage_location.plant_id = storage_type.id','left');
+      //$this->db->join('storage_location',' storage_location.id = product_purchase_data.storage_location','left');
+      $this->db->join('group_type','group_type.id =  product_general_data.product_group','left');
+      
       $this->db->where('product_general_data.product_code',$product_code);  
       $query = $this->db->get();      
       return $query->result();  
