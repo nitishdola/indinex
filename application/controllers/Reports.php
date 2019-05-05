@@ -25,6 +25,21 @@ class Reports extends CI_Controller {
 	{
 		$this->load->view('Reports/reports_sub');
 	}
+
+	public function ledger_report() {
+
+		$this->load->view('layout/admin/header');			
+		$this->load->view('layout/admin/nav_menu');	
+		$this->load->model('ledger_model'); 
+		$data['results'] = $this->ledger_model->fetchAllLedger();
+		$this->load->view('Reports/ledger/ledger_report', $data);
+
+		if($this->input->get('search')) {
+
+		}
+
+		$this->load->view('layout/admin/footer');	
+	}
 	
 
 }

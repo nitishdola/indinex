@@ -130,6 +130,29 @@
                 </div>
               </div>
             </li>
+
+
+            <li>
+              <div class="panel">
+                <figure class="overlay overlay-hover animation-hover">
+                  <img class="caption-figure overlay-figure dashboard-icon" src="<?php echo base_url();?>assets/images/indianex_images/ledger.png">
+                  <figcaption class="overlay-panel overlay-background overlay-fade text-center vertical-align">
+                    <div class="btn-group">
+                      <div class="dropdown float-left">
+                        <div class="dropdown-menu" role="menu">
+                        </div>
+                      </div>
+                    </div>
+                     <a href="<?php echo site_url('reports/ledger_report'); ?>" class="btn btn-inverse project-button">STOCK LEDGER</a>
+
+                  </figcaption>
+                </figure>
+                <div class="text-truncate">
+                  <a href="<?php echo site_url('reports/ledger_report'); ?>" class="dashbard-links">
+                  STOCK LEDGER </a>
+                </div>
+              </div>
+            </li>
             
           </ul>
         </div>

@@ -197,7 +197,7 @@ class Grn extends CI_Controller {
                 'grn_number'            => trim($this->input->post('grn_number')),
                 'previous_stock'        => $previous_product_quantity,
                 'current_stock'         => $new_stock,
-                'ledger_date'           => date('Y-m-d'),
+                'ledger_date'           => date('Y-m-d H:i:s'),
             ];
 
             $this->ledger_model->form_insert($ledger_arr);
