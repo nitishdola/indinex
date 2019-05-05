@@ -22,17 +22,13 @@
                             <tr>
                               <th>Purchase Order Type : </th>
                               <td><?php echo $po_details->purchase_order_type; ?></td>
-
                               <th>Purchase Order No : </th>
                               <td><?php echo $po_details->purchase_order_no; ?></td>
 
                             </tr>
-
-
                             <tr>
                               <th>Vendor Name : </th>
                               <td><?php echo $po_details->first_name.'&nbsp;'.$po_details->middle_name.'&nbsp;'.$po_details->last_name; ?></td>
-
                               <th>Purchase Order Date : </th>
                               <td><?php echo date('d-m-Y', strtotime($po_details->purchase_order_date)); ?></td>
 
@@ -76,6 +72,11 @@
                               <td>
                                 <input type="text" class="form-control" name="consignment_number" placeholder="Consignment Number" required="required" autocomplete="off"/>
                               </td>
+                              <th>Transporter Name : </th>
+                              <td>
+                                <input type="text" class="form-control" name="transporter_name" placeholder="Transporter Name" required="required" autocomplete="off"/>
+                                <input type="hidden" class="form-control" name="purchase_order_number" value="<?php echo $po_details->purchase_order_no;?>"/>
+                              </td>
                             </tr>
                           </table>
                           <h4 style="text-align: left;"> ITEMS : </h4>
@@ -102,6 +103,9 @@
                                     </th>
 
                                     <th width="12%">
+                                       Total Quantity Received
+                                    </th>
+                                    <th width="12%">
                                        Quantity Received
                                     </th>
                                     <th width="12%">
@@ -126,8 +130,19 @@
                                     <td> <?php echo $v->product_description; ?> </td>
                                     <td> <?php echo $v->product_description; ?> </td>
                                     <td> <?php echo $v->product_qty; ?> 
-                                      <input type="hidden"  name="quantity_ordered[]" value="<?php echo $v->product_qty; ?>">
+                                    <input type="hidden"  name="quantity_ordered[]" value="<?php echo $v->product_qty; ?>">
                                       &nbsp;<?php echo $v->product_uoms; ?>
+                                    <td><?php $total_received_qty=0;//echo $v->product_id; 
+                                    foreach($tracking_items as $res){
+                                      if($v->product_id == $res->purchase_line_item_id){
+                                        $total_received_qty+=$res->received_quantity;
+                                      } 
+                                    } echo $total_received_qty; ?>
+                                    <input type="hidden"  name="total_received_qty[]" value="<?php echo $total_received_qty; ?>">
+                                    </td>
+
+
+
                                     </td>
                                     <td> <input type="text" required="required"  class="form-control" name="quantity_received[]" value="<?php //echo $v->product_qty; ?>">   </td>
                                     <td> 

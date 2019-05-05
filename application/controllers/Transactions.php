@@ -62,18 +62,13 @@ class Transactions extends CI_Controller {
 				'purchase_order_date' 	=> date('Y-m-d', strtotime($this->input->post('purchase_order_date'))),
 				'payment_terms' 		=> $this->input->post('payment_terms'),
 				'note' 					=> $this->input->post('note'),
-				'incoterms' => $this->input->post('incoterms'),
-				'creation_date'=>date('Y-m-d H:i:s'),
-				'created_by'=> 1,
+				'incoterms' 			=> $this->input->post('incoterms'),
+				'creation_date' 		=> date('Y-m-d H:i:s'),
+				'created_by'			=> $this->ion_auth->get_user_id(),
 				//'ip_number'=>'';
 			);
 
- 			//$data['vendor_id'] = 2;
- 			//$data['note'] = 'test';
-
- 			//var_dump($_POST); exit;
-
-
+ 			
  			$po = $this->purchase_order_model->form_insert($data);
 
  			$po_id = $this->db->insert_id();

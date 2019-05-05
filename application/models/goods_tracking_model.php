@@ -79,8 +79,32 @@ class Goods_tracking_model extends CI_Model
     $this->db->insert('consignment_transport_parts',$data);    
   }
 
-  
+  public function fetchAllGoodsTracking1()  
+  {  
+    $this->db->from('goods_tracking');
+    $this->db->group_by('goods_tracking.purchase_order_id');
+    $this->db->join('goods_tracking_items', 'goods_tracking_items.goods_tracking_id = goods_tracking.id'); 
+    $this->db->order_by('goods_tracking.id DESC');
+    $query = $this->db->get();
+    return $query->result();
+  }
 
+  public function fetchAllGoodsTracking($id) 
+  {  
+    $this->db->where('goods_tracking.purchase_order_id',$id);
+    $this->db->from('goods_tracking');    
+    $query = $this->db->get();
+    return $query->result();
+  }
+    public function fetchGoodsTrackingLine($id) 
+  {  
+    $this->db->where('goods_tracking.purchase_order_id',$id);
+    $this->db->from('goods_tracking');
+    $this->db->join('goods_tracking_items','goods_tracking_items.goods_tracking_id = goods_tracking.id'); 
+    $this->db->join('product_general_data','product_general_data.id = goods_tracking_items.purchase_line_item_id'); 
+    $query = $this->db->get();
+    return $query->result();
+  }
     
 } 
 

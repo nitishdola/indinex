@@ -24,7 +24,7 @@
                           <table class="table table-bordered">
                             <tr>
                               <th>Purchase Order Type : </th>
-                              <td><?php echo $po_details->purchase_order_type; ?></td>
+                              <td><?php echo $po_details->category_name; ?></td>
 
                               <th>Purchase Order No : </th>
                               <td><?php echo $po_details->purchase_order_no; ?></td>

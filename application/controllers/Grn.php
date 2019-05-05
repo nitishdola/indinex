@@ -28,9 +28,11 @@ class Grn extends CI_Controller {
         $this->load->model('purchase_order_model'); 
         
         
-        $data['all_purchase_orders']    = $this->purchase_order_model->fetchAllPurchaseOrders();
+        //$data['all_purchase_orders']    = $this->purchase_order_model->fetchAllPurchaseOrders();
         /*$data['storage_locations'] = $this->location_model->selectAllLocations(); var_dump($data); exit;*/
-    	$this->load->view('grns/create_grn', $data);
+    	$data['all_purchase_orders']    = $this->purchase_order_model->fetchPoNumberForGrn();
+        var_dump($data['all_purchase_orders']);
+        $this->load->view('grns/create_grn', $data);
         //$this->load->view('layout/admin/footer');
     }
 
@@ -43,6 +45,8 @@ class Grn extends CI_Controller {
         $this->load->model(['purchase_order_model', 'location_model', 'grn_model']); 
         $data['po_details'] = $this->purchase_order_model->fetchPODetails($this->input->get('purchase_order_id'))[0];
         $data['po_items'] = $this->purchase_order_model->fetchPOItems($this->input->get('purchase_order_id'));
+        $data['goodsTracking'] = $this->purchase_order_model->fetchGoodsTrackingHeader($this->input->get('purchase_order_id'));
+        //var_dump($data['goodsTracking']);
         
         $data['storage_locations'] = $this->location_model->selectAllLocations(); 
 

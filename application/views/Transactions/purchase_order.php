@@ -18,7 +18,7 @@
                            <div class="form-group row">
                               <label class="col-md-3 col-form-label">Purchase Order Type : </label>
                               <div class="col-md-9">
-                                 <select id="purchase_order_type_id" name="purchase_order_type" class="form-control">
+                                 <select id="purchase_order_type_id" name="purchase_order_type" class="form-control" required="true">
                                     <option value="">Select</option>
                                     <?php foreach($purchase_types->result() as $row) 
                                       {
@@ -30,7 +30,7 @@
                            <div class="form-group row">
                               <label class="col-md-3 col-form-label">Vendor Name: </label>
                               <div class="col-md-9">
-                                 <select name="vendor_id" class="form-control" id="vendor_name">
+                                 <select name="vendor_id" class="form-control" id="vendor_name" required="true">
                                     <option value="0">Select</option>
                                        <?php foreach($vendors->result() as $row) 
                                          {
@@ -42,15 +42,14 @@
                            <div class="form-group row">
                               <label class="col-md-3 col-form-label">Vendor Address : </label>
                               <div class="col-md-9">
-                                 <textarea class="form-control" id="vendor_address" name="vendor_address" placeholder="Vendor Address " autocomplete="off" rows="4"></textarea>
+                                 <textarea class="form-control" id="vendor_address" name="vendor_address" placeholder="Vendor Address " autocomplete="off" rows="4" required="true"></textarea>
                               </div>
                            </div>
                            
                            <div class="form-group row">
                               <label class="col-md-3 col-form-label">Document Date : </label>
                               <div class="col-md-9">
-                                 <input type="text" class="form-control zdatepicker" name="document_date" placeholder="Document Date" autocomplete="off"
-                                    />
+                                 <input type="text" class="form-control zdatepicker" name="document_date" placeholder="Document Date" autocomplete="off" required="true"/>
                               </div>
                            </div>
                         </div>
@@ -71,8 +70,7 @@
                            <div class="form-group row">
                               <label class="col-md-3 col-form-label">Purchase Order Date : </label>
                               <div class="col-md-9">
-                                 <input type="text" class="form-control zdatepicker" name="purchase_order_date" placeholder="Purchase Order Date" autocomplete="off"
-                                    />
+                                 <input type="text" class="form-control zdatepicker" name="purchase_order_date" placeholder="Purchase Order Date" autocomplete="off" required="trued"/>
                               </div>
                            </div>
 

@@ -32,7 +32,7 @@ if($ch=='y'){ ?>
                   <th>Sl No</th>
                   <th>Purchase Order No</th>
                   <th>PO Date</th>
-                  <th>Type</th>
+                  <th>Product Category</th>
                   <th>Vendor</th>                  
                   <th>Remarks/Note</th>
                   <th>Details</th>
@@ -45,7 +45,7 @@ if($ch=='y'){ ?>
                   <td><?php echo $k+1; ?></td>
                   <td><?php echo $v->purchase_order_no; ?></td>
                   <td><?php echo date('d-m-Y', strtotime($v->purchase_order_date)); ?></td>
-                  <td><?php echo $v->purchase_order_type; ?></td>
+                  <td><?php echo $v->category_name; ?></td>
                   <td><?php echo ucwords($v->first_name).'&nbsp;'.ucwords($v->middle_name).'&nbsp;'.ucwords($v->last_name); ?></td>
                   <td><?php echo $v->note; ?></td>
                   <td><a href="<?php echo site_url('transactions/view_po_details/'.$v->purchase_order_id); ?>"> Details</a>

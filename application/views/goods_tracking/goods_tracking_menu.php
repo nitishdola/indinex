@@ -60,7 +60,7 @@
                         </div>
                       </div>
                     </div>
-                     <a href="<?php echo site_url('goods_tracking/display_goods_tracking');?>" class="btn btn-inverse project-button">DISPLAY</a>                    
+                     <a href="<?php echo site_url('goods_tracking/view_all_goods_tracking');?>" class="btn btn-inverse project-button">DISPLAY</a>                    
                   </figcaption>
                 </figure>
                 <div class="text-truncate">DISPLAY</div>

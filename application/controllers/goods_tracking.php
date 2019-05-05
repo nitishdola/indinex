@@ -191,7 +191,8 @@ class Goods_tracking extends CI_Controller {
         $this->load->model(['purchase_order_model', 'location_model']); 
         $data['po_details'] = $this->purchase_order_model->fetchPODetails($this->input->get('purchase_order_id'))[0];
         $data['po_items'] = $this->purchase_order_model->fetchPOItems($this->input->get('purchase_order_id'));
-        //var_dump($data['po_items']);
+        $data['tracking_items'] = $this->purchase_order_model->fetchGoodsTrackingItems($this->input->get('purchase_order_id'));
+        //var_dump($data['tracking_items']);
         $data['purchase_order_id'] = $purchase_order_id;
         
         $this->load->view('goods_tracking/view_purchase_order', $data);
@@ -204,8 +205,8 @@ class Goods_tracking extends CI_Controller {
         $this->load->model('goods_tracking_model'); 
         $this->load->model('goods_tracking_items_model'); 
         $data = $this->input->post();   
-        //var_dump($_POST)    ;
-
+        var_dump($_POST)    ;
+        //exit();
         
         $purchase_order_id = $this->input->post('purchase_order_id');
         //$check_tracking_items = $this->goods_tracking_model->select_items($purchase_order_id);
@@ -213,8 +214,10 @@ class Goods_tracking extends CI_Controller {
 
         $arr = [
             'purchase_order_id'     => $this->input->post('purchase_order_id'),
+            'purchase_order_number' => $this->input->post('purchase_order_number'),
             'invoice_number'        => trim($this->input->post('invoice_number')),
-            'consignment_number'    => $this->input->post('consignment_number'),           
+            'consignment_number'    => $this->input->post('consignment_number'),
+            'transporter_name'      => ucwords($this->input->post('transporter_name')),           
             'entered_by'            => $this->ion_auth->get_user_id(),
             'remarks'               => trim($this->input->post('remarks')),
             'created_at'            => date('Y-m-d H:i:s'),
@@ -260,15 +263,42 @@ class Goods_tracking extends CI_Controller {
 
         $this->db->trans_complete();
 
+
         if ($this->db->trans_status() === FALSE) {
             $this->db->trans_rollback();
             return FALSE;
         } 
         else {
-            $this->db->trans_commit();            
+            $this->db->trans_commit();
             $this->session->set_flashdata('response',"<div class='alert alert-success'><strong>Success!</strong>&nbsp;&nbsp;record inserted</div>");
             redirect(site_url('Goods_tracking/create_goods_tracking'));
 
         }
+    }
+
+    public function view_all_goods_tracking(){
+
+        $this->load->model('goods_tracking_model'); 
+        $this->load->model('goods_tracking_items_model'); 
+        $this->load->view('layout/admin/header');           
+        $this->load->view('layout/admin/nav_menu'); 
+        $data['results'] = $this->goods_tracking_model->fetchAllGoodsTracking1();
+        
+        $this->load->view('goods_tracking/view_all_goods_tracking',$data); 
+
+    }
+
+    public function view_goods_tracking($id=null){
+
+        $id=$this->input->get('id');
+        $this->load->model('goods_tracking_model'); 
+        $this->load->model('goods_tracking_items_model'); 
+        $this->load->view('layout/admin/header');           
+        $this->load->view('layout/admin/nav_menu'); 
+        $data['results'] = $this->goods_tracking_model->fetchAllGoodsTracking($id);
+        $data['linegoods'] = $this->goods_tracking_model->fetchGoodsTrackingLine($id);
+        $data['purchase_order_number']=$data['linegoods'][0]->purchase_order_number;
+        $this->load->view('goods_tracking/view_goods_tracking_line',$data); 
+
     }
 }
