@@ -45,6 +45,14 @@ class Grn_model extends CI_Model
 
     return $query->result();
   }
+
+  public function select_goods_tracking_no($purchase_order_id){
+    $this->db->where('purchase_order_id', $purchase_order_id);
+    $this->db->where('status',1);
+    $this->db->from('goods_tracking');
+    $query = $this->db->get();
+    return $query->result();
+  }
   /*public function fetchPODetails($purchase_order_id) {
     $where['id'] = $purchase_order_id;
     $this->db->where($where);

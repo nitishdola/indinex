@@ -24,7 +24,7 @@
                         <div class="example">
 
                           <form action="view_purchase_order" method="get">
-
+                            <?php echo $this->session->flashdata('trackingno'); ?>                            
                            <div class="form-group row">
                               <label class="col-md-4 col-form-label">Purchase Order Number : </label>
                               <div class="col-md-5">

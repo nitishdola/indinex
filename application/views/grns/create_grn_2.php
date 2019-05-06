@@ -1,13 +1,9 @@
 
 <ol class="breadcrumb">
-  <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard'); ?>">Home</a></li>
-  <li class="breadcrumb-item"><a href="<?php echo site_url('grn/view_all_grns'); ?>">View All GRNs</a></li>
-  <li class="breadcrumb-item active">Create GRN</li>
+ <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard'); ?>">Home</a></li>
+  <li class="breadcrumb-item"><a href="<?php echo site_url('grn/dashboard'); ?>">GRN</a></li>
+  <li class="breadcrumb-item active">Create New GRN</li>
 </ol>
-
-
-
-
 <div class="page-content">
    <div class="projects-wrap">
       <div class="panel">
@@ -15,58 +11,59 @@
                <div class="row row-lg">
 
                   <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-                    <h4 style="text-align: left;"> Purchase Order Details : #<?php echo $po_details->purchase_order_no; ?> </h4>
-                     <div class="example-wrap">
-                      <?php echo form_open_multipart('grn/save_grn'); ?>
+                    <h4 style="text-align: left;"> Purchase Order Details : #<?php //echo $po_details->purchase_order_no; ?> </h4>
+                     <div class="example-wrap">                     
+                      <?php echo form_open_multipart('grn/save_grn'); ?>                      
+                  
                         <div class="example">
                         <?php echo $this->session->flashdata('response'); ?>
 
-                          <table class="table table-bordered">
+                          <!--<table class="table table-bordered">
                             <tr>
                               <th>Purchase Order Type : </th>
-                              <td><?php echo $po_details->category_name; ?></td>
+                              <td><?php //echo $po_details->category_name; ?></td>
 
                               <th>Purchase Order No : </th>
-                              <td><?php echo $po_details->purchase_order_no; ?></td>
+                              <td><?php //echo $po_details->purchase_order_no; ?></td>
 
                             </tr>
 
 
                             <tr>
                               <th>Vendor Name : </th>
-                              <td><?php echo $po_details->first_name.'&nbsp;'.$po_details->middle_name.'&nbsp;'.$po_details->last_name; ?></td>
+                              <td><?php //echo $po_details->first_name.'&nbsp;'.$po_details->middle_name.'&nbsp;'.$po_details->last_name; ?></td>
 
                               <th>Purchase Order Date : </th>
-                              <td><?php echo date('d-m-Y', strtotime($po_details->purchase_order_date)); ?></td>
+                              <td><?php //echo date('d-m-Y', strtotime($po_details->purchase_order_date)); ?></td>
 
                             </tr>
 
 
                             <tr>
                               <th>Vendor Address : </th>
-                              <td><?php echo $po_details->postal_address; ?></td>
+                              <td><?php //echo $po_details->postal_address; ?></td>
 
                               <th>Tayment Type : </th>
-                              <td><?php echo $po_details->payment_terms; ?></td>
+                              <td><?php //echo $po_details->payment_terms; ?></td>
 
                             </tr>
 
 
                             <tr>
                               <th>Document Date : </th>
-                              <td><?php echo date('d-m-Y', strtotime($po_details->document_date)); ?></td>
+                              <td><?php //echo date('d-m-Y', strtotime($po_details->document_date)); ?></td>
 
                               <th>Incoterms  : </th>
-                              <td><?php echo $po_details->incoterms; ?></td>
+                              <td><?php //echo $po_details->incoterms; ?></td>
 
                             </tr>
 
-                          </table>
+                          </table> -->
 
                           <table class="table table-bordered">
                             <tr>
                               <th>GRN Number* : </th>
-                              <td><input type="text" class="form-control" name="grn_number" value="<?php echo $grn_number; ?>" placeholder="GRN Number" autocomplete="off" required="required" 
+                              <td><input type="text" class="form-control" name="grn_number" value="<?php //echo $grn_number; ?>" placeholder="GRN Number" autocomplete="off" required="required" 
                                     /></td>
 
                               <th>GRN Date* : </th>
@@ -100,26 +97,21 @@
                                        Product Name
                                     </th>
 
-                                    <th width="20%">
-                                       Description
-                                    </th>
-
-                                    
-
-                                    <th>
-                                       UoM
-                                   </th>
-
-
                                    <th width="12%">
                                        Quantity Ordered
                                     </th>
-
                                     <th width="12%">
+                                       Tracking Qty
+                                    </th>
+
+                                    <th width="10%">
                                        Quantity Received
                                     </th>
 
-                                    <th width="12%">
+                                    <th width="20%">
+                                       Plant
+                                    </th>
+                                    <th width="15%">
                                        Storage Location
                                     </th>
 
@@ -135,28 +127,36 @@
                               </thead>
                               <?php $total_price = 0; ?>
                               <tbody class="itembody">
-                                <?php foreach($po_items as $k => $v): ?>
+                                <?php foreach($goods_tracking_items as $k => $v): // var_dump($v); ?>
                                  <tr id="<?php echo 'tr_'.$k; ?>">
                                     <td> <?php echo $k+1; ?></td>
                                     <td> 
                                       <div class="pretty p-default">
-                                        <input type="checkbox" name="purchase_line_item_ids[]" value="<?php echo $v->line_item_id; ?>" checked="checked" onclick="hideMe(<?php echo $k; ?>)" />
+                                        <input type="checkbox" name="purchase_line_item_ids[]" value="<?php echo $v->id; ?>" checked="checked" onclick="hideMe(<?php echo $k; ?>)" />
                                         <div class="state p-success">
                                             <label>Remove Product</label>
                                         </div>
                                       </div>
                                     </td>
-                                    <td> <?php echo $v->product_description; ?> </td>
-                                    <td> <?php echo $v->product_description; ?> </td>
-                                    
-                                    <td> <?php echo $v->product_uoms; ?> </td>
-                                    <td> <?php echo $v->product_qty; ?> 
-                                      <input type="hidden"  name="quantity_ordered[]" value="<?php echo $v->product_qty; ?>">
+                                    <td> <?php echo ucfirst($v->product_description); ?> </td>
+                                    <td> <?php echo $v->ordered_quantity; ?> &nbsp;<?php //echo $v->product_uoms; ?> 
+                                      <input type="hidden"  name="quantity_ordered[]" value="<?php echo $v->ordered_quantity; ?>">
                                     </td>
-                                    <td> <input type="text" required="required"  class="form-control" name="quantity_received[]" value="<?php echo $v->product_qty; ?>">   </td>
+                                    <td> <?php echo $v->received_quantity; ?> &nbsp;<?php //echo $v->product_uoms; ?>
+                                    </td>
+                                    <td> <input type="text" required="required"  class="form-control" name="quantity_received[]" value="<?php echo $v->received_quantity; ?>">   </td>
 
                                     <td> 
-                                      <select id="order_types" required="required"  name="storage_location_id[]" class="form-control">
+                                      <select id="plant_id" required="required"  name="plant_id[]" class="form-control">
+                                        <option value="">Select Location </option>
+                                        <?php foreach($plant as $pl) 
+                                          {
+                                            echo '<option value="'.$pl->storage_id.'">'.$pl->first_name.'</option>';
+                                          } ?>
+                                      </select>
+                                    </td>
+                                    <td> 
+                                      <select id="order_types" name="storage_location_id[]" class="form-control">
                                         <option value="">Select Location </option>
                                         <?php foreach($storage_locations as $row) 
                                           {
@@ -197,6 +197,7 @@
                            </div>
                         </div>
                      </div>
+                     
                      <?php echo form_close(); ?>
                   </div>
 
@@ -205,6 +206,7 @@
          </div>
       </div>
       <!-- End Panel Controls Sizing -->
+   </div>
    </div>
 </div>
 <?php $this->load->view('layout/admin/footer_with_js'); ?>

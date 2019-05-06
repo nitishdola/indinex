@@ -30,8 +30,9 @@ class Grn extends CI_Controller {
         
         //$data['all_purchase_orders']    = $this->purchase_order_model->fetchAllPurchaseOrders();
         /*$data['storage_locations'] = $this->location_model->selectAllLocations(); var_dump($data); exit;*/
-    	$data['all_purchase_orders']    = $this->purchase_order_model->fetchPoNumberForGrn();
-        var_dump($data['all_purchase_orders']);
+    	/*$data['all_purchase_orders']    = $this->purchase_order_model->fetchPoNumberForGrn();
+        var_dump($data['all_purchase_orders']); */
+        $data['all_purchase_orders'] = $this->purchase_order_model->fetchGoodsTracking();
         $this->load->view('grns/create_grn', $data);
         //$this->load->view('layout/admin/footer');
     }
@@ -39,20 +40,24 @@ class Grn extends CI_Controller {
     public function view_grn() {
 
         $purchase_order_id = $this->input->get('purchase_order_id');
+        $tracking_id = $this->input->get('goods_tracking_no');
 
         $this->load->view('layout/admin/header');           
         $this->load->view('layout/admin/nav_menu'); 
         $this->load->model(['purchase_order_model', 'location_model', 'grn_model']); 
-        $data['po_details'] = $this->purchase_order_model->fetchPODetails($this->input->get('purchase_order_id'))[0];
-        $data['po_items'] = $this->purchase_order_model->fetchPOItems($this->input->get('purchase_order_id'));
+        //$data['po_details'] = $this->purchase_order_model->fetchPODetails($this->input->get('purchase_order_id'))[0];
+        //$data['po_items'] = $this->purchase_order_model->fetchPOItems($this->input->get('purchase_order_id'));
+        //$data['goods_tracking_items'] = $this->purchase_order_model->fetchGoodsTrackingItemsForGrn($this->input->get('purchase_order_id'));
+        $data['goods_tracking_items'] = $this->purchase_order_model->fetchGoodsTrackingItemsForGrn($purchase_order_id,$tracking_id);
         $data['goodsTracking'] = $this->purchase_order_model->fetchGoodsTrackingHeader($this->input->get('purchase_order_id'));
         //var_dump($data['goodsTracking']);
-        
+        $this->load->model('main_storage_model');       
+        $data['plant'] = $this->main_storage_model->getAllPlant();
         $data['storage_locations'] = $this->location_model->selectAllLocations(); 
 
         $data['purchase_order_id'] = $purchase_order_id;
 
-        $data['grn_number']             = $this->grn_model->grnNumber();
+        //$data['grn_number']             = $this->grn_model->grnNumber();
 
         $stock_types[0]['id'] = 'QC Stock';
         $stock_types[0]['value'] = 'QC Stock';
@@ -65,6 +70,8 @@ class Grn extends CI_Controller {
 
         $data['stock_types'] = $stock_types;
         $this->load->view('grns/create_grn_2', $data);
+        
+       
     }
 
 
@@ -77,7 +84,7 @@ class Grn extends CI_Controller {
 
 
     	$data = $this->input->post();
-                
+
         $grn_number = $this->input->post('grn_number');
         $arr = [];
 
@@ -109,6 +116,7 @@ class Grn extends CI_Controller {
             $purchase_line_item_id  = $this->input->post('purchase_line_item_ids')[$i];
             $ordered_quantity       = $this->input->post('quantity_ordered')[$i];
             $received_quantity      = $this->input->post('quantity_received')[$i];
+            $plant_id               = $this->input->post('plant_id')[$i];
             $storage_location_id    = $this->input->post('storage_location_id')[$i];
             $stock_type             = $this->input->post('stock_types')[$i];
 
@@ -180,6 +188,7 @@ class Grn extends CI_Controller {
                 'purchase_line_item_id' => $purchase_line_item_id,
                 'ordered_quantity'      => $ordered_quantity,
                 'received_quantity'     => $received_quantity,
+                'plant_id'              => $plant_id,
                 'storage_location_id'   => $storage_location_id,
                 'stock_type'            => $stock_type,
                 'product_image'         => $product_image,
@@ -189,7 +198,7 @@ class Grn extends CI_Controller {
             
             //var_dump($product_arr);
             $this->grn_items_model->form_insert($product_arr);
-            //exit();
+            exit();
 
             //update Ledger
             $ledger_arr = [];
@@ -219,8 +228,8 @@ class Grn extends CI_Controller {
         else {
             $this->db->trans_commit();
             //return TRUE;
-            $this->session->set_flashdata('response',"Record Inserted Successfully");
-            redirect(site_url('grn/view_grn_details/'.$grn_id));
+            $this->session->set_flashdata('response',"<div class='alert alert-success'><strong>Success!</strong>&nbsp;&nbsp;GRN inserted</div>");            
+            redirect(site_url('grn/create_grn'));
 
         }
 
@@ -261,5 +270,22 @@ class Grn extends CI_Controller {
         
         $this->load->view('grns/view_grn_details',$data);
         $this->load->view('layout/admin/footer');   
+    }
+
+    public function ajax_get_goods_tracking_no()
+    {
+        $purchase_order_id=$this->input->get('purchase_order_id');
+        $this->load->model('grn_model'); 
+        $arr['res']=$this->grn_model->select_goods_tracking_no($purchase_order_id);
+        $i=0;
+        $array_tracking_no = array();
+        foreach($arr['res'] as $row)  
+        {                
+            //$array_tracking_no[$i]["id"]            =$row->id;
+            $array_tracking_no[$i]["tracking_id"]      =$row->id;            
+            $i++;       
+        }    
+        
+        echo  json_encode($array_tracking_no);  
     }
 }

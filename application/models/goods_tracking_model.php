@@ -69,6 +69,23 @@ class Goods_tracking_model extends CI_Model
     $query = $this->db->get();      
     return $query;
   }
+
+  public function fetchAll_goods_tracking($purchase_order_id=null)  
+  {   
+    $this->db->where('goods_tracking.purchase_order_id',$purchase_order_id);
+    $this->db->from('goods_tracking');    
+    $query = $this->db->get();
+    return $query->result();
+  }
+
+  public function fetchAll_goods_tracking_line($purchase_order_id=null)  
+  {   
+    $this->db->where('goods_tracking.purchase_order_id',$purchase_order_id);
+    $this->db->from('goods_tracking');    
+    $this->db->join('goods_tracking_items', 'goods_tracking_items.goods_tracking_id = goods_tracking.id'); 
+    $query = $this->db->get();
+    return $query->result();
+  }
   
   public function ajax_insert_consignment($data)
   {
@@ -104,6 +121,21 @@ class Goods_tracking_model extends CI_Model
     $this->db->join('product_general_data','product_general_data.id = goods_tracking_items.purchase_line_item_id'); 
     $query = $this->db->get();
     return $query->result();
+  }
+  public function fetchGoodsTrackingView($id,$trackingid=null) 
+  {  
+    $this->db->where('goods_tracking.purchase_order_id',$id);
+    $this->db->where('goods_tracking.id',$trackingid);
+    $this->db->from('goods_tracking');
+    $this->db->join('goods_tracking_items','goods_tracking_items.goods_tracking_id = goods_tracking.id'); 
+    $this->db->join('product_general_data','product_general_data.id = goods_tracking_items.purchase_line_item_id'); 
+    $query = $this->db->get();
+    return $query->result();
+  }
+
+  public function update_status_line($status,$trackingid,$product_id){
+
+    $query=$this->db->query("update goods_tracking_items SET stock_type='$status' where goods_tracking_id='$trackingid' AND purchase_line_item_id='$product_id'");
   }
     
 } 

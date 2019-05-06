@@ -28,6 +28,10 @@ class Goods_tracking extends CI_Controller {
 
         $this->load->model('goods_tracking_model');    
         $data['tracking']=$this->goods_tracking_model->select_goods_tracking();
+
+        $this->load->model('purchase_order_model');        
+        $data['all_purchase_orders'] = $this->purchase_order_model->fetchGoodsTracking();
+
         $this->load->view('goods_tracking/change_goods_tracking',$data);
     }
     public function display_goods_tracking(){
@@ -154,7 +158,7 @@ class Goods_tracking extends CI_Controller {
         if($this->input->post('sub'))
         {
 
-            var_dump($_POST);
+            //var_dump($_POST);
         }
     }
 
@@ -205,10 +209,15 @@ class Goods_tracking extends CI_Controller {
         $this->load->model('goods_tracking_model'); 
         $this->load->model('goods_tracking_items_model'); 
         $data = $this->input->post();   
-        var_dump($_POST)    ;
-        //exit();
+               
         
         $purchase_order_id = $this->input->post('purchase_order_id');
+        $total_ordered=$this->purchase_order_model->calculate_total_orderedd($purchase_order_id);
+        $total_ordered_qty=($total_ordered[0]->total_ordered);
+        
+        $total_received=$this->purchase_order_model->calculate_total_received($purchase_order_id);        
+        $total_received_qty=($total_received[0]->total_received);
+        //exit();
         //$check_tracking_items = $this->goods_tracking_model->select_items($purchase_order_id);
         $arr = [];
 
@@ -231,7 +240,7 @@ class Goods_tracking extends CI_Controller {
 
         $this->db->trans_start(); # Starting Transaction
         $this->db->trans_strict(FALSE); 
-
+        $all_total_received=0;
         for($i = 0; $i < $products_count; $i++) {
             $product_arr = [];
 
@@ -244,7 +253,8 @@ class Goods_tracking extends CI_Controller {
             foreach($arr as $tt);{ //var_dump($tt);
                 $total_qty= $tt->total_qty;
             }
-            $total_received=$received_quantity+$total_qty;;
+            $total_received=$received_quantity+$total_qty;
+            $all_total_received+=$received_quantity;
             if($total_received>=$ordered_quantity){             
                 $this->purchase_order_model->update_po_items_status($purchase_order_id,$purchase_line_item_id);
             }
@@ -258,9 +268,12 @@ class Goods_tracking extends CI_Controller {
                 ];
                 //var_dump($product_arr);
                 $this->goods_tracking_items_model->goods_tracking_line_items($product_arr);
-        }
+        } $grand_total_received= $all_total_received+$total_received_qty;
 
-
+            if($grand_total_received >=$total_ordered_qty){
+                $this->purchase_order_model->update_purchase_order_status($purchase_order_id);
+            }
+           
         $this->db->trans_complete();
 
 
@@ -269,8 +282,8 @@ class Goods_tracking extends CI_Controller {
             return FALSE;
         } 
         else {
-            $this->db->trans_commit();
-            $this->session->set_flashdata('response',"<div class='alert alert-success'><strong>Success!</strong>&nbsp;&nbsp;record inserted</div>");
+            $this->db->trans_commit();           
+            $this->session->set_flashdata('trackingno',"<div class='alert alert-success'><strong>Your Goods Tracking Number is- ".str_pad($goods_tracking_id, 4, '0', STR_PAD_LEFT)."</div>");
             redirect(site_url('Goods_tracking/create_goods_tracking'));
 
         }
@@ -300,5 +313,53 @@ class Goods_tracking extends CI_Controller {
         $data['purchase_order_number']=$data['linegoods'][0]->purchase_order_number;
         $this->load->view('goods_tracking/view_goods_tracking_line',$data); 
 
+    }
+
+    public function goods_tracking_details()
+    {
+        /*$purchase_order_id=$this->input->get('purchase_order_id');
+        $this->load->model('goods_tracking_model');    
+        $data['goods_tracking']=$this->goods_tracking_model->fetchAll_goods_tracking($purchase_order_id);  
+        $data['goods_tracking']=$this->goods_tracking_model->fetchAll_goods_tracking_line($purchase_order_id);  
+        $data['purchase_order_id']=$purchase_order_id;*/
+
+        $id=$this->input->get('purchase_order_id');
+        $this->load->model('goods_tracking_model'); 
+        $this->load->model('goods_tracking_items_model'); 
+        $this->load->view('layout/admin/header');           
+        $this->load->view('layout/admin/nav_menu'); 
+        $data['results'] = $this->goods_tracking_model->fetchAllGoodsTracking($id);
+        $data['linegoods'] = $this->goods_tracking_model->fetchGoodsTrackingLine($id);
+        $data['purchase_order_number']=$data['linegoods'][0]->purchase_order_number;
+     
+
+        $this->load->view('goods_tracking/goods_tracking_details',$data); 
+    }
+    public function goods_tracking_details_view()
+    {
+        $id=$this->input->get('id');
+        $trackingid=$this->input->get('trackingid');
+        $this->load->model('goods_tracking_model'); 
+        $this->load->model('goods_tracking_items_model'); 
+        $this->load->view('layout/admin/header');           
+        $this->load->view('layout/admin/nav_menu'); 
+        $data['results'] = $this->goods_tracking_model->fetchAllGoodsTracking($id);
+        $data['linegoods'] = $this->goods_tracking_model->fetchGoodsTrackingView($id,$trackingid);
+        $data['purchase_order_number']=$data['linegoods'][0]->purchase_order_number;
+        $this->load->view('goods_tracking/goods_tracking_details_view',$data); 
+        $products_count=count($data['linegoods']);
+
+
+        if($this->input->post('sub')){
+            
+            for($i = 0; $i < $products_count; $i++) {
+                $product_id  = $this->input->post('product_id')[$i];
+                $status  = $this->input->post('status')[$i];
+                $this->goods_tracking_model->update_status_line($status,$trackingid,$product_id);
+            }
+
+            $this->session->set_flashdata('response',"<div class='alert alert-success'><strong>Success!</strong>&nbsp;&nbsp;Status Changed</div>");
+            redirect(site_url('Goods_tracking/goods_tracking_details_view?id='.$id.'&trackingid='.$trackingid));
+        }
     }
 }

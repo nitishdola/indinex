@@ -1,9 +1,8 @@
 
 <ol class="breadcrumb">
   <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard'); ?>">Home</a></li>
-  <li class="breadcrumb-item"><a href="<?php echo site_url('goods_tracking/goods_tracking_menu'); ?>">Goods Tracking</a></li>
-  <li class="breadcrumb-item"><a href="<?php echo site_url('goods_tracking/create_goods_tracking'); ?>">Create</a></li> 
-  <li class="breadcrumb-item active"> Tracking</li>
+  <li class="breadcrumb-item"><a href="<?php echo site_url('grn/view_all_grns'); ?>">View All GRNs</a></li>
+  <li class="breadcrumb-item active">Create GRN</li>
 </ol>
 <div class="page-content">
    <div class="projects-wrap">
@@ -13,72 +12,92 @@
 
                   <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                     <h4 style="text-align: left;"> Purchase Order Details : #<?php echo $po_details->purchase_order_no; ?> </h4>
-                     <div class="example-wrap">
-                      <?php echo form_open_multipart('Goods_tracking/save_goods_tracking'); ?>
+                     <div class="example-wrap">                     
+                      <?php echo form_open_multipart(); ?>                      
+                    <div class="col-md-4">
+                     <div class="form-group row">
+                      <div class="col-md-6">
+                       <select id="tracking_id" name="tracking_id" class="form-control select2">
+                           <option value="">Select Tracking Number</option>
+                           <?php foreach($goodsTracking as $gt)  {
+                                  echo '<option value="'.$gt->id.'">'.$gt->id.'</option>';                           
+                                } ?>
+                        </select>
+                        <input type="hidden" name="purchase_order_id" value="<?php echo $_GET['purchase_order_id'] ;?>">
+                        </div>
+                        <div class="col-md-6">
+                           <input type="hidden" name="sub" value="1">
+                           <button type="submit" class="btn btn-primary">Search </button>
+                        </div>
+                     </div>
+                    </div>
+                     <?php if(isset($_POST['sub'])){ ?>
                         <div class="example">
                         <?php echo $this->session->flashdata('response'); ?>
 
-                          <table class="table table-bordered">
+                          <!--<table class="table table-bordered">
                             <tr>
                               <th>Purchase Order Type : </th>
-                              <td><?php echo $po_details->purchase_order_type; ?></td>
+                              <td><?php //echo $po_details->category_name; ?></td>
+
                               <th>Purchase Order No : </th>
-                              <td><?php echo $po_details->purchase_order_no; ?></td>
+                              <td><?php //echo $po_details->purchase_order_no; ?></td>
 
                             </tr>
+
+
                             <tr>
                               <th>Vendor Name : </th>
-                              <td><?php echo $po_details->first_name.'&nbsp;'.$po_details->middle_name.'&nbsp;'.$po_details->last_name; ?></td>
+                              <td><?php //echo $po_details->first_name.'&nbsp;'.$po_details->middle_name.'&nbsp;'.$po_details->last_name; ?></td>
+
                               <th>Purchase Order Date : </th>
-                              <td><?php echo date('d-m-Y', strtotime($po_details->purchase_order_date)); ?></td>
+                              <td><?php //echo date('d-m-Y', strtotime($po_details->purchase_order_date)); ?></td>
 
                             </tr>
 
 
                             <tr>
                               <th>Vendor Address : </th>
-                              <td><?php echo $po_details->postal_address; ?></td>
+                              <td><?php //echo $po_details->postal_address; ?></td>
 
                               <th>Tayment Type : </th>
-                              <td><?php echo $po_details->payment_terms; ?></td>
+                              <td><?php //echo $po_details->payment_terms; ?></td>
 
                             </tr>
 
 
                             <tr>
                               <th>Document Date : </th>
-                              <td><?php echo date('d-m-Y', strtotime($po_details->document_date)); ?></td>
+                              <td><?php //echo date('d-m-Y', strtotime($po_details->document_date)); ?></td>
 
                               <th>Incoterms  : </th>
-                              <td><?php echo $po_details->incoterms; ?></td>
+                              <td><?php //echo $po_details->incoterms; ?></td>
 
                             </tr>
 
-                          </table>
+                          </table> -->
 
                           <table class="table table-bordered">
                             <tr>
-                              <th>Invoice Number* : </th>
-                              <td><input type="text" class="form-control" name="invoice_number" placeholder="Invoice Number" autocomplete="off" required="required" 
+                              <th>GRN Number* : </th>
+                              <td><input type="text" class="form-control" name="grn_number" value="<?php //echo $grn_number; ?>" placeholder="GRN Number" autocomplete="off" required="required" 
                                     /></td>
 
-                              <th>Invoice Date* : </th>
-                              <td><input type="text" class="form-control zdatepicker" name="invoice_date" placeholder="Invoice Date" required="required"  value="<?php echo date('d-m-Y'); ?>" autocomplete="off"
-                            /></td>
+                              <th>GRN Date* : </th>
+                              <td><input type="text" class="form-control zdatepicker" name="grn_date" placeholder="GRN Date" required="required"  value="<?php echo date('d-m-Y'); ?>" autocomplete="off"
+                                    /></td>
 
                             </tr>
+
                             <tr>
-                              <th>Consignment Number : </th>
+                              <th>Remarks : </th>
                               <td>
-                                <input type="text" class="form-control" name="consignment_number" placeholder="Consignment Number" required="required" autocomplete="off"/>
-                              </td>
-                              <th>Transporter Name : </th>
-                              <td>
-                                <input type="text" class="form-control" name="transporter_name" placeholder="Transporter Name" required="required" autocomplete="off"/>
-                                <input type="hidden" class="form-control" name="purchase_order_number" value="<?php echo $po_details->purchase_order_no;?>"/>
+                                <textarea class="form-control" name="remarks"></textarea>
                               </td>
                             </tr>
                           </table>
+
+
                           <h4 style="text-align: left;"> ITEMS : </h4>
                            <table class="table table-bordered table-hover" id="itemtable">
                               <thead class="table-thead">
@@ -91,36 +110,38 @@
                                        Select
                                     </th>
 
-                                    <th width="15%">
+                                    <th width="20%">
                                        Product Name
                                     </th>
 
-                                    <th width="15%">
+                                    <th width="20%">
                                        Description
                                     </th>
-                                   <th width="10%">
+                                   <th width="12%">
                                        Quantity Ordered
                                     </th>
-                                    
 
                                     <th width="12%">
-                                       Total Received
-                                    </th>
-                                    <th width="10%">
-                                       Remaining Quantity
-                                    </th>
-                                    <th width="10%">
                                        Quantity Received
                                     </th>
+
+                                    <th width="12%">
+                                       Storage Location
+                                    </th>
+
                                     <th width="12%">
                                        Stock type
+                                    </th>
+
+                                    <th width="12%">
+                                       Upload Image
                                     </th>
 
                                  </tr>
                               </thead>
                               <?php $total_price = 0; ?>
                               <tbody class="itembody">
-                                <?php foreach($po_items as $k => $v): // var_dump($v); ?>
+                                <?php foreach($goods_tracking_items as $k => $v): var_dump($v); ?>
                                  <tr id="<?php echo 'tr_'.$k; ?>">
                                     <td> <?php echo $k+1; ?></td>
                                     <td> 
@@ -131,36 +152,48 @@
                                         </div>
                                       </div>
                                     </td>
-                                    <td> <?php echo $v->product_description; ?> </td>
-                                    <td> <?php echo $v->product_description; ?> </td>
-                                    <td> <?php echo $v->product_qty; ?> 
-                                    <input type="hidden"  name="quantity_ordered[]" value="<?php echo $v->product_qty; ?>">
-                                      &nbsp;<?php echo $v->product_uoms; ?>
-                                      </td>
+                                    <td> <?php //echo $v->product_description; ?> </td>
+                                    <td> <?php //echo $v->product_description; ?> </td>
                                     
-
-                                    <td><?php $total_received_qty=0;//echo $v->product_id; 
-                                    foreach($tracking_items as $res){
-                                      if($v->product_id == $res->purchase_line_item_id){
-                                        $total_received_qty+=$res->received_quantity;
-                                      } 
-                                    } echo $total_received_qty; ?>&nbsp;  <?php echo $v->product_uoms; ?>
-                                    <input type="hidden"  name="total_received_qty[]" value="<?php echo $total_received_qty; ?>">
+                                  
+                                    <td> <?php //echo $v->ordered_quantity; ?> &nbsp;<?php //echo $v->product_uoms; ?> 
+                                      <input type="hidden"  name="quantity_ordered[]" value="<?php //echo $v->ordered_quantity; ?>">
                                     </td>
-                                    <td> <?php echo ($v->product_qty-$total_received_qty); ?> <?php echo $v->product_uoms; ?></td>
+                                    <td> <input type="text" required="required"  class="form-control" name="quantity_received[]" value="<?php //echo $v->total_received; ?>">   </td>
+
+                                    <td> 
+                                      <select id="order_types" required="required"  name="storage_location_id[]" class="form-control">
+                                        <option value="">Select Location </option>
+                                        <?php foreach($storage_locations as $row) 
+                                          {
+                                            echo '<option value="'.$row->id.'">'.$row->first_name.'</option>';
+                                          } ?>
+                                      </select>
+                                    </td>
 
 
-                                    <td> <input type="text" required="required"  class="form-control" name="quantity_received[]" value="<?php //echo $v->product_qty; ?>">   </td>
                                     <td> 
                                       <select id="order_types" required="required"  name="stock_types[]" class="form-control">
-                                        <option value="In Transit">In Transit </option>
+                                        <option value="">Stock Type </option>
+                                        <?php foreach($stock_types as $row) 
+                                          {
+                                            echo '<option value="'.$row['id'].'">'.$row['value'].'</option>';
+                                          } ?>
                                       </select>
+                                    </td>
+
+
+                                    <td>
+
+                                      <input name="images[]" type="file" />
+
                                     </td>
                                   </tr>
                                 <?php endforeach; ?>  
                               </tbody>
                            </table>
                      </div>
+
                      <div class="col-md-12">
                         <div class="form-group row">
                            <div class="col-md-9"></div>
@@ -170,6 +203,7 @@
                            </div>
                         </div>
                      </div>
+                     <?php } ?>
                      <?php echo form_close(); ?>
                   </div>
 
@@ -178,6 +212,7 @@
          </div>
       </div>
       <!-- End Panel Controls Sizing -->
+   </div>
    </div>
 </div>
 <?php $this->load->view('layout/admin/footer_with_js'); ?>
