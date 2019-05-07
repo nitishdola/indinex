@@ -15,7 +15,6 @@ class Rest extends CI_Controller {
 
 		if (!$this->ion_auth->logged_in())
 		{
-			//redirect('auth/login', 'refresh');
             echo 0;
 		}
     }
@@ -29,4 +28,27 @@ class Rest extends CI_Controller {
         }
         echo 0;exit;
     }
+
+    public function get_vendor_details(){
+        $vendor_id = $this->input->post('vendor_id');
+        if($vendor_id != '' && $vendor_id > 0 ) {
+            $this->load->model('vendor_model');  
+            echo json_encode($this->vendor_model->fetch_vendor_details($vendor_id)[0]);
+            exit;
+        }
+        echo 0;exit;
+    }
+
+
+    public function get_product_details(){
+        $product_id = $this->input->post('product_id');
+        if($product_id != '' && $product_id > 0 ) {
+            $this->load->model('product_master_model');  
+            echo json_encode($this->product_master_model->getProductInfo($product_id));
+            exit;
+        }
+        echo 0;exit;
+    }
+
+    
 }

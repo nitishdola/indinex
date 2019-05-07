@@ -31,12 +31,18 @@ class Reports extends CI_Controller {
 		$this->load->view('layout/admin/header');			
 		$this->load->view('layout/admin/nav_menu');	
 		$this->load->model('ledger_model'); 
-		$data['results'] = $this->ledger_model->fetchAllLedger();
-		$this->load->view('Reports/ledger/ledger_report', $data);
 
-		if($this->input->get('search')) {
+		$where = [];
 
+		//var_dump($this->input->get('product_id')); exit;
+
+		if($this->input->get('product_id')) {
+			$product_id = $this->input->get('product_id');
+			$where['product_id'] = $product_id;
 		}
+
+		$data['results'] = $this->ledger_model->fetchAllLedger($where);
+		$this->load->view('Reports/ledger/ledger_report', $data);
 
 		$this->load->view('layout/admin/footer');	
 	}
