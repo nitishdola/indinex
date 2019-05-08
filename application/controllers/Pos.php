@@ -31,25 +31,15 @@ class Pos extends CI_Controller {
         $this->load->model('customer_model'); 
         $this->load->model('sales_model'); 
 
-        $data['all_products'] = $this->product_master_model->select()->result();
-        $data['all_customers'] = $this->customer_model->select()->result();
-        $data['receipt_number']   = $this->sales_model->receiptNumber();
-        /*echo '<pre>';
-        var_dump($data);
-        echo '</pre>';*/
+        $data['all_products'] 		= $this->product_master_model->select_pos_items()->result();
+        $data['all_customers'] 		= $this->customer_model->select()->result();
+        $data['receipt_number']   	= $this->sales_model->receiptNumber();
+
     	$this->load->view('pos/create', $data);
     }
 
 
     public function save_pos() {
-
-        /*$data = $this->input->post();
-        echo '<pre>';
-        var_dump($data);
-        echo '</pre>';
-
-        exit;*/
-
 
         $this->load->model('sales_model'); 
         $this->load->model('sales_items_model'); 
