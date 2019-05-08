@@ -64,7 +64,7 @@
                            <div class="form-group row">
                               <label class="col-md-3 col-form-label">Purchase Order No: </label>
                               <div class="col-md-9">
-                                 <input type="text" class="form-control" name="purchase_order_no" id="purchase_order_no_id" value="<?php echo $purchase_order_number; ?>" placeholder="Purchase Order No" autocomplete="off" required="true"/>
+                                 <input type="text" class="form-control" name="purchase_order_no" id="purchase_order_no_id" placeholder="Purchase Order No" autocomplete="off" required="true"/>
                               </div>
                            </div>
                            <div class="form-group row">

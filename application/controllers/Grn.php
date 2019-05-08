@@ -81,13 +81,15 @@ class Grn extends CI_Controller {
         $this->load->model('product_master_model'); 
         $this->load->model('ledger_model'); 
         $this->load->model('purchase_order_model');
+        $this->load->model('goods_tracking_model');
 
 
     	$data = $this->input->post();
-
-        $grn_number = $this->input->post('grn_number');
+        
+        $grn_number         = $this->input->post('grn_number');
+        $goods_tracking_no  = $this->input->post('goods_tracking_no');
         $arr = [];
-
+        
         $arr = [
             'purchase_order_id' => $this->input->post('purchase_order_id'),
             'grn_number'    => trim($this->input->post('grn_number')),
@@ -120,7 +122,8 @@ class Grn extends CI_Controller {
             $storage_location_id    = $this->input->post('storage_location_id')[$i];
             $stock_type             = $this->input->post('stock_types')[$i];
 
-
+           // var_dump($purchase_line_item_id);
+           // exit();
             if(isset($_FILES['images']['name'][$i]) && $_FILES['images']['name'][$i] != ''):
                 $_FILES['file']['name']      = $_FILES['images']['name'][$i];
                 $_FILES['file']['type']      = $_FILES['images']['type'][$i];
@@ -160,13 +163,16 @@ class Grn extends CI_Controller {
 
 
 
-            $purchase_line_item = $this->purchase_order_model->get_linedata($purchase_line_item_id);
+            /*$purchase_line_item = $this->purchase_order_model->get_linedata($purchase_line_item_id);
             //var_dump($purchase_line_item[0]->product_id); exit;
 
             $product_id = $purchase_line_item[0]->product_id;
 
-            $product_info = $this->product_master_model->getProductInfo($product_id);
+            $product_info = $this->product_master_model->getProductInfo($product_id); */
 
+            $product_id=$purchase_line_item_id;
+            $product_info = $this->product_master_model->getProductInfo($product_id);
+            
             $previous_product_quantity = $product_info->current_stock;
 
             $new_stock  = $previous_product_quantity + $received_quantity;
@@ -181,6 +187,7 @@ class Grn extends CI_Controller {
             ];
 
             $this->product_master_model->update_product_general_data($product_id, $product_update_data);
+            
 
 
             $product_arr = [
@@ -198,7 +205,7 @@ class Grn extends CI_Controller {
             
             //var_dump($product_arr);
             $this->grn_items_model->form_insert($product_arr);
-            exit();
+           
 
             //update Ledger
             $ledger_arr = [];
@@ -218,7 +225,7 @@ class Grn extends CI_Controller {
 
             
         }
-
+        $this->goods_tracking_model->update_goods_tracking($goods_tracking_no);
         $this->db->trans_complete();
 
         if ($this->db->trans_status() === FALSE) {

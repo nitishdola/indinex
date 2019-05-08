@@ -103,12 +103,12 @@
                                     </th>
                                     
 
-                                    <th width="12%">
+                                    <!--<th width="12%">
                                        Total Received
-                                    </th>
+                                    </th> 
                                     <th width="10%">
                                        Remaining Quantity
-                                    </th>
+                                    </th>-->
                                     <th width="10%">
                                        Quantity Received
                                     </th>
@@ -136,18 +136,17 @@
                                     <td> <?php echo $v->product_qty; ?> 
                                     <input type="hidden"  name="quantity_ordered[]" value="<?php echo $v->product_qty; ?>">
                                       &nbsp;<?php echo $v->product_uoms; ?>
-                                      </td>
-                                    
+                                      </td>                                   
 
-                                    <td><?php $total_received_qty=0;//echo $v->product_id; 
+                                    <?php $total_received_qty=0;//echo $v->product_id; 
                                     foreach($tracking_items as $res){
                                       if($v->product_id == $res->purchase_line_item_id){
                                         $total_received_qty+=$res->received_quantity;
                                       } 
-                                    } echo $total_received_qty; ?>&nbsp;  <?php echo $v->product_uoms; ?>
+                                    } $total_received_qty; ?>&nbsp;  <?php //echo $v->product_uoms; ?>
                                     <input type="hidden"  name="total_received_qty[]" value="<?php echo $total_received_qty; ?>">
-                                    </td>
-                                    <td> <?php echo ($v->product_qty-$total_received_qty); ?> <?php echo $v->product_uoms; ?></td>
+                                    
+                                    <!--<td> <?php //echo ($v->product_qty-$total_received_qty); ?> <?php //echo $v->product_uoms; ?></td>-->
 
 
                                     <td> <input type="text" required="required"  class="form-control" name="quantity_received[]" value="<?php //echo $v->product_qty; ?>">   </td>

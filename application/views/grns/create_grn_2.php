@@ -2,6 +2,7 @@
 <ol class="breadcrumb">
  <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard'); ?>">Home</a></li>
   <li class="breadcrumb-item"><a href="<?php echo site_url('grn/dashboard'); ?>">GRN</a></li>
+  <li class="breadcrumb-item"><a href="<?php echo site_url('grn/create_grn'); ?>">Add GRN</a></li>
   <li class="breadcrumb-item active">Create New GRN</li>
 </ol>
 <div class="page-content">
@@ -17,10 +18,11 @@
                   
                         <div class="example">
                         <?php echo $this->session->flashdata('response'); ?>
-
+                        
+                        <input type="hidden" name="goods_tracking_no" value="<?php echo $_GET['goods_tracking_no'];?>"?>
                           <!--<table class="table table-bordered">
                             <tr>
-                              <th>Purchase Order Type : </th>
+                              <th>Purchase Order Type : </th
                               <td><?php //echo $po_details->category_name; ?></td>
 
                               <th>Purchase Order No : </th>
