@@ -115,9 +115,32 @@ class Purchase_order_model extends CI_Model
       $query = $this->db->get();
       return $query->result(); 
   }
-  public function fetchGoodsTracking()  
+
+  public function fetchAllVendors()  
   {  
       $where['purchase_order.status'] = 1;
+      $this->db->where($where);
+      $this->db->from('purchase_order');
+      $this->db->group_by('vendor_details.vendor_id');
+      $this->db->join('vendor_details', 'vendor_details.vendor_id = purchase_order.vendor_id');
+      $query = $this->db->get();
+      return $query->result(); 
+  }
+
+  public function fetchGoodsTracking()  
+  {  
+      $where['purchase_order.status'] =1;
+      $this->db->where($where);
+      $this->db->from('purchase_order');
+     // $this->db->join('purchase_line_item', 'purchase_line_item.purchase_order_id = purchase_order.purchase_order_id');
+     // $this->db->group_by('purchase_line_item.purchase_order_id');
+      $query = $this->db->get();
+      return $query->result(); 
+  }
+
+  public function fetchGoodsTrackingPo()  
+  {  
+      $where['purchase_order.status'] =2;
       $this->db->where($where);
       $this->db->from('purchase_order');
      // $this->db->join('purchase_line_item', 'purchase_line_item.purchase_order_id = purchase_order.purchase_order_id');
@@ -258,6 +281,30 @@ class Purchase_order_model extends CI_Model
     $query = $this->db->get();  
     return $query->result();
 
+  }
+
+  function select_po($vendor_id){
+
+    $where['vendor_id']   = $vendor_id;
+    $where['status']      = 1;
+    
+    $this->db->where($where);        
+    $query = $this->db->get('purchase_order');  
+    return $query->result();
+
+  }
+
+  function select_consignment($vendor_id){
+
+    $where['vendor_id']       = $vendor_id;
+    //$where['consignment_no']  = $consignment_no;
+    $where['goods_tracking.status']          = 1;
+    
+    $this->db->where($where); 
+    $this->db->from('goods_tracking');
+    $this->db->join('purchase_order', 'purchase_order.purchase_order_id = goods_tracking.purchase_order_id');       
+    $query = $this->db->get();  
+    return $query->result();
   }
     
 } 

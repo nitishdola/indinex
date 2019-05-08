@@ -21,7 +21,7 @@
                           <table class="table table-bordered">
                             <tr>
                               <th>Purchase Order Type : </th>
-                              <td><?php echo $po_details->purchase_order_type; ?></td>
+                              <td><?php echo $po_details->category_name; ?></td>
                               <th>Purchase Order No : </th>
                               <td><?php echo $po_details->purchase_order_no; ?></td>
 
@@ -39,7 +39,7 @@
                               <th>Vendor Address : </th>
                               <td><?php echo $po_details->postal_address; ?></td>
 
-                              <th>Tayment Type : </th>
+                              <th>Payment Type : </th>
                               <td><?php echo $po_details->payment_terms; ?></td>
 
                             </tr>
@@ -48,10 +48,7 @@
                             <tr>
                               <th>Document Date : </th>
                               <td><?php echo date('d-m-Y', strtotime($po_details->document_date)); ?></td>
-
-                              <th>Incoterms  : </th>
-                              <td><?php echo $po_details->incoterms; ?></td>
-
+                              <th colspan="2">
                             </tr>
 
                           </table>
@@ -93,11 +90,7 @@
 
                                     <th width="15%">
                                        Product Name
-                                    </th>
-
-                                    <th width="15%">
-                                       Description
-                                    </th>
+                                    </th>                                    
                                    <th width="10%">
                                        Quantity Ordered
                                     </th>
@@ -131,8 +124,8 @@
                                         </div>
                                       </div>
                                     </td>
-                                    <td> <?php echo $v->product_description; ?> </td>
-                                    <td> <?php echo $v->product_description; ?> </td>
+                                    <td> <?php echo ucwords($v->product_description); ?> </td>
+                                    <!--<td> <?php echo $v->product_description; ?> </td>-->
                                     <td> <?php echo $v->product_qty; ?> 
                                     <input type="hidden"  name="quantity_ordered[]" value="<?php echo $v->product_qty; ?>">
                                       &nbsp;<?php echo $v->product_uoms; ?>

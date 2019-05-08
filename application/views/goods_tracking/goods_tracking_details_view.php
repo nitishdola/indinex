@@ -2,8 +2,8 @@
 <ol class="breadcrumb">
   <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard'); ?>">Home</a></li>
   <li class="breadcrumb-item"><a href="<?php echo site_url('goods_tracking/goods_tracking_menu'); ?>">Goods Tracking</a></li>
-  <li class="breadcrumb-item"><a href="<?php echo site_url('goods_tracking/create_goods_tracking'); ?>">Create</a></li> 
-  <li class="breadcrumb-item active"> Tracking</li>
+  <li class="breadcrumb-item"><a href="<?php echo site_url('goods_tracking/create_goods_tracking'); ?>">Change</a></li> 
+  <li class="breadcrumb-item active"> Tracking Status Change</li>
 </ol>
 <div class="page-content">
    <div class="projects-wrap">
@@ -12,7 +12,8 @@
                <div class="row row-lg">
 
                   <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-                    <h3 style="text-align: left;"> Purchase Order Number : #<?php  echo $purchase_order_number; ?> </h3>
+                    <h3 style="text-align: left;"> Purchase Order Number : #<?php echo $purchase_order_number; ?> </h3>
+                    <h3 style="text-align: left;"> Consignment Number : #<?php echo $_GET['consignment_no']; ?> </h3>
                      <div class="example-wrap">
                       <form method="post">
                         <div class="example">
@@ -45,12 +46,15 @@
                                     <td> <?php echo $v->received_quantity; ?>  <?php //echo $v->product_uoms; ?></td>
                                     <td> <?php echo ($v->ordered_quantity- $v->received_quantity); ?>  <?php //echo $v->product_uoms; ?></td>
                                     <td> <?php echo $v->stock_type; ?> </td>
-                                    <td><select name="status[]" class="">
+                                    <td>
+                                    <select name="status[]" class="form-control">
                                     <option value="">Select</option>
                                     <option value="In Transit">In Transit</option>
                                     <option value="On the Way">On the Way</option>
                                    </select>
-                                  </tr>  
+                                   <input type="hidden" name="purchase_order_id" value="<?php echo $v->purchase_order_id;?>">
+                                   <input type="hidden" name="goods_tracking_id" value="<?php echo $v->goods_tracking_id;?>">
+                                  </td></tr>  
                                 <?php }  ?>  
                                 <?php endforeach;  ?>                                  
                               </tbody>
@@ -58,7 +62,7 @@
                           <?php }  ?> 
                           </table>
 
-                          <input type="submit" name="sub" value="Submit">
+                         <input type="submit" name="sub" value="submit">
                          </form>
                      </div>
                      
