@@ -5,7 +5,7 @@ class Purchase_order_model extends CI_Model
 	parent::__construct();
 	}
 	function form_insert($data){
-
+  
     $this->db->insert('purchase_order', $data);
   }
   function form_insert_linedata($data){

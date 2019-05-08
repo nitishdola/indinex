@@ -54,6 +54,8 @@ class Transactions extends CI_Controller {
 
 		if($this->input->post('sub'))
  		{
+ 			
+
  			$data = array(
 				'purchase_order_type' 	=> $this->input->post('purchase_order_type'),				
 				'vendor_id' 			=> $this->input->post('vendor_id'),
@@ -67,7 +69,7 @@ class Transactions extends CI_Controller {
 				'created_by'			=> $this->ion_auth->get_user_id(),
 				//'ip_number'=>'';
 			);
-
+ 			//var_dump($data); exit;
  			
  			$po = $this->purchase_order_model->form_insert($data);
 

@@ -21,9 +21,7 @@
                         </div>
                       </div>
                     </div>
-                    <button type="button" class="btn btn-inverse project-button">
-
-                      <a title="CREATE" class="dashboard-links" href="<?php echo site_url('grn/create_grn'); ?>">CREATE</a></button>
+                    <a class="btn btn-inverse project-button" href="<?php echo site_url('grn/create_grn'); ?>">CREATE</a>
                   </figcaption>
                 </figure>
                 <div class="text-truncate"><a class="dashboard-links" href="<?php echo site_url('grn/create_grn'); ?>">CREATE</a></div>

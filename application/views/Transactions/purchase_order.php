@@ -30,7 +30,7 @@
                            <div class="form-group row">
                               <label class="col-md-3 col-form-label">Vendor Name: </label>
                               <div class="col-md-9">
-                                 <select name="vendor_id" class="form-control" id="vendor_name" required="true">
+                                 <select name="vendor_id" class="form-control" id="vendor_id" required="true">
                                     <option value="0">Select</option>
                                        <?php foreach($vendors->result() as $row) 
                                          {
@@ -70,7 +70,7 @@
                            <div class="form-group row">
                               <label class="col-md-3 col-form-label">Purchase Order Date : </label>
                               <div class="col-md-9">
-                                 <input type="text" class="form-control zdatepicker" name="purchase_order_date" placeholder="Purchase Order Date" autocomplete="off" required="trued"/>
+                                 <input type="text" class="form-control zdatepicker" name="purchase_order_date" placeholder="Purchase Order Date" autocomplete="off" required="true"/>
                               </div>
                            </div>
 
@@ -158,7 +158,7 @@
                                  <tr>
                                     <td class="slno"> 1 </td>
                                     <td>
-                                       <select class="form-control" name="product_ids[]">
+                                       <select class="form-control product_id cls1" name="product_ids[]" id="product_id_1">
                                              <option value="0">Select Product</option>
                                            <?php foreach($general_data->result() as $row) 
                                             {
@@ -192,7 +192,7 @@
 
 
                                     <td>
-                                       <textarea class="form-control" name="product_descriptions[]" placeholder="Product Description" rows="5" autocomplete="off"
+                                       <textarea class="form-control product_description1" name="product_descriptions[]" id="product_description_1" placeholder="Product Description" rows="5" autocomplete="off"
                                        ></textarea>
 
                                     </td>
@@ -277,6 +277,9 @@
 
 <?php $this->load->view('layout/admin/footer_with_js'); ?>
 <script>
+
+cnt = 2;
+
 $('#purchase_order_type_id').change(function(){
 
   var id=$('#purchase_order_type_id').val();
@@ -307,6 +310,9 @@ $('#purchase_order_type_id').change(function(){
 
       $trClone = $trLast.clone();
 
+      $($trClone).find('.product_id').attr('id', 'product_id_'+cnt);
+      $($trClone).find('.product_description').attr('id', 'product_description_'+cnt);
+
       $trClone.find('.slno').text(length + 1);
 
       $trClone.find("input").val("");
@@ -318,6 +324,10 @@ $('#purchase_order_type_id').change(function(){
       if(length > 0) {
          $('#remove_last_row').show();
       }
+
+      cnt++;
+
+      //console.log($trClone.html());
 
    });
 
@@ -365,25 +375,26 @@ $('#purchase_order_type_id').change(function(){
    }
 
 
-   $('#vendor_name').change(function(event){
+   $('#vendor_id').change(function(event){
 
-        var vendor_code= $('#vendor_name').val(); 
+        var vendor_id= $('#vendor_id').val(); 
          
-         if(vendor_code > 0) { 
+         if(vendor_id > 0) { 
 
          $('#vendor_address').val(''); 
 
          $.blockUI();
 
          jQuery.ajax({
-            type: 'GET',        
-            url: "<?php echo base_url(); ?>" + "index.php/transactions/user_data_submit",
+            type: 'POST',        
+            url: "<?php echo base_url(); ?>" + "index.php/rest/get_vendor_details",
             dataType: 'json',
-            data: {vendor_code: vendor_code},
+            data: {vendor_id: vendor_id},
             success: function (resp) {      
                $.unblockUI();
+               console.log(resp);
                //$('#vendor_code').val(resp['vendor_code']);            
-               $('#vendor_address').val(resp.vendor_address);            
+               $('#vendor_address').val(resp.postal_address+'\n'+resp.city+' , '+resp.sname);            
           
             },
 
@@ -393,6 +404,50 @@ $('#purchase_order_type_id').change(function(){
             }
          }); 
       }
+    });
+
+    $(document).on('change', '.product_id', function(e) {
+      var optionSelected = $("option:selected", this);
+      var valueSelected = this.value;
+
+      $this = $("option:selected", this); 
+
+      $id    = $(this).prop('id');
+      $id_2  = $id.slice(11);
+      console.log($id_2);
+     // console.log($this.parent().closest('.product_description').val('d'));
+
+
+      data = '';
+      url  = '';
+
+      data += '&product_id='+valueSelected;
+      url  += "<?php echo base_url(); ?>index.php/rest/get_product_details";
+
+      console.log(data);
+
+      $.blockUI();
+
+      $.ajax({
+          data : data,
+          type : 'post',
+          dataType : 'json',
+          url : url,
+
+          error : function(resp) {
+            $.unblockUI();
+            console.log(resp);
+            $('#customer_address').text('');
+          },
+
+          success : function(resp) {
+            $.unblockUI();
+            
+
+             $('#product_description_'+$id_2).val(resp.product_description);
+          }
+        })
+
     });
 </script>
 

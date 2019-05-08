@@ -20,10 +20,14 @@ class Stocks extends CI_Controller {
 
 	public function current_stock()
 	{
-		$this->load->model('stock_items_model');
-		$data['all_stock_items'] = $this->stock_items_model->fetchAlldata();
-		var_dump($data['all_stock_items'] );
-		$this->load->view('stock/current_stock');
+		$this->load->view('layout/admin/header');			
+		$this->load->view('layout/admin/nav_menu');	
+
+		$this->load->model('product_master_model');
+		$data['results'] = $this->product_master_model->select()->result();
+		$this->load->view('stock/current_stock', $data);
+
+		$this->load->view('layout/admin/footer');	
 	}
 	
 }
