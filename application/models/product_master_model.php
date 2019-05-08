@@ -190,10 +190,10 @@ class Product_master_model extends CI_Model
   }
 
   public function getProductInfo($product_id) {
-    $this->db->select('*');
-    $this->db->from('product_general_data');
-    $this->db->where('id',$product_id);  
-    $query = $this->db->get(); 
+    //$this->db->select('*');
+    //$this->db->from('product_general_data');
+    $this->db->where('product_general_data.id',$product_id);  
+    $query = $this->db->get('product_general_data'); 
     return $query->result()[0];
   }
 

@@ -1,7 +1,7 @@
 <ol class="breadcrumb">
   <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard'); ?>">Home</a></li>
   <li class="breadcrumb-item"><a href="<?php echo site_url('grn/dashboard'); ?>">GRN</a></li>
-  <li class="breadcrumb-item active">Create New GRN</li>
+  <li class="breadcrumb-item active">Add GRN</li>
 </ol>
 
 <div class="page-content">
@@ -63,6 +63,7 @@ $('#purchase_order_id').change(function(){
    $('#goods_tracking_id').empty();   
    
    var purchase_order_id=$('#purchase_order_id').val();
+   
    if(purchase_order_id!=''){
       $('.btn-primary').attr('disabled',false);
    } else {
@@ -74,7 +75,8 @@ $('#purchase_order_id').change(function(){
      url: url, 
      dataType: 'json', 
      data: {purchase_order_id: purchase_order_id}, 
-     success: function (jsonArray) {   
+     success: function (jsonArray) {  
+     
          $.each(jsonArray, function(index,jsonObject){            
             $('#goods_tracking_id')
             .append($("<option></option>")

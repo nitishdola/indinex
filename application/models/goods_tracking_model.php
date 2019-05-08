@@ -137,6 +137,10 @@ class Goods_tracking_model extends CI_Model
 
     $query=$this->db->query("update goods_tracking_items SET stock_type='$status' where goods_tracking_id='$trackingid' AND purchase_line_item_id='$product_id'");
   }
+  public function update_goods_tracking($goods_tracking_no){
+     $query=$this->db->query("update goods_tracking SET status=2 where id='$goods_tracking_no'");
+
+  }
     
 } 
 
