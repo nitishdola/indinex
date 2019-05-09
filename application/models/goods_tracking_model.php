@@ -106,13 +106,22 @@ class Goods_tracking_model extends CI_Model
     return $query->result();
   }
 
-  public function fetchAllGoodsTracking($id) 
+  /*public function fetchAllGoodsTracking($id) 
   {  
     $this->db->where('goods_tracking.purchase_order_id',$id);
     $this->db->from('goods_tracking');    
     $query = $this->db->get();
     return $query->result();
-  }
+  } */
+
+  public function fetchAllGoodsTracking($consignment_number) 
+  {  
+    $this->db->where('goods_tracking.consignment_number',$consignment_number);
+    $this->db->from('goods_tracking');    
+    $query = $this->db->get();
+    return $query->result();
+  } 
+
     public function fetchGoodsTrackingLine($id) 
   {  
     $this->db->where('goods_tracking.purchase_order_id',$id);
@@ -122,10 +131,10 @@ class Goods_tracking_model extends CI_Model
     $query = $this->db->get();
     return $query->result();
   }
-  public function fetchGoodsTrackingView($id,$trackingid=null) 
+  public function fetchGoodsTrackingView($id,$consignment_no=null) 
   {  
     $this->db->where('goods_tracking.purchase_order_id',$id);
-    $this->db->where('goods_tracking.id',$trackingid);
+    $this->db->where('goods_tracking.consignment_number',$consignment_no);
     $this->db->from('goods_tracking');
     $this->db->join('goods_tracking_items','goods_tracking_items.goods_tracking_id = goods_tracking.id'); 
     $this->db->join('product_general_data','product_general_data.id = goods_tracking_items.purchase_line_item_id'); 
@@ -133,9 +142,9 @@ class Goods_tracking_model extends CI_Model
     return $query->result();
   }
 
-  public function update_status_line($status,$trackingid,$product_id){
+  public function update_status_line($status,$purchase_order_id,$goods_tracking_id,$product_id){
 
-    $query=$this->db->query("update goods_tracking_items SET stock_type='$status' where goods_tracking_id='$trackingid' AND purchase_line_item_id='$product_id'");
+    $query=$this->db->query("update goods_tracking_items SET stock_type='$status' where purchase_order_id='$purchase_order_id' AND goods_tracking_id='$goods_tracking_id' AND purchase_line_item_id='$product_id'");
   }
   public function update_goods_tracking($goods_tracking_no){
      $query=$this->db->query("update goods_tracking SET status=2 where id='$goods_tracking_no'");
