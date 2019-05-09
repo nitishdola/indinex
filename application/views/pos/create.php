@@ -34,26 +34,26 @@
             </tbody>
 
             <tfoot>
-              <tr>
+              <!-- <tr>
                 <td colspan="4">GST ( In %)</td>
                 <td><input type="number" id="gst" required="required" step="0.01" name="gst" onkeyup="calculateGST()" class="form-control" /></td>
-              </tr>
+              </tr> -->
 
               <tr>
                 <td colspan="4"> Total Price </td>
                 <td id="totalPrice"></td>
               </tr>
 
-              <tr>
+              <!-- <tr>
                 <td colspan="4">GST Amount</td>
                 <td id="gstAmount"></td>
-              </tr>
+              </tr> -->
 
 
-              <tr>
+              <!-- <tr>
                 <td colspan="4">Total Amount after GST</td>
                 <td id="amountAfterGst"></td>
-              </tr>
+              </tr> -->
 
               <tr>
                 <td colspan="2">Select Customer</td>

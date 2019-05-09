@@ -50,13 +50,14 @@ class Pos extends CI_Controller {
         $this->db->trans_start(); # Starting Transaction
         $this->db->trans_strict(FALSE); 
 
-
+        $gst = 0;
+        //trim($this->input->post('gst')),
         $arr = [
             'customer_id'   => $this->input->post('customer_id'),
             'receipt_number' => trim($this->input->post('receipt_number')),
             'entered_by'    => $this->ion_auth->get_user_id(),
             'discount'      => trim($this->input->post('discount')),
-            'gst'           => trim($this->input->post('gst')),
+            'gst'           => $gst,
             'discount'      => trim($this->input->post('discount')),
             'created_at'    => date('Y-m-d H:i:s'),
             'receipt_date'  => date('Y-m-d'),

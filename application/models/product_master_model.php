@@ -46,7 +46,7 @@ class Product_master_model extends CI_Model
     //$this->db->join('group_type','group_type.id = product_general_data.product_group');
     $this->db->join('product_category','product_category.id = product_general_data.product_category');
     $this->db->join('product_purchase_data','product_purchase_data.product_code = product_general_data.product_code');
-    $this->db->where('product_purchase_data.sale_item',1);
+    $this->db->where('product_purchase_data.sale_item','sale_item');
     $this->db->order_by("product_general_data.id", "desc");
     $query = $this->db->get();  
     return $query; 
@@ -219,6 +219,12 @@ class Product_master_model extends CI_Model
   public function update_product_general_data($id,$data){
     $this->db->where('id', $id);
     $this->db->update('product_general_data', $data);
+  }
+
+  public function product_categories(){
+    $this->db->where('status', 1);
+    $query = $this->db->get('product_category'); 
+    return $query->result();
   }
 
 } 

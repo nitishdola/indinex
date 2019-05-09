@@ -32,10 +32,12 @@ class Transactions extends CI_Controller {
 		$this->load->view('layout/admin/header');			
 		$this->load->view('layout/admin/nav_menu');	
 		$this->load->model('purchase_order_model'); 
+		$this->load->model('product_master_model');
 
-		$data['purchase_order_number'] = $this->purchase_order_model->purchaseOrderNumber();
-
-        $data['purchase_types']=$this->purchase_order_model->select();
+		//$data['purchase_order_number'] = $this->purchase_order_model->purchaseOrderNumber();
+		$data['purchase_order_document_types'] = $this->purchase_order_model->purchase_order_document_types();
+        //$data['purchase_types']=$this->purchase_order_model->select();
+        $data['product_categories'] = $this->product_master_model->product_categories();
         $data['general_data']=$this->purchase_order_model->select_general_data();
 
         $this->load->model('purchase_order_model');         
@@ -57,7 +59,8 @@ class Transactions extends CI_Controller {
  			
 
  			$data = array(
-				'purchase_order_type' 	=> $this->input->post('purchase_order_type'),				
+ 				'purchase_order_document_type_id' => $this->input->post('purchase_order_document_type_id'),	
+				'product_category_id' 	=> $this->input->post('product_category_id'),				
 				'vendor_id' 			=> $this->input->post('vendor_id'),
 				'document_date' 		=> date('Y-m-d', strtotime($this->input->post('document_date'))),	
 				'purchase_order_no' 	=> $this->input->post('purchase_order_no'),

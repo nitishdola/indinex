@@ -22,8 +22,8 @@
 
                           <table class="table table-bordered table-hover">
                             <tr>
-                              <th>Purchase Order Type : </th>
-                              <td><?php echo $po_details->category_name; ?></td>
+                              <th>Purchase Order Document Type : </th>
+                              <td><?php echo $po_details->name; ?></td>
 
                               <th>Purchase Order No : </th>
                               <td><?php echo $po_details->purchase_order_no; ?></td>

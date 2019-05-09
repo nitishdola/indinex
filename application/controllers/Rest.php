@@ -50,5 +50,29 @@ class Rest extends CI_Controller {
         echo 0;exit;
     }
 
+    public function get_po_number() {
+        $arr = [];
+
+        $purchase_order_document_type_id = $this->input->post('purchase_order_document_type_id');
+        if($purchase_order_document_type_id != '' && $purchase_order_document_type_id > 0 ) {
+            $this->load->model('purchase_order_model');  
+            $res = $this->purchase_order_model->purchaseOrderNumber($purchase_order_document_type_id);
+            if($res > 0) {
+                $arr['po_number']   = $res;
+                $arr['success']     = 1;
+            }else{
+                $arr['po_number']   = 0;
+                $arr['success']     = 0;
+            }
+
+            echo  json_encode($arr);
+            exit;
+        }
+        $arr['po_number']   = 0;
+        $arr['success']     = 0;
+        echo json_encode($arr);
+        exit;
+    }
+
     
 }

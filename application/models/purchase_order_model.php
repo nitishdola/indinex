@@ -13,19 +13,43 @@ class Purchase_order_model extends CI_Model
     $this->db->insert('purchase_line_item', $data);
   }
 
+  function purchase_order_document_types() {
+    $this->db->from('purchase_order_document_types');
+    $query = $this->db->get();
+    return $query->result(); 
+  }
 
-  public function purchaseOrderNumber() {
+
+  public function purchaseOrderNumber($purchase_order_document_type_id) {
+
+    $this->db->from('purchase_order_document_types');
+    $this->db->select('range_from, range_to');
+    $this->db->where('id', $purchase_order_document_type_id);
+    $po_doc_type = $this->db->get()->result()[0];
+
+    $min = $po_doc_type->range_from;
+    $max = $po_doc_type->range_to;
+
+    $this->db->where('purchase_order_document_type_id', $purchase_order_document_type_id);
     $count = $this->db->count_all_results('purchase_order');
 
     if(!$count) {
-      return 1;
+      return $min;
     }else{
-      $this->db->select_max('purchase_order_no');
+
+      $this->db->order_by('purchase_order_no', 'ASC');
       $this->db->from('purchase_order');
-      $query=$this->db->get();
-      $last_serial=$query->result_array();
-      $last_serial=$last_serial[0]['purchase_order_no'];
-      return $last_serial+1;
+      $this->db->where('purchase_order_document_type_id', $purchase_order_document_type_id);
+      $query = $this->db->get();
+      $last_serial = $query->result(); //var_dump($last_serial[0]->purchase_order_no); exit;
+      $last_serial = $last_serial[0]->purchase_order_no;
+
+      if($last_serial+1 <= $max) {
+        return $last_serial+1;
+      }else{
+        return -1;
+      }
+      
     }
   }
 
@@ -100,7 +124,7 @@ class Purchase_order_model extends CI_Model
       //$this->db->select('purchase_order.purchase_order_no as po_number');
       $this->db->from('purchase_order');
       $this->db->join('vendor_details', 'vendor_details.vendor_id = purchase_order.vendor_id');
-      $this->db->join('product_category', 'product_category.id = purchase_order.purchase_order_type');
+      $this->db->join('purchase_order_document_types', 'purchase_order_document_types.id = purchase_order.purchase_order_document_type_id');
       $query = $this->db->get();
 
       return $query->result(); 
@@ -181,7 +205,7 @@ class Purchase_order_model extends CI_Model
     $this->db->where($where);
     $this->db->from('purchase_order');
     $this->db->join('vendor_details', 'vendor_details.vendor_id = purchase_order.vendor_id');
-    $this->db->join('product_category', 'product_category.id = purchase_order.purchase_order_type');
+    $this->db->join('purchase_order_document_types', 'purchase_order_document_types.id = purchase_order.purchase_order_document_type_id');
     $query = $this->db->get();
 
     return $query->result();

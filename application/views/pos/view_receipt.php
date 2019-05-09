@@ -88,23 +88,8 @@
 
                                 </tr>
 
-                                <tr>
-                                  <td colspan="4"  style="text-align: right;"> GST </td>
-                                  <td  style="text-align: right;"> 
-                                    <?php 
-
-                                    $tax = $ttl*($sales_details->gst/100);
-
-                                    ?>
-
-                                    <?php echo number_format((float)($tax), 2, '.', ''); ?>
-                                    <br>
-                                    (
-                                    <?php echo number_format((float)($sales_details->gst), 2, '.', ''); ?> % )
-                                  </td>
-
-                                </tr>
-
+                                
+                                <?php $tax = 0; ?>
                                 <tr  style="text-align: right;">
                                   <td colspan="4"> Discount </td>
                                   <td> <?php echo number_format((float)($sales_details->discount), 2, '.', ''); ?>
