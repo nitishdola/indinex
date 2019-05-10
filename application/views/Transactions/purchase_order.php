@@ -1,3 +1,10 @@
+<style>
+span.Zebra_DatePicker_Icon_Wrapper {
+    display: block!important;
+    width: 100%!important;
+    position: relative!important;
+}
+</style>
 <ol class="breadcrumb">
   <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard'); ?>">Home</a></li>
   <li class="breadcrumb-item"><a href="<?php echo site_url('transactions/pos_sub'); ?>">Purchase Order</a></li>
