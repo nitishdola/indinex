@@ -25,7 +25,7 @@
                                     <th width="15%">Product Name</th>
                                     <th width="10%">Quantity Ordered</th>
                                     <th width="10%">Quantity Received</th>
-                                    <th width="10%">Remaining Quantity</th>
+                                   
                                     <th width="10%">Order Status</th>
                                     <th width="10%">Change Status</th>
                                    
@@ -40,17 +40,19 @@
                                   if($v->invoice_number==$invoice_number){ $j++ ?>
                                   <tr id="<?php echo 'tr_'.$k; ?>">
                                     <td> <?php echo $j; ?></td>                                
-                                    <td> <?php echo $v->product_description; ?> <input type="hidden" name="product_id[]" value="<?php echo $v->purchase_line_item_id;?>">  </td> 
+                                    <td> <?php echo ucwords($v->product_description); ?> <input type="hidden" name="product_id[]" value="<?php echo $v->purchase_line_item_id;?>">  </td> 
 
                                     <td> <?php echo $v->ordered_quantity; ?>  <?php //echo $v->product_uoms; ?></td>
                                     <td> <?php echo $v->received_quantity; ?>  <?php //echo $v->product_uoms; ?></td>
-                                    <td> <?php echo ($v->ordered_quantity- $v->received_quantity); ?>  <?php //echo $v->product_uoms; ?></td>
+                                    
                                     <td> <?php echo $v->stock_type; ?> </td>
                                     <td>
                                     <select name="status[]" class="form-control">
-                                    <option value="">Select</option>
-                                    <option value="In Transit">In Transit</option>
+                                    <option value="">Select</option>                                    
                                     <option value="On the Way">On the Way</option>
+                                    <option value="Arrived at TP">Arrived at TP</option>
+                                    <option value="Goods Cleared for Delevery">Goods Cleared for Delevery</option>
+                                    <option value="Verification on Arrival">Verification on Arrival</option>
                                    </select>
                                    <input type="hidden" name="purchase_order_id" value="<?php echo $v->purchase_order_id;?>">
                                    <input type="hidden" name="goods_tracking_id" value="<?php echo $v->goods_tracking_id;?>">
@@ -62,7 +64,7 @@
                           <?php }  ?> 
                           </table>
 
-                         <input type="submit" name="sub" value="submit">
+                         <input type="submit" name="sub" value="submit" class="btn btn info">
                          </form>
                      </div>
                      

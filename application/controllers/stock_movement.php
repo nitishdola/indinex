@@ -21,7 +21,7 @@ class Stock_movement extends CI_Controller {
     }
 	public function stock_movement()
 	{
-		$this->load->view('stock_movements/stock_movement_menu');
+		$this->load->view('stock_movement/stock_movement_menu');
 	}
 	public function create_stock_movement()
 	{
@@ -42,32 +42,28 @@ class Stock_movement extends CI_Controller {
 		$this->load->model('stock_movement_model'); 
 		$data['record'] = $this->stock_movement_model->last_record();
 
-		$this->load->model('stock_movement_model'); 
-		//$data['product'] = $this->product_master_model->fetchProductDetails();
+		$this->load->model('grn_items_model'); 
+		$data['productNames'] = $this->grn_items_model->fetchGRNproductName();
 		
-		$this->load->view('stock_movements/create_stock_movement',$data);
+		$this->load->view('stock_movement/create_stock_movement',$data);
 		//echo $ip_address = $this->input->ip_address();
 		if($this->input->post('sub'))
  		{
- 			//var_dump($_POST);
+ 			
  			$data = array(
- 			 	'tracking_slip_no' 		=> $this->input->post('tracking_slip_no'),
-			  	'quantity' 				=> $this->input->post('quantity'),
-			  	'qty_uom' 				=> $this->input->post('qty_uom'),
-			  	'unit' 					=> $this->input->post('unit'),
-			  	'batch' 				=> $this->input->post('batch'),
-			  	'picked_by' 			=> $this->input->post('picked_by'),
-			  	'requested_by' 			=> $this->input->post('requested_by'),
-			  	'requested_date' 		=> $this->input->post('requested_date'),
-			  	'transfer_type' 		=> $this->input->post('transfer_type'),
-			  	'plant_loc' 			=> $this->input->post('plant_loc'),
-			  	'loc_storage_from' 		=> $this->input->post('loc_storage_from'),
-			  	'loc_storage_to' 		=> $this->input->post('loc_storage_to'),
-			  	'plant_loc_from' 		=> $this->input->post('plant_loc_from'),			  	
-			  	'plant_loc_to' 			=> $this->input->post('plant_loc_to'),
-			  	'plant_storage_from' 	=> $this->input->post('plant_storage_from'),
-			  	'plant_storage_to' 		=> $this->input->post('plant_storage_to'),
-			  	'received_by' 			=> $this->input->post('received_by')
+ 			 	'tracking_slip_no' 			=> $this->input->post('tracking_slip_no'),
+ 			 	'transfer_type' 			=> $this->input->post('transfer_type'),
+ 			 	'product_id' 				=> $this->input->post('product_id'),
+			  	'quantity' 					=> $this->input->post('quantity'),
+			  	'qty_uom' 					=> $this->input->post('qty_uom'),			  	
+			  	'picked_by' 				=> $this->input->post('picked_by'),
+			  	'requested_by' 				=> $this->input->post('requested_by'),
+			  	'requested_date' 			=> date('Y-m-d',strtotime($this->input->post('requested_date'))),	
+			  	'current_stock' 			=> $this->input->post('current_stock'),	  	
+			  	'plant_id' 					=> $this->input->post('plant_id'),
+			  	'loc_storage_from' 			=> $this->input->post('loc_storage_from'),
+			  	'storage_location_transfer'	=> $this->input->post('storage_location_transfer'),			  	
+			  	'received_by' 				=> $this->input->post('received_by')
 			);
 			//var_dump($data);
 			//exit();
@@ -100,7 +96,7 @@ class Stock_movement extends CI_Controller {
  			$data['res'] = $this->stock_movement_model->select();
  		}
 
-		$this->load->view('stock_movements/change_stock_movement',$data);
+		$this->load->view('stock_movement/change_stock_movement',$data);
 
 	}
 	public function display_stock_movement()
@@ -128,7 +124,7 @@ class Stock_movement extends CI_Controller {
  		}
 
 
-		$this->load->view('stock_movements/display_stock_movement',$data);
+		$this->load->view('stock_movement/display_stock_movement',$data);
 	}
 
 	public function ajax_get_storage_location() {
@@ -156,19 +152,21 @@ class Stock_movement extends CI_Controller {
 	}
 	public function ajax_product_name() {
 		
-		$category_id	=$this->input->get('category_id');
+		$product_id	=$this->input->get('product_id');
 		
-		$this->load->model('product_master_model'); 
-        $arr['product']=$this->product_master_model->fetchProductName($category_id);
+		$this->load->model('grn_items_model'); 
+        $arr['product']=$this->grn_items_model->fetchGRNplantName($product_id);
 
-        //var_dump($arr['product']);
+        // /var_dump($arr['product']);
         //die();
         $i=0;
         $array = array();
 		foreach( $arr['product'] as $row)  
         { 	 
-	    	$array[$i]["id"]			=$row->id;
-	    	$array[$i]["product_name"] 	=$row->product_description;	    	
+	    	$array[$i]["storage_id"]	=$row->storage_id;
+	    	$array[$i]["first_name"] 	=$row->first_name;	
+	    	$array[$i]["middle_name"] 	=$row->middle_name;	
+	    	$array[$i]["last_name"] 	=$row->last_name;	    	
 	    	$i++; 
         }    
         
@@ -191,7 +189,7 @@ class Stock_movement extends CI_Controller {
 		$this->load->model('stock_movement_model'); 
 		$data['record'] = $this->stock_movement_model->last_record();		
 		
-		$this->load->view('stock_movements/edit_stock_movement',$data);
+		$this->load->view('stock_movement/edit_stock_movement',$data);
 
 		if($this->input->post('sub'))
  		{
@@ -219,6 +217,38 @@ class Stock_movement extends CI_Controller {
 			$this->session->set_flashdata('response',"<div class='alert alert-success'><strong>Success!</strong>&nbsp;&nbsp;Stock movement changed</div>");	
 
 		}
+	}
+
+	public function ajax_current_stock(){
+		$palnt_id				=$this->input->get('palnt_id');
+		$product_id				=$this->input->get('product_id');
+		
+		$this->load->model('grn_items_model'); 
+        $arr['product']=$this->grn_items_model->fetchGRNTotalStock($palnt_id,$product_id);
+		$a= $arr['product'][0]->total_received_quantity;
+
+		$arr['stocks']=$this->grn_items_model->fetchStocksMovement($palnt_id,$product_id);
+		$b= $arr['stocks'][0]->total_received_quantity;
+		echo $c=$a-$b;
+	}
+
+	public function ajax_storage(){
+		$palnt_id				=$this->input->get('palnt_id');
+				
+		$this->load->model('sub_storage_model'); 
+        $arr['res']=$this->sub_storage_model->select_storage_location($palnt_id);
+		$i=0;
+        $array = array();
+		foreach( $arr['res'] as $row)  
+        { 	 
+	    	$array[$i]["storage_id"]	=$row->id;
+	    	$array[$i]["first_name"] 	=$row->first_name;	
+	    	$array[$i]["middle_name"] 	=$row->middle_name;	
+	    	$array[$i]["last_name"] 	=$row->last_name;	    	
+	    	$i++; 
+        }    
+        
+       	echo  json_encode($array);
 	}
 }
 

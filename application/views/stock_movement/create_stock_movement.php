@@ -48,52 +48,41 @@
                         <div class="col-md-9">
                           <select name="transfer_type" id="transfer_type_id" class="form-control" required="required">
                             <option value="0">Select</option>
-                            <option value="1">Storage Location To Storage Location</option>
+                            <option value="1">Within Plant</option>
                             <option value="2">Plant to Plant</option>
                           </select>
                         </div>
                       </div>
-                      <div id="loc_to_loc" style="display:none">
+                      <div id="loc_to_loc" style="display:none">                      
+                       <div class="form-group row">
+                          <label class="col-md-3 col-form-label">Product Name : </label>
+                          <div class="col-md-9">
+                            <select class="form-control" id="product_id" name="product_id">
+                              <option value="">Select</option> 
+                              <?php foreach($productNames as $ct)
+                              {
+                                echo '<option value="'.$ct->purchase_line_item_id.'">'.$ct->product_description.'</option>';
+                              } ?>  
+                            </select>
+                          </div>
+                        </div>
                       <div class="form-group row">
                         <label class="col-md-3 col-form-label">Plant Name: </label>
                         <div class="col-md-9">
-                           <select class="form-control" id="plant_loc" name="plant_loc">
-                            <option value="">Select</option> 
-                            <?php foreach($plant as $row)
-                              {
-                                echo '<option value="'.$row->id.'">'.$row->first_name.' '.$row->middle_name.' '.$row->last_name.'</option>';
-                              } ?>   
+                           <select class="form-control" id="plant_loc" name="plant_id">
+                            <option value="">Select</option>                            
                           </select>
                         </div>
                       </div>
                       <div class="form-group row">
                         <label class="col-md-3 col-form-label">Storage Location: </label>
                         <div class="col-md-9">
-                          <select class="form-control" id="loc_storage_from" name="loc_storage_from">
+                          <select class="form-control" id="loc_storage_from" name="loc_storage_from" required="true">
                             <option value="1">Select</option> 
                           </select>
                         </div>
                       </div>
-                       <div class="form-group row">
-                          <label class="col-md-3 col-form-label">Product Category : </label>
-                          <div class="col-md-9">
-                            <select class="form-control" id="category_id" name="category">
-                              <option value="">Select</option> 
-                              <?php foreach($category->result() as $ct)
-                              {
-                                echo '<option value="'.$ct->id.'">'.$ct->category_name.'</option>';
-                              } ?>   
-                            </select>
-                          </div>
-                        </div>
-                       <div class="form-group row">
-                          <label class="col-md-3 col-form-label">Product Name : </label>
-                          <div class="col-md-9">
-                            <select class="form-control" id="product_id" name="product">
-                              <option value="">Select</option> 
-                            </select>
-                          </div>
-                        </div>
+                       
                         
                         <div class="form-group row">
                           <label class="col-md-3 col-form-label">Current Stock : </label>
@@ -102,104 +91,26 @@
                           </div>
                         </div>
                       <div class="form-group row">
-                        <label class="col-md-3 col-form-label">Transfer to: </label>
+                        <label class="col-md-3 col-form-label">Transfer (Storage Location ) : </label>
                         <div class="col-md-9">
-                          <select class="form-control" id="loc_storage_to" name="loc_storage_to">
+                          <select class="form-control" id="storage_location_transfer" name="storage_location_transfer">
                             <option value="1">Storage Location</option> 
+                           
                           </select>
                         </div>
                       </div>
-                                           
-                      </div>
-                      <div id="plant_to_plant" style="display:none">
-
                         <div class="form-group row">
-                        <label class="col-md-3 col-form-label">Plant: </label>
-                        <div class="col-md-9">
-                           <select class="form-control" id="plant_loc_from" name="plant_loc_from">
-                            <option value="">Select</option> 
-                            <?php foreach($plant as $row)
-                              {
-                                echo '<option value="'.$row->id.'">'.$row->first_name.' '.$row->middle_name.' '.$row->last_name.'</option>';
-                              } ?>   
-                          </select>
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label class="col-md-3 col-form-label">Storage Location : </label>
-                          <div class="col-md-9">
-                            <select class="form-control" id="plant_storage_from" name="plant_storage_from">
-                              <option value="">Select</option> 
-                            </select>
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label class="col-md-3 col-form-label">Product Name : </label>
-                          <div class="col-md-9">
-                            <select class="form-control" id="product" name="product">
-                              <option value="">Select</option> 
-                            </select>
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label class="col-md-3 col-form-label">Current Stock : </label>
-                          <div class="col-md-9">
-                            <?php echo form_input(array('id' => 'current_stock', 'name' => 'current_stock','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off')); ?>
-                          </div>
-                        </div>
-                      <div class="form-group row">
-                        <label class="col-md-3 col-form-label">Transfer Plant: </label>
-                        <div class="col-md-9">
-                           <select class="form-control" id="plant_loc_to" name="plant_loc_to">
-                            <option value="">Plant</option> 
-                            <?php foreach($plant as $row)
-                              {
-                                echo '<option value="'.$row->id.'">'.$row->first_name.' '.$row->middle_name.' '.$row->last_name.'</option>';
-                              } ?>   
-                          </select>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                          <label class="col-md-3 col-form-label">Transfer Storage : </label>
-                          <div class="col-md-9">
-                            <select class="form-control" id="plant_storage_to" name="plant_storage_to">
-                              <option value="">Storage Location</option> 
-                            </select>
-                          </div>
-                        </div>
-                         <div class="form-group row">
-                          <label class="col-md-3 col-form-label">Received By: </label>
-                          <div class="col-md-9">
-                            <?php echo form_input(array('type'=>'text','id' => 'received_by', 'name' => 'received_by','class'=>'form-control')); ?> 
-                          </div>
-                        </div>
-                      </div> 
-                                            
-                     
-                      
-                      <div class="form-group row">
                         <label class="col-md-3 col-form-label">Quantity: </label>
                         <div class="col-md-9">
-                          <?php echo form_input(array('type'=>'number','id' => 'quantity', 'name' => 'quantity','style'=>'width:300px;float:left;margin-right:2px','class'=>'form-control','required'=>'required')); ?> 
-                                  <select id="qty_uom" name="qty_uom" class="form-control" style="width:100px" required="required"><option value="">UOM</option> 
-                                  <?php foreach($variants as $row)  {
-                                    echo '<option value="'.$row->variants_name.'">'.$row->variants_name.'</option>';                           
-                                  } ?>
-                                  </select>
+                        <?php echo form_input(array('type'=>'number','id' => 'quantity', 'name' => 'quantity','style'=>'width:300px;float:left;margin-right:2px','class'=>'form-control','required'=>'required')); ?> 
+                          <select id="qty_uom" name="qty_uom" class="form-control" style="width:100px" required="required"><option value="">UOM</option> 
+                          <?php foreach($variants as $row)  {
+                            echo '<option value="'.$row->variants_name.'">'.$row->variants_name.'</option>';                           
+                          } ?>
+                          </select>
                         </div>
                       </div>
-                      <div class="form-group row">
-                        <label class="col-md-3 col-form-label">Unit: </label>
-                        <div class="col-md-9">
-                           <?php echo form_input(array('type'=>'number','id' => 'unit', 'name' => 'unit','class'=>'form-control','required'=>'required')); ?> 
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="col-md-3 col-form-label">Batch: </label>
-                        <div class="col-md-9">
-                          <?php echo form_input(array('type'=>'text','id' => 'batch', 'name' => 'batch','class'=>'form-control','required'=>'required')); ?> 
-                        </div>
-                      </div>
+                      
                        <div class="form-group row">
                         <label class="col-md-3 col-form-label">Picked By: </label>
                         <div class="col-md-9">
@@ -215,9 +126,10 @@
                       <div class="form-group row">
                         <label class="col-md-3 col-form-label">Requested Date: </label>
                         <div class="col-md-9">
-                          <?php echo form_input(array('type'=>'date','id' => 'requested_date', 'name' => 'requested_date','class'=>'form-control','required'=>'required')); ?> 
+                          <?php echo form_input(array('type'=>'text','id' => 'requested_date', 'name' => 'requested_date','class'=>'form-control zdatepicker','required'=>'required')); ?> 
                         </div>
                       </div>
+                      </div>                    
                       </div>
                       <div class="col-md-12">
                         <div class="form-group row">
@@ -235,18 +147,91 @@
                   <!-- End Panel Controls Sizing -->
                   </div>
                 </div>
-              </div>    
-            <?php $this->load->view('layout/admin/footer_with_js'); ?>
+              </div>  
+            </div>
+          </div></div>
+          </div>  
+  <?php $this->load->view('layout/admin/footer_with_js'); ?>
     
 <script>
 $(function(){
+  $('#product_id').change(function(){
+    var product_id=$('#product_id').val();   
+    
+    var url= "<?php echo base_url(); ?>" + "index.php/stock_movement/ajax_product_name";
+    // /alert(product_id);
+    jQuery.ajax({
+        type: 'GET',        
+        url: url,
+        dataType: 'json',
+        data: {product_id: product_id},
+        success: function (jsonArray) {
+            $.each(jsonArray, function(index,jsonObject){
+                $('#plant_loc')
+                .append($("<option></option>")
+                .attr("value",jsonObject['storage_id'])
+                .text(jsonObject['first_name']));               
+          });        
+        },
+        error: function (jqXhr, textStatus, errorMessage) {            
+           $('p').append('Error' + errorMessage);
+        }
+      });
+  });
 
-    $('#category_id').change(function(){
+  function funStoraLoc(palnt_id){
+    $('#storage_location_transfer').empty();
+    $('#current_stock').val('');
+    var url= "<?php echo base_url(); ?>" + "index.php/stock_movement/ajax_storage";
+
+    jQuery.ajax({
+        type: 'GET',        
+        url: url,
+        dataType: 'json',
+        data: {palnt_id: palnt_id},
+        success: function (jsonArray) {
+            $.each(jsonArray, function(index,jsonObject){
+                $('#storage_location_transfer')
+                .append($("<option></option>")
+                .attr("value",jsonObject['storage_id'])
+                .text(jsonObject['first_name']));               
+          });        
+        },
+        error: function (jqXhr, textStatus, errorMessage) {            
+           $('p').append('Error' + errorMessage);
+        }
+      });
+  }
+
+  $('#plant_loc').change(function(){
+
+    var palnt_id    =$('#plant_loc').val();
+    var product_id  =$('#product_id').val();
+    funStoraLoc(palnt_id); 
+    var url= "<?php echo base_url(); ?>" + "index.php/stock_movement/ajax_current_stock";
+    
+    jQuery.ajax({
+        type: 'GET',        
+        url: url,
+        dataType: 'json',
+        data: {palnt_id: palnt_id,product_id:product_id},
+        success: function (jsonArray) {          
+            $('#current_stock').val(jsonArray); 
+            $('#current_stock').attr('readonly', true);
+        },
+        error: function (jqXhr, textStatus, errorMessage) {            
+           $('p').append('Error' + errorMessage);
+        }
+    });
+
+  });
+
+  /*  $('#category_id').change(function(){
       $('#product_id').empty().append('<option value=" ">Select</option>');
       var category_id     = $('#category_id').val();
       //var plant_loc_id    = $('#plant_loc').val();
       //var loc_storage_id  = $('#loc_storage_from').val();
-      var url= "<?php echo base_url(); ?>" + "index.php/stock_movement/ajax_product_name";
+      var url= "<?php //echo base_url(); ?>" + "index.php/stock_movement/ajax_product_name";
 
       jQuery.ajax({
           type: 'GET',        
@@ -270,7 +255,7 @@ $(function(){
     $('#plant_loc').change(function(){
     $('#loc_storage_from,#loc_storage_to').empty().append('<option value=" ">Select</option>');
       var plant_loc=$('#plant_loc').val();      
-      var url= "<?php echo base_url(); ?>" + "index.php/stock_movement/ajax_get_storage_location";
+      var url= "<?php //echo base_url(); ?>" + "index.php/stock_movement/ajax_get_storage_location";
 
        //$.blockUI();
        jQuery.ajax({
@@ -299,7 +284,7 @@ $(function(){
       var plant_loc=$('#plant_loc_from').val();
       $('#plant_storage_from').empty().append('<option value=" ">Select</option>');
 
-      var url= "<?php echo base_url(); ?>" + "index.php/stock_movement/ajax_get_storage_location";
+      var url= "<?php //echo base_url(); ?>" + "index.php/stock_movement/ajax_get_storage_location";
 
       //$.blockUI();
       jQuery.ajax({
@@ -329,7 +314,7 @@ $(function(){
       var plant_loc=$('#plant_loc_to').val();  
       $('#plant_storage_to').empty().append('<option value=" ">Select</option>');    
       
-      var url= "<?php echo base_url(); ?>" + "index.php/stock_movement/ajax_get_storage_location";
+      var url= "<?php //echo base_url(); ?>" + "index.php/stock_movement/ajax_get_storage_location";
 
        //$.blockUI();
        jQuery.ajax({
@@ -353,7 +338,7 @@ $(function(){
           }
        });
 
-  });
+  }); */
 
   $('#transfer_type_id').change(function(){
 
@@ -372,7 +357,7 @@ $(function(){
 
     
 
-  });
+  }); 
 
 });
 

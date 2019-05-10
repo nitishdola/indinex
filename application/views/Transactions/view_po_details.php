@@ -4,10 +4,6 @@
   <li class="breadcrumb-item"><a href="<?php echo site_url('transactions/view_all_purchase_orders'); ?>">View All Purchase Orders</a></li>
   <li class="breadcrumb-item active">Purchase Order Details</li>
 </ol>
-
-
-
-
 <div class="page-content">
    <div class="projects-wrap">
       <div class="panel">
@@ -55,9 +51,8 @@
                               <th>Document Date : </th>
                               <td><?php echo date('d-m-Y', strtotime($po_details->document_date)); ?></td>
 
-                              <th>Incoterms  : </th>
-                              <td><?php echo $po_details->incoterms; ?></td>
-
+                              <th colspan="2"> </th>
+                              
                             </tr>
 
                           </table>

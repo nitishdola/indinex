@@ -70,10 +70,6 @@
                                        Received Quantity
                                     </th>
 
-                                    <th>
-                                       UoM
-                                   </th>
-
                                  </tr>
                               </thead>
                               <tbody class="itembody">
@@ -83,8 +79,8 @@
                                     <td> <?php echo $v->product_description; ?> </td>
                                     <td> <?php echo $v->product_description; ?> </td>
                                     <td> <?php echo $v->ordered_quantity; ?> </td>
-                                    <td> <?php echo $v->received_quantity; ?> </td>
-                                    <td> <?php echo $v->product_uoms; ?> </td>
+                                    <td> <?php echo $v->received_quantity;?> </td>
+                                    
                                     
                                   </tr>
                                 <?php endforeach; ?>  

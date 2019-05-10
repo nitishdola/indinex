@@ -18,7 +18,7 @@
                         <div class="example">
                         <?php echo $this->session->flashdata('response'); ?>
                           <?php $i=0; foreach($results as  $r) { $i++; //var_dump($r); ?>
-                           <h4 style="text-align: left;"> Goods Tracking Part : #<?php echo $i; ?> </h4>
+                           <h4 style="text-align: left;"> Goods Tracking Number : #<?php echo $r->goods_tracking_id; ?> </h4>
                            
 
                           <table class="table table-bordered">

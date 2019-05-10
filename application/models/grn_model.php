@@ -40,16 +40,17 @@ class Grn_model extends CI_Model
     $this->db->where($where);
     $this->db->from('grns');
     $this->db->join('purchase_order', 'purchase_order.purchase_order_id = grns.purchase_order_id');
-
     $query = $this->db->get();
-
     return $query->result();
+
   }
 
   public function select_goods_tracking_no($purchase_order_id){
-    $this->db->where('purchase_order_id', $purchase_order_id);
-    $this->db->where('status',1);
+    $this->db->where('goods_tracking.purchase_order_id', $purchase_order_id);
+    $this->db->where('goods_tracking.status',1);
+    $this->db->where('goods_tracking_items.stock_type','Verification on Arrival');
     $this->db->from('goods_tracking');
+    $this->db->join('goods_tracking_items','goods_tracking_items.goods_tracking_id = goods_tracking.id');
     $query = $this->db->get();
     return $query->result();
   }

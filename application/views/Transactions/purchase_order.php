@@ -38,18 +38,18 @@
 
 
 
-                             <div class="form-group row">
+                            <!-- <div class="form-group row">
                                 <label class="col-md-3 col-form-label">Product Category : </label>
                                 <div class="col-md-9">
                                    <select name="purchase_order_type" class="form-control" required="true">
                                       <option value="">Select</option>
-                                      <?php foreach($product_categories as $row) 
+                                      <?php /* foreach($product_categories as $row) 
                                         {
                                           echo '<option value="'.$row->id.'">'.$row->category_name.'</option>';
-                                        } ?>
+                                        } */ ?>
                                     </select> 
                                 </div>
-                             </div>
+                             </div> -->
                              <div class="form-group row">
                                 <label class="col-md-3 col-form-label">Vendor Name*: </label>
                                 <div class="col-md-9">
@@ -113,13 +113,13 @@
                                    ?> 
                                 </div>
                              </div>
-                             <div class="form-group row">
+                             <!--<div class="form-group row">
                                 <label class="col-md-3 col-form-label">Incoterms : </label>
                                 <div class="col-md-9">
                                    <input type="text" class="form-control" name="incoterms" placeholder="Incoterms" autocomplete="off"
                                       />
                                 </div>
-                             </div>
+                             </div> -->
                              <div class="form-group row">
                                 <label class="col-md-3 col-form-label">Notes : </label>
                                 <div class="col-md-9">

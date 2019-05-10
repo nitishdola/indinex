@@ -14,6 +14,7 @@
                      <div class="example-wrap">
                         <h4 class="example-title">GRN Add</h4>
                         <div class="example">
+                         <?php echo $this->session->flashdata('response'); ?>
                            <form action="view_grn" method="get">
                            <div class="form-group row">
                               <label class="col-md-4 col-form-label">Purchase Order Number : </label>
@@ -28,11 +29,11 @@
                               </div>
                               </div>
                               <div class="form-group row">
-                              <label class="col-md-4 col-form-label">Goods Tracking Number : </label>
+                              <label class="col-md-4 col-form-label">Consignment Number : </label>
                               <div class="col-md-6">
-                                 <select id="goods_tracking_id" name="goods_tracking_no" class="form-control">
+                                 <select id="consignment_id" name="consignment_no" class="form-control">
                                     <option value="">No data</option>
-                                    
+                                   
                                   </select> 
                               </div>
                               </div>
@@ -60,15 +61,10 @@
 <?php $this->load->view('layout/admin/footer_with_js'); ?>
 <script>
 $('#purchase_order_id').change(function(){
-   $('#goods_tracking_id').empty();   
+   $('#consignment_id').empty();   
    
-   var purchase_order_id=$('#purchase_order_id').val();
+   var purchase_order_id=$('#purchase_order_id').val();   
    
-   if(purchase_order_id!=''){
-      $('.btn-primary').attr('disabled',false);
-   } else {
-      $('.btn-primary').attr('disabled',true);
-   }
    var url= "<?php echo base_url(); ?>" + "index.php/grn/ajax_get_goods_tracking_no"; 
    jQuery.ajax({ 
      type: 'GET',         
@@ -77,11 +73,12 @@ $('#purchase_order_id').change(function(){
      data: {purchase_order_id: purchase_order_id}, 
      success: function (jsonArray) {  
      
-         $.each(jsonArray, function(index,jsonObject){            
-            $('#goods_tracking_id')
+         $.each(jsonArray, function(index,jsonObject){
+       
+            $('#consignment_id')
             .append($("<option></option>")
-            .attr("value",jsonObject['tracking_id'])
-            .text(jsonObject['tracking_id']));               
+            .attr("value",jsonObject['consignment_number'])
+            .text(jsonObject['consignment_number']));          
          });           
       },
      error: function (jqXhr, textStatus, errorMessage) { 
@@ -89,6 +86,14 @@ $('#purchase_order_id').change(function(){
         $('p').append('Error' + errorMessage); 
      } 
   });
+
+    var consignment_id=$('#consignment_id').val();
+    //alert(consignment_id);
+    if(consignment_id!=''){
+      $('.btn-primary').attr('disabled',false);
+   } else {
+      $('.btn-primary').attr('disabled',true);
+   }
 });
 
 
