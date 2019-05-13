@@ -119,7 +119,11 @@
                                     </td>
                                     <td> 
                                       <select id="order_types" name="storage_location_id[]" class="form-control">
-                                        <option value="">Select </option>                                        
+                                        <option value="">Select </option>
+                                        <?php foreach($storage_locations as $st) 
+                                          {
+                                            echo '<option value="'.$st->id.'">'.$st->first_name.'</option>';
+                                          } ?>                                        
                                       </select>
                                     </td>
 

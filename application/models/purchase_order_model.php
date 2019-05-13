@@ -258,6 +258,7 @@ class Purchase_order_model extends CI_Model
   }
 
   public function fetchGoodsTrackingItemsForGrn($purchase_order_id,$consignment_no){
+    $where['goods_tracking_items.stock_type'] = 'Verification on Arrival';
     $where['goods_tracking_items.purchase_order_id'] = $purchase_order_id;
     $where['goods_tracking_items.consignment_no'] = $consignment_no;
     $this->db->where($where);

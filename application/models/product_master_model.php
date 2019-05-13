@@ -35,6 +35,14 @@ class Product_master_model extends CI_Model
     return $query; 
 
 	}  
+  public function selectName()  
+  {  
+   
+    $this->db->order_by("product_general_data.id", "desc");
+    $query = $this->db->get('product_general_data');  
+    return $query; 
+
+  }  
 
   public function select_pos_items()  
   {  
@@ -46,7 +54,7 @@ class Product_master_model extends CI_Model
     //$this->db->join('group_type','group_type.id = product_general_data.product_group');
     $this->db->join('product_category','product_category.id = product_general_data.product_category');
     $this->db->join('product_purchase_data','product_purchase_data.product_code = product_general_data.product_code');
-    $this->db->where('product_purchase_data.sale_item','sale_item');
+    $this->db->where('product_purchase_data.items','sale_item');
     $this->db->order_by("product_general_data.id", "desc");
     $query = $this->db->get();  
     return $query; 

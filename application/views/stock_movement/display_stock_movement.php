@@ -37,32 +37,27 @@
                       </div>   
                        <?php echo form_close(); ?>                      
                       <table class="table table-bordered">
-                      <tr>  
-                      <td colspan="9"></td>
-                      <td colspan="3">Storage Location To Storage Location</td>
-                      <td colspan="4">Plan to Plant</td>
-                      <td></td>
+                     <tr>  
+                      <td colspan="3"></td>
+                      <td colspan="2" align="center">Transfer From</td>
+                      <td colspan="2" align="center">Transfer To</td>
+                      <td colspan="5"></td>
                       </tr>
                       <tr>
                          <th>Sl</th>
                          <th>Tracking No</th>
                          <th>Transfer Type</th>
-                         <th>Qty</th>                       
-                         <th>Unit</th>
-                         <th>Batch</th>
-                         <th>Picked By</th>
+                         <th>Plant</th>
+                         <th>Storage Location</th>
+                         <th>Plant</th>
+                         <th>Storage Location</th>
+                         <th>Qty</th>  
                          <th>Requested By</th>
-                         <th>Requested Date</th>
-                         <th>Plant Name</th>                       
-                         <th>Storage Location From</th>
-                         <th>Storage Location To</th>                         
-                         <th>Plant From</th>
-                         <th>Storage Location From</th>
-                         <th>Plant To</th>
-                         <th>Storage Location To</th>
+                         <th>Requested Date</th>                         
                          <th>Received by</th>
+                         <th>Picked By</th>
                       </tr>
-                     <?php 
+                      <?php 
                       $i=0;                           
                       foreach($res as $row)  
                       { 
@@ -71,7 +66,7 @@
                         //var_dump($row);
                       ?>
                       <tr>  
-                        <td><?php echo  $i;?>                           
+                        <td><?php echo  $i;?>  </td>                         
                         <td><?php $tracking_slip_no=$row->tracking_slip_no;
                         echo str_pad($tracking_slip_no, 4, '0', STR_PAD_LEFT);
 
@@ -86,22 +81,18 @@
                               echo "Plant To Plant"; 
                             } ?>                          
                         </td>
-                        <td><?php echo  $row->quantity." ".$row->qty_uom;?></td> 
-                        <td><?php echo  $row->unit;?></td> 
-                        <td><?php echo  $row->batch;?></td>  
-                        <td><?php echo  $row->picked_by;?></td> 
-                        <td><?php echo  $row->requested_by;?></td> 
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><?php echo  $row->transfer_quantity." ".$row->qty_uom;?></td> 
+                        <td><?php echo  ucfirst($row->requested_by);?></td> 
                         <td><?php echo  date('d-m-Y',strtotime($row->requested_date));?></td> 
-                        <td><?php echo  $row->first_name.''.$row->middle_name.''.$row->last_name;?></td> 
-                        <td><?php echo  $row->loc_storage_from;?></td> 
-                        <td><?php echo  $row->loc_storage_to;?></td> 
-                        <td><?php echo  $row->plant_loc_from;?></td> 
-                        <td><?php echo  $row->plant_storage_to;?></td> 
-                        <td><?php echo  $row->plant_loc_to;?></td> 
-                        <td><?php echo  $row->plant_storage_from;?></td>                        
                         <td><?php echo  $row->received_by;?></td> 
-                      </tr>  
-                     <?php }  ?>
+                        <td><?php echo  ucfirst($row->picked_by);?></td> 
+
+                        </tr>
+                     <?php } ?>
                     </table>
                 </div>
               </div>

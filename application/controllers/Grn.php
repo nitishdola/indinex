@@ -84,8 +84,9 @@ class Grn extends CI_Controller {
         $this->load->model('goods_tracking_model');
 
 
+
     	$data = $this->input->post();
-        var_dump($data );die();
+        //var_dump($data );die();
         $grn_number         = $this->input->post('grn_number');
         $consignment_no     = $this->input->post('consignment_no');
         $arr = [];
@@ -207,6 +208,16 @@ class Grn extends CI_Controller {
             //var_dump($product_arr);
             $this->grn_items_model->form_insert($product_arr);
            
+            $arr_stock_movement=[];
+            $arr_stock_movement = [                
+                'product_id'            => $purchase_line_item_id,
+                'plant_id'              => $plant_id,
+                'storage_id'            => $storage_location_id,  
+                'current_stock'         => $received_quantity             
+                
+            ];
+            $this->load->model('stock_movement_model');
+            $this->stock_movement_model->form_insert($arr_stock_movement);
 
             //update Ledger
             $ledger_arr = [];
