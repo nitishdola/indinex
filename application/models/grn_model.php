@@ -51,9 +51,28 @@ class Grn_model extends CI_Model
     $this->db->where('goods_tracking_items.stock_type','Verification on Arrival');
     $this->db->from('goods_tracking');
     $this->db->join('goods_tracking_items','goods_tracking_items.goods_tracking_id = goods_tracking.id');
+    $this->db->group_by('goods_tracking.consignment_number');
     $query = $this->db->get();
     return $query->result();
   }
+  public function select_consignment_number(){
+    
+    $this->db->where('goods_tracking.status',1);
+    $this->db->where('goods_tracking_items.stock_type','Verification on Arrival');
+    $this->db->from('goods_tracking');
+    $this->db->join('goods_tracking_items','goods_tracking_items.goods_tracking_id = goods_tracking.id');
+    $this->db->group_by('goods_tracking.consignment_number');
+    $query = $this->db->get();
+    return $query->result();
+  }
+
+   public function select_purchase_order_id($consignment_number){
+    $this->db->select('purchase_order_id');
+    $this->db->where('goods_tracking.consignment_number',$consignment_number);    
+    $query = $this->db->get('goods_tracking');
+    return $query->result();
+  }
+
   /*public function fetchPODetails($purchase_order_id) {
     $where['id'] = $purchase_order_id;
     $this->db->where($where);

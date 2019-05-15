@@ -237,15 +237,16 @@ class Goods_tracking extends CI_Controller {
         $arr = [];
 
         $arr = [
-            'purchase_order_id'     => $this->input->post('purchase_order_id'),
-            'purchase_order_number' => $this->input->post('purchase_order_number'),
-            'invoice_number'        => trim($this->input->post('invoice_number')),
-            'consignment_number'    => $this->input->post('consignment_number'),
-            'transporter_name'      => ucwords($this->input->post('transporter_name')),           
-            'entered_by'            => $this->ion_auth->get_user_id(),
-            'remarks'               => trim($this->input->post('remarks')),
-            'created_at'            => date('Y-m-d H:i:s'),
-            'invoice_date'          => date('Y-m-d', strtotime($this->input->post('invoice_date'))),
+            'purchase_order_id'             => $this->input->post('purchase_order_id'),
+            'purchase_order_number'         => $this->input->post('purchase_order_number'),
+            'invoice_number'                => trim($this->input->post('invoice_number')),
+            'consignment_number'            => $this->input->post('consignment_number'),
+            'no_of_consignment_packages'    => $this->input->post('no_of_consignment_packages'),
+            'transporter_name'              => ucwords($this->input->post('transporter_name')),           
+            'entered_by'                    => $this->ion_auth->get_user_id(),
+            'remarks'                       => trim($this->input->post('remarks')),
+            'created_at'                    => date('Y-m-d H:i:s'),
+            'invoice_date'                  => date('Y-m-d', strtotime($this->input->post('invoice_date'))),
         ];
        // var_dump($arr);
      

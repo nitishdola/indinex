@@ -76,6 +76,15 @@
                                 <input type="hidden" class="form-control" name="purchase_order_number" value="<?php echo $po_details->purchase_order_no;?>"/>
                               </td>
                             </tr>
+                            <tr>
+                              <th>No. of Consignment Packages : </th>
+                              <td>
+                                <input type="text" class="form-control" name="no_of_consignment_packages" id="no_of_consignment_packages" placeholder="No. of Consignment Packages" required="required" autocomplete="off"/>
+                              
+                              </td>
+                              <th colspan="2"> </th>
+                              
+                            </tr>
                           </table>
                           <h4 style="text-align: left;"> ITEMS : </h4>
                            <table class="table table-bordered table-hover" id="itemtable">
@@ -130,7 +139,7 @@
                                     <td> <?php echo $v->product_qty; ?> 
                                     <input type="hidden"  name="quantity_ordered[]" value="<?php echo $v->product_qty; ?>">
                                       &nbsp;<?php echo $v->product_uoms; ?>
-                                      </td>                                   
+                                    </td>                                   
 
                                     <?php $total_received_qty=0;//echo $v->product_id; 
                                     foreach($tracking_items as $res){

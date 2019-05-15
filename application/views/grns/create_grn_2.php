@@ -69,14 +69,6 @@
                                     <th width="10%">
                                        Quantity Received
                                     </th>
-
-                                    <th width="20%">
-                                       Plant
-                                    </th>
-                                    <th width="15%">
-                                       Storage Location
-                                    </th>
-
                                     <th width="12%">
                                        Stock type
                                     </th>
@@ -108,27 +100,7 @@
                                     </td>
                                     <td> <input type="text" required="required"  class="form-control" name="quantity_received[]" value="<?php echo $v->received_quantity; ?>">   </td>
 
-                                    <td> 
-                                      <select id="plant_id" required="required"  name="plant_id[]" class="form-control">
-                                        <option value="">Select </option>
-                                        <?php foreach($plant as $pl) 
-                                          {
-                                            echo '<option value="'.$pl->storage_id.'">'.$pl->first_name.'</option>';
-                                          } ?>
-                                      </select>
-                                    </td>
-                                    <td> 
-                                      <select id="order_types" name="storage_location_id[]" class="form-control">
-                                        <option value="">Select </option>
-                                        <?php foreach($storage_locations as $st) 
-                                          {
-                                            echo '<option value="'.$st->id.'">'.$st->first_name.'</option>';
-                                          } ?>                                        
-                                      </select>
-                                    </td>
-
-
-                                    <td> 
+                                     <td> 
                                       <select id="order_types" required="required"  name="stock_types[]" class="form-control">
                                         <option value="">Stock Type </option>
                                         <?php foreach($stock_types as $row) 
@@ -137,12 +109,8 @@
                                           } ?>
                                       </select>
                                     </td>
-
-
                                     <td>
-
                                       <input name="images[]" type="file" />
-
                                     </td>
                                   </tr>
                                 <?php endforeach; ?>  

@@ -24,7 +24,7 @@
                       </thead>
                       <tbody>
 
-                      <?php foreach($results as $k => $v): var_dump($v);?>
+                      <?php foreach($results as $k => $v): //var_dump($v);?>
                       <tr>
                         <td><?php echo $k+1; ?></td>                        
                         <td><?php echo $v->goods_tracking_id; ?></td>

@@ -162,6 +162,17 @@ class Purchase_order_model extends CI_Model
       return $query->result(); 
   }
 
+  public function fetchGoodsTrackingPurchaseOrder()  
+  {  
+      $where['goods_tracking.status'] =1;
+      $this->db->where($where);
+      $this->db->from('goods_tracking');
+     // $this->db->join('purchase_line_item', 'purchase_line_item.purchase_order_id = purchase_order.purchase_order_id');
+      $this->db->group_by('goods_tracking.purchase_order_number');
+      $query = $this->db->get();
+      return $query->result(); 
+  }
+
   public function fetchGoodsTrackingPo()  
   {  
       $where['purchase_order.status'] =2;

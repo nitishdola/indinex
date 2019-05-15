@@ -34,6 +34,12 @@
                               <th>Transporter Name : </th>
                               <td><?php echo $r->transporter_name; ?></td>
                             </tr>
+                            <tr>
+                              <th>No. of Consignment Packages : </th>
+                              <td><?php echo $r->no_of_consignment_packages; ?></td>
+                              <th colspan="2"> </th>
+                              
+                            </tr>
                           </table>
                            <h4 style="text-align: left;"> ITEMS : </h4>
                            <table class="table table-bordered table-hover" id="itemtable">

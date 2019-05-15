@@ -50,8 +50,22 @@
                       <td><?php echo  $row->category_name;?></td>  
                       <td><?php echo  $row->product_description;?></td>                        
                       <td><?php echo  $row->group_name;?></td>
-                      <td><?php echo  $row->size;?></td> 
-                      <td><?php echo  $row->color;?></td>  
+                      <td><?php 
+
+                      $size=unserialize($row->size);  
+                        $cnt2= count($size);
+                        for($j=0;$j<$cnt2;$j++){
+                          echo ($size[$j]).'<br>';
+                        }
+
+                       // echo  $row->size;?></td> 
+                      <td><?php 
+                       $color=unserialize($row->color);  
+                        $cnt= count($color);
+                        for($k=0;$k<$cnt;$k++){
+                          echo ($color[$k]).'<br>';
+                        }
+                        ?></td>  
                       <td> <a href="<?php echo site_url('product_masters/edit_product_master?product_code='.$row->product_code);?>" class="btn btn-info btn-sm"  style="margin: 5px">Change</a></td>
                       <td><button id="del_<?php echo $row->product_code; ?>" class="btn btn-danger btn-sm del"  style="margin: 5px">Delete</button> </td>
                     </tr>  
