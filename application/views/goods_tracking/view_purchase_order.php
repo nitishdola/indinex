@@ -20,15 +20,15 @@
 
                           <table class="table table-bordered">
                             <tr>
-                              <th>Purchase Order Type : </th>
-                              <td><?php echo $po_details->category_name; ?></td>
+                              <th>Purchase Order Document Type : </th>
+                              <td><?php //echo $po_details->name; ?></td>
                               <th>Purchase Order No : </th>
                               <td><?php echo $po_details->purchase_order_no; ?></td>
 
                             </tr>
                             <tr>
                               <th>Vendor Name : </th>
-                              <td><?php echo $po_details->first_name.'&nbsp;'.$po_details->middle_name.'&nbsp;'.$po_details->last_name; ?></td>
+                              <td><?php echo ucfirst($po_details->first_name).'&nbsp;'.$po_details->middle_name.'&nbsp;'.$po_details->last_name; ?></td>
                               <th>Purchase Order Date : </th>
                               <td><?php echo date('d-m-Y', strtotime($po_details->purchase_order_date)); ?></td>
 
@@ -67,13 +67,23 @@
                             <tr>
                               <th>Consignment Number : </th>
                               <td>
-                                <input type="text" class="form-control" name="consignment_number" placeholder="Consignment Number" required="required" autocomplete="off"/>
+                                <input type="text" class="form-control" name="consignment_number" id="consignment_number"placeholder="Consignment Number" required="required" autocomplete="off"/>
+                                 <p id="consignment_div" style="color:red;display:none"> Consignment number is already existed</p>
                               </td>
                               <th>Transporter Name : </th>
                               <td>
                                 <input type="text" class="form-control" name="transporter_name" placeholder="Transporter Name" required="required" autocomplete="off"/>
                                 <input type="hidden" class="form-control" name="purchase_order_number" value="<?php echo $po_details->purchase_order_no;?>"/>
                               </td>
+                            </tr>
+                            <tr>
+                              <th>No. of Consignment Packages : </th>
+                              <td>
+                                <input type="text" class="form-control" name="no_of_consignment_packages" id="no_of_consignment_packages" placeholder="No. of Consignment Packages" required="required" autocomplete="off"/>
+                              
+                              </td>
+                              <th colspan="2"> </th>
+                              
                             </tr>
                           </table>
                           <h4 style="text-align: left;"> ITEMS : </h4>
@@ -129,7 +139,7 @@
                                     <td> <?php echo $v->product_qty; ?> 
                                     <input type="hidden"  name="quantity_ordered[]" value="<?php echo $v->product_qty; ?>">
                                       &nbsp;<?php echo $v->product_uoms; ?>
-                                      </td>                                   
+                                    </td>                                   
 
                                     <?php $total_received_qty=0;//echo $v->product_id; 
                                     foreach($tracking_items as $res){
@@ -157,7 +167,7 @@
                         <div class="form-group row">
                            <div class="col-md-9"></div>
                            <div class="col-md-3">
-                              <input type="hidden" name="purchase_order_id" value="<?php echo $purchase_order_id; ?>">
+                              <input type="hidden" name="purchase_order_id" id="purchase_order_id" value="<?php echo $purchase_order_id; ?>">
                               <button type="submit" class="btn btn-primary">Submit </button>
                            </div>
                         </div>
@@ -174,8 +184,35 @@
 </div>
 <?php $this->load->view('layout/admin/footer_with_js'); ?>
 <script>
+$(function(){
+$('#consignment_number').blur(function(){
+  var consignment_number  =$('#consignment_number').val();
+  var purchase_order_id   =$('#purchase_order_id').val();
+  
+  var url= "<?php echo base_url(); ?>" + "index.php/Goods_tracking/ajax_ifExit_consignment";     
+    jQuery.ajax({ 
+      type: 'GET',       
+      url: url, 
+      //dataType: 'json', 
+      data: {consignment_number: consignment_number,purchase_order_id:purchase_order_id}, 
+      success: function (res) { 
+          if(res==1) {
+            $('#consignment_number').val(''); 
+            $('#consignment_div').show();
+          } 
+      } ,      
+      error: function (jqXhr, textStatus, errorMessage) {       
+          $('p').append('Error' + errorMessage); 
+        } 
+    });
+});
+$('#consignment_number').click(function(){
+  $('#consignment_div').hide();
+
+});
+
 /*$("#itemtable input:checkbox").change(function() {
-    var ischecked= $(this).is(':checked');
+    var ischecked= $(this).is(':checked')#;
     if(!ischecked)
     alert('uncheckd ' + $(this).val());
 }); */
@@ -199,5 +236,6 @@ hideMe = function(key) {
 
   //$('#tr_'+key).remove();
 }
+});
 </script>
 <?php $this->load->view('layout/admin/footer_with_js_close'); ?>

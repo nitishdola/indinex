@@ -14,25 +14,30 @@
                      <div class="example-wrap">
                         <h4 class="example-title">GRN Add</h4>
                         <div class="example">
+                         <?php echo $this->session->flashdata('response'); ?>
                            <form action="view_grn" method="get">
-                           <div class="form-group row">
+                           <!--<div class="form-group row">
                               <label class="col-md-4 col-form-label">Purchase Order Number : </label>
                               <div class="col-md-5">
                                  <select id="purchase_order_id" name="purchase_order_id" class="form-control select2">
                                     <option value="">Select</option>
-                                    <?php foreach($all_purchase_orders as $row) 
+                                    <?php /*foreach($all_purchase_orders as $row) 
                                       {
-                                        echo '<option value="'.$row->purchase_order_id.'">'.$row->purchase_order_no.'</option>';
-                                      } ?>
+                                        echo '<option value="'.$row->purchase_order_id.'">'.$row->purchase_order_number.'</option>';
+                                      } */ ?>
                                   </select> 
                               </div>
-                              </div>
+                              </div> -->
+                              <input type="hidden" name="purchase_order_id" id="purchase_order_id">
                               <div class="form-group row">
-                              <label class="col-md-4 col-form-label">Goods Tracking Number : </label>
+                              <label class="col-md-4 col-form-label">Consignment Number : </label>
                               <div class="col-md-6">
-                                 <select id="goods_tracking_id" name="goods_tracking_no" class="form-control">
+                                 <select id="consignment_id" name="consignment_no" class="form-control select2">
                                     <option value="">No data</option>
-                                    
+                                    <?php foreach($res as $row)
+                                    {
+                                      echo '<option value="'.$row->consignment_number.'">'.$row->consignment_number.'</option>';
+                                    } ?>  
                                   </select> 
                               </div>
                               </div>
@@ -59,37 +64,73 @@
 </div>
 <?php $this->load->view('layout/admin/footer_with_js'); ?>
 <script>
-$('#purchase_order_id').change(function(){
-   $('#goods_tracking_id').empty();   
-   
-   var purchase_order_id=$('#purchase_order_id').val();
-   
-   if(purchase_order_id!=''){
+$('#consignment_id').change(function(){
+  var consignment_number=$('#consignment_id').val();
+    if(consignment_number!=''){
       $('.btn-primary').attr('disabled',false);
-   } else {
+    } else {
       $('.btn-primary').attr('disabled',true);
-   }
-   var url= "<?php echo base_url(); ?>" + "index.php/grn/ajax_get_goods_tracking_no"; 
-   jQuery.ajax({ 
+    }
+
+    var url= "<?php echo base_url(); ?>" + "index.php/grn/ajax_get_purchase_order_id"; 
+    jQuery.ajax({ 
+     type: 'GET',         
+     url: url, 
+     dataType: 'json', 
+     data: {consignment_number: consignment_number}, 
+      success: function (jsonArray) {           
+          $('#purchase_order_id').val(jsonArray);
+      },
+      error: function (jqXhr, textStatus, errorMessage) { 
+      // $.unblockUI(); 
+        $('p').append('Error' + errorMessage); 
+      } 
+    });
+});
+
+
+/*$('#purchase_order_id').change(function(){
+   $('#consignment_id').empty();   
+   
+   var purchase_order_id=$('#purchase_order_id').val();   
+   
+    var url= "<?php //echo base_url(); ?>" + "index.php/grn/ajax_get_purchase_order_id"; 
+    jQuery.ajax({ 
      type: 'GET',         
      url: url, 
      dataType: 'json', 
      data: {purchase_order_id: purchase_order_id}, 
      success: function (jsonArray) {  
-     
-         $.each(jsonArray, function(index,jsonObject){            
-            $('#goods_tracking_id')
+        if(empty(jsonArray)){
+         $.each(jsonArray, function(index,jsonObject){
+          
+            $('#consignment_id')
             .append($("<option></option>")
-            .attr("value",jsonObject['tracking_id'])
-            .text(jsonObject['tracking_id']));               
-         });           
+            .attr("value",jsonObject['consignment_number'])
+            .text(jsonObject['consignment_number']));          
+         }); 
+        }   else {
+            $('#consignment_id')
+            .append($("<option></option>")
+            .attr("value",jsonObject['consignment_number'])
+            .text(jsonObject['consignment_number']));  
+
+        }        
       },
      error: function (jqXhr, textStatus, errorMessage) { 
        // $.unblockUI(); 
         $('p').append('Error' + errorMessage); 
      } 
   });
-});
+
+    var consignment_id=$('#consignment_id').val();
+    //alert(consignment_id);
+    if(consignment_id!=''){
+      $('.btn-primary').attr('disabled',false);
+   } else {
+      $('.btn-primary').attr('disabled',true);
+   }
+}); 
 
 
    $('#add_new_row').click(function() {
@@ -132,7 +173,7 @@ $('#purchase_order_id').change(function(){
       $trClone.find("select").val(0);
       $trClone.find("textarea").val("");
 
-      $trLast.after($trClone);*/
+      $trLast.after($trClone);
       console.log(length);
 
       if(length > 2) {
@@ -171,7 +212,7 @@ $('#purchase_order_id').change(function(){
 
          jQuery.ajax({
             type: 'GET',        
-            url: "<?php echo base_url(); ?>" + "index.php/transactions/user_data_submit",
+            url: "<?php //echo base_url(); ?>" + "index.php/transactions/user_data_submit",
             dataType: 'json',
             data: {vendor_code: vendor_code},
             success: function (resp) {      
@@ -187,7 +228,7 @@ $('#purchase_order_id').change(function(){
             }
          }); 
       }
-    });
+    });*/
 </script>
 
 <?php $this->load->view('layout/admin/footer_with_js_close'); ?>

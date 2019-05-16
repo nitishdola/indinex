@@ -18,6 +18,13 @@
     display: block;
 }
 
+ .bootstrap-select.btn-group.show-tick .dropdown-menu li.selected a span.check-mark{
+    position: absolute;
+    display: inline-block;
+    left: 5px; //changed from right:15
+    margin-top: 5px;
+}
+
 </style>
 <?php $this->load->view('layout/admin/header'); ?>
 <body class="animsition app-projects">
@@ -143,35 +150,35 @@
                                <?php echo form_input(array('type'=>'text','id' => 'old_material_no', 'name' => 'old_material_no','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'off','maxlength'=>'50')); ?>
                               </div>
                             </div>
-                            <div class="form-group row">
+                           <!-- <div class="form-group row">
                               <label class="col-md-4 col-form-label">Net Weight: </label>
                               <div class="col-md-8">
-                                  <?php echo form_input(array('type'=>'text','id' => 'net_weight', 'name' => 'net_weight','style'=>'width:250px;float:left;margin-right:10px','class'=>'form-control')); ?> 
+                                  <?php //echo form_input(array('type'=>'text','id' => 'net_weight', 'name' => 'net_weight','style'=>'width:250px;float:left;margin-right:10px','class'=>'form-control')); ?> 
                                   <select id="net_uom" name="net_uom" class="form-control" style="width:100px"><option value="">UOM</option> 
-                                  <?php foreach($variants as $row)  {
+                                  <?php /*foreach($variants as $row)  {
                                     echo '<option value="'.$row->variants_name.'">'.$row->variants_name.'</option>';                           
-                                  } ?>
+                                  } */ ?>
                                   </select>
                               </div>
-                            </div>
-                            <div class="form-group row">
+                            </div> -->
+                            <!--<div class="form-group row">
                               <label class="col-md-4 col-form-label">Gross Weight: </label>
                               <div class="col-md-8">
-                                 <?php echo form_input(array('type'=>'text','id' => 'gross_weight', 'name' => 'gross_weight','style'=>'width:250px;float:left;margin-right:10px','class'=>'form-control')); ?> 
+                                 <?php //echo form_input(array('type'=>'text','id' => 'gross_weight', 'name' => 'gross_weight','style'=>'width:250px;float:left;margin-right:10px','class'=>'form-control')); ?> 
                                 <select id="gross_uom" name="gross_uom" style="width:100px" class="form-control">
                                     <option value="">UOM</option>
-                                    <?php foreach($variants as $row)  {
+                                    <?php /*foreach($variants as $row)  {
                                     echo '<option value="'.$row->variants_name.'">'.$row->variants_name.'</option>';                           
-                                  } ?>
+                                  } */ ?>
                                   </select>
                               </div>
-                            </div>
+                            </div> -->
                             
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label">Size: </label>
                               <div class="col-md-8">
-                                <select id="size" class="form-control" name="size">
-                                    <option value="">Size</option>
+                                <select multiple  id="size" class="form-control" name="size[]">
+                                    <option value="">Select</option>
                                     <?php foreach($sizes as $row)  {
                                       echo '<option value="'.$row->variants_name.'">'.$row->variants_name.'</option>';                           
                                     } ?>
@@ -182,8 +189,8 @@
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label">Color: </label>
                               <div class="col-md-8">
-                                <select id="color" class="form-control" name="color">
-                                    <option value="">Color</option>
+                                <select multiple id="color" class="form-control" name="color[]">
+                                    <option value="">Select</option>
                                     <?php foreach($color as $row)  {
                                     echo '<option value="'.$row->variants_name.'">'.$row->variants_name.'</option>';                           
                                   } ?>
@@ -340,6 +347,8 @@
                               <?php echo form_input(array('type'=>'radio','id' => 'sale_item', 'name' => 'items','style'=>'margin-bottom:5px;margin-left:15px','value'=>'sale_item')); ?>      
                               </div>
                             </div>
+
+                            
                       </div>
                       </div>
                       </div>
@@ -560,7 +569,6 @@
                                 </select>
                               </div>
                             </div>
-
                             <div class="form-group row" id="sale_price_div" style="display:none">
                               <label class="col-md-4 col-form-label">Sale Price: </label>
                               <div class="col-md-8">
@@ -573,7 +581,8 @@
                               <div class="col-md-8">
                                 <?php echo form_input(array('type'=>'text','id' => 'purchase_price', 'name' => 'purchase_price','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true')); ?>
                               </div>
-                            </div> 
+                            </div>
+                             
                                 </div>  
                               </div>
                             </div>

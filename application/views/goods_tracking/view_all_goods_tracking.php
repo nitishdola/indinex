@@ -14,7 +14,7 @@
                       <thead>
                         <tr>
                           <th>Sl No</th>
-                          <th>Goods Tracking Number</th>
+                          <th>Purchase Order Number</th>
                           <th>Consignment Number</th>
                           <th>Invoice Number</th>
                           <th>Invoice Date</th>
@@ -24,7 +24,7 @@
                       </thead>
                       <tbody>
 
-                      <?php foreach($results as $k => $v): ?>
+                      <?php foreach($results as $k => $v): //var_dump($v);?>
                       <tr>
                         <td><?php echo $k+1; ?></td>                        
                         <td><?php echo $v->goods_tracking_id; ?></td>

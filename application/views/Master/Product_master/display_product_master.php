@@ -42,7 +42,7 @@
                     <?php 
                     $i=0;                           
                     foreach($product_details->result() as $row)  
-                    { $i++;?>
+                    { $i++; //var_dump($row);?> 
                     <tr>  
                       <td><?php echo  $i;?> </td>
                       <td><img width="50" src='<?php echo base_url();?>uploads/images/<?php echo $row->picture;?>'></td>                       
@@ -50,8 +50,27 @@
                       <td><?php echo  $row->category_name;?></td>  
                       <td><?php echo  $row->product_description;?></td>                        
                       <td><?php echo  $row->group_name;?></td>
-                      <td><?php echo  $row->size;?></td> 
-                      <td><?php echo  $row->color;?></td>  
+                      <td><?php $cnt2=0;$cnt=0;
+
+                      $size=unserialize($row->size); 
+                      
+                      if(!empty($size)){
+                        $cnt2= sizeof($size);
+                        for($j=0;$j<$cnt2;$j++){
+                          echo ($size[$j]).'<br>';
+                        }
+
+                      }
+                        
+                      ?></td> 
+                      <td><?php 
+                        $color=unserialize($row->color); 
+                        if(!empty($color)){ 
+                        $cnt= sizeof($color);
+                        for($k=0;$k<$cnt;$k++){
+                          echo ($color[$k]).'<br>';
+                        } }
+                        ?></td> 
                       <td> <a href="<?php echo site_url('product_masters/display_product_details?product_code='.$row->product_code);?>" class="btn btn-info btn-sm"  style="margin: 5px">Display</a></td>
                     </tr>  
                     <?php }  ?>

@@ -81,6 +81,8 @@ class Sub_storage_model extends CI_Model
       $query = $this->db->get('storage_location');
       return $query->result();
     }
+
+    
    
 } 
 

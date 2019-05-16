@@ -18,7 +18,7 @@
                         <div class="example">
                         <?php echo $this->session->flashdata('response'); ?>
                           <?php $i=0; foreach($results as  $r) { $i++; //var_dump($r); ?>
-                           <h4 style="text-align: left;"> Goods Tracking Part : #<?php echo $i; ?> </h4>
+                           <h4 style="text-align: left;"> Goods Tracking Number : #<?php echo $r->goods_tracking_id; ?> </h4>
                            
 
                           <table class="table table-bordered">
@@ -33,6 +33,12 @@
                               <td><?php echo $r->consignment_number; ?></td>
                               <th>Transporter Name : </th>
                               <td><?php echo $r->transporter_name; ?></td>
+                            </tr>
+                            <tr>
+                              <th>No. of Consignment Packages : </th>
+                              <td><?php echo $r->no_of_consignment_packages; ?></td>
+                              <th colspan="2"> </th>
+                              
                             </tr>
                           </table>
                            <h4 style="text-align: left;"> ITEMS : </h4>

@@ -60,14 +60,14 @@ class Transactions extends CI_Controller {
 
  			$data = array(
  				'purchase_order_document_type_id' => $this->input->post('purchase_order_document_type_id'),	
-				'product_category_id' 	=> $this->input->post('product_category_id'),				
+				//'product_category_id' 	=> $this->input->post('product_category_id'),				
 				'vendor_id' 			=> $this->input->post('vendor_id'),
 				'document_date' 		=> date('Y-m-d', strtotime($this->input->post('document_date'))),	
 				'purchase_order_no' 	=> $this->input->post('purchase_order_no'),
 				'purchase_order_date' 	=> date('Y-m-d', strtotime($this->input->post('purchase_order_date'))),
 				'payment_terms' 		=> $this->input->post('payment_terms'),
 				'note' 					=> $this->input->post('note'),
-				'incoterms' 			=> $this->input->post('incoterms'),
+				//'incoterms' 			=> $this->input->post('incoterms'),
 				'creation_date' 		=> date('Y-m-d H:i:s'),
 				'created_by'			=> $this->ion_auth->get_user_id(),
 				//'ip_number'=>'';

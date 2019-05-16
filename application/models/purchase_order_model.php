@@ -162,6 +162,17 @@ class Purchase_order_model extends CI_Model
       return $query->result(); 
   }
 
+  public function fetchGoodsTrackingPurchaseOrder()  
+  {  
+      $where['goods_tracking.status'] =1;
+      $this->db->where($where);
+      $this->db->from('goods_tracking');
+     // $this->db->join('purchase_line_item', 'purchase_line_item.purchase_order_id = purchase_order.purchase_order_id');
+      $this->db->group_by('goods_tracking.purchase_order_number');
+      $query = $this->db->get();
+      return $query->result(); 
+  }
+
   public function fetchGoodsTrackingPo()  
   {  
       $where['purchase_order.status'] =2;
@@ -257,13 +268,13 @@ class Purchase_order_model extends CI_Model
     return $query->result();
   }
 
-  public function fetchGoodsTrackingItemsForGrn($purchase_order_id,$tracking_id){
+  public function fetchGoodsTrackingItemsForGrn($purchase_order_id,$consignment_no){
+    $where['goods_tracking_items.stock_type'] = 'Verification on Arrival';
     $where['goods_tracking_items.purchase_order_id'] = $purchase_order_id;
-    $where['goods_tracking_items.goods_tracking_id'] = $tracking_id;
+    $where['goods_tracking_items.consignment_no'] = $consignment_no;
     $this->db->where($where);
     $this->db->from('goods_tracking_items');
     $this->db->join('product_general_data', 'product_general_data.id = goods_tracking_items.purchase_line_item_id');
-
     $query = $this->db->get();
     return $query->result();
 

@@ -32,7 +32,11 @@ class Grn extends CI_Controller {
         /*$data['storage_locations'] = $this->location_model->selectAllLocations(); var_dump($data); exit;*/
     	/*$data['all_purchase_orders']    = $this->purchase_order_model->fetchPoNumberForGrn();
         var_dump($data['all_purchase_orders']); */
-        $data['all_purchase_orders'] = $this->purchase_order_model->fetchGoodsTracking();
+       // $data['all_purchase_orders'] = $this->purchase_order_model->fetchGoodsTracking();
+
+        $this->load->model('grn_model'); 
+        $data['res']=$this->grn_model->select_consignment_number();
+        // var_dump($data['res']);
         $this->load->view('grns/create_grn', $data);
         //$this->load->view('layout/admin/footer');
     }
@@ -40,7 +44,7 @@ class Grn extends CI_Controller {
     public function view_grn() {
 
         $purchase_order_id = $this->input->get('purchase_order_id');
-        $tracking_id = $this->input->get('goods_tracking_no');
+        $consignment_no = $this->input->get('consignment_no');
 
         $this->load->view('layout/admin/header');           
         $this->load->view('layout/admin/nav_menu'); 
@@ -48,9 +52,10 @@ class Grn extends CI_Controller {
         //$data['po_details'] = $this->purchase_order_model->fetchPODetails($this->input->get('purchase_order_id'))[0];
         //$data['po_items'] = $this->purchase_order_model->fetchPOItems($this->input->get('purchase_order_id'));
         //$data['goods_tracking_items'] = $this->purchase_order_model->fetchGoodsTrackingItemsForGrn($this->input->get('purchase_order_id'));
-        $data['goods_tracking_items'] = $this->purchase_order_model->fetchGoodsTrackingItemsForGrn($purchase_order_id,$tracking_id);
+        $data['goods_tracking_items'] = $this->purchase_order_model->fetchGoodsTrackingItemsForGrn($purchase_order_id,$consignment_no);
+
         $data['goodsTracking'] = $this->purchase_order_model->fetchGoodsTrackingHeader($this->input->get('purchase_order_id'));
-        //var_dump($data['goodsTracking']);
+        $data['goodsTracking'][0]->purchase_order_number;
         $this->load->model('main_storage_model');       
         $data['plant'] = $this->main_storage_model->getAllPlant();
         $data['storage_locations'] = $this->location_model->selectAllLocations(); 
@@ -69,8 +74,7 @@ class Grn extends CI_Controller {
         $stock_types[2]['value'] = 'Inventory Stock';
 
         $data['stock_types'] = $stock_types;
-        $this->load->view('grns/create_grn_2', $data);
-        
+        $this->load->view('grns/create_grn_2', $data);        
        
     }
 
@@ -84,11 +88,13 @@ class Grn extends CI_Controller {
         $this->load->model('goods_tracking_model');
 
 
+
     	$data = $this->input->post();
-        
+        //var_dump($data );die();
         $grn_number         = $this->input->post('grn_number');
-        $goods_tracking_no  = $this->input->post('goods_tracking_no');
+        $consignment_no     = $this->input->post('consignment_no');
         $arr = [];
+        
         
         $arr = [
             'purchase_order_id' => $this->input->post('purchase_order_id'),
@@ -118,8 +124,8 @@ class Grn extends CI_Controller {
             $purchase_line_item_id  = $this->input->post('purchase_line_item_ids')[$i];
             $ordered_quantity       = $this->input->post('quantity_ordered')[$i];
             $received_quantity      = $this->input->post('quantity_received')[$i];
-            $plant_id               = $this->input->post('plant_id')[$i];
-            $storage_location_id    = $this->input->post('storage_location_id')[$i];
+           // $plant_id               = $this->input->post('plant_id')[$i];
+           // $storage_location_id    = $this->input->post('storage_location_id')[$i];
             $stock_type             = $this->input->post('stock_types')[$i];
 
            // var_dump($purchase_line_item_id);
@@ -195,8 +201,8 @@ class Grn extends CI_Controller {
                 'purchase_line_item_id' => $purchase_line_item_id,
                 'ordered_quantity'      => $ordered_quantity,
                 'received_quantity'     => $received_quantity,
-                'plant_id'              => $plant_id,
-                'storage_location_id'   => $storage_location_id,
+                //'plant_id'              => $plant_id,
+                //'storage_location_id'   => $storage_location_id,
                 'stock_type'            => $stock_type,
                 'product_image'         => $product_image,
                 'previous_stock'        => $previous_product_quantity,
@@ -206,6 +212,16 @@ class Grn extends CI_Controller {
             //var_dump($product_arr);
             $this->grn_items_model->form_insert($product_arr);
            
+            $arr_stock_movement=[];
+            $arr_stock_movement = [                
+                'product_id'            => $purchase_line_item_id,
+                'plant_id'              => $plant_id,
+                'storage_id'            => $storage_location_id,  
+                'current_stock'         => $received_quantity             
+                
+            ];
+            $this->load->model('stock_movement_model');
+            $this->stock_movement_model->form_insert($arr_stock_movement);
 
             //update Ledger
             $ledger_arr = [];
@@ -225,7 +241,7 @@ class Grn extends CI_Controller {
 
             
         }
-        $this->goods_tracking_model->update_goods_tracking($goods_tracking_no);
+        $this->goods_tracking_model->update_goods_tracking($consignment_no);
         $this->db->trans_complete();
 
         if ($this->db->trans_status() === FALSE) {
@@ -269,7 +285,7 @@ class Grn extends CI_Controller {
 
         $data['grn_details'] = $this->grn_model->fetchGRNDetails($grn_id)[0];
         $data['grn_items']   = $this->grn_items_model->fetchGRNItems($grn_id);
-
+        //var_dump($data['grn_items']);
        /*echo '<pre>';
        var_dump($data);
        echo '</pre>';
@@ -288,11 +304,19 @@ class Grn extends CI_Controller {
         $array_tracking_no = array();
         foreach($arr['res'] as $row)  
         {                
-            //$array_tracking_no[$i]["id"]            =$row->id;
-            $array_tracking_no[$i]["tracking_id"]      =$row->id;            
+            $array_tracking_no[$i]["consignment_number"]    =$row->consignment_number;
+            $array_tracking_no[$i]["tracking_id"]           =$row->id;            
             $i++;       
         }    
         
         echo  json_encode($array_tracking_no);  
+    }
+
+    public function ajax_get_purchase_order_id()
+    {
+        $consignment_number=$this->input->get('consignment_number');
+        $this->load->model('grn_model'); 
+        $arr['res']=$this->grn_model->select_purchase_order_id($consignment_number);
+        echo $arr['res'][0]->purchase_order_id;
     }
 }

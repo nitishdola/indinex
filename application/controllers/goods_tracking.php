@@ -237,15 +237,16 @@ class Goods_tracking extends CI_Controller {
         $arr = [];
 
         $arr = [
-            'purchase_order_id'     => $this->input->post('purchase_order_id'),
-            'purchase_order_number' => $this->input->post('purchase_order_number'),
-            'invoice_number'        => trim($this->input->post('invoice_number')),
-            'consignment_number'    => $this->input->post('consignment_number'),
-            'transporter_name'      => ucwords($this->input->post('transporter_name')),           
-            'entered_by'            => $this->ion_auth->get_user_id(),
-            'remarks'               => trim($this->input->post('remarks')),
-            'created_at'            => date('Y-m-d H:i:s'),
-            'invoice_date'          => date('Y-m-d', strtotime($this->input->post('invoice_date'))),
+            'purchase_order_id'             => $this->input->post('purchase_order_id'),
+            'purchase_order_number'         => $this->input->post('purchase_order_number'),
+            'invoice_number'                => trim($this->input->post('invoice_number')),
+            'consignment_number'            => $this->input->post('consignment_number'),
+            'no_of_consignment_packages'    => $this->input->post('no_of_consignment_packages'),
+            'transporter_name'              => ucwords($this->input->post('transporter_name')),           
+            'entered_by'                    => $this->ion_auth->get_user_id(),
+            'remarks'                       => trim($this->input->post('remarks')),
+            'created_at'                    => date('Y-m-d H:i:s'),
+            'invoice_date'                  => date('Y-m-d', strtotime($this->input->post('invoice_date'))),
         ];
        // var_dump($arr);
      
@@ -263,6 +264,7 @@ class Goods_tracking extends CI_Controller {
             $ordered_quantity       = $this->input->post('quantity_ordered')[$i];
             $received_quantity      = $this->input->post('quantity_received')[$i];
             $stock_type             = $this->input->post('stock_types')[$i];
+            $consignment_number     = $this->input->post('consignment_number');
 
             $arr=$this->purchase_order_model->calculate_received_qty($purchase_order_id,$purchase_line_item_id);
             foreach($arr as $tt);{ //var_dump($tt);
@@ -275,6 +277,7 @@ class Goods_tracking extends CI_Controller {
             }
                 $product_arr = [
                     'purchase_order_id'     => $purchase_order_id,
+                    'consignment_no'        => $consignment_number,
                     'goods_tracking_id'     => $goods_tracking_id,
                     'purchase_line_item_id' => $purchase_line_item_id,
                     'ordered_quantity'      => $ordered_quantity,
@@ -283,7 +286,7 @@ class Goods_tracking extends CI_Controller {
                 ];
                 //var_dump($product_arr);
                 $this->goods_tracking_items_model->goods_tracking_line_items($product_arr);
-        } $grand_total_received= $all_total_received+$total_received_qty;
+        }       $grand_total_received= $all_total_received+$total_received_qty;
 
             if($grand_total_received >=$total_ordered_qty){
                 $this->purchase_order_model->update_purchase_order_status($purchase_order_id);
@@ -298,7 +301,7 @@ class Goods_tracking extends CI_Controller {
         } 
         else {
             $this->db->trans_commit();           
-            $this->session->set_flashdata('trackingno',"<div class='alert alert-success'><strong>Your Goods Tracking Number is- ".str_pad($goods_tracking_id, 4, '0', STR_PAD_LEFT)."</div>");
+            $this->session->set_flashdata('trackingno',"<div class='alert alert-success'><strong>Your Goods Consignment Number - ".str_pad($this->input->post('consignment_number'), 4, '0', STR_PAD_LEFT)."is created</div>");
             redirect(site_url('Goods_tracking/create_goods_tracking'));
 
         }
@@ -323,7 +326,7 @@ class Goods_tracking extends CI_Controller {
         $this->load->model('goods_tracking_items_model'); 
         $this->load->view('layout/admin/header');           
         $this->load->view('layout/admin/nav_menu'); 
-        $data['results'] = $this->goods_tracking_model->fetchAllGoodsTracking($id);
+        $data['results'] = $this->goods_tracking_model->fetchAllGoodsTracking2($id);        
         $data['linegoods'] = $this->goods_tracking_model->fetchGoodsTrackingLine($id);
         $data['purchase_order_number']=$data['linegoods'][0]->purchase_order_number;
         $this->load->view('goods_tracking/view_goods_tracking_line',$data); 
@@ -425,6 +428,21 @@ class Goods_tracking extends CI_Controller {
         }    
         
         echo  json_encode($array_po);  
+
+    }
+
+    public function ajax_ifExit_consignment(){
+        $purchase_order_id      =$this->input->get('purchase_order_id');
+        $consignment_no         =$this->input->get('consignment_number');
+
+        $this->load->model('goods_tracking_model');        
+        $data['res'] = $this->goods_tracking_model->check_consignment_if_exist($consignment_no,$purchase_order_id);
+        if(!empty($data['res'])){
+            echo 1;
+        } else {
+            echo 0;
+        }
+       
 
     }
 

@@ -53,8 +53,10 @@ class Product_masters extends CI_Controller {
 
 		if($this->input->post('sub'))
  		{
- 			//var_dump($_POST);
- 			//exit();
+ 			
+ 			$size=serialize($_POST['size']);
+ 			$color=serialize($_POST['color']);
+ 			
  			if(isset($_FILES['picture']['name'])){
  				
  				$new_name = 'PRODUCT_'.uniqid().time().$_FILES["file"]['name'];
@@ -90,12 +92,12 @@ class Product_masters extends CI_Controller {
 				'product_description' 		=> $this->input->post('product_description'),
 				'product_group' 			=> $this->input->post('product_group'),
 				'old_material_no' 			=> $this->input->post('old_material_no'),
-				'net_weight' 				=> $this->input->post('net_weight'),
-				'net_uom' 					=> $this->input->post('net_uom'),
-				'gross_weight' 				=> $this->input->post('gross_weight'),
-				'gross_uom' 				=> $this->input->post('gross_uom'),
-				'size' 						=> $this->input->post('size'),
-				'color' 					=> $this->input->post('color'),
+				//'net_weight' 				=> $this->input->post('net_weight'),
+				//'net_uom' 					=> $this->input->post('net_uom'),
+				//'gross_weight' 				=> $this->input->post('gross_weight'),
+				//'gross_uom' 				=> $this->input->post('gross_uom'),
+				'size' 						=> $size,
+				'color' 					=> $color,
 				'conversion_factor_from' 	=> $this->input->post('conversion_factor_from'),
 				'factor_from_uom' 			=> $this->input->post('factor_from_uom'),
 				'conversion_factor_to' 		=> $this->input->post('conversion_factor_to'),

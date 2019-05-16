@@ -12,55 +12,15 @@
                <div class="row row-lg">
 
                   <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-                    <h4 style="text-align: left;"> Purchase Order Details : #<?php //echo $po_details->purchase_order_no; ?> </h4>
+                    <h4 style="text-align: left;"> Purchase Order Details : #<?php echo $goodsTracking[0]->purchase_order_number; ?> </h4>
                      <div class="example-wrap">                     
                       <?php echo form_open_multipart('grn/save_grn'); ?>                      
                   
                         <div class="example">
                         <?php echo $this->session->flashdata('response'); ?>
                         
-                        <input type="hidden" name="goods_tracking_no" value="<?php echo $_GET['goods_tracking_no'];?>"?>
-                          <!--<table class="table table-bordered">
-                            <tr>
-                              <th>Purchase Order Type : </th
-                              <td><?php //echo $po_details->category_name; ?></td>
-
-                              <th>Purchase Order No : </th>
-                              <td><?php //echo $po_details->purchase_order_no; ?></td>
-
-                            </tr>
-
-
-                            <tr>
-                              <th>Vendor Name : </th>
-                              <td><?php //echo $po_details->first_name.'&nbsp;'.$po_details->middle_name.'&nbsp;'.$po_details->last_name; ?></td>
-
-                              <th>Purchase Order Date : </th>
-                              <td><?php //echo date('d-m-Y', strtotime($po_details->purchase_order_date)); ?></td>
-
-                            </tr>
-
-
-                            <tr>
-                              <th>Vendor Address : </th>
-                              <td><?php //echo $po_details->postal_address; ?></td>
-
-                              <th>Tayment Type : </th>
-                              <td><?php //echo $po_details->payment_terms; ?></td>
-
-                            </tr>
-
-
-                            <tr>
-                              <th>Document Date : </th>
-                              <td><?php //echo date('d-m-Y', strtotime($po_details->document_date)); ?></td>
-
-                              <th>Incoterms  : </th>
-                              <td><?php //echo $po_details->incoterms; ?></td>
-
-                            </tr>
-
-                          </table> -->
+                        <input type="hidden" name="consignment_no" value="<?php echo $_GET['consignment_no'];?>"?>
+                          
 
                           <table class="table table-bordered">
                             <tr>
@@ -109,14 +69,6 @@
                                     <th width="10%">
                                        Quantity Received
                                     </th>
-
-                                    <th width="20%">
-                                       Plant
-                                    </th>
-                                    <th width="15%">
-                                       Storage Location
-                                    </th>
-
                                     <th width="12%">
                                        Stock type
                                     </th>
@@ -148,27 +100,7 @@
                                     </td>
                                     <td> <input type="text" required="required"  class="form-control" name="quantity_received[]" value="<?php echo $v->received_quantity; ?>">   </td>
 
-                                    <td> 
-                                      <select id="plant_id" required="required"  name="plant_id[]" class="form-control">
-                                        <option value="">Select Location </option>
-                                        <?php foreach($plant as $pl) 
-                                          {
-                                            echo '<option value="'.$pl->storage_id.'">'.$pl->first_name.'</option>';
-                                          } ?>
-                                      </select>
-                                    </td>
-                                    <td> 
-                                      <select id="order_types" name="storage_location_id[]" class="form-control">
-                                        <option value="">Select Location </option>
-                                        <?php foreach($storage_locations as $row) 
-                                          {
-                                            echo '<option value="'.$row->id.'">'.$row->first_name.'</option>';
-                                          } ?>
-                                      </select>
-                                    </td>
-
-
-                                    <td> 
+                                     <td> 
                                       <select id="order_types" required="required"  name="stock_types[]" class="form-control">
                                         <option value="">Stock Type </option>
                                         <?php foreach($stock_types as $row) 
@@ -177,12 +109,8 @@
                                           } ?>
                                       </select>
                                     </td>
-
-
                                     <td>
-
                                       <input name="images[]" type="file" />
-
                                     </td>
                                   </tr>
                                 <?php endforeach; ?>  

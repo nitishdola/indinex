@@ -106,13 +106,14 @@ class Goods_tracking_model extends CI_Model
     return $query->result();
   }
 
-  /*public function fetchAllGoodsTracking($id) 
+  public function fetchAllGoodsTracking2($id) 
   {  
     $this->db->where('goods_tracking.purchase_order_id',$id);
-    $this->db->from('goods_tracking');    
+    $this->db->from('goods_tracking');
+    $this->db->join('goods_tracking_items', 'goods_tracking_items.goods_tracking_id = goods_tracking.id');     
     $query = $this->db->get();
     return $query->result();
-  } */
+  } 
 
   public function fetchAllGoodsTracking($consignment_number) 
   {  
@@ -146,9 +147,15 @@ class Goods_tracking_model extends CI_Model
 
     $query=$this->db->query("update goods_tracking_items SET stock_type='$status' where purchase_order_id='$purchase_order_id' AND goods_tracking_id='$goods_tracking_id' AND purchase_line_item_id='$product_id'");
   }
-  public function update_goods_tracking($goods_tracking_no){
-     $query=$this->db->query("update goods_tracking SET status=2 where id='$goods_tracking_no'");
+  public function update_goods_tracking($consignment_no){
+     $query=$this->db->query("update goods_tracking SET status=2 where consignment_number='$consignment_no'");
 
+  }
+
+  function check_consignment_if_exist($consignment_number,$purchase_order_id){
+    $query ="select * from goods_tracking where consignment_number=$consignment_number AND purchase_order_id=$purchase_order_id";
+    $res = $this->db->query($query);
+    return $res->result();
   }
     
 } 
