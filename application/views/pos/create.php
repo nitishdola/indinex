@@ -10,17 +10,17 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-5">
         <?php echo form_open('pos/save_pos'); ?>
         <div id="cart" style="display: none;">
-          <div class="form-group row">
+          <!-- <div class="form-group row">
             <label class="col-md-4 col-form-label">Receipt Number : </label>
             <div class="col-md-5">
                <input id="receipt_number" name="receipt_number" value="<?php echo $receipt_number; ?>" class="form-control" required="required">
             </div>
-          </div>          
-          <table class="table table-condensed table-bordered">
-            <thead class="table-thead">
+          </div>  -->         
+          <table class="table table-condensed borderless table-bordered">
+            <!-- <thead class="table-thead">
               <tr style="font-weight: bold;">
                 <th>Sl</th>
                 <th>Product Description</th>
@@ -28,7 +28,7 @@
                 <th>Unit Price</th>
                 <th>Total Price</th>
               </tr>
-            </thead>
+            </thead> -->
             <tbody id="tbdy">
               
             </tbody>
@@ -40,24 +40,71 @@
               </tr> -->
 
               <tr>
-                <td colspan="4"> Total Price </td>
+                <td colspan="1"> Total Price </td>
                 <td id="totalPrice"></td>
               </tr>
 
-              <!-- <tr>
-                <td colspan="4">GST Amount</td>
-                <td id="gstAmount"></td>
-              </tr> -->
-
-
-              <!-- <tr>
-                <td colspan="4">Total Amount after GST</td>
-                <td id="amountAfterGst"></td>
-              </tr> -->
 
               <tr>
-                <td colspan="2">Select Customer</td>
-                <td colspan="3">
+                <td colspan="1"></td>
+                <td>
+                    <table>
+                      <tr>
+                        <td><button>1</button></td>
+                        <td><button>2</button></td>
+                        <td><button>3</button></td>
+                        <td>
+                          <a href="javascript:void(0)" class="btn btn-default btn-xs" id="calc_qty"> 
+                            Qty
+                          </a>
+
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td><button>4</button></td>
+                        <td><button>5</button></td>
+                        <td><button>6</button></td>
+                        <td>
+                          <a id="calc_disc" href="javascript:void(0)" class="btn btn-default btn-xs">
+                            Disc
+                          </a>
+
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td><button>7</button></td>
+                        <td><button>8</button></td>
+                        <td><button>9</button></td>
+                        <td>
+                          <a id="calc_price" href="javascript:void(0)" class="btn btn-default btn-xs">
+                            Price
+                          </a>
+
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td><button>0</button></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                          <a id="calc_back" href="javascript:void(0)" class="btn btn-default btn-xs">
+                            <i class="fa fa-fast-backward" aria-hidden="true"></i> Back
+                          </a>
+
+                        </td>
+                      </tr>
+
+
+                    </table>
+                </td>
+              </tr>
+
+              <tr>
+                <td colspan="1">Select Customer</td>
+                <td colspan="1">
                   
                   <select id="order_types" required="required" name="customer_id" class="selectize">
                     <option value="1">Select</option>
@@ -88,13 +135,13 @@
     </div>
 
     <?php if($all_products){ ?>
-    <div class="col-md-8 text-center text-lg-left gallery">
+    <div class="col-md-7 text-center text-lg-left gallery">
       <?php foreach($all_products as $k => $v):  //var_dump($v);?>
         <div class="tab-content" id="pills-tabContent">
         <div class="tab-pane fade show active" id="showall" role="tabpanel" aria-labelledby="showall-tab">
           <div class="Portfolio"><a href="javascript:void(0)" onclick="addProductToCart(<?php echo $v->product_general_data_id; ?>, '<?php echo $v->product_description; ?>', '<?php echo $v->sale_price; ?>', '<?php echo $v->currency; ?>')">
-            <?php if($v->picture == '') { ?><img class="card-img" src="<?php echo base_url('uploads/images/default.png'); ?>" > <?php } ?>
-            <img class="card-img" src="<?php echo base_url(); ?>uploads/images/<?php echo $v->picture; ?>" alt=""></a><div class="desc"><?php echo ucwords($v->product_description); ?> <br>
+            <?php if($v->picture == '') { ?><img class="card-img" width="40" height="40" src="<?php echo base_url('uploads/images/default.png'); ?>" > <?php } ?>
+            <img class="card-img" width="30" height="30" src="<?php echo base_url(); ?>uploads/images/<?php echo $v->picture; ?>" alt=""></a><div class="desc"><?php echo ucwords($v->product_description); ?> <br>
             <?php echo $v->sale_price; ?> <?php echo $v->currency; ?></div></div>
           
         </div>
@@ -122,18 +169,20 @@ addProductToCart = function(product_id, product_description, product_price, prod
   if(!product_ids.includes(product_id)) {
     product_ids.push(product_id);
     var html = '';
-
     qty = 1;
 
     total_price = parseFloat(total_price)+parseFloat(product_price);
 
-    html += '<tr>';
-    html += '<td>'+sl+'</td>';
-    html += '<td>'+product_description+'<input type="hidden" name="product_ids[]" value="'+product_id+'" /></td>';
+    total_price = total_price.toFixed(2);
 
-    html += '<td><input required="required" class="form-control" id="qty_'+product_id+'" onkeyup="calculateTotalPrice('+product_id+')" name="quantities[]" type="number" value="'+qty+'" /></td>';
-    html += '<td><input required="required" class="form-control" name="prices[]" onkeyup="calculateTotalPrice('+product_id+')" id="product_price_'+product_id+'" type="number" value="'+product_price+'" /></td>';
-    html += '<td class="ttlpriceunit" id="total_price_'+product_id+'">'+product_price+'</td>';
+    html += '<tr>';
+
+    html += '<td>'+product_description+'<input type="hidden" name="product_ids[]" value="'+product_id+'" />';
+
+    html += '<br><span id="qty_'+product_id+'">'+qty+'</span> Unit(s) @ ';
+    html += '<span id="product_price_'+product_id+'"> INR '+product_price+'</span></td>';
+
+    html += '<td class="ttlpriceunit" id="total_price_'+product_id+'">'+total_price+'</td>';
 
     html += '</tr>'
     $('#error').hide();
@@ -145,21 +194,32 @@ addProductToCart = function(product_id, product_description, product_price, prod
         $mainTotal += parseFloat($(this).text());
     });
 
-    $('#totalPrice').text($mainTotal);
-
+    $('#totalPrice').text($mainTotal.toFixed(2));
 
     sl++;
   }else{
     //add to quantity
-    old_qty = parseFloat($('#qty_'+product_id).val());
+    old_qty = parseFloat($('#qty_'+product_id).text());
     new_qty = old_qty+1;
 
-    _unit_price = $('#product_price_'+product_id).val();
+    pprice = $('#product_price_'+product_id).text();
+
+    pprice = pprice.substring(4);
+
+    _unit_price = parseFloat(pprice);
     
 
     $('#total_price_'+product_id).text(_unit_price*new_qty);
 
-    $('#qty_'+product_id).val(new_qty);
+    $('#qty_'+product_id).text(new_qty);
+
+    $mainTotal = 0;
+    $(".ttlpriceunit").each(function() {
+        $mainTotal += parseFloat($(this).text());
+    });
+
+    $('#totalPrice').text($mainTotal.toFixed(2));
+
   }
 }
 
@@ -184,22 +244,20 @@ calculateTotalPrice = function(prd_id) {
 }
 
 
-calculateGST = function() {
-  gst = $('#gst').val();
+$('#calc_qty').click(function() {
+  $(this).removeClass('btn-default');
+  $(this).addClass('btn-success');
+});
 
-  if(gst > 0 && gst != '') {
-    $totalPrc = parseFloat($('#totalPrice').text());
+$('#calc_qty').click(function() {
+  $(this).removeClass('btn-default');
+  $(this).addClass('btn-success');
+});
 
-    $ttlGst   = (gst/100)*$totalPrc;
+$('#calc_qty').click(function() {
+  $(this).removeClass('btn-default');
+  $(this).addClass('btn-success');
+});
 
-    $ttlGst = parseFloat($ttlGst).toFixed(2);
-
-    $priceAfterGst = parseFloat($totalPrc)+parseFloat($ttlGst);
-    $priceAfterGst = parseFloat($priceAfterGst).toFixed(2);
-
-    $('#gstAmount').text($ttlGst);
-    $('#amountAfterGst').text($priceAfterGst);
-  }
-}
 </script>
 <?php $this->load->view('layout/admin/footer_with_js_close'); ?>

@@ -323,7 +323,7 @@ $('#purchase_order_document_type_id').change(function() {
     data = url = '';
 
     data += '&purchase_order_document_type_id='+$purchase_order_document_type_id;
-    url  += "<?php echo base_url(); ?>" + "index.php/rest/get_po_number"; 
+    url  += "<?php echo base_url(); ?>index.php/rest/get_po_number"; 
     console.log(url+data);
     $.ajax({
       data : data,
