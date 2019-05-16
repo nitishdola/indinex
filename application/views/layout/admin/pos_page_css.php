@@ -4,7 +4,7 @@
     margin: 5px;
     border: 2px solid black;
     float: left;
-    width: 180px;
+    width: 90px;
     transition-duration: 0.4s;
     border-radius: 5px;
     animation: winanim 0.5s ;
@@ -57,6 +57,22 @@
 .gallery .nav .active { 
     background-color:hotpink !important;
     color:#fff;
+}
+
+
+.borderless td, .borderless th {
+    border: none;
+}
+
+.table {
+    border:0px !important;
+    font-weight: bold;
+}
+.table th, .table td {
+    border: 1px !important;
+}
+.fixed-table-container {
+    border:0px !important;
 }
 
 @keyframes winanim {
