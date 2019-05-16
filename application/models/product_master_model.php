@@ -221,6 +221,7 @@ class Product_master_model extends CI_Model
     //$this->db->select('*');
     //$this->db->from('product_general_data');
     $this->db->where('product_general_data.id',$product_id);  
+    $this->db->join('product_purchase_data','product_purchase_data.product_code = product_general_data.product_code','left');
     $query = $this->db->get('product_general_data'); 
     return $query->result()[0];
   }
@@ -234,6 +235,20 @@ class Product_master_model extends CI_Model
     $this->db->where('status', 1);
     $query = $this->db->get('product_category'); 
     return $query->result();
+  }
+
+  function fetchCurrentStock($palnt_id,$product_id){
+    
+    $where['plant'] = $palnt_id;
+    $where['product_general_data.id'] = $product_id;
+    
+      $this->db->where($where);  
+      $this->db->select('*');
+      $this->db->from('product_general_data');
+      $this->db->join('product_purchase_data','product_purchase_data.product_code = product_general_data.product_code','left'); 
+    
+      $query = $this->db->get();
+      return $query->result();
   }
 
 } 

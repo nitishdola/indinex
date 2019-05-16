@@ -277,12 +277,18 @@ class Stock_movement extends CI_Controller {
 		$product_id				=$this->input->get('product_id');
 	
 		$transferred=0;
-		$this->load->model('grn_items_model'); 
-        $arr['current_stock']=$this->grn_items_model->fetchCurrentStockStock($palnt_id,$product_id);
-		$stock 			=$arr['current_stock'][0]->stock;
-		$transferred 	=$arr['current_stock'][0]->transfer_stock;
+		$this->load->model('product_master_model'); 
+        //$arr['current_stock']=$this->grn_items_model->fetchCurrentStockStock($palnt_id,$product_id);
+        $arr['current_stock']=$this->product_master_model->fetchCurrentStock($palnt_id,$product_id);
+        $stock=0;
+        if(!empty($arr['current_stock'])){
+		echo $stock 			=$arr['current_stock'][0]->current_stock;
+			//$transferred 	=$arr['current_stock'][0]->transfer_stock;
+		} else {
+			echo $stock=0;
+		}
 
-		echo $current_stock=$stock-$transferred;
+		//echo $current_stock=$stock-$transferred;
 		
 	}
 	public function ajax_current_stock2(){

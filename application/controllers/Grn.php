@@ -178,8 +178,10 @@ class Grn extends CI_Controller {
 
             $product_id=$purchase_line_item_id;
             $product_info = $this->product_master_model->getProductInfo($product_id);
-            
+
             $previous_product_quantity = $product_info->current_stock;
+            $plant_id = $product_info->plant;
+            $storage_location = $product_info->storage_location;
 
             $new_stock  = $previous_product_quantity + $received_quantity;
 
@@ -216,8 +218,11 @@ class Grn extends CI_Controller {
             $arr_stock_movement = [                
                 'product_id'            => $purchase_line_item_id,
                 'plant_id'              => $plant_id,
-                'storage_id'            => $storage_location_id,  
-                'current_stock'         => $received_quantity             
+                'storage_id'            => $storage_location,  
+                //'current_stock'         => $received_quantity  
+                'product_received'      => $received_quantity,    
+                'previous_stock'        => $previous_product_quantity,
+                'current_stock'         => $new_stock,       
                 
             ];
             $this->load->model('stock_movement_model');

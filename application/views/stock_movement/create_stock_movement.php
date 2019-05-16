@@ -249,7 +249,8 @@ $(function(){
         url: url,
         dataType: 'json',
         data: {palnt_id: palnt_id,product_id:product_id},
-        success: function (jsonArray) {          
+        success: function (jsonArray) { 
+        alert(jsonArray);         
             $('#current_stock').val(jsonArray); 
             $('#current_stock').attr('readonly', true);
         },
