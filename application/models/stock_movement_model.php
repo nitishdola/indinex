@@ -17,17 +17,18 @@ class Stock_movement_model extends CI_Model
       if($transfer_type!=''){
         $transfer_type=$this->db->where('transfer_type',$transfer_type); 
       } 
-      $this->db->select('*');
+      
+      $this->db->select('stock_movement_main.*,storage_type.*,storage_location.first_name as fname,storage_location.middle_name as mname,storage_location.last_name as lname');
+      $this->db->select('storage_type.storage_id as sid,storage_type.first_name as sname2,storage_type.middle_name as sname2,storage_type.last_name as sname2,storage_location.first_name as fname2,storage_location.middle_name as mname2,storage_location.last_name as lname2');
       $this->db->from('stock_movement_main');
-      $this->db->join('storage_type', 'storage_type.storage_id = stock_movement_main.plant_id_1','left');
-     //$this->db->join('storage_location', 'storage_location.id = stock_movement.storage_location_transfer','left');
+      $this->db->join('storage_type', 'storage_type.storage_id = stock_movement_main.plant_id_1');
+      $this->db->join('storage_location', 'storage_location.id = stock_movement_main.storage_id_1','left');
+      // /$this->db->join('storage_type', 'storage_type.sid = stock_movement_main.plant_id_2','left');
+      // /$this->db->join('storage_location', 'storage_location.id = stock_movement_main.storage_id_2','left');
       $transfer_type;
       $query = $this->db->get();      
       return $query->result();  
 
-
-      
-  //->join('users', 'users.id = clients.a_1 OR users.id=clients.a_2 OR users.id = clients.a_3');
 
     }   
   	public function last_record()

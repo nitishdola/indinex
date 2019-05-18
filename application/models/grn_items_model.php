@@ -112,10 +112,11 @@ class Grn_items_model extends CI_Model
 	function fetchCurrentStockStock($palnt_id,$product_id){
 		
 		$where['plant_id'] = $palnt_id;
+		$where['storage_id'] = 0;
 		$where['product_id'] = $product_id;
 		
 		$this->db->where($where);
-		$this->db->select('stock_movement.id,stock_movement.product_id,stock_movement.plant_id,stock_movement.storage_id,SUM(current_stock) as stock,SUM(transfer_quantity) as transfer_stock');	
+		$this->db->select('stock_movement.id,stock_movement.product_id,stock_movement.plant_id,SUM(current_stock) as stock,SUM(transfer_quantity) as transfer_stock');	
 	    $this->db->from('stock_movement');	
 	    $query = $this->db->get();
 	    return $query->result();

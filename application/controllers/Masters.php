@@ -1138,4 +1138,16 @@ class Masters extends CI_Controller {
         $this->load->view('Master/Product_group/display_product_group',$data);
     }
 
+    public function ajax_check_variants_type(){
+        $mobile_no=$this->input->get('variants_type');
+        $this->load->model('product_variants_type_model'); 
+        $this->product_variants_model->check_variants_if_exist($variants_type);
+        if(!empty($this->product_variants_model->check_variants_if_exist($variants_type))){
+            echo 1;
+        } else {
+            echo 0;
+        }
+
+    }
+
 }

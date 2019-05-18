@@ -45,15 +45,15 @@
                       <div class="form-group row">
                         <label class="col-md-4 col-form-label">Transfer Type: </label>
                         <div class="col-md-8">
-                          <select name="transfer_type" id="transfer_type_id" class="form-control" required="required">
+                          <select name="transfer_type" id="transfer_type_id" class="form-control" required="true">
                             <option value="0">Select</option>
-                            <option value="1">Within Plant</option>
+                            <option value="1">Storage Location To Storage Location</option>
                             <option value="2">Plant to Plant</option>
                           </select>
                         </div>
                       </div>
                                     
-                       <div class="form-group row">
+                      <div class="form-group row">
                           <label class="col-md-4 col-form-label">Product Name : </label>
                           <div class="col-md-7">
                             <select class="form-control select2" id="product_id" name="product_id">
@@ -91,12 +91,7 @@
                           <?php echo form_input(array('id' => 'current_stock', 'name' => 'current_stock','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','readonly'=>'true')); ?>
                         </div>
                       </div>                   
-                                         
-                      </div>
-
-                      <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-                        
-                     <div class="form-group row" id="plant_div" style="display:none">
+                        <div class="form-group row" id="plant_div" style="display:none">
                         <label class="col-md-4 col-form-label">Transfer (Plant ) : </label>
                         <div class="col-md-8">
                           <select class="form-control" id="plant_transfer" name="plant_transfer">
@@ -107,12 +102,16 @@
                             } ?>  
                           </select>
                         </div>
-                      </div>  
+                      </div>                   
+                      </div>
+
+                    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">                        
+                     
                       <div class="form-group row">
                         <label class="col-md-4 col-form-label">Transfer (Storage Location ) : </label>
                         <div class="col-md-8">
                           <select class="form-control" id="storage_location_transfer" name="storage_to">
-                            <option value="">Storage Location</option> 
+                            <option value="">Select</option> 
                            
                           </select>
                         </div>
@@ -128,12 +127,13 @@
                         </select>
                       </div>
                     </div>
-                       <div class="form-group row">
-                        <label class="col-md-4 col-form-label">Picked By: </label>
+                    <div class="form-group row">
+                        <label class="col-md-4 col-form-label">Batch: </label>
                         <div class="col-md-8">
-                          <?php echo form_input(array('type'=>'text','id' => 'picked_by', 'name' => 'picked_by','class'=>'form-control','required'=>'required')); ?> 
+                          <?php echo form_input(array('type'=>'text','id' => 'batch', 'name' => 'batch','class'=>'form-control')); ?> 
                         </div>
                       </div> 
+                     
                       <div class="form-group row">
                         <label class="col-md-4 col-form-label">Requested By: </label>
                         <div class="col-md-8">
@@ -146,8 +146,27 @@
                           <?php echo form_input(array('type'=>'text','id' => 'requested_date', 'name' => 'requested_date','class'=>'form-control zdatepicker','required'=>'required')); ?> 
                         </div>
                       </div>
+                       <div class="form-group row">
+                        <label class="col-md-4 col-form-label">Issue Date: </label>
+                        <div class="col-md-7">
+                          <?php echo form_input(array('type'=>'text','id' => 'issue_date', 'name' => 'issue_date','class'=>'form-control zdatepicker','required'=>'required')); ?> 
+                        </div>
                       </div>
+                       <div class="form-group row">
+                        <label class="col-md-4 col-form-label">Picked By: </label>
+                        <div class="col-md-8">
+                          <?php echo form_input(array('type'=>'text','id' => 'picked_by', 'name' => 'picked_by','class'=>'form-control','required'=>'required')); ?> 
+                        </div>
+                      </div> 
+                       <div class="form-group row">
+                        <label class="col-md-4 col-form-label">Receiver name: </label>
+                        <div class="col-md-8">
+                          <?php echo form_input(array('type'=>'text','id' => 'receiver', 'name' => 'receiver','class'=>'form-control')); ?> 
+                        </div>
+                      </div> 
 
+                      </div>                      
+                      </div>
                       <div class="col-md-12">
                         <div class="form-group row">
                           <div class="col-md-9">
@@ -171,26 +190,22 @@
     
 <script>
 $(function(){
-
-  /*$('#product_id').change(function(){
-    $('#plant_loc').empty();
-    $('#plant_loc')
-        .append($("<option></option>")
-        .attr("value",'')
-        .text("select")); 
-
-    var product_id=$('#product_id').val();   
-    
-    var url= "<?php //echo base_url(); ?>" + "index.php/stock_movement/ajax_plant";
-    // /alert(product_id);
+  $('#plant_transfer').change(function(){
+    $('#storage_location_transfer').empty();
+    var plant_id=$('#plant_transfer').val();
+  
+    var url= "<?php echo base_url(); ?>" + "index.php/stock_movement/ajax_storage";
     jQuery.ajax({
         type: 'GET',        
         url: url,
         dataType: 'json',
-        data: {product_id: product_id},
+        data: {palnt_id: palnt_id},
         success: function (jsonArray) {
+          alert(jsonArray);
+           //$('#loc_storage_from').empty();
             $.each(jsonArray, function(index,jsonObject){
-                $('#plant_loc')
+
+                $('#storage_location_transfer')
                 .append($("<option></option>")
                 .attr("value",jsonObject['storage_id'])
                 .text(jsonObject['first_name']));               
@@ -200,11 +215,16 @@ $(function(){
            $('p').append('Error' + errorMessage);
         }
       });
-  }); */
+  });
 
   function funStoraLoc(palnt_id){
     $('#storage_location_transfer').empty();
+    $('#loc_storage_from').empty();
     $('#current_stock').val('');    
+    $('#storage_location_transfer,#loc_storage_from')
+                .append($("<option></option>")
+                .attr("value","")
+                .text("Select")); 
 
     var url= "<?php echo base_url(); ?>" + "index.php/stock_movement/ajax_storage";
 
@@ -229,7 +249,7 @@ $(function(){
       });
   }
 
-  $('#plant_loc').change(function(){
+  $('#plant_loc,#product_id').change(function(){
 
     var palnt_id    =$('#plant_loc').val();
     var product_id  =$('#product_id').val();
@@ -250,7 +270,7 @@ $(function(){
         dataType: 'json',
         data: {palnt_id: palnt_id,product_id:product_id},
         success: function (jsonArray) { 
-        alert(jsonArray);         
+        // /alert(jsonArray);         
             $('#current_stock').val(jsonArray); 
             $('#current_stock').attr('readonly', true);
         },

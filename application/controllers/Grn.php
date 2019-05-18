@@ -54,6 +54,8 @@ class Grn extends CI_Controller {
         //$data['goods_tracking_items'] = $this->purchase_order_model->fetchGoodsTrackingItemsForGrn($this->input->get('purchase_order_id'));
         $data['goods_tracking_items'] = $this->purchase_order_model->fetchGoodsTrackingItemsForGrn($purchase_order_id,$consignment_no);
 
+        $data['grns'] = $this->grn_model->fetchgrnNo();
+        $data['grn_id']=$data['grns'][0]->id;    
         $data['goodsTracking'] = $this->purchase_order_model->fetchGoodsTrackingHeader($this->input->get('purchase_order_id'));
         $data['goodsTracking'][0]->purchase_order_number;
         $this->load->model('main_storage_model');       

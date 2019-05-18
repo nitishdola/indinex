@@ -25,7 +25,7 @@
                           <table class="table table-bordered">
                             <tr>
                               <th>GRN Number* : </th>
-                              <td><input type="text" class="form-control" name="grn_number" value="<?php //echo $grn_number; ?>" placeholder="GRN Number" autocomplete="off" required="required" 
+                              <td><input type="text" class="form-control" name="grn_number" value="<?php echo str_pad($grn_id+1, 4, '0', STR_PAD_LEFT) ; ?>" placeholder="GRN Number" autocomplete="off" readonly="readonly" 
                                     /></td>
 
                               <th>GRN Date* : </th>
@@ -58,7 +58,12 @@
                                     <th width="20%">
                                        Product Name
                                     </th>
-
+                                    <th width="20%">
+                                       Plant
+                                    </th>
+                                    <th width="10%">
+                                       Storage Location
+                                    </th>
                                    <th width="12%">
                                        Quantity Ordered
                                     </th>
@@ -81,18 +86,20 @@
                               </thead>
                               <?php $total_price = 0; ?>
                               <tbody class="itembody">
-                                <?php foreach($goods_tracking_items as $k => $v): // var_dump($v); ?>
+                                <?php foreach($goods_tracking_items as $k => $v): //var_dump($v); ?>
                                  <tr id="<?php echo 'tr_'.$k; ?>">
                                     <td> <?php echo $k+1; ?></td>
                                     <td> 
                                       <div class="pretty p-default">
-                                        <input type="checkbox" name="purchase_line_item_ids[]" value="<?php echo $v->id; ?>" checked="checked" onclick="hideMe(<?php echo $k; ?>)" />
+                                        <input type="checkbox" name="purchase_line_item_ids[]" value="<?php echo $v->purchase_line_item_id; ?>" checked="checked" onclick="hideMe(<?php echo $k; ?>)" />
                                         <div class="state p-success">
                                             <label>Remove Product</label>
                                         </div>
                                       </div>
                                     </td>
                                     <td> <?php echo ucfirst($v->product_description); ?> </td>
+                                    <td> <?php echo ucfirst($v->first_name); ?>&nbsp; <?php echo ucfirst($v->middle_name); ?>&nbsp; <?php echo ucfirst($v->middle_name); ?> </td>
+                                    <td> <?php echo ucfirst($v->sname); ?>&nbsp; <?php echo ucfirst($v->mname); ?>&nbsp; <?php echo ucfirst($v->lname); ?> </td>
                                     <td> <?php echo $v->ordered_quantity; ?> &nbsp;<?php //echo $v->product_uoms; ?> 
                                       <input type="hidden"  name="quantity_ordered[]" value="<?php echo $v->ordered_quantity; ?>">
                                     </td>

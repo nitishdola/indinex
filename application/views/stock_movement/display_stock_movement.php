@@ -41,7 +41,7 @@
                       <td colspan="3"></td>
                       <td colspan="2" align="center">Transfer From</td>
                       <td colspan="2" align="center">Transfer To</td>
-                      <td colspan="5"></td>
+                      <td colspan="7"></td>
                       </tr>
                       <tr>
                          <th>Sl</th>
@@ -51,11 +51,13 @@
                          <th>Storage Location</th>
                          <th>Plant</th>
                          <th>Storage Location</th>
-                         <th>Qty</th>  
+                         <th>Qty</th> 
+                         <th>Batch</th>  
                          <th>Requested By</th>
                          <th>Requested Date</th>                         
                          <th>Received by</th>
                          <th>Picked By</th>
+                         <th>Issue Date</th> 
                       </tr>
                       <?php 
                       $i=0;                           
@@ -81,15 +83,17 @@
                               echo "Plant To Plant"; 
                             } ?>                          
                         </td>
-                        <td></td>
-                        <td></td>
+                        <td><?php echo  $row->first_name;?></td> 
+                        <td><?php echo  $row->fname;?></td> 
                         <td></td>
                         <td></td>
                         <td><?php echo  $row->transfer_quantity." ".$row->qty_uom;?></td> 
+                        <td><?php echo  $row->batch;?></td> 
                         <td><?php echo  ucfirst($row->requested_by);?></td> 
                         <td><?php echo  date('d-m-Y',strtotime($row->requested_date));?></td> 
                         <td><?php echo  $row->received_by;?></td> 
                         <td><?php echo  ucfirst($row->picked_by);?></td> 
+                         <td><?php echo  date('d-m-Y',strtotime($row->issue_date));?></td> 
 
                         </tr>
                      <?php } ?>

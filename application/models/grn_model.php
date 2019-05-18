@@ -19,6 +19,15 @@ class Grn_model extends CI_Model
     return $query->result();
   }
 
+  public function fetchgrnNo()  
+  {  
+    $this->db->from('grns');
+    $this->db->order_by('grns.id DESC');
+    $this->db->limit(1);
+    $query = $this->db->get();
+    return $query->result();
+  }
+
   public function grnNumber() {
     $count = $this->db->count_all_results('grns');
 

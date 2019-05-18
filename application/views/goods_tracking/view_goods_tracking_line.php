@@ -1,4 +1,4 @@
-
+                                                    
 <ol class="breadcrumb">
   <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard'); ?>">Home</a></li>
   <li class="breadcrumb-item"><a href="<?php echo site_url('goods_tracking/goods_tracking_menu'); ?>">Goods Tracking</a></li>
@@ -17,7 +17,7 @@
                       <?php echo form_open_multipart('Goods_tracking/save_goods_tracking'); ?>
                         <div class="example">
                         <?php echo $this->session->flashdata('response'); ?>
-                          <?php $i=0; foreach($results as  $r) { $i++; //var_dump($r); ?>
+                          <?php $i=0; foreach($results as  $r) { $i++; var_dump($r); ?>
                            <h4 style="text-align: left;"> Goods Tracking Number : #<?php echo $r->goods_tracking_id; ?> </h4>
                            
 
