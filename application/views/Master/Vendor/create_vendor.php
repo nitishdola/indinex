@@ -65,7 +65,7 @@
                             <div class="form-group row"> 
                               <label class="col-md-4 col-form-label">Company Code: </label> 
                               <div class="col-md-8"> 
-                                <select class="form-control" name="company_code" id="company_code">
+                                <select class="form-control" name="company_code" id="company_code" required="true">
                                   <option value="">Select</option>
                                   <?php foreach($company as $row)
                                     {
@@ -101,7 +101,7 @@ $(function(){
 
   $('#vendor_account_group_id').change(function(){ 
     var vendor_group_id=$('#vendor_account_group_id').val();   
-   
+   $('.btn-primary').attr('disabled',true);  
     var url= "<?php echo base_url(); ?>" + "index.php/vendors/ajax_get_vendor_code"; 
      //$.blockUI(); 
      jQuery.ajax({ 
@@ -112,7 +112,8 @@ $(function(){
         success: function (response) { 
             
             $('#vendor_code').val(response);  
-            $('#vendor_code').prop('readonly',true);          
+            $('#vendor_code').prop('readonly',true); 
+            $('.btn-primary').attr('disabled',false);          
         }, 
 
         error: function (jqXhr, textStatus, errorMessage) { 

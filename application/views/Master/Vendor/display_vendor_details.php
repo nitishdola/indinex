@@ -27,7 +27,7 @@
                         <th width="25%">Vendor Code: </th><td width="25%"><?php echo str_pad($row->vendor_code, 4, '0', STR_PAD_LEFT);?></td><th width="25%">Company Code : </th><td width="25%"><?php echo str_pad($row->company_code, 4, '0', STR_PAD_LEFT);?></td>
                       </tr>
                        <tr>
-                        <th width="25%">Vendor Name: </th><td width="25%"><?php echo $row->title;?>&nbsp;<?php echo $row->first_name;?>&nbsp;<?php echo $row->middle_name;?>&nbsp;<?php echo $row->last_name;?></td><th width="25%">Country : </th><td width="25%"><?php echo $row->country;?></td>
+                        <th width="25%">Vendor Name: </th><td width="25%"><?php echo $row->title;?>&nbsp;<?php echo ucfirst($row->first_name);?>&nbsp;<?php echo ucfirst($row->middle_name);?>&nbsp;<?php echo ucfirst($row->last_name);?></td><th width="25%">Country : </th><td width="25%"><?php echo $row->country;?></td>
                       </tr>
                        <tr>
                         <th width="25%">Mobile : </th><td width="25%"><?php echo $row->mobile?></td><th width="25%">Region: </th><td width="25%"><?php echo $row->sname?></td>
@@ -68,10 +68,10 @@
                         <th width="25%">Account No : </th><td width="25%"><?php echo $row->account_number;?></td><th width="25%">Country</th><td width="25%"><?php echo $row->bank_country;?></td>
                       </tr>
                        <tr>
-                        <th width="25%">IFSC Code : </th><td width="25%"><?php echo $row->ifsc_code;?></td><th width="25%">Region</th><td width="25%"><?php echo $row->bank_region;?></td>
+                        <th width="25%">IFSC Code : </th><td width="25%"><?php echo $row->ifsc_code;?></td><th width="25%">Region</th><td width="25%"><?php echo $bcity[0]->name;?></td>
                       </tr>
                        <tr>
-                        <th width="25%">Bank Name : </th><td width="25%"><?php echo $row->bank_name;?></td><th width="25%">City</th><td width="25%"><?php echo $row->bank_city;?></td>
+                        <th width="25%">Bank Name : </th><td width="25%"><?php echo $row->bank_name;?></td><th width="25%">City</th><td width="25%"><?php echo $bcity[0]->bcity;?></td>
                       </tr>
                        
                       <th colspan="4"><h5>Accounting Information</h5></th>

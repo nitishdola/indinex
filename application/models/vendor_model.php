@@ -155,6 +155,17 @@ class Vendor_model extends CI_Model
     return $query->result();     
 
   }  
+  public function fetch_vendor_city($vendor_id)  
+  {  
+    $this->db->select('states.*,vendor_details.vendor_id,vendor_details.bank_region as bregion,vendor_details.bank_city as bcity');
+    $this->db->from('vendor_details');   
+    $this->db->join('states', 'states.id = vendor_details.bank_region','left'); 
+    $this->db->join('cities', 'cities.city_id = vendor_details.bank_city','left');  
+    $this->db->where('vendor_id',$vendor_id);    
+    $query = $this->db->get();      
+    return $query->result();     
+
+  }  
 
   public function vendor_details($vendor_id)  
   {  

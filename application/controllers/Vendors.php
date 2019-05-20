@@ -255,6 +255,8 @@ class Vendors extends CI_Controller {
 	
 		$this->load->model('vendor_model');
 		$data['vendors']=$this->vendor_model->fetch_vendor_details($vendor_id);
+		//var_dump($data['vendors']);
+		$data['bcity']=$this->vendor_model->fetch_vendor_city($vendor_id);
 		
 		$this->load->model('country_model'); 
 		$data['states'] = $this->country_model->getAllStates();

@@ -88,7 +88,7 @@ class Transactions extends CI_Controller {
  				$item_data['product_qty'] = $this->input->post('quantities')[$i];
  				$item_data['product_uoms'] = $this->input->post('uoms')[$i];
  				$item_data['product_price'] = $this->input->post('prices')[$i];
- 				$item_data['product_currency'] = $this->input->post('currencies')[$i];
+ 				$item_data['product_currency'] ='INR'; // $this->input->post('currencies')[$i];
  				$item_data['item_no'] = 1;
 
 

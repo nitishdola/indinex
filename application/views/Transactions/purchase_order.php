@@ -165,10 +165,6 @@
                                          Price
                                       </th>
 
-                                      <th>
-                                         Currency
-                                      </th>
-
 
                                       <th width="15%">
                                          Total Price 
@@ -244,15 +240,6 @@
                                       </td>
 
 
-                                      <td>
-                                         <select class="form-control" id="currency_1" name="currencies[]">
-                                           <option value="0">Select Currency</option>
-                                           <?php foreach($currency as $row) 
-                                           {
-                                             echo '<option value="'.$row->variants_name.'">'.$row->variants_name.'</option>';
-                                           } ?>
-                                         </select>
-                                      </td>
 
 
                                       <td>

@@ -142,11 +142,11 @@ class Purchase_order_model extends CI_Model
 
   public function fetchAllVendors()  
   {  
-      $where['purchase_order.status'] = 1;
-      $this->db->where($where);
-      $this->db->from('purchase_order');
-      $this->db->group_by('vendor_details.vendor_id');
+     // $where['purchase_order.status'] = 1;
+      //$this->db->where($where);
+      $this->db->from('purchase_order');     
       $this->db->join('vendor_details', 'vendor_details.vendor_id = purchase_order.vendor_id');
+      $this->db->group_by('vendor_details.vendor_id');
       $query = $this->db->get();
       return $query->result(); 
   }

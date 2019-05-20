@@ -21,7 +21,7 @@
                           <table class="table table-bordered">
                             <tr>
                               <th>Purchase Order Document Type : </th>
-                              <td><?php //echo $po_details->name; ?></td>
+                              <td><?php echo $po_details->name; ?></td>
                               <th>Purchase Order No : </th>
                               <td><?php echo $po_details->purchase_order_no; ?></td>
 
@@ -125,7 +125,7 @@
                               </thead>
                               <?php $total_price = 0; ?>
                               <tbody class="itembody">
-                                <?php foreach($po_items as $k => $v): // var_dump($v); ?>
+                                <?php foreach($po_items as $k => $v): //  var_dump($v); ?>
                                  <tr id="<?php echo 'tr_'.$k; ?>">
                                     <td> <?php echo $k+1; ?></td>
                                     <td> 
