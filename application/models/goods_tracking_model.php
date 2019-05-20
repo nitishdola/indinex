@@ -110,7 +110,9 @@ class Goods_tracking_model extends CI_Model
   {  
     $this->db->where('goods_tracking.purchase_order_id',$id);
     $this->db->from('goods_tracking');
-    $this->db->join('goods_tracking_items', 'goods_tracking_items.goods_tracking_id = goods_tracking.id');     
+    $this->db->join('goods_tracking_items', 'goods_tracking_items.goods_tracking_id = goods_tracking.id');   
+    $this->db->group_by('goods_tracking_items.consignment_no');  
+    $this->db->order_by('goods_tracking.id','ASC');    
     $query = $this->db->get();
     return $query->result();
   } 

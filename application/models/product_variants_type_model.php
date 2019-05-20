@@ -8,6 +8,7 @@ class Product_variants_type_model extends CI_Model
 	
 		$this->db->insert('product_variants_type', $data);
 	}
+  
 
 	public function select()  
   	{  
@@ -18,6 +19,12 @@ class Product_variants_type_model extends CI_Model
     {
         $query = $this->db->get('product_variants_type');
         return $query->result();
+    } 
+    public function check_variants_if_exist($variants_type)
+    {
+    $query ="select variants_type from  product_variants_type where variants_type='$variants_type'";
+    $res = $this->db->query($query);
+    return $res->result();
     }     
 } 
 

@@ -36,6 +36,10 @@ class Product_masters extends CI_Controller {
         $data['sizes']=$this->product_variants_model->select_size();
         $data['color']=$this->product_variants_model->select_color();
         $data['currency']=$this->product_variants_model->select_currency();
+        
+        $data['shade']=$this->product_variants_model->select_shade();
+        $data['shape']=$this->product_variants_model->select_shape();
+        $data['dimensions']=$this->product_variants_model->select_dimensions();
 
         $this->load->model('product_master_model'); 
         $data['temperature']=$this->product_master_model->select_tmparature();
@@ -53,9 +57,14 @@ class Product_masters extends CI_Controller {
 
 		if($this->input->post('sub'))
  		{
+ 			//var_dump($_POST);
  			
- 			$size=serialize($_POST['size']);
- 			$color=serialize($_POST['color']);
+ 			$size 		=serialize($_POST['size']);
+ 			$color 		=serialize($_POST['color']);
+ 			$shape 		=serialize($_POST['shape']);
+ 			$dimensions =serialize($_POST['dimensions']);
+ 			$shade 		=serialize($_POST['shade']);
+ 			
  			
  			if(isset($_FILES['picture']['name'])){
  				
@@ -98,6 +107,9 @@ class Product_masters extends CI_Controller {
 				//'gross_uom' 				=> $this->input->post('gross_uom'),
 				'size' 						=> $size,
 				'color' 					=> $color,
+				'dimensions' 				=> $dimensions,
+				'shape' 					=> $shape,
+				'shade' 					=> $shade,				
 				'conversion_factor_from' 	=> $this->input->post('conversion_factor_from'),
 				'factor_from_uom' 			=> $this->input->post('factor_from_uom'),
 				'conversion_factor_to' 		=> $this->input->post('conversion_factor_to'),
@@ -158,8 +170,7 @@ class Product_masters extends CI_Controller {
 
 			);
 
-	         // var_dump($manufacturer_data)  	;
-	          //exit();
+	       
 			$this->product_master_model->form_insert($general_data,$purchase_data,$manufacturer_data,$storage_data,$accounting_data);
 			$this->session->set_flashdata('response',"<div class='alert alert-success'><strong>Success!</strong>&nbsp;&nbsp;Product master saved</div>");
  			redirect(site_url('product_masters/create_product_master'));
@@ -232,26 +243,24 @@ public function change_product_master(){
 
 		if($this->input->post('sub_1'))
 		{
-			//var_dump($_POST);
+			$size=serialize($_POST['size']);
+ 			$color=serialize($_POST['color']);
+			//var_dump($_POST);die();
     		$product_code 					= $this->input->post('product_code');		
 			$product_category_id			= $this->input->post('product_category');
 			$product_description 			= $this->input->post('product_description');
 			$product_group 					= $this->input->post('product_group');
 			$picture 						= $this->input->post('picture');
-			$old_material_no 				= $this->input->post('old_material_no');
-			$net_weight 					= $this->input->post('net_weight');
-			$net_uom 						= $this->input->post('net_uom');
-			$gross_weight 					= $this->input->post('gross_weight');
-			$gross_uom 						= $this->input->post('gross_uom');
-			$size 							= $this->input->post('size');
-			$color 							= $this->input->post('color');
+			$old_material_no 				= $this->input->post('old_material_no');			
+			$size 							= $size;
+			$color 							= $color;
 			$conversion_factor_from 		= $this->input->post('conversion_factor_from');
 			$factor_from_uom 				= $this->input->post('factor_from_uom');
 			$conversion_factor_to 			= $this->input->post('conversion_factor_to');
 			$factor_to_uom 					= $this->input->post('factor_to_uom');
 			
 			
-			$this->product_master_model->change_product_general_data($product_code,$product_category_id,$product_description,$product_group,$picture,$old_material_no,$net_weight,$net_uom,$gross_weight,$gross_uom,$size,$color,$conversion_factor_from,$factor_from_uom,$conversion_factor_to,$factor_to_uom);
+			$this->product_master_model->change_product_general_data($product_code,$product_category_id,$product_description,$product_group,$picture,$old_material_no,$size,$color,$conversion_factor_from,$factor_from_uom,$conversion_factor_to,$factor_to_uom);
 			$this->session->set_flashdata('response',"<div class='alert alert-success'><strong>Success!</strong>&nbsp;&nbsp;General Data Changed</div>");	
 			
 			$this->session->set_flashdata('response',"<div class='alert alert-success'><strong>Success!</strong>&nbsp;&nbsp;General Data inserted</div>");
@@ -275,24 +284,25 @@ public function change_product_master(){
 				$manufacturer_name 		= $this->input->post('manufacturer_name');
 				$max_tolerance 			= $this->input->post('max_tolerance');
 				$min_tolerance 			= $this->input->post('min_tolerance');
+				$items					= $this->input->post('items');
 
-		    	$this->product_master_model->change_product_purchase_data($product_code,$plant,$storage_location,$packaging,$packaging_uom,$order_unit_uom,$order_unit,$shipping_instructions,$max_tolerance,$min_tolerance,$min_order_qty,$min_order_qty_uom,$manufacture_part_no,$manufacturer_name);
+		    	$this->product_master_model->change_product_purchase_data($product_code,$plant,$storage_location,$packaging,$packaging_uom,$order_unit_uom,$order_unit,$shipping_instructions,$max_tolerance,$min_tolerance,$min_order_qty,$min_order_qty_uom,$manufacture_part_no,$manufacturer_name,$items);
 				$this->session->set_flashdata('response',"<div class='alert alert-success'><strong>Success!</strong>&nbsp;&nbsp;Purchase Data Changed</div>");					
     			redirect(site_url('Product_masters/edit_product_master?product_code='.$product_code));
     		}
 
 
     		if($this->input->post('sub_3')){
-    			//var_dump($_POST);exit();
+    			
 				$product_code				= $this->input->post('product_code');    		
 				$product_manufacturing 		= $this->input->post('product_manufacturing');
 				$manufacturing_date 		= $this->input->post('manufacturing_date');
 				$product_purchase			= $this->input->post('product_purchase');
 				$product_make_to_order 		= $this->input->post('product_make_to_order');
 				$in_house_production 		= $this->input->post('in_house_production');
-				$in_house_manufacturing 	= $this->input->post('in_house_manufacturing');
+				$ok_to_purchase 			= $this->input->post('ok_to_purchase');
 
-		    	$this->product_master_model->change_product_manufacturing_data($product_code,$product_manufacturing,$manufacturing_date,$product_purchase,$product_make_to_order,$in_house_production,$in_house_manufacturing);
+		    	$this->product_master_model->change_product_manufacturing_data($product_code,$product_manufacturing,$manufacturing_date,$product_purchase,$product_make_to_order,$in_house_production,$ok_to_purchase);
 				
 				$this->session->set_flashdata('response',"<div class='alert alert-success'><strong>Success!</strong>&nbsp;&nbsp;Manufacturing Data Changed</div>");	
 								
@@ -318,15 +328,14 @@ public function change_product_master(){
     		}
 
     		if($this->input->post('sub_5')){
-    			//var_dump($_POST);exit();
+    			
 				$product_code				= $this->input->post('product_code');    		
 				$ledger 					= $this->input->post('ledger');
 				$currency 					= $this->input->post('currency');
-				$sale_price					= $this->input->post('sale_price');
-				$custom_tax 				= $this->input->post('custom_tax');
+				$sale_price					= $this->input->post('sale_price');				
 				$purchase_price 			= $this->input->post('purchase_price');
-				
-		    	$this->product_master_model->change_product_accounting_data($product_code,$ledger,$currency,$sale_price,$custom_tax,$purchase_price);
+				//var_dump($_POST);exit();
+		    	$this->product_master_model->change_product_accounting_data($product_code,$ledger,$currency,$sale_price,$purchase_price);
 				
 				$this->session->set_flashdata('response',"<div class='alert alert-success'><strong>Success!</strong>&nbsp;&nbsp;Accounting Data Changed</div>");	
 				redirect(site_url('Product_masters/edit_product_master?product_code='.$product_code));

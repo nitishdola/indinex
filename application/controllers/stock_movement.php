@@ -53,7 +53,14 @@ class Stock_movement extends CI_Controller {
 		//echo $ip_address = $this->input->ip_address();
 		if($this->input->post('sub'))
  		{
- 	//		var_dump($_POST);
+ 			//var_dump($_POST);
+ 			$storage_to=$this->input->post('storage_to');
+ 			if($storage_to!=''){
+ 				$storage_to=$storage_to;
+ 			} else {
+ 				$storage_to=$this->input->post('storage_to2');
+ 			}
+
  			//exit();
  			$plant_transfer=$this->input->post('plant_transfer');
  			if($plant_transfer!=''){
@@ -91,7 +98,7 @@ class Stock_movement extends CI_Controller {
 			  	'plant_id_1' 				=> $this->input->post('plant_id'),
 			  	'storage_id_1' 				=> $this->input->post('storage_from'),
 			  	'plant_id_2' 				=> $this->input->post('plant_transfer'),
-			  	'storage_id_2	'			=> $this->input->post('storage_to'),
+			  	'storage_id_2	'			=> $storage_to,
 			  	'transfer_quantity'			=> $this->input->post('quantity'),
 			  	'picked_by' 				=> $this->input->post('picked_by'),
 			  	'requested_by' 				=> $this->input->post('requested_by'),

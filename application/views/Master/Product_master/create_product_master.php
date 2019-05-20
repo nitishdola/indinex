@@ -176,27 +176,56 @@
                             
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label">Size: </label>
-                              <div class="col-md-8">
+                              <div class="col-md-3">
                                 <select multiple  id="size" class="form-control" name="size[]">
                                     <option value="">Select</option>
                                     <?php foreach($sizes as $row)  {
                                       echo '<option value="'.$row->variants_name.'">'.$row->variants_name.'</option>';                           
                                     } ?>
-                                </select> 
-
+                                </select>
+                              </div>
+                              <label class="col-md-2 col-form-label">Dimensions: </label>
+                              <div class="col-md-3">
+                                <select multiple  id="size" class="form-control" name="dimensions[]">
+                                    <option value="">Select</option>
+                                    <?php foreach($dimensions as $row)  {
+                                      echo '<option value="'.$row->variants_name.'">'.$row->variants_name.'</option>';                           
+                                    }   ?>
+                                </select>
                               </div>
                             </div>
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label">Color: </label>
-                              <div class="col-md-8">
+                              <div class="col-md-3">
                                 <select multiple id="color" class="form-control" name="color[]">
                                     <option value="">Select</option>
                                     <?php foreach($color as $row)  {
                                     echo '<option value="'.$row->variants_name.'">'.$row->variants_name.'</option>';                           
                                   } ?>
-                                </select> 
-
+                                </select>
                               </div>
+
+                               <label class="col-md-2 col-form-label">Shape: </label>
+                              <div class="col-md-3">
+                                <select multiple  id="size" class="form-control" name="shape[]">
+                                    <option value="">Select</option>
+                                    <?php foreach($shape as $row)  {
+                                      echo '<option value="'.$row->variants_name.'">'.$row->variants_name.'</option>';                           
+                                    } ?>
+                                </select>
+                              </div>
+                            </div>
+
+                            <div class="form-group row">
+                              <label class="col-md-4 col-form-label">Shade: </label>
+                              <div class="col-md-3">
+                                <select multiple id="color" class="form-control" name="shade[]">
+                                    <option value="">Select</option>
+                                    <?php foreach($shade as $row)  {
+                                    echo '<option value="'.$row->variants_name.'">'.$row->variants_name.'</option>';                           
+                                    } ?>
+                                </select>
+                              </div>                              
                             </div>
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label">Conversion Factor: </label>

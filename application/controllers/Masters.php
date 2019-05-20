@@ -648,27 +648,43 @@ class Masters extends CI_Controller {
 
     	$this->load->database();          
         
-        $this->load->model('product_variants_model'); 	
-        $this->load->model('product_variants_type_model'); 		
-		$data['variants'] = $this->product_variants_type_model->getAllTypes();
+        $this->load->model('product_variants_model');   
+        $this->load->model('product_variants_type_model');      
+        $data['variants'] = $this->product_variants_type_model->getAllTypes();
         $data['record'] = $this->product_variants_model->check_last_record();
 
-        $this->load->view('Master/Product_variants/create_product_variants',$data);	
+        $this->load->view('Master/Product_variants/create_product_variants',$data); 
 
-		if($this->input->post('sub'))
- 		{	
- 			$data = array(
-				'pvcode' => $this->input->post('pvcode'),
-				'variants_type' => $this->input->post('variants_type'),
-				'variants_name' => $this->input->post('variants_name')
-			);
-	       	
-			$this->product_variants_model->form_insert($data);
-			$this->session->set_flashdata('response',"<div class='alert alert-success'><strong>Success!</strong>&nbsp;&nbsp;record inserted</div>");
-			redirect(site_url('Masters/create_product_variants'));
-			
- 		}    	
+        if($this->input->post('sub'))
+        {   
+            var_dump($_POST);
+            $variants_type= $this->input->post('variants_type');
+
+            if($variants_type == 'other')
+            {
+                $data=array(
+                    'variants_type' => $this->input->post('add_variants'),
+                );
+
+                $this->product_variants_type_model->form_insert($data);
+                $variant_id = $this->db->insert_id();
+                $variants_type=$variant_id;
+            }        
+            
+
+            $data = array(
+                'pvcode' => $this->input->post('pvcode'),
+                'variants_type' =>$variants_type,
+                'variants_name' => $this->input->post('variants_name')
+            );
+            
+            $this->product_variants_model->form_insert($data);
+            $this->session->set_flashdata('response',"<div class='alert alert-success'><strong>Success!</strong>&nbsp;&nbsp;record inserted</div>");
+            redirect(site_url('Masters/create_product_variants'));  	
     }
+}
+
+
     public function change_product_variants(){
     	$this->load->database();          
         $this->load->model('product_variants_model'); 
@@ -1138,16 +1154,19 @@ class Masters extends CI_Controller {
         $this->load->view('Master/Product_group/display_product_group',$data);
     }
 
-    public function ajax_check_variants_type(){
-        $mobile_no=$this->input->get('variants_type');
-        $this->load->model('product_variants_type_model'); 
-        $this->product_variants_model->check_variants_if_exist($variants_type);
-        if(!empty($this->product_variants_model->check_variants_if_exist($variants_type))){
-            echo 1;
-        } else {
-            echo 0;
-        }
+    public function ajax_check_variants_type(){ 
+       $variants_type=$this->input->get('variants_type'); 
+        $this->load->model('Product_variants_type_model');  
+        $arr['res']=$this->Product_variants_type_model->check_variants_if_exist($variants_type); 
+        //var_dump($arr['res']); 
+         
+        if(!empty($this->Product_variants_type_model->check_variants_if_exist($variants_type))){ 
+            echo 1; 
+        }  else { 
+            echo 0; 
+        } 
 
     }
+
 
 }

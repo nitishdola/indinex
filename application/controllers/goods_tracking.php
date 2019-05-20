@@ -239,6 +239,7 @@ class Goods_tracking extends CI_Controller {
         $arr = [
             'purchase_order_id'             => $this->input->post('purchase_order_id'),
             'purchase_order_number'         => $this->input->post('purchase_order_number'),
+            'vendor_name'                   => $this->input->post('vendor_name'),
             'invoice_number'                => trim($this->input->post('invoice_number')),
             'consignment_number'            => $this->input->post('consignment_number'),
             'no_of_consignment_packages'    => $this->input->post('no_of_consignment_packages'),
@@ -326,7 +327,8 @@ class Goods_tracking extends CI_Controller {
         $this->load->model('goods_tracking_items_model'); 
         $this->load->view('layout/admin/header');           
         $this->load->view('layout/admin/nav_menu'); 
-        $data['results'] = $this->goods_tracking_model->fetchAllGoodsTracking2($id);        
+        $data['results'] = $this->goods_tracking_model->fetchAllGoodsTracking2($id);
+        //var_dump($data['results'])        ;
         $data['linegoods'] = $this->goods_tracking_model->fetchGoodsTrackingLine($id);
         $data['purchase_order_number']=$data['linegoods'][0]->purchase_order_number;
         $this->load->view('goods_tracking/view_goods_tracking_line',$data); 

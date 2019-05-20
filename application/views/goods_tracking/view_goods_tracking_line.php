@@ -13,11 +13,12 @@
 
                   <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                     <h3 style="text-align: left;"> Purchase Order Number : #<?php  echo $purchase_order_number; ?> </h3>
+                    <h3 style="text-align: left;"> Vendor Name : #<?php  echo $results[0]->vendor_name; ?> </h3>
                      <div class="example-wrap">
                       <?php echo form_open_multipart('Goods_tracking/save_goods_tracking'); ?>
                         <div class="example">
                         <?php echo $this->session->flashdata('response'); ?>
-                          <?php $i=0; foreach($results as  $r) { $i++; var_dump($r); ?>
+                          <?php $i=0; foreach($results as  $r) { $i++; //var_dump($r); ?>
                            <h4 style="text-align: left;"> Goods Tracking Number : #<?php echo $r->goods_tracking_id; ?> </h4>
                            
 

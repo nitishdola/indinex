@@ -70,7 +70,7 @@
                         <div class="example-wrap">
                         <h4 class="example-title"></h4> 
                           <?php echo $this->session->flashdata('response'); ?> 
-                         <?php foreach($product_details as $row) { ?> 
+                         <?php foreach($product_details as $row) { //var_dump($row);?> 
                           <div class="example">
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label">Product Code: </label>
@@ -135,51 +135,61 @@
                                <?php echo form_input(array('type'=>'number','id' => 'old_material_no', 'name' => 'old_material_no','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'off','value'=>$row->old_material_no)); ?>
                               </div>
                             </div>
-                            <div class="form-group row">
-                              <label class="col-md-4 col-form-label">Net Weight: </label>
-                              <div class="col-md-8">
-                                  <?php echo form_input(array('type'=>'number','id' => 'net_weight', 'name' => 'net_weight','style'=>'width:250px;float:left;margin-right:10px','class'=>'form-control','value'=>$row->net_weight)); ?>
-                                  <select id="net_uom" name="net_uom" class="form-control" style="width:100px"><option value="">UOM</option> 
-                                  <?php foreach($variants as $mu)  { ?>      
-                                    <option <?php if($mu->variants_name == $row->net_uom){ echo 'selected="selected"'; } ?> value="<?php echo $mu->variants_name ?>"><?php echo $mu->variants_name?> </option>                   
-                                  <?php } ?>
-                                  </select>
-                              </div>
-                            </div>
-                            <div class="form-group row">
-                              <label class="col-md-4 col-form-label">Gross Weight: </label>
-                              <div class="col-md-8">
-                                 <?php echo form_input(array('type'=>'number','id' => 'gross_weight', 'name' => 'gross_weight','style'=>'width:250px;float:left;margin-right:10px','class'=>'form-control','value'=>$row->gross_weight)); ?>
-                                <select id="gross_uom" name="gross_uom" style="width:100px" class="form-control">
-                                    <option  value="">UOM</option>
-                                    <?php foreach($variants as $mu)  { ?>      
-                                    <option <?php if($mu->variants_name == $row->gross_uom){ echo 'selected="selected"'; } ?> value="<?php echo $mu->variants_name ;?>"><?php echo $mu->variants_name;?> </option>                   
-                                  <?php } ?>
-                                  </select>
-                              </div>
-                            </div>                            
+                                                        
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label">Size: </label>
-                              <div class="col-md-8">
-                                <select id="size" class="form-control" name="size">
-                                  <option  value="">Select</option>
-                                   <?php foreach($sizes as $s)  { ?>
-                                    <option <?php if($s->variants_name == $row->size){ echo 'selected="selected"'; } ?> value="<?php echo $s->variants_name ;?>"><?php echo $s->variants_name;?> </option>                   
-                                  <?php } ?>                                                               
-                                </select> 
+                              <div class="col-md-3">
+                                <select multiple  id="size" class="form-control" name="size[]">
+                                    <option value="">Select</option>
+                                    <?php foreach($sizes as $sz)  {
+                                      echo '<option value="'.$sz->variants_name.'">'.$sz->variants_name.'</option>';                           
+                                    } ?>
+                                </select>
+                              </div>
+                              <label class="col-md-2 col-form-label">Dimensions: </label>
+                              <div class="col-md-3">
+                                <select multiple  id="size" class="form-control" name="dimensions[]">
+                                    <option value="">Select</option>
+                                    <?php foreach($dimensions as $dm)  {
+                                      echo '<option value="'.$dm->variants_name.'">'.$dm->variants_name.'</option>';                           
+                                    }   ?>
+                                </select>
                               </div>
                             </div>
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label">Color: </label>
-                              <div class="col-md-8">
-                                <select id="color" class="form-control" name="color">
+                              <div class="col-md-3">
+                                <select multiple id="color" class="form-control" name="color[]">
                                     <option value="">Select</option>
-                                   <?php foreach($color as $r)  { ?>
-                                    <option <?php if($r->variants_name == $row->color){ echo 'selected="selected"'; } ?> value="<?php echo $r->variants_name ?>"><?php echo $r->variants_name;?></option>                      
-                                  <?php } ?>
-                                </select> 
+                                    <?php foreach($color as $cl)  {
+                                    echo '<option value="'.$cl->variants_name.'">'.$cl->variants_name.'</option>';                           
+                                  } ?>
+                                </select>
+                              </div>
+
+                               <label class="col-md-2 col-form-label">Shape: </label>
+                              <div class="col-md-3">
+                                <select multiple  id="size" class="form-control" name="shape[]">
+                                    <option value="">Select</option>
+                                    <?php foreach($shape as $sp)  {
+                                      echo '<option value="'.$sp->variants_name.'">'.$sp->variants_name.'</option>';                           
+                                    } ?>
+                                </select>
                               </div>
                             </div>
+
+                            <div class="form-group row">
+                              <label class="col-md-4 col-form-label">Shade: </label>
+                              <div class="col-md-3">
+                                <select multiple id="color" class="form-control" name="shade[]">
+                                    <option value="">Select</option>
+                                    <?php foreach($shade as $sh)  {
+                                    echo '<option value="'.$sh->variants_name.'">'.$sh->variants_name.'</option>';                           
+                                    } ?>
+                                </select>
+                              </div>                              
+                            </div>
+                          
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label">Conversion Factor: </label>
                               <div class="col-md-8">
@@ -329,11 +339,24 @@
                             </div>
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label"> </label>
-                              <div class="col-md-8">
-                              Sale Item
-                              <?php echo form_input(array('type'=>'checkbox','id' => 'variants_name', 'name' => 'variants_name','style'=>'margin-bottom:5px;margin-left:15px')); ?>
+                             <div class="col-md-8"> 
+
                               Purchase Item
-                              <?php echo form_input(array('type'=>'checkbox','id' => 'variants_name', 'name' => 'variants_name','style'=>'margin-bottom:5px;margin-left:15px')); ?>       
+                              <?php if($row->items=='purchase_item'){
+                              
+                              echo form_input(array('type'=>'radio','id' => 'purchase_item', 'name' => 'items','style'=>'margin-bottom:5px;margin-left:15px','value'=>'purchase_item','checked'=>'checked'));
+                              } else {
+
+                              echo form_input(array('type'=>'radio','id' => 'purchase_item', 'name' => 'items','style'=>'margin-bottom:5px;margin-left:15px','value'=>'purchase_item')); 
+
+                              } ?> 
+                              Sale Item
+                              <?php if($row->items=='sale_item'){
+                               echo form_input(array('type'=>'radio','id' => 'sale_item', 'name' => 'items','style'=>'margin-bottom:5px;margin-left:15px','value'=>'sale_item','checked'=>'checked'));
+                              } else {    
+                                echo form_input(array('type'=>'radio','id' => 'sale_item', 'name' => 'items','style'=>'margin-bottom:5px;margin-left:15px','value'=>'sale_item'));
+                              } ?>
+
                               </div>
                             </div>
                           </div>                    
@@ -396,33 +419,50 @@
                       <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
                       <div class="example-wrap">                  
                         <div class="example">
-                        <div class="form-group row">
+                            <div class="form-group row">
                               <label class="col-md-4 col-form-label">In House Production: </label>
                               <div class="col-md-8">
-                                 <?php echo form_input(array('type' => 'text','id' => 'in_house_production', 'name' => 'in_house_production','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'off','value'=>$row->in_house_production)); ?>
+                               <div class="form-group row">
+                                  <label class="col-md-3 col-form-label"> </label>
+                                  <div class="col-md-8">
+                                  
+                                  <?php 
+                                  if($row->in_house_production=='Yes'){
+                                  echo form_input(array('type'=>'radio','id' => 'Yes', 'name' => 'in_house_production','style'=>'margin-bottom:5px;margin-left:5px','value'=>'Yes','checked'=>'checked')); ?>Yes
+                                  <?php } else {
+                                    echo form_input(array('type'=>'radio','id' => 'Yes', 'name' => 'in_house_production','style'=>'margin-bottom:5px;margin-left:5px','value'=>'Yes')); ?>Yes
+                                  <?php } ?>                                  
+                                  <?php if($row->in_house_production=='No') {
+                                  echo form_input(array('type'=>'radio','id' => 'in_house_production', 'name' => 'in_house_production','style'=>'margin-bottom:5px;margin-left:5px','value'=>'No','checked'=>'checked')); ?>No
+                                  <?php }  else { 
+                                    echo form_input(array('type'=>'radio','id' => 'in_house_production', 'name' => 'in_house_production','style'=>'margin-bottom:5px;margin-left:5px','value'=>'No')); ?>No
+                                   <?php  } ?>
+                                  </div>
+                                </div>
+                                
                               </div>
                             </div> 
-                            
-                            <div class="form-group row">
-                              <label class="col-md-4 col-form-label">Purchase From Outside: </label>
-                              <div class="col-md-8">
-                                <?php echo form_input(array('type'=>'checkbox','id' => 'purchase_from_outside', 'name' => 'purchase_from_outside','style'=>'margin-bottom:5px;','value'=>'')); ?>                
-                              </div>
-                            </div>                         
-                            
-                            <div class="form-group row">
+
+                             <div class="form-group row">
                               <label class="col-md-4 col-form-label">Ok to Purchase: </label>
                               <div class="col-md-8">
-                                 <?php echo form_input(array('type'=>'checkbox','id' => 'ok_to_purchase', 'name' => 'ok_to_purchase','style'=>'margin-bottom:5px;')); ?>                  
+                                 <?php if($row->in_house_production=='Yes'){
+
+                                  echo form_input(array('type'=>'radio','id' => 'ok_to_purchase1', 'name' => 'ok_to_purchase','style'=>'margin-bottom:5px;margin-left:15px','value'=>'Yes','checked'=>'checked')); ?>Yes
+                                  <?php } else {
+                                    echo form_input(array('type'=>'radio','id' => 'ok_to_purchase1', 'name' => 'ok_to_purchase','style'=>'margin-bottom:5px;margin-left:15px','value'=>'Yes')); ?>Yes
+
+                                  <?php } ?>
+                                
+                                  <?php if($row->in_house_production=='Yes'){
+                                  echo form_input(array('type'=>'radio','id' => 'ok_to_purchase2', 'name' => 'ok_to_purchase','style'=>'margin-bottom:5px;margin-left:15px','value'=>'No','checked'=>'checked')); ?>  Cannot be Purchase    
+                                   <?php } else {
+                                    echo form_input(array('type'=>'radio','id' => 'ok_to_purchase2', 'name' => 'ok_to_purchase','style'=>'margin-bottom:5px;margin-left:15px','value'=>'No')); ?>  Cannot be Purchase  
+
+                                   <?php  } ?>
+
                               </div>
-                            </div>
-                            
-                            <div class="form-group row">
-                              <label class="col-md-4 col-form-label">Cannot be Purchase/ Manufacturing/Buy: </label>
-                              <div class="col-md-8">
-                                <?php echo form_input(array('type'=>'checkbox','id' => 'cannot_be_purchase', 'name' => 'cannot_be_purchase','style'=>'margin-bottom:5px;')); ?>
-                              </div>
-                            </div>                           
+                            </div>               
 
                         </div>
                         </div>
@@ -452,19 +492,7 @@
                           <?php echo $this->session->flashdata('response'); ?> 
                          <?php //foreach($vendors as $row) { ?> 
                           <div class="example">
-                               <div class="form-group row">
-                              <label class="col-md-4 col-form-label">Unit of issue: </label>
-                              <div class="col-md-8">
-                                  <?php echo form_input(array('type'=>'text','id' => 'unit_of_issue', 'name' => 'unit_of_issue','style'=>'width:290px;float:left;margin-right:2px','class'=>'form-control','value'=>$row->product_group)); ?>
-                                  <select id="unit_of_issue_uom" name="unit_of_issue_uom" style="width:100px" class="form-control">
-                                    <option value="">UOM</option> 
-                                    <?php foreach($variants as $iu)  { ?>
-                                    <option <?php if($iu->variants_name == $row->unit_of_issue_uom){ echo 'selected="selected"'; } ?> value="<?php echo $iu->variants_name ?>"><?php echo $iu->variants_name?> </option> 
-                          
-                                    <?php } ?>
-                                </select>
-                              </div>
-                            </div>
+                              
 
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label">Temparature Condition: </label>
@@ -500,12 +528,7 @@
                                 </select>
                               </div>
                             </div>  
-                            <div class="form-group row">
-                              <label class="col-md-4 col-form-label">Batch: </label>
-                              <div class="col-md-8">
-                                 <?php echo form_input(array('type'=>'checkbox','id' => 'batch', 'name' => 'batch','style'=>'margin-bottom:5px;margin-left:15px','checked'=>'checked','class'>'form-control','value'=>$row->product_group)); ?>
-                              </div>
-                            </div>
+                            
                           </div>                    
                         </div>
                       </div>  <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
@@ -573,20 +596,22 @@
                                 </select>
                               </div>
                             </div>
-
+                            <?php if($row->items=='sale_item') { ?>
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label">Sale Price: </label>
                               <div class="col-md-8">
                                  <?php echo form_input(array('id' => 'sale_price', 'name' => 'sale_price','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','value'=>$row->sale_price)); ?>
                               </div>
                             </div>
-                            
+                            <?php } ?>
+                            <?php if($row->items=='purchase_item') { ?>
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label">Purchase Price: </label>
                               <div class="col-md-8">
                                 <?php echo form_input(array('id' => 'purchase_price', 'name' => 'purchase_price','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','value'=>$row->purchase_price)); ?>
                               </div>
                             </div> 
+                            <?php } ?>
                           </div> 
                           <?php } ?>                                          
                         </div>

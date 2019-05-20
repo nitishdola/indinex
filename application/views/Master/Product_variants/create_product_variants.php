@@ -18,7 +18,7 @@
     <div class="page">
       <div class="page-header">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard');?>">Dashboard</a></li>
         <li class="breadcrumb-item"><a href="<?php echo site_url('Welcome/master');?>">Master</a></li>
         <li class="breadcrumb-item"><a href="<?php echo site_url('Masters/product_variants_sub');?>">Product Variants</a></li>
         <li class="breadcrumb-item active">Create</li>
@@ -63,7 +63,12 @@
                         <div class="col-md-8">
                           
                                 
-                              <input class="form-control "type="text" name="variants_type" id="variants_type" />
+                              <input class="form-control "type="text" name="add_variants" id="add_variants" />
+                              <div class="col-md-9">
+                          <!--<?php echo form_input(array('id' => 'variants_type', 'name' => 'variants_type','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','autocomplete'=>'off','maxlength'=>'5')); ?> -->
+                          
+                        </div>
+                        <span><p  id="code_div" style="color:red;display:none">Variant name already exist</p></span>
                           
                           
                         </div>
@@ -109,20 +114,24 @@ $('#variants_type').change(function(){
 
 })
 $(function(){
+  $('#add_variants').click(function(){
+   $('#code_div').hide();
+  });
 
-  $('#variants_type').blur(function(){
-    var variants_type=$('#variants_type').val(); 
-
+  $('#add_variants').blur(function(){
+    var variants_type=$('#add_variants').val(); 
+    //alert(variants_type);
     var url= "<?php echo base_url(); ?>" + "index.php/Masters/ajax_check_variants_type";     
      jQuery.ajax({ 
         type: 'GET',         
         url: url, 
         //dataType: 'json', 
         data: {variants_type: variants_type}, 
-        success: function (res) { 
+        success: function (res) {
+          //alert(res);
                if(res==1){
-                  $('#variants_type').val(''); 
-                  $('#div_variants_type').show();
+                  $('#add_variants').val(''); 
+                  $('#code_div').show();
                }                          
             } ,      
         error: function (jqXhr, textStatus, errorMessage) { 
@@ -137,4 +146,3 @@ $(function(){
 
 </script>
 
-    
