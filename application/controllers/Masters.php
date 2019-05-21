@@ -657,7 +657,7 @@ class Masters extends CI_Controller {
 
         if($this->input->post('sub'))
         {   
-            var_dump($_POST);
+            //var_dump($_POST);
             $variants_type= $this->input->post('variants_type');
 
             if($variants_type == 'other')
@@ -680,8 +680,9 @@ class Masters extends CI_Controller {
             
             $this->product_variants_model->form_insert($data);
             $this->session->set_flashdata('response',"<div class='alert alert-success'><strong>Success!</strong>&nbsp;&nbsp;record inserted</div>");
-            redirect(site_url('Masters/create_product_variants'));  	
-    }
+            redirect(site_url('Masters/create_product_variants'));
+            
+        }       
 }
 
 
@@ -698,7 +699,7 @@ class Masters extends CI_Controller {
     	$this->load->database();          
         $this->load->model('product_variants_model'); 
         $data['result']=$this->product_variants_model->select();  
-
+        
         $this->load->model('product_variants_type_model'); 		
 		$data['variants'] = $this->product_variants_type_model->getAllTypes();
     	$this->load->view('Master/Product_variants/display_product_variants',$data);	
@@ -1170,3 +1171,4 @@ class Masters extends CI_Controller {
 
 
 }
+

@@ -42,11 +42,11 @@
                         </div>
                       </div>
                     </div>
-                     <a href="<?php echo site_url('goods_tracking/display_goods_tracking?ch=y');?>" class="btn btn-inverse project-button">GOODS  TRACKING</a>
+                     <a href="<?php echo site_url('goods_tracking/view_all_goods_tracking?ch=y');?>" class="btn btn-inverse project-button">GOODS  TRACKING</a>
                    
                   </figcaption>
                 </figure>
-                <div class="text-truncate"> <a href="<?php echo site_url('goods_tracking/display_goods_tracking?ch=y');?>" class="dashboard-links">GOODS  TRACKING REPORTS</a></div>
+                <div class="text-truncate"> <a href="<?php echo site_url('goods_tracking/view_all_goods_tracking?ch=y');?>" class="dashboard-links">GOODS  TRACKING REPORTS</a></div>
               </div>
             </li>
 

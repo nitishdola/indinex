@@ -22,20 +22,22 @@
                   <h4 class="example-title">Change Customer Details</h4>                  
                   <div class="example"> 
                    <?php echo form_open(); ?>
-                      <div class="form-group row">                                                    
+                     <!-- <div class="form-group row">                                                    
                         <div class="col-md-2">                       
-                          <?php echo form_input(array('type' =>'number', 'name' => 'code','id'=>'ccode','class'=>'form-control','style'=>'margin-bottom:5px','placeholder'=>'Customer Code','autocomplete'=>'off')); ?>  
+                          <?php // echo form_input(array('type' =>'number', 'name' => 'code','id'=>'ccode','class'=>'form-control','style'=>'margin-bottom:5px','placeholder'=>'Customer Code','autocomplete'=>'off')); ?>  
                         </div>
                           <input type="hidden" name="search" value="1">
                           <button type="submit" class="btn btn-primary">Search </button>                          
                       </div> 
-                    </div>   
+                    </div>   -->
                      <?php echo form_close(); ?> 
                      <?php if($customer_details)  { ?>                    
-                    <table class="table table-bordered">
+                     <table class="table table-hover data-table table-striped table-bordered w-full">
+                     <thead>
                     <tr>
                      <th>Sl</th><th>Customer Account Group</th><th>Type of Business</th><th>Customer Name</th><th>Change</th><th>Delete</th>
-                    </tr>                    
+                    </tr>  
+                    </thead>                  
                     <tbody>
                     <?php 
                     $i=0;                           

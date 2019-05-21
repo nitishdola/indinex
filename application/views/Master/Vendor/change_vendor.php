@@ -13,14 +13,13 @@
    <div class="projects-wrap">
       <div class="panel">
           <div class="panel-body container-fluid">
-
-                 <div class="row row-lg">
-                    <table class="table table-hover data-table table-striped table-bordered w-full">
-              <thead>
-                <tr>
-                  <th>Sl</th><th>Vendor Account Group</th><th>Type of Business</th><th>Vendor Name</th><th>Vendor Code</th><th>Company Code</th><th>Edit</th><th>Delete</th>
-                </tr>
-              </thead>
+              <div class="row row-lg">
+                <table class="table table-hover data-table table-striped table-bordered w-full">
+                <thead>
+                  <tr>
+                    <th>Sl</th><th>Vendor Account Group</th><th>Type of Business</th><th>Vendor Name</th><th>Vendor Code</th><th>Company Code</th><th>Edit</th><th>Delete</th>
+                  </tr>
+                </thead>
               <tbody>
                 <?php 
                     $i=0;                           

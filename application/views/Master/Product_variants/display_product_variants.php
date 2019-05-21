@@ -22,19 +22,21 @@
                   
                   <div class="example">
                     
-                     <table class="table table-bordered">
+                     <table class="table table-hover data-table table-striped table-bordered w-full">
+                    <thead>
                       <tr>
                        <th>Sl</th><th>Product Variants Code</th><th>Variants Types</th><th>Variants Names</th>
                       </tr>
+                      </thead>
                       <tbody>
                   <?php 
                     $i=0;                           
                     foreach($result->result() as $row)  
-                    { $i++;
+                    { $i++; //var_dump($row);
                     ?>
                     <tr>  
                       <td><?php echo  $i;?>    </td>                       
-                      <td><?php echo  $row->pvcode;?></td> 
+                      <td><?php echo  str_pad($row->pvcode, 4, '0', STR_PAD_LEFT)?></td> 
                       <td><?php echo  $row->variants_type;?></td> 
                       <td><?php echo  $row->variants_name;?></td> 
                       

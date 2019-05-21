@@ -168,6 +168,16 @@ class Product_master_model extends CI_Model
       $query = $this->db->get();      
       return $query->result();  
     }
+    public function storage_location($product_code){
+      $this->db->select('*');
+      $this->db->from('product_purchase_data');      
+      $this->db->join('storage_location',' storage_location.id = product_purchase_data.storage_location','left');
+      $this->db->where('product_purchase_data.product_code',$product_code);  
+      $query = $this->db->get();      
+      return $query->result();  
+
+    }
+
     public function check_product_code($product_code,$table){
     $this->db->select('product_code');
     $this->db->from($table);

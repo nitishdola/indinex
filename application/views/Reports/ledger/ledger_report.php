@@ -1,6 +1,6 @@
 <ol class="breadcrumb">
   <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard'); ?>">Home</a></li>
-  <li class="breadcrumb-item"><a href="<?php echo site_url('reports/reports_sub'); ?>">Reports Menu</a></li>
+  <li class="breadcrumb-item"><a href="<?php echo site_url('reports/reports_sub'); ?>">Reports</a></li>
   <li class="breadcrumb-item active">Ledger Report</li>
   
 </ol>

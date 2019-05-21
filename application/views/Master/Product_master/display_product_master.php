@@ -21,23 +21,14 @@
                   <h4 class="example-title">Display Product Master</h4>
                   
                   <div class="example"> 
-                  <?php echo form_open(); ?>
-                        <div class="form-group row">                                                    
-                          <div class="col-md-2">                       
-                            <?php echo form_input(array('type' =>'number', 'name' => 'code','id'=>'ccode','class'=>'form-control','style'=>'margin-bottom:5px','placeholder'=>'Product Code','autocomplete'=>'off')); ?>  
-                          </div>
-
-                           <input type="hidden" name="search" value="1">
-                            <button type="submit" class="btn btn-primary">Search </button>
-                            
-                        </div> 
-                      </div>   
-                    <?php echo form_close(); ?>
+                  
                     <?php if($product_details->result())  { ?>                       
-                    <table class="table table-bordered">
+                     <table class="table table-hover data-table table-striped table-bordered w-full">
+                     <thead>
                     <tr>
-                     <th>Sl</th><th>Picture</th><th>Product Code</th><th>Category Code</th><th>Product Description</th><th>Product Group</th><th>Size</th><th>Color</th><th>Display</th>
-                    </tr>                    
+                     <th>Sl</th><th>Picture</th><th>Product Code</th><th>Category Code</th><th>Product Description</th><th>Product Group</th><th>Size</th><th>Color</th><th>Display</th><th>Edit</th><th>Delete</th>
+                    </tr>  
+                    </thead>                  
                     <tbody>
                     <?php 
                     $i=0;                           
@@ -72,6 +63,8 @@
                         } }
                         ?></td> 
                       <td> <a href="<?php echo site_url('product_masters/display_product_details?product_code='.$row->product_code);?>" class="btn btn-info btn-sm"  style="margin: 5px">Display</a></td>
+                      <td> <a href="<?php echo site_url('product_masters/edit_product_master?product_code='.$row->product_code);?>" class="btn btn-info btn-sm"  style="margin: 5px">Change</a></td>
+                      <td><button id="del_<?php echo $row->product_code; ?>" class="btn btn-danger btn-sm del"  style="margin: 5px">Delete</button> </td>
                     </tr>  
                     <?php }  ?>
                      

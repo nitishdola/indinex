@@ -346,7 +346,9 @@ public function change_product_master(){
     	$product_code 				= $this->input->get('product_code');
 
     	$this->load->model('product_master_model');   
-    	$data['product_details'] 	= $this->product_master_model->product_details($product_code);      
+    	$data['product_details'] 	= $this->product_master_model->product_details($product_code);
+
+    	$data['storage_res'] 	= $this->product_master_model->storage_location($product_code);      
         
 		$this->load->model('product_category_model'); 
         $data['cat'] 				=$this->product_category_model->select();  

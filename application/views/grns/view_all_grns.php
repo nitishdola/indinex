@@ -6,7 +6,7 @@ if($ch=='y'){ ?>
   <ol class="breadcrumb">
   <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard'); ?>">Home</a></li>
   <li class="breadcrumb-item"><a href="<?php echo site_url('reports/reports_sub'); ?>"> Reports</a></li>
-  <li class="breadcrumb-item active">View All Purchase Orders</li>  
+  <li class="breadcrumb-item active">GRN Reports</li>  
 </ol>
 <?php } }else { ?>
 <ol class="breadcrumb">
@@ -43,7 +43,7 @@ if($ch=='y'){ ?>
                         <td><?php echo $v->grn_number; ?></td>
                         <td><?php echo date('d-m-Y', strtotime($v->grn_date)); ?></td>
                         <td><?php echo $v->remarks; ?></td>
-                        <td><a class="btn btn-sm btn-primary" href="<?php echo site_url('grn/view_grn_details/'.$v->id); ?>"> <i class="fa fa-share" aria-hidden="true"></i> Details</a>
+                        <td><a class="btn btn-sm btn-primary" href="<?php echo site_url('grn/view_grn_details/'.$v->id.'?ch=y'); ?>"> <i class="fa fa-share" aria-hidden="true"></i> Details</a>
                         </td>
                       </tr>
                   	<?php endforeach; ?>

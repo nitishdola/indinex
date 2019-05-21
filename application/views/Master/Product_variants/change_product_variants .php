@@ -5,31 +5,28 @@
     <div class="page">
       <div class="page-header">
       <ol class="breadcrumb">
-         <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard');?>">Home</a></li>
+        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
         <li class="breadcrumb-item"><a href="<?php echo site_url('Welcome/master');?>">Master</a></li>
-        <li class="breadcrumb-item"><a href="<?php echo site_url('Masters/product_category_sub');?>">Product Category</a></li>
-        <li class="breadcrumb-item active">Display</li>
+        <li class="breadcrumb-item"><a href="<?php echo site_url('Masters/product_variants_sub');?>">Product Variants</a></li>
+        <li class="breadcrumb-item active">Change</li>
       </ol>
       <div class="page-content">
         <div class="projects-wrap">
           <div class="panel">
-            <div class="panel-body container-fluid">            
+            <div class="panel-body container-fluid">
+             <?php echo form_open(); ?>
             <div class="row row-lg">
               <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                 <!-- Example Horizontal Form -->
                 <div class="example-wrap">
-                  <h4 class="example-title">Display Product Category</h4>                  
+                  <h4 class="example-title">Change Product Variants</h4>
+                  
                   <div class="example">
-                   
-                    </div>   
-                     
-                     <?php if($result->result())  { ?>
-                      <table class="table table-hover data-table table-striped table-bordered w-full">
-                    <thead>
+                    
+                     <table class="table table-bordered">
                       <tr>
-                       <th>Sl</th><th>Category Code</th><th>Category Name</th><th>Range From</th><th>Range To</th><th>Current Status</th>
+                       <th>Sl</th><th>Product Variants Code</th><th>Variants Types</th><th>Variants Names</th><th>Edit</th><th>Delete</th>
                       </tr>
-                      </thead>
                       <tbody>
                   <?php 
                     $i=0;                           
@@ -37,37 +34,31 @@
                     { $i++;
                     ?>
                     <tr>  
-                      <td><?php echo  $i;?>   </td>
-                      <td><?php echo  str_pad($row->category_code, 4, '0', STR_PAD_LEFT);?></td>
-                      <td><?php echo  ucwords($row->category_name);?></td> 
-                      
-                      <td><?php echo  $row->range_from;?>   </td>
-                      <td><?php echo  $row->range_to;?>   </td>
-                      <td><?php if($row->total>=1){
-                          echo  ($row->range_from + $row->total)-1;
-                        } else {
-                          echo "N/A";
-                        }
-                        ?>   
-                      </td>
-                      
+                      <td><?php echo  $i;?>  </td>                         
+                      <td><?php echo  $row->pvcode;?></td> 
+                      <td><?php echo  $row->variants_type;?></td> 
+                      <td><?php echo  $row->variants_name;?></td>
+                      <td><a href="<?php echo site_url('Masters/edit_product_variants?id='.$row->id);?>" class="btn btn-info btn-sm"  style="margin: 5px">Edit</a></td> 
+                      <td><button id="del_<?php echo $row->id; ?>" class="btn btn-danger btn-sm del"  style="margin: 5px">Delete</button> </td>
+                    </tr> 
                       </tr>  
                    <?php }  ?>
                 </tbody>
               </table>
-              <?php }  else { echo "<div class='alert alert-warning'><h2>No Data to Display</h2></div>";} ?>
             </div>
 
+
+           <?php echo form_close(); ?>
           </div>
           </div>
         <!-- End Panel Controls Sizing -->
         </div>
       </div>
     </div>
-    </div>
-    </div>
-  </div>
-</div>
+   </div>
+   </div>
+   </div>
+
 <?php $this->load->view('layout/admin/footer'); ?>
 <script>
 $(function(){
@@ -78,7 +69,7 @@ $(function(){
       var deleteid = splitid[1];
       var checkstr =  confirm('are you sure you want to delete this?');
       if(checkstr == true){
-        var url= "<?php echo base_url(); ?>" + "index.php/Masters/ajax_delete_product_category";       
+        var url= "<?php echo base_url(); ?>" + "index.php/Masters/ajax_delete_product_variants";       
           jQuery.ajax({
             type: 'GET',        
             url: url,
@@ -107,5 +98,6 @@ $(function(){
     });
 });
 
-</script>
+</script>    
+
     

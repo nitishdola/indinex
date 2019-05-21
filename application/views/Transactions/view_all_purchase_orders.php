@@ -6,7 +6,7 @@ if($ch=='y'){ ?>
   <ol class="breadcrumb">
   <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard'); ?>">Home</a></li>
   <li class="breadcrumb-item"><a href="<?php echo site_url('reports/reports_sub'); ?>"> Reports</a></li>
-  <li class="breadcrumb-item active">View All Purchase Orders</li>  
+  <li class="breadcrumb-item active">Purchase Orders Report</li>  
 </ol>
 <?php } } else { ?>
 
@@ -48,7 +48,7 @@ if($ch=='y'){ ?>
                   <td><?php echo $v->name; ?></td>
                   <td><?php echo ucwords($v->first_name).'&nbsp;'.ucwords($v->middle_name).'&nbsp;'.ucwords($v->last_name); ?></td>
                   <td><?php echo $v->note; ?></td>
-                  <td><a href="<?php echo site_url('transactions/view_po_details/'.$v->purchase_order_id); ?>"> Details</a>
+                  <td><a href="<?php echo site_url('transactions/view_po_details/'.$v->purchase_order_id.'?ch=y'); ?>"> Details</a>
                   </td>
                 </tr>
             	<?php endforeach; ?>

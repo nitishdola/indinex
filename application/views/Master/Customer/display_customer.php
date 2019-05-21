@@ -371,13 +371,15 @@
               <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                 <!-- Example Horizontal Form -->
                 <div class="example-wrap">
-                  <h4 class="example-title">Change Customer Details</h4>
+                  <h4 class="example-title">Display Customer Details</h4>
                   
                   <div class="example">                    
-                    <table class="table table-bordered">
+                      <table class="table table-hover data-table table-striped table-bordered w-full">
+                      <thead>
                     <tr>
-                     <th>Sl</th><th>Customer Account Group</th><th>Type of Business</th><th>Customer Name</th><th>Customer Code</th><th>Change</th>
-                    </tr>                    
+                     <th>Sl</th><th>Customer Account Group</th><th>Type of Business</th><th>Customer Name</th><th>Customer Code</th><th>Display</th><th>Change</th><th>Delete</th>
+                    </tr>  
+                    </thead>                  
                     <tbody>
                     <?php 
                     $i=0;                           
@@ -391,6 +393,9 @@
                         <td><?php echo  str_pad($row->customer_code, 4, '0', STR_PAD_LEFT);?></td>                       
                         <td><a href="<?php echo site_url('customers/display_customer_details?id='.$row->customer_id);?>" class="btn btn-info btn-sm"  style="margin: 5px">Display</a>
                         </td>
+                         <td><a href="<?php echo site_url('customers/edit_customer?id='.$row->customer_id);?>" class="btn btn-info btn-sm"  style="margin: 5px">Change</a>
+                        </td>
+                        <td><button id="del_<?php echo $row->customer_id; ?>" class="btn btn-danger btn-sm del"  style="margin: 5px">Delete</button> </td>
                       </tr>  
                      <?php }  ?>
                      

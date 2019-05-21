@@ -57,7 +57,7 @@
                         <th width="25%">Plant : </th><td width="25%"><?php echo $product_details[0]->first_name.'&nbsp;'.$product_details[0]->middle_name.'&nbsp;'.$product_details[0]->last_name;?></td><th width="25%">Tolerance : </th><td width="25%">Min:&nbsp;<?php echo $product_details[0]->min_tolerance?>&nbsp;Max:&nbsp;<?php echo $product_details[0]->max_tolerance?></td>
                       </tr>
                        <tr>
-                        <th width="25%">Storage Location : </th><td width="25%"><?php echo $product_details[0]->storage_location;?></td><th width="25%">Min Order Qty: </th><td width="25%"><?php echo $product_details[0]->min_order_qty?>&nbsp;<?php echo $product_details[0]->min_order_qty_uom;?></td>
+                        <th width="25%">Storage Location : </th><td width="25%"><?php echo $storage_res[0]->first_name;?><?php echo $storage_res[0]->middle_name;?><?php echo $storage_res[0]->last_name;?></td><th width="25%">Min Order Qty: </th><td width="25%"><?php echo $product_details[0]->min_order_qty?>&nbsp;<?php echo $product_details[0]->min_order_qty_uom;?></td>
                       </tr>
                        <tr>
                         <th width="25%">Packaging : </th><td width="25%"><?php echo $product_details[0]->packaging;?>&nbsp;<?php echo $product_details[0]->packaging_uom;?></td><th width="25%">Manufacture Part Number: </th><td width="25%"><?php echo $product_details[0]->manufacture_part_no;?></td>

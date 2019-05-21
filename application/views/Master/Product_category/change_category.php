@@ -20,23 +20,14 @@
                 <div class="example-wrap">
                   <h4 class="example-title">Change Product Category</h4>                  
                   <div class="example">
-                    <?php echo form_open(); ?>
-                      <div class="form-group row">                                                    
-                        <div class="col-md-2">                       
-                          <?php echo form_input(array('type' =>'text', 'name' => 'code','id'=>'ccode','class'=>'form-control','style'=>'margin-bottom:5px','placeholder'=>'Category Code','autocomplete'=>'off')); ?>  
-                        </div>
-
-                         <input type="hidden" name="search" value="1">
-                          <button type="submit" class="btn btn-primary">Search </button>
-                          
-                      </div> 
-                    </div>   
-                     <?php echo form_close(); ?> 
+                   
                      <?php if($result->result())  { ?>
-                      <table class="table table-bordered">
+                      <table class="table table-hover data-table table-striped table-bordered w-full">
+                    <thead>
                       <tr>
                        <th>Sl</th><th>Category Code</th><th>Category Name</th><th>Range From</th><th>Range To</th><th>Current Status</th><th>Edit</th><th>Delete</th>
                       </tr>
+                      </thead>
                       <tbody>
                   <?php 
                     $i=0;                           

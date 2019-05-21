@@ -18,7 +18,7 @@
           <div class="panel">
             <div class="panel-body container-fluid">
             <div class="row row-lg">
-              <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+              <div style="text-align:left" class="col-md-10 col-lg-10 col-sm-12 col-xs-12">
                 <!-- Example Horizontal Form -->
                   <div class="example-wrap" style="margin-bottom: 0px">                          
                     <nav>

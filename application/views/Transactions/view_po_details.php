@@ -1,9 +1,21 @@
-
+<?php 
+$ch='';
+if(isset($_GET['ch'])){
+$ch=$_GET['ch'];
+if($ch=='y'){ ?>
+  <ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard'); ?>">Home</a></li>
+  <li class="breadcrumb-item"><a href="<?php echo site_url('reports/reports_sub'); ?>"> Reports</a></li>
+  <li class="breadcrumb-item"><a href="<?php echo site_url('reports/reports_sub/view_all_purchase_orders'); ?>"> Purchase Orders Reports</a></li>
+  <li class="breadcrumb-item active">Purchase Orders Details</li>  
+</ol>
+<?php } } else { ?>
 <ol class="breadcrumb">
   <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard'); ?>">Home</a></li>
   <li class="breadcrumb-item"><a href="<?php echo site_url('transactions/view_all_purchase_orders'); ?>">View All Purchase Orders</a></li>
   <li class="breadcrumb-item active">Purchase Order Details</li>
 </ol>
+<?php }  ?>
 <div class="page-content">
    <div class="projects-wrap">
       <div class="panel">

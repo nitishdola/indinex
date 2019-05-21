@@ -176,7 +176,7 @@
                             ?>
                             <tr>  
                               <td><?php echo $i;?>                            
-                              <td><?php echo $row->purchase_order_type;?></td>
+                              <td><?php //echo $row->purchase_order_type;?></td>
                               <td><?php echo $row->purchase_order_no;?></td>
                               <td><?php echo date('d-m-Y',strtotime($row->purchase_order_date));?></td>
                               <td><?php echo $row->first_name.'&nbsp;'.$row->middle_name.'&nbsp;'.$row->last_name;?></td>
