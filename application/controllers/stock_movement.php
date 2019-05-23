@@ -138,7 +138,7 @@ class Stock_movement extends CI_Controller {
  			$data['res'] = $this->stock_movement_model->select($code);
  		} else {
  			$data['res'] = $this->stock_movement_model->select();
- 			//var_dump($data['res']);
+ 			var_dump($data['res']);
  		}
 
 		$this->load->view('stock_movement/change_stock_movement',$data);

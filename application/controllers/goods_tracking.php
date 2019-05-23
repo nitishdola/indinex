@@ -360,13 +360,14 @@ class Goods_tracking extends CI_Controller {
     {
         $id=$this->input->get('id');
         $consignment_no=$this->input->get('consignment_no');
-        //$trackingid=$this->input->get('trackingid');
+        $vendor_id=$this->input->get('vendor_id');
+        
         $this->load->model('goods_tracking_model'); 
         $this->load->model('goods_tracking_items_model'); 
         $this->load->view('layout/admin/header');           
         $this->load->view('layout/admin/nav_menu'); 
-        $data['results'] = $this->goods_tracking_model->fetchAllGoodsTracking($consignment_no);
 
+        $data['results'] = $this->goods_tracking_model->fetchAllGoodsTracking($consignment_no);
         $po_id=$data['results'][0]->purchase_order_id;
         $data['linegoods'] = $this->goods_tracking_model->fetchGoodsTrackingView($po_id,$consignment_no);
         // /var_dump($data['linegoods']);

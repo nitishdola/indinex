@@ -181,7 +181,7 @@
                               </div>
                               <label class="col-md-3 col-form-label">Values: </label>
                               <div class="col-md-3">
-                                <select id="attr_value_1" class="form-control" name="attr_value_1" style="margin-right: 35px">
+                                <select multiple id="attr_value_1" class="form-control" name="attr_value_1" style="margin-right: 35px">
                                     <option value="">Select Values</option>
                                     
                                 </select> 

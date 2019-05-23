@@ -25,17 +25,17 @@
                                     <th width="15%">Product Name</th>
                                     <th width="10%">Quantity Ordered</th>
                                     <th width="10%">Quantity Received</th>
-                                   
                                     <th width="10%">Order Status</th>
                                     <th width="10%">Change Status</th>
                                    
                                 </tr>
                               </thead>
-                          <?php $i=0; foreach($results as  $r) { $i++; //var_dump($r); ?>                          
+                          <?php $i=0; //foreach($results as  $r) { $i++; //var_dump($r); 
+                            //echo $results[0]->invoice_number?>                          
                           
                               <?php $total_price = 0; $j=0;?>
                               <tbody class="itembody">
-                                <?php $invoice_number= $r->invoice_number ;
+                                <?php $invoice_number= $results[0]->invoice_number ;
                                 foreach($linegoods as $k => $v): //var_dump($v);
                                   if($v->invoice_number==$invoice_number){ $j++ ?>
                                   <tr id="<?php echo 'tr_'.$k; ?>">
@@ -61,7 +61,7 @@
                                 <?php endforeach;  ?>                                  
                               </tbody>
                            
-                          <?php }  ?> 
+                          <?php //}  ?> 
                           </table>
 
                          <input type="submit" name="sub" value="submit" class="btn btn info">

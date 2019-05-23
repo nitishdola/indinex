@@ -94,7 +94,7 @@ var url= "<?php echo base_url(); ?>" + "index.php/goods_tracking/ajax_get_po_det
       dataType: 'json', 
       data: {vendor_id: vendor_id}, 
       success: function (jsonArray) {               
-            
+          if(jsonArray!=''){  
               $.each(jsonArray, function(index,jsonObject){
                 // /alert(jsonObject['purchase_order_no']); 
                 $('#purchase_order_id')
@@ -102,7 +102,14 @@ var url= "<?php echo base_url(); ?>" + "index.php/goods_tracking/ajax_get_po_det
                   .attr("value",jsonObject['purchase_order_id'])
                   .text(jsonObject['purchase_order_no']));    
                   $('.btn-primary').attr('disabled',false);          
-            });        
+            }); 
+            } else {
+             $('#purchase_order_id')
+                .append($("<option></option>")
+                .attr("value",'')
+                .text('N/A'));  
+               
+          }         
           },
       error: function (jqXhr, textStatus, errorMessage) { 
         // $.unblockUI(); 

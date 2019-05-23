@@ -25,7 +25,7 @@
                           <div class="form-group row">
                               <label class="col-md-4 col-form-label">Vendor Name : </label>
                               <div class="col-md-4">
-                                 <select id="vendor_id" name="id" class="form-control select2">
+                                 <select id="vendor_id" name="vendor_id" class="form-control select2">
                                     <option value="">Select</option>
                                     <?php foreach($all_vendors as $row) 
                                       {
@@ -72,14 +72,15 @@
 $('#vendor_id').change(function(){
 $('#consignment_no').empty();
 var vendor_id           =$('#vendor_id').val();
+$('.btn-primary').attr('disabled',true);
 //var consignment_no   =$('#consignment_no').val();
   
   //if(purchase_order_id!='' && vendor_id!=''){
-  if(vendor_id!=''){
+  /*if(vendor_id!=''){
       $('.btn-primary').attr('disabled',false);
   } else {
       $('.btn-primary').attr('disabled',true);
-  }
+  }*/
 
 
 /*$('#purchase_order_id')
@@ -93,13 +94,21 @@ var url= "<?php echo base_url(); ?>" + "index.php/goods_tracking/ajax_get_consig
       dataType: 'json', 
       data: {vendor_id: vendor_id}, 
       success: function (jsonArray) {
-          $.each(jsonArray, function(index,jsonObject){
-            //alert(jsonObject); 
-            $('#consignment_no')
-              .append($("<option></option>")
-              .attr("value",jsonObject['consignment_number'])
-              .text(jsonObject['consignment_number']));          
-        });        
+          if(jsonArray!=''){
+            $.each(jsonArray, function(index,jsonObject){            
+              $('#consignment_no')
+                .append($("<option></option>")
+                .attr("value",jsonObject['consignment_number'])
+                .text(jsonObject['consignment_number']));  
+                $('.btn-primary').attr('disabled',false);        
+            }); 
+          } else {
+             $('#consignment_no')
+                .append($("<option></option>")
+                .attr("value",'')
+                .text('N/A'));  
+               
+          }       
       },
       error: function (jqXhr, textStatus, errorMessage) { 
         // $.unblockUI(); 
