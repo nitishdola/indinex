@@ -29,31 +29,28 @@ class Pos extends CI_Controller {
         $this->load->view('layout/admin/nav_menu'); 
         $this->load->model('product_master_model'); 
         $this->load->model('customer_model'); 
-        $this->load->model('sales_model'); 
+        $this->load->model('sales_model');
+        $this->load->model('product_category_model'); 
+
 
         $data['all_products'] 		= $this->product_master_model->select_pos_items()->result();
         $data['all_customers'] 		= $this->customer_model->select()->result();
         $data['receipt_number']   	= $this->sales_model->receiptNumber();
-
+        $data['all_categories']     = $this->product_category_model->select()->result();
+        $data['default_category']   = $this->product_category_model->select()->result()[2]->id;
+//var_dump($this->product_category_model->select()->result()[2]->id); exit;
     	$this->load->view('pos/create', $data);
     }
 
 
     public function save_pos() {
 
-        /*var_dump($this->input->post()); 
-        $data = $this->input->post();
-        highlight_string("<?php\n\$data =\n" . var_export($data, true) . ";\n?>");
-
-        exit;*/
-
-
+        //var_dump($_POST); exit;//
 
         $this->load->model('sales_model'); 
         $this->load->model('sales_items_model'); 
         $this->load->model('product_master_model');
         $this->load->model('ledger_model');
-
 
         $this->db->trans_start(); # Starting Transaction
         $this->db->trans_strict(FALSE); 

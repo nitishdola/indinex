@@ -1,4 +1,3 @@
-<?php $this->load->view('layout/admin/header'); ?>
 <body class="animsition app-projects">
    <?php $this->load->view('layout/admin/nav_menu'); ?>
 
@@ -11,50 +10,27 @@
 <div class="container">
   <div class="row">
     <div class="col-md-5">
-        <?php //echo form_open('pos/save_pos'); ?>
+        <?php echo form_open('pos/save_pos'); ?>
         <div id="cart" style="display: none;">
-          <!-- <div class="form-group row">
-            <label class="col-md-4 col-form-label">Receipt Number : </label>
-            <div class="col-md-5">
-               <input id="receipt_number" name="receipt_number" value="<?php echo $receipt_number; ?>" class="form-control" required="required">
-            </div>
-          </div>  -->         
           <table class="table table-condensed borderless table-bordered" id="pos_table">
-            <!-- <thead class="table-thead">
-              <tr style="font-weight: bold;">
-                <th>Sl</th>
-                <th>Product Description</th>
-                <th>Quantity</th>
-                <th>Unit Price</th>
-                <th>Total Price</th>
-              </tr>
-            </thead> -->
             <tbody id="tbdy">
               
             </tbody>
 
             <tfoot>
-              <!-- <tr>
-                <td colspan="4">GST ( In %)</td>
-                <td><input type="number" id="gst" required="required" step="0.01" name="gst" onkeyup="calculateGST()" class="form-control" /></td>
-              </tr> -->
-
               <tr>
                 <td colspan="1"> Total Price </td>
                 <td id="totalPrice"></td>
               </tr>
-
-
               <tr>
-                <td colspan="1"></td>
-                <td>
+                <td colspan="3">
                     <table>
                       <tr>
-                        <td><button  type="button" onclick="calculateMe(1)">1</button></td>
-                        <td><button  type="button" onclick="calculateMe(2)">2</button></td>
-                        <td><button  type="button" onclick="calculateMe(3)">3</button></td>
+                        <td><button class="push_button blue" type="button" onclick="calculateMe(1)">1</button></td>
+                        <td><button class="push_button blue" type="button" onclick="calculateMe(2)">2</button></td>
+                        <td><button class="push_button blue" type="button" onclick="calculateMe(3)">3</button></td>
                         <td>
-                          <a href="javascript:void(0)" class="btn btn-default btn-xs" id="calc_qty"> 
+                          <a href="javascript:void(0)" class="push_button red" id="calc_qty"> 
                             Qty
                           </a>
 
@@ -62,11 +38,11 @@
                       </tr>
 
                       <tr>
-                        <td><button type="button"  onclick="calculateMe(4)">4</button></td>
-                        <td><button  type="button" onclick="calculateMe(5)">5</button></td>
-                        <td><button  type="button" onclick="calculateMe(6)">6</button></td>
+                        <td><button class="push_button blue" type="button"  onclick="calculateMe(4)">4</button></td>
+                        <td><button class="push_button blue"  type="button" onclick="calculateMe(5)">5</button></td>
+                        <td><button class="push_button blue" type="button" onclick="calculateMe(6)">6</button></td>
                         <td>
-                          <a id="calc_disc" href="javascript:void(0)" class="btn btn-default btn-xs">
+                          <a id="calc_disc" href="javascript:void(0)" class="push_button red">
                             Disc
                           </a>
 
@@ -74,11 +50,11 @@
                       </tr>
 
                       <tr>
-                        <td><button  type="button" onclick="calculateMe(7)">7</button></td>
-                        <td><button  type="button" onclick="calculateMe(8)">8</button></td>
-                        <td><button  type="button" onclick="calculateMe(9)">9</button></td>
+                        <td><button class="push_button blue"  type="button" onclick="calculateMe(7)">7</button></td>
+                        <td><button class="push_button blue"  type="button" onclick="calculateMe(8)">8</button></td>
+                        <td><button class="push_button blue"  type="button" onclick="calculateMe(9)">9</button></td>
                         <td>
-                          <a id="calc_price" href="javascript:void(0)" class="btn btn-default btn-xs">
+                          <a id="calc_price" href="javascript:void(0)" class="push_button red">
                             Price
                           </a>
 
@@ -86,18 +62,16 @@
                       </tr>
 
                       <tr>
-                        <td><button type="button" onclick="calculateMe(0)">0</button></td>
+                        <td><button class="push_button blue" type="button" onclick="calculateMe(0)">0</button></td>
                         <td></td>
                         <td></td>
                         <td>
-                          <a id="calc_back" href="javascript:void(0)" class="btn btn-default btn-xs">
-                            <i class="fa fa-fast-backward" aria-hidden="true"></i> Back
+                          <a id="calc_back" href="javascript:void(0)" class="push_button red">
+                            <i class="fa fa-fast-backward" aria-hidden="true"></i>
                           </a>
 
                         </td>
                       </tr>
-
-
                     </table>
                 </td>
               </tr>
@@ -115,8 +89,6 @@
                   </select>
                 </td>
               </tr>
-
-
               <tr>
                 <td colspan="1">Select Payment Type</td>
                 <td colspan="1">
@@ -150,8 +122,23 @@
 
     <?php if($all_products){ ?>
     <div class="col-md-7 text-center text-lg-left gallery">
+
+      <div class="col-md-5">
+        <select id="product_category" class="form-control" required="required">
+          <option value="">Select Product Category</option>
+          <?php foreach($all_categories as $crow) 
+          {
+            echo '<option value="'.$crow->id.'">'.ucwords($crow->category_name).'</option>';
+          } 
+          ?>
+        </select>
+      </div>
+
+      <div class="clearfix"></div>
+
+
       <?php foreach($all_products as $k => $v):  //var_dump($v);?>
-        <div class="tab-content" id="pills-tabContent">
+        <div class="tab-content <?php echo 'product_category_id_'.$v->product_category; ?>" id="pills-tabContent">
         <div class="tab-pane fade show active" id="showall" role="tabpanel" aria-labelledby="showall-tab">
           <div class="Portfolio"><a href="javascript:void(0)" onclick="addProductToCart(<?php echo $v->product_general_data_id; ?>, '<?php echo $v->product_description; ?>', '<?php echo $v->sale_price; ?>', '<?php echo $v->currency; ?>')">
             <?php if($v->picture == '') { ?><img class="card-img" width="50" height="40" src="<?php echo base_url('uploads/images/default.png'); ?>" > <?php } ?>
@@ -222,7 +209,7 @@ addProductToCart = function(product_id, product_description, product_price, prod
     });
 
     $('#totalPrice').text($mainTotal.toFixed(2));
-console.log(html);
+//console.log(html);
     sl++;
   }else{
     //add to quantity
@@ -352,20 +339,35 @@ calculateMe = function(val) {
     $('#valQty'+activepid).val(mainVal);
     $productPrice = parseFloat($('#product_price_'+activepid).text().replace('INR ', '')); 
     $('#total_price_'+activepid).text(mainVal*$productPrice);
+
+    totalPriceCalculator();
   }
 
   if(active == 'discount') {
     $totalPrice = '';
-    $totalPrice = parseFloat($('#total_price_'+activepid).text().replace('INR ', ''));
+    //$totalPrice = parseFloat($('#total_price_'+activepid).text().replace('INR ', ''));
+
+    
+
+    $newQty = parseFloat($('#qty_'+activepid).text()); 
+    $newOriginalPrc = parseFloat($('#product_price_'+activepid).text().replace('INR ', '')); 
+
+
+    $totalPrice = $newQty*$newOriginalPrc;
 
     discountVal = 0;
     discountVal = (mainVal/100)*$totalPrice;
 
+    console.log(discountVal);
+    /*console.log('total price '+$totalPrice);
+    console.log('main value '+mainVal);*/
     $('#total_price_'+activepid).text(($totalPrice-discountVal).toFixed(2));
 
     $('#discount_'+activepid).text(mainVal);
 
     $('#valDiscount'+activepid).val(mainVal);
+
+    totalPriceCalculator();
   }
 
 
@@ -376,14 +378,39 @@ calculateMe = function(val) {
     $('#valPrice'+activepid).val(mainVal);
 
     $('#total_price_'+activepid).text( ($quantityVal*mainVal).toFixed(2) );
+
+    totalPriceCalculator();
   }
   
 
-  /*
-  html += '<input type="hidden" id="valQty'+product_id+'" name="quantities[]" value="" />';
-    html += '<input type="hidden" id="valPrice'+product_id+'" name="prices[]" value="" />';
-    html += '<input type="hidden" id="valDiscount'+product_id+'" name="discounts[]" value="" />';
-    */
 }
+
+
+totalPriceCalculator = function() { 
+  $mainTotal = 0;
+  $(".ttlpriceunit").each(function() {
+      $mainTotal += parseFloat($(this).text());
+  });
+  console.log('hello');
+  $('#totalPrice').text($mainTotal.toFixed(2));
+}
+
+
+$('#product_category').change(function() {
+  $productCategory = $(this).val();
+
+  $product_categ = <?php echo $default_category; ?>;
+
+
+  if($productCategory != '') {
+    $product_categ = $productCategory;
+
+    $cls = 'product_category_id_'+$product_categ;
+
+    $('not(.'+$cls+')').hide();
+
+    $('.product_category_id_'+$product_categ).show();
+  }
+})
 </script>
 <?php $this->load->view('layout/admin/footer_with_js_close'); ?>
