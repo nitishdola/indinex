@@ -2,7 +2,7 @@
     <footer class="site-footer">
       <div class="site-footer-legal">© 2019 <a href="javascript:void(0)">Indigi Consulting And Solutions Pvt. Ltd.</a></div>
       <div class="site-footer-right">
-        Crafted with <i class="red-600 icon md-favorite"></i> by <a href="javascript:void(0)">ND.</a>
+        Crafted with <i class="red-600 icon md-favorite"></i> by <a href="javascript:void(0)"></a>
       </div>
     </footer>
     <!-- Core  -->

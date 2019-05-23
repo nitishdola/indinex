@@ -38,7 +38,7 @@
           <div class="panel">
             <div class="panel-body container-fluid">
             <div class="row row-lg">
-              <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+              <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12"  style="text-align: left">
                 <!-- Example Horizontal Form -->
                   <div class="example-wrap" style="margin-bottom: 0px">                          
                     <nav>
@@ -118,9 +118,9 @@
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label"> </label>
                               <div class="col-md-8">
-                                  <span class="btn btn-info btn-file">Browse Image File
+                                 <!-- <span class="btn btn-info btn-file">Browse Image File -->
                                     <?php echo form_input(array('type' => 'file','id' => 'picture', 'name' => 'picture','style'=>'margin-bottom:5px')); ?>
-                                  </span>
+                                  <!-- </span> -->
                               </div>
                             </div>                                                                 
                           </div>

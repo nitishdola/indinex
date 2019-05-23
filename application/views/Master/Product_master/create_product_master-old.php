@@ -18,6 +18,13 @@
     display: block;
 }
 
+ .bootstrap-select.btn-group.show-tick .dropdown-menu li.selected a span.check-mark{
+    position: absolute;
+    display: inline-block;
+    left: 5px; //changed from right:15
+    margin-top: 5px;
+}
+
 </style>
 <?php $this->load->view('layout/admin/header'); ?>
 <body class="animsition app-projects">
@@ -143,66 +150,83 @@
                                <?php echo form_input(array('type'=>'text','id' => 'old_material_no', 'name' => 'old_material_no','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'off','maxlength'=>'50')); ?>
                               </div>
                             </div>
-                            <div class="form-group row">
+                           <!-- <div class="form-group row">
                               <label class="col-md-4 col-form-label">Net Weight: </label>
                               <div class="col-md-8">
-                                  <?php echo form_input(array('type'=>'text','id' => 'net_weight', 'name' => 'net_weight','style'=>'width:250px;float:left;margin-right:10px','class'=>'form-control')); ?> 
+                                  <?php //echo form_input(array('type'=>'text','id' => 'net_weight', 'name' => 'net_weight','style'=>'width:250px;float:left;margin-right:10px','class'=>'form-control')); ?> 
                                   <select id="net_uom" name="net_uom" class="form-control" style="width:100px"><option value="">UOM</option> 
-                                  <?php foreach($variants as $row)  {
+                                  <?php /*foreach($variants as $row)  {
                                     echo '<option value="'.$row->variants_name.'">'.$row->variants_name.'</option>';                           
-                                  } ?>
+                                  } */ ?>
                                   </select>
                               </div>
-                            </div>
-                            <div class="form-group row">
+                            </div> -->
+                            <!--<div class="form-group row">
                               <label class="col-md-4 col-form-label">Gross Weight: </label>
                               <div class="col-md-8">
-                                 <?php echo form_input(array('type'=>'text','id' => 'gross_weight', 'name' => 'gross_weight','style'=>'width:250px;float:left;margin-right:10px','class'=>'form-control')); ?> 
+                                 <?php //echo form_input(array('type'=>'text','id' => 'gross_weight', 'name' => 'gross_weight','style'=>'width:250px;float:left;margin-right:10px','class'=>'form-control')); ?> 
                                 <select id="gross_uom" name="gross_uom" style="width:100px" class="form-control">
                                     <option value="">UOM</option>
-                                    <?php foreach($variants as $row)  {
+                                    <?php /*foreach($variants as $row)  {
                                     echo '<option value="'.$row->variants_name.'">'.$row->variants_name.'</option>';                           
-                                  } ?>
+                                  } */ ?>
                                   </select>
                               </div>
-                            </div>
+                            </div> -->
                             
-                           
                             <div class="form-group row">
-                              <label class="col-md-3 col-form-label">Attributes: </label>
+                              <label class="col-md-4 col-form-label">Size: </label>
                               <div class="col-md-3">
-                                <select id="attr_1" class="form-control" name="attr_1" style="margin-left: 50px">
-                                    <option value="">Select Attributes</option>
-                                    <?php foreach($variants_type as $row)  {
-                                    echo '<option value="'.$row->id.'">'.$row->variants_type.'</option>';                           
+                                <select multiple  id="size" class="form-control" name="size[]">
+                                    <option value="">Select</option>
+                                    <?php foreach($sizes as $row)  {
+                                      echo '<option value="'.$row->variants_name.'">'.$row->variants_name.'</option>';                           
+                                    } ?>
+                                </select>
+                              </div>
+                              <label class="col-md-2 col-form-label">Dimensions: </label>
+                              <div class="col-md-3">
+                                <select multiple  id="size" class="form-control" name="dimensions[]">
+                                    <option value="">Select</option>
+                                    <?php foreach($dimensions as $row)  {
+                                      echo '<option value="'.$row->variants_name.'">'.$row->variants_name.'</option>';                           
+                                    }   ?>
+                                </select>
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <label class="col-md-4 col-form-label">Color: </label>
+                              <div class="col-md-3">
+                                <select multiple id="color" class="form-control" name="color[]">
+                                    <option value="">Select</option>
+                                    <?php foreach($color as $row)  {
+                                    echo '<option value="'.$row->variants_name.'">'.$row->variants_name.'</option>';                           
                                   } ?>
-                                </select> 
-
+                                </select>
                               </div>
-                              <label class="col-md-3 col-form-label">Values: </label>
+
+                               <label class="col-md-2 col-form-label">Shape: </label>
                               <div class="col-md-3">
-                                <select id="attr_value_1" class="form-control" name="attr_value_1" style="margin-right: 35px">
-                                    <option value="">Select Values</option>
-                                    
-                                </select> 
-
+                                <select multiple  id="size" class="form-control" name="shape[]">
+                                    <option value="">Select</option>
+                                    <?php foreach($shape as $row)  {
+                                      echo '<option value="'.$row->variants_name.'">'.$row->variants_name.'</option>';                           
+                                    } ?>
+                                </select>
                               </div>
-                              <input type="hidden" name="h1" id="h1" value="1">
                             </div>
-                            <br>
-                            <div class="form-group row">
-                              <div id="text_box_container"> </div>
 
-                            </div>
                             <div class="form-group row">
-                              <label class="col-md-2 col-form-label"> </label>
-                              <div class="col-md-2">
-                                <button type="button" class="btn btn-info pull-right" id="text_box_inserter">Add Information</button>
-                              </div>
-            
+                              <label class="col-md-4 col-form-label">Shade: </label>
+                              <div class="col-md-3">
+                                <select multiple id="color" class="form-control" name="shade[]">
+                                    <option value="">Select</option>
+                                    <?php foreach($shade as $row)  {
+                                    echo '<option value="'.$row->variants_name.'">'.$row->variants_name.'</option>';                           
+                                    } ?>
+                                </select>
+                              </div>                              
                             </div>
-                            
-                            
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label">Conversion Factor: </label>
                               <div class="col-md-8">
@@ -352,6 +376,8 @@
                               <?php echo form_input(array('type'=>'radio','id' => 'sale_item', 'name' => 'items','style'=>'margin-bottom:5px;margin-left:15px','value'=>'sale_item')); ?>      
                               </div>
                             </div>
+
+                            
                       </div>
                       </div>
                       </div>
@@ -380,6 +406,7 @@
                                  <?php echo form_input(array('id' => 'product_manufacturing', 'name' => 'product_manufacturing','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'off','maxlength'=>'50')); ?>
                               </div>
                             </div>
+
                             <div class="form-group row">
                               <label class="col-md-4 col-form-label">Manufacturing Date: </label>
                               <div class="col-md-8">
@@ -571,7 +598,6 @@
                                 </select>
                               </div>
                             </div>
-
                             <div class="form-group row" id="sale_price_div" style="display:none">
                               <label class="col-md-4 col-form-label">Sale Price: </label>
                               <div class="col-md-8">
@@ -584,7 +610,8 @@
                               <div class="col-md-8">
                                 <?php echo form_input(array('type'=>'text','id' => 'purchase_price', 'name' => 'purchase_price','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true')); ?>
                               </div>
-                            </div> 
+                            </div>
+                             
                                 </div>  
                               </div>
                             </div>
@@ -720,71 +747,7 @@ $('#purchase_item').click(function(){
   $('#sale_price').prop('required',false);
 
 });
-function getValues(i){
 
-  var variants_type=$('#attr_'+i).val();  
-  var url= "<?php echo base_url(); ?>" + "index.php/Product_masters/fetch_value"; 
-     
-    jQuery.ajax({ 
-        type: 'POST',         
-        url: url, 
-        dataType: 'json', 
-        data: {'variants_type': variants_type}, 
-        success: function (response) {             
-           //alert(response);
-            $('#attr_val_'+i).html(response);  
-            //$('#product_code').prop('readonly',true);          
-        }, 
-
-        error: function (jqXhr, textStatus, errorMessage) {           
-           $('p').append('Error' + errorMessage); 
-        } 
-    });
-   
-}
-
-//get text box 
-$('#text_box_inserter').click(function(){
-   
-var h1=$('#h1').val();
-var i=parseInt(h1)+1;
-$('#h1').val(i); 
-
-$('#text_box_container').append('<div class="form-group row"><label class="col-md-3 col-form-label">Attributes: </label><div class="col-md-3"><select id="attr_'+i+'" class="form-control add" name="attr_'+i+'" onchange="getValues('+i+')" style="margin-left: 50px"><option value="">Select Attributes</option><?php foreach($variants_type as $row)  {
-                                    echo '<option value="'.$row->id.'">'.$row->variants_type.'</option>';                           
-                                  } ?>
-                                </select> </div><label class="col-md-3 col-form-label">Values: </label><div class="col-md-3"><select id="attr_val_'+i+'" class="form-control" name="attr_value_'+i+'" style="margin-right: 35px"><option value="">Select Values</option></select></div></div>'); 
-  
-    
-});
-
-
-
-
-//send ajax data
-
-$('#attr_1').change(function(){
-  var variants_type=$('#attr_1').val();  
-
-  alert(variants_type);
-    var url= "<?php echo base_url(); ?>" + "index.php/Product_masters/fetch_value"; 
-     
-    jQuery.ajax({ 
-        type: 'POST',         
-        url: url, 
-        dataType: 'json', 
-        data: {'variants_type': variants_type}, 
-        success: function (response) {             
-           //alert(response);
-            $('#attr_value_1').html(response);  
-            //$('#product_code').prop('readonly',true);          
-        }, 
-
-        error: function (jqXhr, textStatus, errorMessage) {           
-           $('p').append('Error' + errorMessage); 
-        } 
-    });
-});
 </script>
 
     

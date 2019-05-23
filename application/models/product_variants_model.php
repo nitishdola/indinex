@@ -67,7 +67,29 @@ class Product_variants_model extends CI_Model
       $query ="select pvcode from  product_variants order by id DESC limit 1";
       $res = $this->db->query($query);
       return $res->result();
-    }   
+    }  
+
+    public function select_variants_type()  
+    {  
+      //$this->db->where('variants_type',1);
+        $query = $this->db->get('product_variants_type');
+        return $query->result(); 
+    } 
+    //get ajax data
+
+    function fetch_value($variants_type)
+     {
+      $this->db->where('variants_type', $variants_type);
+      //$this->db->order_by('state_name', 'ASC');
+      $query = $this->db->get('product_variants');
+      $output = '<option value="">Select Values</option>';
+      foreach($query->result() as $row)
+      {
+       $output .= '<option value="'.$row->variants_name.'">'.$row->variants_name.'</option>';
+      }
+      echo json_encode($output);
+     }
+ 
     
 
 } 

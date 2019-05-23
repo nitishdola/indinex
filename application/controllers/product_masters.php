@@ -36,7 +36,7 @@ class Product_masters extends CI_Controller {
         $data['sizes']=$this->product_variants_model->select_size();
         $data['color']=$this->product_variants_model->select_color();
         $data['currency']=$this->product_variants_model->select_currency();
-        
+        $data['variants_type']=$this->product_variants_model->select_variants_type();
         $data['shade']=$this->product_variants_model->select_shade();
         $data['shape']=$this->product_variants_model->select_shape();
         $data['dimensions']=$this->product_variants_model->select_dimensions();
@@ -243,14 +243,42 @@ public function change_product_master(){
 
 		if($this->input->post('sub_1'))
 		{
-			$size=serialize($_POST['size']);
- 			$color=serialize($_POST['color']);
-			//var_dump($_POST);die();
+			$size 		=serialize($_POST['size']);
+ 			$color 		=serialize($_POST['color']);
+ 			//$shape 		=serialize($_POST['shape']);
+ 			//$dimensions =serialize($_POST['dimensions']);
+ 			//$shade 		=serialize($_POST['shade']);
+ 			if(isset($_FILES['picture']['name'])){
+ 				
+ 				$new_name = 'PRODUCT_'.uniqid().time().$_FILES["file"]['name'];
+                $_FILES['file']['name'] = $new_name;
+                
+                // File upload configuration
+               
+                $config['upload_path'] = 'uploads/images/';
+                $config['allowed_types'] = 'jpg|jpeg|png|gif';
+                //$config['file_name'] = $_FILES['picture']['name'];
+                
+                //Load upload library and initialize configuration
+                $this->load->library('upload',$config);
+                $this->upload->initialize($config);
+                
+                if($this->upload->do_upload('picture')){
+                    $uploadData = $this->upload->data();
+                    $picture = $uploadData['file_name'];
+                }else{
+                    $picture = '';
+                }
+            }else{
+                $picture = '';
+            }
+
+			
     		$product_code 					= $this->input->post('product_code');		
 			$product_category_id			= $this->input->post('product_category');
 			$product_description 			= $this->input->post('product_description');
 			$product_group 					= $this->input->post('product_group');
-			$picture 						= $this->input->post('picture');
+			$picture 						= $picture;
 			$old_material_no 				= $this->input->post('old_material_no');			
 			$size 							= $size;
 			$color 							= $color;
@@ -258,7 +286,8 @@ public function change_product_master(){
 			$factor_from_uom 				= $this->input->post('factor_from_uom');
 			$conversion_factor_to 			= $this->input->post('conversion_factor_to');
 			$factor_to_uom 					= $this->input->post('factor_to_uom');
-			
+			//var_dump($_POST);
+			//die();
 			
 			$this->product_master_model->change_product_general_data($product_code,$product_category_id,$product_description,$product_group,$picture,$old_material_no,$size,$color,$conversion_factor_from,$factor_from_uom,$conversion_factor_to,$factor_to_uom);
 			$this->session->set_flashdata('response',"<div class='alert alert-success'><strong>Success!</strong>&nbsp;&nbsp;General Data Changed</div>");	
@@ -441,4 +470,13 @@ public function change_product_master(){
        	echo  json_encode($array_loc);	
 		
 	}
+
+	 function fetch_value()
+	 {
+	 	$this->load->model('product_variants_model'); 
+		  if($this->input->post('variants_type'))
+		  {
+		   echo $this->product_variants_model->fetch_value($this->input->post('variants_type'));
+		  }
+	 }
 }
