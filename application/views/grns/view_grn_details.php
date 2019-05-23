@@ -1,10 +1,21 @@
-
+<?php 
+$ch='';
+if(isset($_GET['ch'])){
+$ch=$_GET['ch'];
+if($ch=='y'){ ?>
+  <ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard'); ?>">Home</a></li>
+  <li class="breadcrumb-item"><a href="<?php echo site_url('reports/reports_sub'); ?>"> Reports</a></li>
+  <li class="breadcrumb-item"><a href="<?php echo site_url('reports/reports_sub/view_all_grns'); ?>"> GRN Reports</a></li>
+  <li class="breadcrumb-item active">GRN Details</li>  
+</ol>
+<?php } } else { ?>
 <ol class="breadcrumb">
   <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard'); ?>">Home</a></li>
   <li class="breadcrumb-item"><a href="<?php echo site_url('/grn/view_all_grns'); ?>">View All GRN Orders</a></li>
   <li class="breadcrumb-item active">GRN Details</li>
 </ol>
-
+<?php }  ?>
 <div class="page-content">
    <div class="projects-wrap">
       <div class="panel">
@@ -87,10 +98,10 @@
                               </tbody>
                            </table>
 
-                           <div class="col-md-2 pull-right">
+                          <div class="col-md-2 pull-right">
                               <button type="button" class="btn btn-
                               primary print" onclick="window.print();"> <i class="fa fa-print" aria-hidden="true"></i> PRINT </button>
-                        </div>
+                          </div>
                      </div>
                   </div>
 

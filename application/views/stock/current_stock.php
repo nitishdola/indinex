@@ -1,8 +1,20 @@
+<?php 
+$ch='';
+if(isset($_GET['ch'])){
+$ch=$_GET['ch'];
+if($ch=='y'){ ?>
+  <ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard'); ?>">Home</a></li>
+  <li class="breadcrumb-item"><a href="<?php echo site_url('reports/reports_sub'); ?>"> Reports</a></li>
+  <li class="breadcrumb-item active">Stock Report</li>  
+</ol>
+<?php } } else { ?>
 <ol class="breadcrumb">
   <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard'); ?>">Home</a></li>
   <li class="breadcrumb-item active">Stock Report</li>
   
 </ol>
+<?php }  ?>
 
 <div class="page-content">
    <div class="projects-wrap">
@@ -31,7 +43,7 @@
                         <td><?php echo $k+1; ?></td>
                         <td><?php echo $v->product_description; ?></td>
                         <td><?php echo $v->product_code; ?></td>
-                        <td><?php echo $v->product_group; ?></td>
+                        <td><?php echo $v->group_name; ?></td>
                         <td><?php echo $v->current_stock; ?></td>
                         <td>
                           <?php if($v->picture != ''): ?>

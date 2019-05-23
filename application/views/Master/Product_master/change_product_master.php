@@ -22,22 +22,24 @@
                   
                   <div class="example"> 
                   <?php echo form_open(); ?>
-                        <div class="form-group row">                                                    
+                        <!-- <div class="form-group row">                                                    
                           <div class="col-md-2">                       
-                            <?php echo form_input(array('type' =>'number', 'name' => 'code','id'=>'ccode','class'=>'form-control','style'=>'margin-bottom:5px','placeholder'=>'Product Code','autocomplete'=>'off')); ?>  
+                            <?php //echo form_input(array('type' =>'number', 'name' => 'code','id'=>'ccode','class'=>'form-control','style'=>'margin-bottom:5px','placeholder'=>'Product Code','autocomplete'=>'off')); ?>  
                           </div>
 
                            <input type="hidden" name="search" value="1">
                             <button type="submit" class="btn btn-primary">Search </button>
                             
-                        </div> 
+                        </div> -->
                       </div>   
                     <?php echo form_close(); ?>
                     <?php if($product_details->result())  { ?>                       
-                    <table class="table table-bordered">
+                     <table class="table table-hover data-table table-striped table-bordered w-full">
+                    <thead>
                     <tr>
                      <th>Sl</th><th>Picture</th><th>Product Code</th><th>Category Code</th><th>Product Description</th><th>Product Group</th><th>Size</th><th>Color</th><th>Edit</th><th>Delete</th>
-                    </tr>                    
+                    </tr>  
+                    </thead>                  
                     <tbody>
                     <?php 
                     $i=0;                           
@@ -50,21 +52,26 @@
                       <td><?php echo  $row->category_name;?></td>  
                       <td><?php echo  $row->product_description;?></td>                        
                       <td><?php echo  $row->group_name;?></td>
-                      <td><?php 
+                     <td><?php $cnt2=0;$cnt=0;
 
-                      $size=unserialize($row->size);  
-                        $cnt2= count($size);
+                      $size=unserialize($row->size); 
+                      
+                      if(!empty($size)){
+                        $cnt2= sizeof($size);
                         for($j=0;$j<$cnt2;$j++){
                           echo ($size[$j]).'<br>';
                         }
 
-                       // echo  $row->size;?></td> 
+                      }
+                        
+                      ?></td> 
                       <td><?php 
-                       $color=unserialize($row->color);  
-                        $cnt= count($color);
+                        $color=unserialize($row->color); 
+                        if(!empty($color)){ 
+                        $cnt= sizeof($color);
                         for($k=0;$k<$cnt;$k++){
                           echo ($color[$k]).'<br>';
-                        }
+                        } }
                         ?></td>  
                       <td> <a href="<?php echo site_url('product_masters/edit_product_master?product_code='.$row->product_code);?>" class="btn btn-info btn-sm"  style="margin: 5px">Change</a></td>
                       <td><button id="del_<?php echo $row->product_code; ?>" class="btn btn-danger btn-sm del"  style="margin: 5px">Delete</button> </td>

@@ -84,7 +84,7 @@
 $(function(){
   $('#customer_account_group_id').change(function(){
     var customer_group_id=$('#customer_account_group_id').val();  
-
+    $('.btn-primary').attr('disabled',true);  
     var url= "<?php echo base_url(); ?>" + "index.php/customers/ajax_get_customer_code"; 
       jQuery.ajax({ 
         type: 'GET',         
@@ -94,7 +94,8 @@ $(function(){
         success: function (response) {
                         
             $('#customer_code').val(response);  
-            $('#customer_code').prop('readonly',true);          
+            $('#customer_code').prop('readonly',true);  
+            $('.btn-primary').attr('disabled',false);              
         },
         error: function (jqXhr, textStatus, errorMessage) { 
           // $.unblockUI(); 

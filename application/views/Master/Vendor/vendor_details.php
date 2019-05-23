@@ -17,8 +17,7 @@
   <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard');?>">Home</a></li>
   <li class="breadcrumb-item"><a href="<?php echo site_url('Welcome/master');?>">Master</a></li>
   <li class="breadcrumb-item"><a href="<?php echo site_url('Vendors/vendor_master_sub');?>">Vendor</a></li>
-  <li class="breadcrumb-item"><a href="<?php echo site_url('Vendors/vendor_master_sub');?>">Vendor Master</a></li>
- 
+   
   <li class="breadcrumb-item active">Create</li>
 </ol>
 
@@ -163,9 +162,10 @@
                                     <div class="form-group row">
                                       <label class="col-md-6 col-form-label">City: </label>
                                       <div class="col-md-6">
-                                          <select id="city_id" name="city" class="form-control" required="true">
+                                         <!--<select id="city_id" name="city" class="form-control" required="true">
                                             <option value="">Select</option>
-                                          </select>
+                                          </select>-->
+                                          <?php echo form_input(array('type' => 'text','id' => 'city', 'name' => 'city','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'false')); ?>
                                       </div>
                                     </div>
                                     
@@ -326,9 +326,10 @@
                             <div class="form-group row">
                               <label class="col-md-6 col-form-label">City: </label>
                               <div class="col-md-6">
-                                <select id="bank_city" name="bank_city" class="form-control">
+                                <!--<select id="bank_city" name="bank_city" class="form-control">
                                   <option value="">Select</option>
-                                </select>
+                                </select> -->
+                                <?php echo form_input(array('type' => 'text','id' => '', 'name' => 'bank_city','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'false')); ?>
                               </div>                             
                             </div>
                     </div>                    

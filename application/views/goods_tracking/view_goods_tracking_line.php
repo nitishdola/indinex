@@ -1,10 +1,26 @@
+  <?php 
+      $ch='';
+      if(isset($_GET['ch'])){
+      $ch=$_GET['ch'];
+      if($ch=='y'){ ?>
+        
+        <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard'); ?>">Home</a></li>
+        <li class="breadcrumb-item"><a href="<?php echo site_url('reports/reports_sub'); ?>"> Reports</a></li>
+        <li class="breadcrumb-item"><a href="<?php echo site_url('reports/reports_sub/view_all_goods_tracking'); ?>"> Goods Tracking Reports</a></li>
+        <li class="breadcrumb-item active">Goods Tracking Details</li>  
+        </ol>
 
+
+
+      <?php  } } else {  ?>                                                   
 <ol class="breadcrumb">
   <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard'); ?>">Home</a></li>
   <li class="breadcrumb-item"><a href="<?php echo site_url('goods_tracking/goods_tracking_menu'); ?>">Goods Tracking</a></li>
-  <li class="breadcrumb-item"><a href="<?php echo site_url('goods_tracking/create_goods_tracking'); ?>">Create</a></li> 
+  <li class="breadcrumb-item"><a href="<?php echo site_url('goods_tracking/create_goods_tracking'); ?>">Display</a></li> 
   <li class="breadcrumb-item active"> Tracking</li>
 </ol>
+<?php }  ?>
 <div class="page-content">
    <div class="projects-wrap">
       <div class="panel">
@@ -13,6 +29,7 @@
 
                   <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                     <h3 style="text-align: left;"> Purchase Order Number : #<?php  echo $purchase_order_number; ?> </h3>
+                    <h3 style="text-align: left;"> Vendor Name : #<?php  echo $results[0]->vendor_name; ?> </h3>
                      <div class="example-wrap">
                       <?php echo form_open_multipart('Goods_tracking/save_goods_tracking'); ?>
                         <div class="example">
@@ -69,7 +86,10 @@
                               </tbody>
                            </table>
                           <?php }  ?> 
-                         
+                         <div class="col-md-2 pull-right">
+                              <button type="button" class="btn btn-
+                              primary print" onclick="window.print();"> <i class="" ="fa fa-print" aria-hidden="true"></i> PRINT </button>
+                          </div>
                      </div>
                      
                   </div>

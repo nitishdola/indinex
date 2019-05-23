@@ -11,7 +11,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-5">
-        <?php echo form_open('pos/save_pos'); ?>
+        <?php //echo form_open('pos/save_pos'); ?>
         <div id="cart" style="display: none;">
           <!-- <div class="form-group row">
             <label class="col-md-4 col-form-label">Receipt Number : </label>
@@ -154,8 +154,8 @@
         <div class="tab-content" id="pills-tabContent">
         <div class="tab-pane fade show active" id="showall" role="tabpanel" aria-labelledby="showall-tab">
           <div class="Portfolio"><a href="javascript:void(0)" onclick="addProductToCart(<?php echo $v->product_general_data_id; ?>, '<?php echo $v->product_description; ?>', '<?php echo $v->sale_price; ?>', '<?php echo $v->currency; ?>')">
-            <?php if($v->picture == '') { ?><img class="card-img" width="40" height="40" src="<?php echo base_url('uploads/images/default.png'); ?>" > <?php } ?>
-            <img class="card-img" width="30" height="30" src="<?php echo base_url(); ?>uploads/images/<?php echo $v->picture; ?>" alt=""></a><div class="desc"><?php echo ucwords($v->product_description); ?> <br>
+            <?php if($v->picture == '') { ?><img class="card-img" width="50" height="40" src="<?php echo base_url('uploads/images/default.png'); ?>" > <?php } ?>
+            <img class="card-img" width="50" height="50" src="<?php echo base_url(); ?>uploads/images/<?php echo $v->picture; ?>" alt=""></a><div class="desc"><?php echo ucwords($v->product_description); ?> <br>
             <?php echo $v->sale_price; ?> <?php echo $v->currency; ?></div></div>
           
         </div>

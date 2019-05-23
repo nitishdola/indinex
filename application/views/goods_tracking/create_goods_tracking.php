@@ -74,13 +74,13 @@ $('#vendor_id').change(function(){
 $('#purchase_order_id').empty();
 var vendor_id           =$('#vendor_id').val();
 var purchase_order_id   =$('#purchase_order_id').val();
-
+$('.btn-primary').attr('disabled',true);
   //if(purchase_order_id!='' && vendor_id!=''){
-  if(vendor_id!=''){
+  /*if(vendor_id!=''){
       $('.btn-primary').attr('disabled',false);
   } else {
       $('.btn-primary').attr('disabled',true);
-  }
+  }*/
 
 
 /*$('#purchase_order_id')
@@ -100,7 +100,8 @@ var url= "<?php echo base_url(); ?>" + "index.php/goods_tracking/ajax_get_po_det
                 $('#purchase_order_id')
                   .append($("<option></option>")
                   .attr("value",jsonObject['purchase_order_id'])
-                  .text(jsonObject['purchase_order_no']));              
+                  .text(jsonObject['purchase_order_no']));    
+                  $('.btn-primary').attr('disabled',false);          
             });        
           },
       error: function (jqXhr, textStatus, errorMessage) { 

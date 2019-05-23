@@ -21,14 +21,16 @@
                           <table class="table table-bordered">
                             <tr>
                               <th>Purchase Order Document Type : </th>
-                              <td><?php //echo $po_details->name; ?></td>
+                              <td><?php echo $po_details->name; ?></td>
                               <th>Purchase Order No : </th>
                               <td><?php echo $po_details->purchase_order_no; ?></td>
 
                             </tr>
                             <tr>
                               <th>Vendor Name : </th>
-                              <td><?php echo ucfirst($po_details->first_name).'&nbsp;'.$po_details->middle_name.'&nbsp;'.$po_details->last_name; ?></td>
+                              <td><?php echo ucfirst($po_details->first_name).'&nbsp;'.$po_details->middle_name.'&nbsp;'.$po_details->last_name; ?>
+                                <input type="hidden" name="vendor_name" value="<?php echo ucfirst($po_details->first_name).'&nbsp;'.$po_details->middle_name.'&nbsp;'.$po_details->last_name; ?>">
+                              </td>
                               <th>Purchase Order Date : </th>
                               <td><?php echo date('d-m-Y', strtotime($po_details->purchase_order_date)); ?></td>
 
@@ -123,7 +125,7 @@
                               </thead>
                               <?php $total_price = 0; ?>
                               <tbody class="itembody">
-                                <?php foreach($po_items as $k => $v): // var_dump($v); ?>
+                                <?php foreach($po_items as $k => $v): //  var_dump($v); ?>
                                  <tr id="<?php echo 'tr_'.$k; ?>">
                                     <td> <?php echo $k+1; ?></td>
                                     <td> 

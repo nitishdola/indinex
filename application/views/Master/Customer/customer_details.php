@@ -173,9 +173,7 @@
                                     <div class="form-group row">
                                       <label class="col-md-6 col-form-label">City: </label>
                                       <div class="col-md-6">
-                                          <select id="city_id" name="city" class="form-control" required="true">
-                                            <option value="">Select</option>
-                                          </select>
+                                          <?php echo form_input(array('type' => 'text','id' => 'city', 'name' => 'city','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'false')); ?>
                                       </div>
                                     </div>
                                     
@@ -335,9 +333,7 @@
                             <div class="form-group row">
                               <label class="col-md-6 col-form-label">City: </label>
                               <div class="col-md-6">
-                               <select id="bank_city" name="bank_city" class="form-control">
-                                 <option value="">Select</option>
-                                </select>
+                                <?php echo form_input(array('type' => 'text','id' => '', 'name' => 'bank_city','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'false')); ?>
                               </div>                             
                             </div>
                     </div>                    

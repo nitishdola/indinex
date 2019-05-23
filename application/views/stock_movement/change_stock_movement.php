@@ -20,23 +20,11 @@
                   <h4 class="example-title">Change Stock Movement</h4>                  
                   <div class="example"> 
                   <div class="example-wrap">
-                     <?php echo form_open(); ?>
-                        <div class="form-group row">                                                    
-                          <div class="col-md-2">                       
-                              <select name="transfer_type" id="transfer_type_id" class="form-control" >
-                                <option value="0">Transfer Type</option>
-                                <option value="1">Storage Location To Storage Location</option>
-                                <option value="2">Plant to Plant</option>
-                            </select>                   
-                          </div>
-
-                           <input type="hidden" name="search" value="1">
-                            <button type="submit" class="btn btn-primary">Search </button>
-                            
-                        </div> 
-                      </div>   
-                       <?php echo form_close(); ?>                      
-                      <table class="table table-bordered">
+                     
+                        
+                                          
+                       <table class="table table-hover data-table table-striped table-bordered w-full">
+                    <thead>
                      <tr>  
                       <td colspan="3"></td>
                       <td colspan="2" align="center">Transfer From</td>
@@ -58,6 +46,7 @@
                          <th>Picked By</th>
                          <th>Edit</th>
                       </tr>
+                      </thead>
                       <?php 
                       $i=0;                           
                       foreach($res as $row)  
@@ -108,7 +97,9 @@
       </div>
     </div>
   </div>
+
 <?php $this->load->view('layout/admin/footer'); ?>
-    
+    </div>
+    </body>
 
     

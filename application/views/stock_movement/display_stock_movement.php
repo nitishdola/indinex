@@ -4,11 +4,24 @@
 
     <div class="page">
       <div class="page-header">
+      <?php 
+      $ch='';
+      if(isset($_GET['ch'])){
+      $ch=$_GET['ch'];
+      if($ch=='y'){ ?>
+        
+        <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard'); ?>">Home</a></li>
+        <li class="breadcrumb-item"><a href="<?php echo site_url('reports/reports_sub'); ?>"> Reports</a></li>
+        <li class="breadcrumb-item active">View Stock Movements </li>  
+        </ol>
+        <?php  } } else {  ?> 
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard');?>">Home</a></li>
         <li class="breadcrumb-item"><a href="<?php echo site_url('stock_movement/stock_movement');?>">Stock Movement</a></li>
         <li class="breadcrumb-item active">Display</li>
       </ol>
+      <?php }  ?>
       <div class="page-content">
         <div class="projects-wrap">
           <div class="panel">
@@ -19,29 +32,18 @@
                 <div class="example-wrap">
                   <h4 class="example-title">Display Stock Movement</h4>                  
                   <div class="example"> 
-                  <div class="example-wrap">
-                     <?php echo form_open(); ?>
-                        <div class="form-group row">                                                    
-                          <div class="col-md-2">                       
-                              <select name="transfer_type" id="transfer_type_id" class="form-control" >
-                                <option value="0">Transfer Type</option>
-                                <option value="1">Storage Location To Storage Location</option>
-                                <option value="2">Plant to Plant</option>
-                            </select>                   
-                          </div>
-
-                           <input type="hidden" name="search" value="1">
-                            <button type="submit" class="btn btn-primary">Search </button>
-                            
-                        </div> 
+                 
+                  
+                       
                       </div>   
-                       <?php echo form_close(); ?>                      
-                      <table class="table table-bordered">
+                                       
+                     <table class="table table-hover data-table table-striped table-bordered w-full">
+                    <thead>
                      <tr>  
                       <td colspan="3"></td>
                       <td colspan="2" align="center">Transfer From</td>
                       <td colspan="2" align="center">Transfer To</td>
-                      <td colspan="5"></td>
+                      <td colspan="7"></td>
                       </tr>
                       <tr>
                          <th>Sl</th>
@@ -51,12 +53,15 @@
                          <th>Storage Location</th>
                          <th>Plant</th>
                          <th>Storage Location</th>
-                         <th>Qty</th>  
+                         <th>Qty</th> 
+                         <th>Batch</th>  
                          <th>Requested By</th>
                          <th>Requested Date</th>                         
                          <th>Received by</th>
                          <th>Picked By</th>
+                         <th>Issue Date</th> 
                       </tr>
+                      </thead>
                       <?php 
                       $i=0;                           
                       foreach($res as $row)  
@@ -81,19 +86,25 @@
                               echo "Plant To Plant"; 
                             } ?>                          
                         </td>
-                        <td></td>
-                        <td></td>
+                        <td><?php echo  $row->first_name;?></td> 
+                        <td><?php echo  $row->fname;?></td> 
                         <td></td>
                         <td></td>
                         <td><?php echo  $row->transfer_quantity." ".$row->qty_uom;?></td> 
+                        <td><?php echo  $row->batch;?></td> 
                         <td><?php echo  ucfirst($row->requested_by);?></td> 
                         <td><?php echo  date('d-m-Y',strtotime($row->requested_date));?></td> 
                         <td><?php echo  $row->received_by;?></td> 
                         <td><?php echo  ucfirst($row->picked_by);?></td> 
+                         <td><?php echo  date('d-m-Y',strtotime($row->issue_date));?></td> 
 
                         </tr>
                      <?php } ?>
                     </table>
+                    <div class="col-md-2 pull-right">
+                              <button type="button" class="btn btn-
+                              primary print" onclick="window.print();"> <i class="fa fa-print" aria-hidden="true"></i> PRINT </button>
+                          </div>
                 </div>
               </div>
               </div>        

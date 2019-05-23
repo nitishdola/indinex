@@ -37,7 +37,7 @@ class Purchase_order_model extends CI_Model
       return $min;
     }else{
 
-      $this->db->order_by('purchase_order_no', 'ASC');
+      $this->db->order_by('purchase_order_no', 'DESC');
       $this->db->from('purchase_order');
       $this->db->where('purchase_order_document_type_id', $purchase_order_document_type_id);
       $query = $this->db->get();
@@ -142,11 +142,11 @@ class Purchase_order_model extends CI_Model
 
   public function fetchAllVendors()  
   {  
-      $where['purchase_order.status'] = 1;
-      $this->db->where($where);
-      $this->db->from('purchase_order');
-      $this->db->group_by('vendor_details.vendor_id');
+     // $where['purchase_order.status'] = 1;
+      //$this->db->where($where);
+      $this->db->from('purchase_order');     
       $this->db->join('vendor_details', 'vendor_details.vendor_id = purchase_order.vendor_id');
+      $this->db->group_by('vendor_details.vendor_id');
       $query = $this->db->get();
       return $query->result(); 
   }
@@ -272,9 +272,13 @@ class Purchase_order_model extends CI_Model
     $where['goods_tracking_items.stock_type'] = 'Verification on Arrival';
     $where['goods_tracking_items.purchase_order_id'] = $purchase_order_id;
     $where['goods_tracking_items.consignment_no'] = $consignment_no;
+    $this->db->select('goods_tracking_items.*,product_general_data.*,product_purchase_data.*,storage_type.*,storage_location.id,storage_location.first_name as sname,storage_location.middle_name as mname,storage_location.last_name as lname');
     $this->db->where($where);
     $this->db->from('goods_tracking_items');
     $this->db->join('product_general_data', 'product_general_data.id = goods_tracking_items.purchase_line_item_id');
+    $this->db->join('product_purchase_data', 'product_purchase_data.product_code = product_general_data.product_code');
+    $this->db->join('storage_type', 'storage_type.storage_id = product_purchase_data.plant');
+    $this->db->join('storage_location', 'storage_location.id = product_purchase_data.storage_location','left');
     $query = $this->db->get();
     return $query->result();
 

@@ -54,6 +54,13 @@ class Stock_movement extends CI_Controller {
 		if($this->input->post('sub'))
  		{
  			//var_dump($_POST);
+ 			$storage_to=$this->input->post('storage_to');
+ 			if($storage_to!=''){
+ 				$storage_to=$storage_to;
+ 			} else {
+ 				$storage_to=$this->input->post('storage_to2');
+ 			}
+
  			//exit();
  			$plant_transfer=$this->input->post('plant_transfer');
  			if($plant_transfer!=''){
@@ -91,18 +98,21 @@ class Stock_movement extends CI_Controller {
 			  	'plant_id_1' 				=> $this->input->post('plant_id'),
 			  	'storage_id_1' 				=> $this->input->post('storage_from'),
 			  	'plant_id_2' 				=> $this->input->post('plant_transfer'),
-			  	'storage_id_2	'			=> $this->input->post('storage_to'),
+			  	'storage_id_2	'			=> $storage_to,
 			  	'transfer_quantity'			=> $this->input->post('quantity'),
 			  	'picked_by' 				=> $this->input->post('picked_by'),
 			  	'requested_by' 				=> $this->input->post('requested_by'),
 			  	'requested_date' 			=> date('Y-m-d',strtotime($this->input->post('requested_date'))),
+			  	'batch' 					=> $this->input->post('batch'),
+			  	'issue_date' 				=> date('Y-m-d',strtotime($this->input->post('issue_date'))),
+			  	'receiver' 					=> $this->input->post('receiver'),
 			  	'received_by' 				=> $this->input->post('received_by'),
 			  	'last_id_1' 				=> $last_id_1,
 			  	'last_id_2' 				=> $last_id_2
 			);
 			$this->stock_movement_model->main_form_insert($main_movement_data);
 
-			$this->session->set_flashdata('response',"<div class='alert alert-success'><strong>Success!</strong>&nbsp;&nbsp;record inserted</div>");			
+			$this->session->set_flashdata('response',"<div class='alert alert-success'><strong>Success!</strong>&nbsp;&nbsp;Your Tracking Slip No is - ".str_pad($this->input->post('tracking_slip_no'), 4, '0', STR_PAD_LEFT)."</div>");			
 			redirect(site_url('stock_movement/create_stock_movement'));	
 		}
 
@@ -279,8 +289,15 @@ class Stock_movement extends CI_Controller {
 		$transferred=0;
 		$this->load->model('grn_items_model'); 
         $arr['current_stock']=$this->grn_items_model->fetchCurrentStockStock($palnt_id,$product_id);
+        //$arr['current_stock']=$this->product_master_model->fetchCurrentStock($palnt_id,$product_id);
+        //var_dump($arr['current_stock']);
+        $stock=0;
+        if(!empty($arr['current_stock'])){
 		$stock 			=$arr['current_stock'][0]->stock;
 		$transferred 	=$arr['current_stock'][0]->transfer_stock;
+		} else {
+			echo $stock=0;
+		}
 
 		echo $current_stock=$stock-$transferred;
 		

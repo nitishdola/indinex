@@ -18,7 +18,7 @@
           <div class="panel">
             <div class="panel-body container-fluid">
             <div class="row row-lg">
-              <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+              <div style="text-align:left" class="col-md-10 col-lg-10 col-sm-12 col-xs-12">
                 <!-- Example Horizontal Form -->
                   <div class="example-wrap" style="margin-bottom: 0px">                          
                     <nav>
@@ -113,13 +113,13 @@
                                <div class="form-group row">
                               <label class="col-md-6 col-form-label">Contact Person: </label>
                               <div class="col-md-6">
-                                <?php echo form_input(array('type' => 'text','id' => 'contact_person', 'name' => 'contact_person','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'false','maxlength'=>'10','required'=>'true','value'=>$row->contact_person)); ?>
+                                <?php echo form_input(array('type' => 'text','id' => 'contact_person', 'name' => 'contact_person','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'false','maxlength'=>'10','value'=>$row->contact_person)); ?>
                               </div>
                             </div>
                             <div class="form-group row">
                               <label class="col-md-6 col-form-label">Contact Person Mobile:: </label>
                               <div class="col-md-6">
-                                 <?php echo form_input(array('type' => 'number','id' => 'contact_person_mobile', 'name' => 'contact_person_mobile','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'false','required'=>'true','maxlength'=>'10','value'=>$row->contact_person_mobile)); ?>
+                                 <?php echo form_input(array('type' => 'number','id' => 'contact_person_mobile', 'name' => 'contact_person_mobile','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'false','maxlength'=>'10','value'=>$row->contact_person_mobile)); ?>
                               </div>
                             </div> 
                             <div class="form-group row">
@@ -145,12 +145,13 @@
                             <div class="form-group row">
                               <label class="col-md-6 col-form-label">City: </label>
                               <div class="col-md-6">
-                                   <select id="city_id" name="city" class="form-control">
-                                <?php foreach($city as $ct)     
+                                 <!--  <select id="city_id" name="city" class="form-control"> -->
+                                <?php /* foreach($city as $ct)     
                                     { ?>
                                     <option <?php if($ct->city_name == $row->city){ echo 'selected="selected"'; } ?> value="<?php echo $ct->city_name; ?>"><?php echo $ct->city_name?> </option>
-                                    <?php }  ?>
-                                </select>
+                                    <?php } */  ?>
+                                    <?php echo form_input(array('type' => 'text','id' => 'city', 'name' => 'city','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'false','value'=>$row->city)); ?>
+                                <!-- </select> -->
                               </div>
                             </div>                            
 
@@ -322,12 +323,15 @@
                             <div class="form-group row">
                               <label class="col-md-6 col-form-label">City: </label>
                               <div class="col-md-6">
-                               <select id="bank_city" name="bank_city" class="form-control">
-                                <?php foreach($city as $ct)     
+                                <!--<select id="bank_city" name="bank_city" class="form-control">
+                                <?php /*foreach($city as $ct)     
                                     { ?>
                                     <option <?php if($ct->city_name == $row->bank_city){ echo 'selected="selected"'; } ?> value="<?php echo $ct->city_name; ?>"><?php echo $ct->city_name?> </option>
-                                    <?php }  ?>
-                                </select>
+                                    <?php } */ ?>
+                                </select> -->
+
+                                <?php echo form_input(array('type' => 'text','id' => '', 'name' => 'bank_city','class'=>'form-control','style'=>'margin-bottom:5px','autocomplete'=>'false','value'=>$row->bank_city)); ?>
+
                               </div>                             
                             </div>
                     </div>                    
@@ -444,7 +448,7 @@ $(function(){
     //alert(region_id);
     $('#city_id').empty(); 
     var city=$('#city_id').val(); 
-    alert(city);
+    //alert(city);
       var url= "<?php echo base_url(); ?>" + "index.php/Masters/ajax_get_cities";       
         jQuery.ajax({
           type: 'GET',        

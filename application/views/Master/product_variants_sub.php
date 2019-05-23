@@ -6,7 +6,7 @@
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
         <li class="breadcrumb-item"><a href="<?php echo site_url('Welcome/master');?>">Master</a></li>
-        <li class="breadcrumb-item active">Line of Business</li>
+        <li class="breadcrumb-item active">Product variant</li>
       </ol>
       <div class="page-content">
 

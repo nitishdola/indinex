@@ -21,10 +21,10 @@
                     </div>
                     <button type="button" class="btn btn-inverse project-button">
 
-                      <a title="DASHBOARD" class="dashboard-links" href="<?php echo base_url('#'); ?>">DASHBOARD</a></button>
+                      <a title="DASHBOARD" class="dashboard-links" href="<?php echo site_url('dashboard/home'); ?>">DASHBOARD</a></button>
                   </figcaption>
                 </figure>
-                <div class="text-truncate"><a class="dashboard-links" href="<?php echo base_url('#'); ?>">DASHBOARD</a></div>
+                <div class="text-truncate"><a class="dashboard-links" href="<?php echo site_url('dashboard/home'); ?>">DASHBOARD</a></div>
               </div>
             </li>
             <li>

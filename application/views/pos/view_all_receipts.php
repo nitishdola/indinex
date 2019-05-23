@@ -6,7 +6,7 @@ if($ch=='y'){ ?>
   <ol class="breadcrumb">
   <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard'); ?>">Home</a></li>
   <li class="breadcrumb-item"><a href="<?php echo site_url('reports/reports_sub'); ?>"> Reports</a></li>
-  <li class="breadcrumb-item active">View All Purchase Orders</li>  
+  <li class="breadcrumb-item active">View All Sales</li>  
 </ol>
 <?php } } else { ?>
 <ol class="breadcrumb">
@@ -40,7 +40,7 @@ if($ch=='y'){ ?>
                         <td><?php echo $v->receipt_number; ?></td>
                         <td><?php echo date('d-m-Y', strtotime($v->receipt_date)); ?></td>
                         <td><?php echo ucwords($v->first_name).'&nbsp;'.ucwords($v->middle_name).'&nbsp;'.ucwords($v->last_name); ?></td>
-                        <td><a class="btn btn-sm btn-primary" href="<?php echo site_url('pos/view_receipt/'.$v->id); ?>"> <i class="fa fa-share" aria-hidden="true"></i> Details</a>
+                        <td><a class="btn btn-sm btn-primary" href="<?php echo site_url('pos/view_receipt/'.$v->id.'?ch=y'); ?>"> <i class="fa fa-share" aria-hidden="true"></i> Details</a>
                         </td>
                       </tr>
                   	<?php endforeach; ?>
