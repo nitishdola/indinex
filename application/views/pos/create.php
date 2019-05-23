@@ -19,7 +19,7 @@
                <input id="receipt_number" name="receipt_number" value="<?php echo $receipt_number; ?>" class="form-control" required="required">
             </div>
           </div>  -->         
-          <table class="table table-condensed borderless table-bordered">
+          <table class="table table-condensed borderless table-bordered" id="pos_table">
             <!-- <thead class="table-thead">
               <tr style="font-weight: bold;">
                 <th>Sl</th>
@@ -50,9 +50,9 @@
                 <td>
                     <table>
                       <tr>
-                        <td><button>1</button></td>
-                        <td><button>2</button></td>
-                        <td><button>3</button></td>
+                        <td><button  type="button" onclick="calculateMe(1)">1</button></td>
+                        <td><button  type="button" onclick="calculateMe(2)">2</button></td>
+                        <td><button  type="button" onclick="calculateMe(3)">3</button></td>
                         <td>
                           <a href="javascript:void(0)" class="btn btn-default btn-xs" id="calc_qty"> 
                             Qty
@@ -62,9 +62,9 @@
                       </tr>
 
                       <tr>
-                        <td><button>4</button></td>
-                        <td><button>5</button></td>
-                        <td><button>6</button></td>
+                        <td><button type="button"  onclick="calculateMe(4)">4</button></td>
+                        <td><button  type="button" onclick="calculateMe(5)">5</button></td>
+                        <td><button  type="button" onclick="calculateMe(6)">6</button></td>
                         <td>
                           <a id="calc_disc" href="javascript:void(0)" class="btn btn-default btn-xs">
                             Disc
@@ -74,9 +74,9 @@
                       </tr>
 
                       <tr>
-                        <td><button>7</button></td>
-                        <td><button>8</button></td>
-                        <td><button>9</button></td>
+                        <td><button  type="button" onclick="calculateMe(7)">7</button></td>
+                        <td><button  type="button" onclick="calculateMe(8)">8</button></td>
+                        <td><button  type="button" onclick="calculateMe(9)">9</button></td>
                         <td>
                           <a id="calc_price" href="javascript:void(0)" class="btn btn-default btn-xs">
                             Price
@@ -86,7 +86,7 @@
                       </tr>
 
                       <tr>
-                        <td><button>0</button></td>
+                        <td><button type="button" onclick="calculateMe(0)">0</button></td>
                         <td></td>
                         <td></td>
                         <td>
@@ -112,6 +112,20 @@
                       {
                         echo '<option value="'.$row->customer_id.'">'.ucwords($row->first_name).'&nbsp;'.ucwords($row->middle_name).''.ucwords($row->last_name).'</option>';
                       } ?>
+                  </select>
+                </td>
+              </tr>
+
+
+              <tr>
+                <td colspan="1">Select Payment Type</td>
+                <td colspan="1">
+                  
+                  <select id="payment_type" class="form-control" required="required" name="payment_type">
+                    <option value="-1"> Select Payment Type</option>
+                    <option value="cash">Cash</option>
+                    <option value="credit">Credit</option>
+                    <option value="order">Order</option>
                   </select>
                 </td>
               </tr>
@@ -163,6 +177,11 @@ var sl = 1;
 
 product_ids = [];
 
+active = '';
+
+discount = 0;
+
+
 addProductToCart = function(product_id, product_description, product_price, product_currency) {
 
   
@@ -175,12 +194,20 @@ addProductToCart = function(product_id, product_description, product_price, prod
 
     total_price = total_price.toFixed(2);
 
-    html += '<tr>';
+    html += '<tr onclick="letsclicktr('+product_id+')" id="trid_'+product_id+'">';
 
     html += '<td>'+product_description+'<input type="hidden" name="product_ids[]" value="'+product_id+'" />';
 
     html += '<br><span id="qty_'+product_id+'">'+qty+'</span> Unit(s) @ ';
-    html += '<span id="product_price_'+product_id+'"> INR '+product_price+'</span></td>';
+    html += '<span id="product_price_'+product_id+'"> INR '+product_price+'</span>';
+    //if(discount > 0) {
+      html += '<br>* Discount <span id="discount_'+product_id+'">'+discount+' </span> % ';
+    //}
+    
+    html += '<input type="hidden" id="valQty'+product_id+'" name="quantities[]" value="1" />';
+    html += '<input type="hidden" id="valPrice'+product_id+'" name="prices[]" value="'+product_price+'" />';
+    html += '<input type="hidden" id="valDiscount'+product_id+'" name="discounts[]" value="0" />';
+    html += '</td>';
 
     html += '<td class="ttlpriceunit" id="total_price_'+product_id+'">'+total_price+'</td>';
 
@@ -195,7 +222,7 @@ addProductToCart = function(product_id, product_description, product_price, prod
     });
 
     $('#totalPrice').text($mainTotal.toFixed(2));
-
+console.log(html);
     sl++;
   }else{
     //add to quantity
@@ -245,19 +272,118 @@ calculateTotalPrice = function(prd_id) {
 
 
 $('#calc_qty').click(function() {
+
+  $('#calc_disc').removeClass('btn-success');
+  $('#calc_price').removeClass('btn-success');
+
   $(this).removeClass('btn-default');
   $(this).addClass('btn-success');
+
+  active = '';
+  active = 'quantity';
+
 });
 
-$('#calc_qty').click(function() {
+$('#calc_disc').click(function() {
+
+  $('#calc_qty').removeClass('btn-success');
+  $('#calc_price').removeClass('btn-success');
+
+
   $(this).removeClass('btn-default');
   $(this).addClass('btn-success');
+
+  active = '';
+  active = 'discount';
 });
 
-$('#calc_qty').click(function() {
+$('#calc_price').click(function() {
+
+  $('#calc_disc').removeClass('btn-success');
+  $('#calc_qty').removeClass('btn-success');
+
   $(this).removeClass('btn-default');
   $(this).addClass('btn-success');
+
+  active = '';
+  active = 'price';
 });
 
+$('#calc_back').click(function() {
+
+    //console.log(mainVal+' active is '+active);
+
+    mainVal = String(mainVal);
+    newMainVal = mainVal.slice(0, -1);//mainVal.substring(0, mainVal.length-1);
+
+    mainVal = newMainVal;
+    clicked = false;
+    calculateMe(newMainVal);
+});
+
+activerowid = '';
+
+letsclicktr = function(pid) {
+  $('#pos_table tr').removeClass("alert alert-info");
+  $('#trid_'+pid).addClass('alert alert-info');
+
+  activepid = '';
+  activepid = pid;
+
+  mainVal = 0;
+  clicked = false;
+}
+
+clicked = false;
+
+mainVal = 0;
+
+calculateMe = function(val) {
+  if(clicked == false) {
+    mainVal = val;
+  }else{
+    mainVal = String(mainVal)+String(val);
+  }
+  //console.log(mainVal);
+  clicked = true;
+
+  if(active == 'quantity') {
+    $('#qty_'+activepid).text(mainVal);
+    $('#valQty'+activepid).val(mainVal);
+    $productPrice = parseFloat($('#product_price_'+activepid).text().replace('INR ', '')); 
+    $('#total_price_'+activepid).text(mainVal*$productPrice);
+  }
+
+  if(active == 'discount') {
+    $totalPrice = '';
+    $totalPrice = parseFloat($('#total_price_'+activepid).text().replace('INR ', ''));
+
+    discountVal = 0;
+    discountVal = (mainVal/100)*$totalPrice;
+
+    $('#total_price_'+activepid).text(($totalPrice-discountVal).toFixed(2));
+
+    $('#discount_'+activepid).text(mainVal);
+
+    $('#valDiscount'+activepid).val(mainVal);
+  }
+
+
+  if(active == 'price') {
+    $quantityVal = parseFloat($('#qty_'+activepid).text());
+    $('#product_price_'+activepid).text(mainVal);
+
+    $('#valPrice'+activepid).val(mainVal);
+
+    $('#total_price_'+activepid).text( ($quantityVal*mainVal).toFixed(2) );
+  }
+  
+
+  /*
+  html += '<input type="hidden" id="valQty'+product_id+'" name="quantities[]" value="" />';
+    html += '<input type="hidden" id="valPrice'+product_id+'" name="prices[]" value="" />';
+    html += '<input type="hidden" id="valDiscount'+product_id+'" name="discounts[]" value="" />';
+    */
+}
 </script>
 <?php $this->load->view('layout/admin/footer_with_js_close'); ?>

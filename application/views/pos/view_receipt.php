@@ -50,8 +50,6 @@ if($ch=='y'){ ?>
                             </tr>
 
                           </table>
-
-                          <h4 style="text-align: left;"> ITEMS : </h4>
                            <table class="table table-bordered" id="itemtable">
                               <thead class="table-thead">
                                  <tr>
@@ -71,6 +69,10 @@ if($ch=='y'){ ?>
                                        Price
                                    </th>
 
+                                   <th width="12%">
+                                        Discount
+                                    </th>
+
                                    <th style="text-align: right;">
                                        Total Price
                                    </th>
@@ -85,7 +87,18 @@ if($ch=='y'){ ?>
                                     <td> <?php echo $v->product_description; ?> </td>
                                     <td> <?php echo $v->quantity; ?> </td>
                                     <td> <?php echo $v->price; ?> </td>
-                                    <td  style="text-align: right;"> <?php echo number_format((float)($v->quantity*$v->price), 2, '.', ''); ?> </td>
+                                    <td> <?php echo $v->discount; ?> % </td>
+                                    <td  style="text-align: right;"> 
+                                    <?php 
+                                      $original_price = $v->quantity*$v->price;
+
+                                      $discount = $v->discount;
+
+                                      $discount_value = ($discount/100)*$original_price;
+
+                                      $price = $original_price - $discount_value;
+                                    ?>
+                                     <?php echo number_format((float)($price), 2, '.', ''); ?> </td>
                                     
                                   </tr>
                                 <?php endforeach; ?>  
@@ -93,7 +106,7 @@ if($ch=='y'){ ?>
 
                               <tfoot>
                                 <tr  style="text-align: right;">
-                                  <td colspan="4"> Total Price </td>
+                                  <td colspan="5"> Total Price </td>
                                   <td> <?php echo number_format((float)($ttl), 2, '.', ''); ?>
                                   </td>
 
@@ -101,21 +114,20 @@ if($ch=='y'){ ?>
 
                                 
                                 <?php $tax = 0; ?>
-                                <tr  style="text-align: right;">
-                                  <td colspan="4"> Discount </td>
-                                  <td> <?php echo number_format((float)($sales_details->discount), 2, '.', ''); ?>
-                                  </td>
-
-                                </tr>
+                                
 
                                 <tr  style="text-align: right;">
-                                    <td colspan="4"> Total Amount to be Paid </td>
+                                    <td colspan="5"> Total Amount to be Paid </td>
                                     <td> <?php echo number_format((float)(($ttl+$tax) - $sales_details->discount ), 2, '.', ''); ?>
                                     <br>
                                     <br>
-                                    (<?php echo ucwords(convertToText(($ttl+$tax) - $sales_details->discount)); ?>) only 
+                                    
                                     </td>
 
+                                  </tr>
+
+                                  <tr style="text-align: right;">
+                                    <td colspan="6">(<?php echo ucwords(convertToText(($ttl+$tax) - $sales_details->discount)); ?>) only </td>
                                   </tr>
 
                               </tfoot>
