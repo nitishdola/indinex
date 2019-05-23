@@ -41,6 +41,14 @@ class Pos extends CI_Controller {
 
     public function save_pos() {
 
+        /*var_dump($this->input->post()); 
+        $data = $this->input->post();
+        highlight_string("<?php\n\$data =\n" . var_export($data, true) . ";\n?>");
+
+        exit;*/
+
+
+
         $this->load->model('sales_model'); 
         $this->load->model('sales_items_model'); 
         $this->load->model('product_master_model');
@@ -54,7 +62,8 @@ class Pos extends CI_Controller {
         //trim($this->input->post('gst')),
         $arr = [
             'customer_id'   => $this->input->post('customer_id'),
-            'receipt_number' => trim($this->input->post('receipt_number')),
+            'payment_type'  => $this->input->post('payment_type'),
+            'receipt_number' => $this->sales_model->receiptNumber(),
             'entered_by'    => $this->ion_auth->get_user_id(),
             'discount'      => trim($this->input->post('discount')),
             'gst'           => $gst,
@@ -75,6 +84,7 @@ class Pos extends CI_Controller {
             $product_id             = $this->input->post('product_ids')[$i];
             $quantity               = $this->input->post('quantities')[$i];
             $price                  = $this->input->post('prices')[$i];
+            $discount               = $this->input->post('discounts')[$i];
 
             $product_info = $this->product_master_model->getProductInfo($product_id);
 
@@ -88,6 +98,7 @@ class Pos extends CI_Controller {
                 'product_id'    => $product_id,
                 'quantity'      => $quantity,
                 'price'         => $price,
+                'discount'      => $discount,
                 'previous_stock' => $previous_product_quantity,
                 'current_stock' => $new_stock,
             ];
