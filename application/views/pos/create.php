@@ -128,7 +128,13 @@
           <option value="">Select Groups</option>
           <?php foreach($all_groups as $crow) 
           {
-            echo '<option value="'.$crow->id.'">'.ucwords($crow->group_name).'</option>';
+
+            if($crow->id == $default_group) {
+              echo '<option selected value="'.$crow->id.'">'.ucwords($crow->group_name).'</option>';
+            }else{
+              echo '<option value="'.$crow->id.'">'.ucwords($crow->group_name).'</option>';
+            }
+            
           } 
           ?>
         </select>
