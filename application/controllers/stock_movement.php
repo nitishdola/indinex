@@ -115,6 +115,36 @@ class Stock_movement extends CI_Controller {
 			$this->session->set_flashdata('response',"<div class='alert alert-success'><strong>Success!</strong>&nbsp;&nbsp;Your Tracking Slip No is - ".str_pad($this->input->post('tracking_slip_no'), 4, '0', STR_PAD_LEFT)."</div>");			
 			redirect(site_url('stock_movement/create_stock_movement'));	
 		}
+	}
+
+	public function create_stock_movement1()
+	{
+		$this->load->database(); 
+		
+		$this->load->model('product_variants_model'); 
+        $data['variants']=$this->product_variants_model->select_uom();
+
+        $this->load->model('sub_storage_model'); 
+        $data['storage']=$this->sub_storage_model->select(); 
+
+        $this->load->model('product_category_model'); 
+        $data['category']=$this->product_category_model->select(); 
+
+		$this->load->model('main_storage_model'); 		
+		$data['plant'] = $this->main_storage_model->getAllPlant();
+
+		$this->load->model('stock_movement_model'); 
+		$data['record'] = $this->stock_movement_model->last_record();
+		//var_dump($data['record']);
+		$this->load->model('stock_movement_model'); 
+		//$data['productNames'] = $this->grn_items_model->fetchGRNproductName();
+		$data['productNames'] = $this->stock_movement_model->fetchProductName();
+		
+		$this->load->model('product_master_model'); 
+        $data['products']=$this->product_master_model->selectName();
+
+		$this->load->view('stock_movement/create_stock_movement1',$data);
+
 
 	}
 	public function change_stock_movement()

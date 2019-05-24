@@ -1,3 +1,11 @@
+<<<<<<< HEAD
+<style>
+
+
+</style>
+<?php $this->load->view('layout/admin/header'); ?>
+=======
+>>>>>>> 572135731e7f7951a5d8cdc483a96d6ca9f6016a
 <body class="animsition app-projects">
    <?php $this->load->view('layout/admin/nav_menu'); ?>
 
@@ -146,10 +154,11 @@
       <?php foreach($all_products as $k => $v):  //var_dump($v);?>
         <div class="tab-content <?php echo 'product_group_id_'.$v->product_group; ?>" id="pills-tabContent">
         <div class="tab-pane fade show active" id="showall" role="tabpanel" aria-labelledby="showall-tab">
-          <div class="Portfolio"><a href="javascript:void(0)" onclick="addProductToCart(<?php echo $v->product_general_data_id; ?>, '<?php echo $v->product_description; ?>', '<?php echo $v->sale_price; ?>', '<?php echo $v->currency; ?>')">
+          <div class="Portfolio" style="border:solid 0px;height:140px;width:150px"><a href="javascript:void(0)" onclick="addProductToCart(<?php echo $v->product_general_data_id; ?>, '<?php echo $v->product_description; ?>', '<?php echo $v->sale_price; ?>', '<?php echo $v->currency; ?>')">
             <?php if($v->picture == '') { ?><img class="card-img" width="50" height="40" src="<?php echo base_url('uploads/images/default.png'); ?>" > <?php } ?>
-            <img class="card-img" width="50" height="50" src="<?php echo base_url(); ?>uploads/images/<?php echo $v->picture; ?>" alt=""></a><div class="desc"><?php echo ucwords($v->product_description); ?> <br>
+            <img class="card-img" src="<?php echo base_url(); ?>uploads/images/<?php echo $v->picture; ?>" alt=""></a><div class="desc" style="background: white;color:black;border:solid 0px"><?php echo ucwords($v->product_description); ?> <br>
             <?php echo $v->sale_price; ?> <?php echo $v->currency; ?></div></div>
+           
           
         </div>
       </div>  
