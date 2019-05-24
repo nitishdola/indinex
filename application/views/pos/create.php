@@ -124,11 +124,11 @@
     <div class="col-md-7 text-center text-lg-left gallery">
 
       <div class="col-md-5">
-        <select id="product_category" class="form-control" required="required">
-          <option value="">Select Product Category</option>
-          <?php foreach($all_categories as $crow) 
+        <select id="product_group" class="form-control" required="required">
+          <option value="">Select Groups</option>
+          <?php foreach($all_groups as $crow) 
           {
-            echo '<option value="'.$crow->id.'">'.ucwords($crow->category_name).'</option>';
+            echo '<option value="'.$crow->id.'">'.ucwords($crow->group_name).'</option>';
           } 
           ?>
         </select>
@@ -138,7 +138,7 @@
 
 
       <?php foreach($all_products as $k => $v):  //var_dump($v);?>
-        <div class="tab-content <?php echo 'product_category_id_'.$v->product_category; ?>" id="pills-tabContent">
+        <div class="tab-content <?php echo 'product_group_id_'.$v->product_group; ?>" id="pills-tabContent">
         <div class="tab-pane fade show active" id="showall" role="tabpanel" aria-labelledby="showall-tab">
           <div class="Portfolio"><a href="javascript:void(0)" onclick="addProductToCart(<?php echo $v->product_general_data_id; ?>, '<?php echo $v->product_description; ?>', '<?php echo $v->sale_price; ?>', '<?php echo $v->currency; ?>')">
             <?php if($v->picture == '') { ?><img class="card-img" width="50" height="40" src="<?php echo base_url('uploads/images/default.png'); ?>" > <?php } ?>
@@ -396,21 +396,24 @@ totalPriceCalculator = function() {
 }
 
 
-$('#product_category').change(function() {
-  $productCategory = $(this).val();
+$('#product_group').change(function() {
+  $productGroup = $(this).val();
 
-  $product_categ = <?php echo $default_category; ?>;
+  $product_grp= <?php echo $default_group; ?>;
 
 
-  if($productCategory != '') {
-    $product_categ = $productCategory;
+  if($productGroup != '') {
+    $product_grp = $productGroup;
 
-    $cls = 'product_category_id_'+$product_categ;
+    $('.tab-content').hide();
 
-    $('not(.'+$cls+')').hide();
-
-    $('.product_category_id_'+$product_categ).show();
+    $('.product_group_id_'+$product_grp).show();
   }
-})
+});
+
+$('.tab-content').hide();
+
+$('.product_group_id_'+<?php echo $default_group; ?>).show();
+
 </script>
 <?php $this->load->view('layout/admin/footer_with_js_close'); ?>
