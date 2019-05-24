@@ -52,7 +52,18 @@
                           </select>
                         </div>
                       </div>                                    
-                     
+                      <div class="form-group row">
+                          <label class="col-md-4 col-form-label">Product Name : </label>
+                          <div class="col-md-7">
+                            <select class="form-control select2" id="product_id" name="product_id">
+                              <option value="">Select</option> 
+                              <?php foreach($products->result() as $ct)
+                              {
+                                echo '<option value="'.$ct->id.'">'.$ct->product_description.'</option>';
+                              } ?>  
+                            </select>
+                          </div>
+                        </div>
                       <div class="form-group row">
                         <label class="col-md-4 col-form-label">Plant Name: </label>
                         <div class="col-md-8">
@@ -73,19 +84,12 @@
                           </select>
                         </div>
                       </div>
-                       <div class="form-group row">
-                          <label class="col-md-4 col-form-label">Product Name : </label>
-                          <div class="col-md-7">
-                            <select multiple class="form-control select2" id="product_id" name="product_id">
-                              <option value="">Select</option> 
-                              <?php foreach($products->result() as $ct)
-                              {
-                                echo '<option value="'.$ct->id.'">'.$ct->product_description.'</option>';
-                              } ?>  
-                            </select>
-                          </div>
+                      <div class="form-group row">
+                        <label class="col-md-4 col-form-label">Current Stock : </label>
+                        <div class="col-md-8">
+                          <?php echo form_input(array('id' => 'current_stock', 'name' => 'current_stock','class'=>'form-control','style'=>'margin-bottom:5px','required'=>'true','readonly'=>'true')); ?>
                         </div>
-                     
+                      </div>
                       <div class="form-group row" id="div_transfer">
                         <label class="col-md-4 col-form-label">Transfer (Storage Location ) : </label>
                         <div class="col-md-8">
@@ -119,12 +123,59 @@
                     
                     </div>
                     <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">                        
-                      <table border="0" width="80%">
-                        <tr><th>Product Name</th><th>Current Stock</th><th colspan="2">Qty</th></tr>
-                        <tr><td></td><td></td><td  align="center"><?php echo form_input(array('id' => 'qty', 'name' => 'qty','class'=>'form-control','autocomplete'=>'off','style'=>'width:100px')); ?></td><td>X</td></tr>
-                      </table>
-                      </div>                      
+                     
+                                       
+                      <div class="form-group row">
+                      <label class="col-md-4 col-form-label">Transfer Qty: </label>
+                      <div class="col-md-8">
+                      <?php echo form_input(array('type'=>'number','id' => 'quantity', 'name' => 'quantity','style'=>'width:300px;float:left;margin-right:2px','class'=>'form-control','required'=>'required')); ?> 
+                        <select id="qty_uom" name="qty_uom" class="form-control" style="width:100px" required="required"><option value="">UOM</option> 
+                        <?php foreach($variants as $row)  {
+                          echo '<option value="'.$row->variants_name.'">'.$row->variants_name.'</option>';                           
+                        } ?>
+                        </select>
+                      </div>
                     </div>
+                    <div class="form-group row">
+                        <label class="col-md-4 col-form-label">Batch: </label>
+                        <div class="col-md-8">
+                          <?php echo form_input(array('type'=>'text','id' => 'batch', 'name' => 'batch','class'=>'form-control')); ?> 
+                        </div>
+                      </div> 
+                     
+                      <div class="form-group row">
+                        <label class="col-md-4 col-form-label">Requested By: </label>
+                        <div class="col-md-8">
+                          <?php echo form_input(array('type'=>'text','id' => 'requested_by', 'name' =>'requested_by','class'=>'form-control','required'=>'required')); ?> 
+                        </div>
+                      </div>  
+                      <div class="form-group row">
+                        <label class="col-md-4 col-form-label">Requested Date: </label>
+                        <div class="col-md-7">
+                          <?php echo form_input(array('type'=>'text','id' => 'requested_date', 'name' => 'requested_date','class'=>'form-control zdatepicker','required'=>'required')); ?> 
+                        </div>
+                      </div>
+                       <div class="form-group row">
+                        <label class="col-md-4 col-form-label">Issue Date: </label>
+                        <div class="col-md-7">
+                          <?php echo form_input(array('type'=>'text','id' => 'issue_date', 'name' => 'issue_date','class'=>'form-control zdatepicker','required'=>'required')); ?> 
+                        </div>
+                      </div>
+                       <div class="form-group row">
+                        <label class="col-md-4 col-form-label">Picked By: </label>
+                        <div class="col-md-8">
+                          <?php echo form_input(array('type'=>'text','id' => 'picked_by', 'name' => 'picked_by','class'=>'form-control','required'=>'required')); ?> 
+                        </div>
+                      </div> 
+                       <div class="form-group row">
+                        <label class="col-md-4 col-form-label">Receiver name: </label>
+                        <div class="col-md-8">
+                          <?php echo form_input(array('type'=>'text','id' => 'receiver', 'name' => 'receiver','class'=>'form-control')); ?> 
+                        </div>
+                      </div> 
+
+                      </div>                      
+                      </div>
                       <div class="col-md-12">
                         <div class="form-group row">
                           <div class="col-md-9">
@@ -315,4 +366,3 @@ $(function(){
 
 });
 
-</script>
