@@ -40,20 +40,40 @@ class Stock_movement extends CI_Controller {
 		$data['plant'] = $this->main_storage_model->getAllPlant();
 
 		$this->load->model('stock_movement_model'); 
-		$data['record'] = $this->stock_movement_model->last_record();
+		//$data['record'] = $this->stock_movement_model->last_record();
 		//var_dump($data['record']);
 		$this->load->model('stock_movement_model'); 
 		//$data['productNames'] = $this->grn_items_model->fetchGRNproductName();
-		$data['productNames'] = $this->stock_movement_model->fetchProductName();
+		//$data['productNames'] = $this->stock_movement_model->fetchProductName();
 		
 		$this->load->model('product_master_model'); 
         $data['products']=$this->product_master_model->selectName();
+
+        $this->load->model('purchase_order_model'); 
+		$this->load->model('product_master_model');
+
+		//$data['purchase_order_number'] = $this->purchase_order_model->purchaseOrderNumber();
+		$data['purchase_order_document_types'] = $this->purchase_order_model->purchase_order_document_types();
+        //$data['purchase_types']=$this->purchase_order_model->select();
+        $data['product_categories'] = $this->product_master_model->product_categories();
+        $data['general_data']=$this->purchase_order_model->select_general_data();
+
+        $this->load->model('purchase_order_model');         
+        $data['currency']=$this->purchase_order_model->select_currency();
+        $data['uoms']=$this->purchase_order_model->select_uom();
+
+        $this->load->model('main_storage_model'); 		
+		$data['plant'] = $this->main_storage_model->getAllPlant();
+		$this->load->model('sub_storage_model'); 
+        $data['storage']=$this->sub_storage_model->select(); 
+
 
 		$this->load->view('stock_movement/create_stock_movement',$data);
 		//echo $ip_address = $this->input->ip_address();
 		if($this->input->post('sub'))
  		{
- 			//var_dump($_POST);
+ 			var_dump($_POST);
+ 			exit();
  			$storage_to=$this->input->post('storage_to');
  			if($storage_to!=''){
  				$storage_to=$storage_to;
@@ -69,28 +89,29 @@ class Stock_movement extends CI_Controller {
  				$plant=$this->input->post('plant_id');
  			}
 
+			
+			$st_data = array( 			 	
+ 			 	'tracking_slip_no' 				=> $this->input->post('tracking_slip_no'),
+ 			 	'from_plant_id' 				=> $plant,			
+ 			 	'from_storage_id'				=> $this->input->post('storage_from')	,
+			  	'to_plant_id' 					=> $plant,			
+ 			 	'to_storage_id'					=> $this->input->post('storage_from')	,
+			);
+			$this->stock_movement_model->form_insert($st_data);
+			$last_id_1 = $this->db->insert_id();
+
+
 			$data = array( 			 	
- 			 	'product_id' 				=> $this->input->post('product_id'),
- 			 	'plant_id' 					=> $plant,			
- 			 	'storage_id'				=> $this->input->post('storage_to')	,
-			  	'current_stock' 			=> $this->input->post('quantity'),	
-			  	'qty_uom' 					=> $this->input->post('qty_uom'),	  			  	
+ 			 	'product_id' 				=> $this->input->post('product_id'), 			 	
+			  	'quantities' 				=> $this->input->post('quantities'),	
+			  	'qty_uom' 					=> $this->input->post('uoms'),	  			  	
 			);
 			
 			$this->stock_movement_model->form_insert($data);
-			$last_id_1 = $this->db->insert_id();
 
-			$st_data = array( 			 	
- 			 	'product_id' 				=> $this->input->post('product_id'),
- 			 	'plant_id' 					=> $plant,			
- 			 	'storage_id'				=> $this->input->post('storage_from')	,
-			  	'transfer_quantity' 		=> $this->input->post('quantity'),	
-			  	'qty_uom' 					=> $this->input->post('qty_uom'),	
-			);
-			$this->stock_movement_model->form_insert($st_data);
 			$last_id_2 = $this->db->insert_id();
 
-			$main_movement_data = array(
+			/*$main_movement_data = array(
  			 	'tracking_slip_no' 			=> $this->input->post('tracking_slip_no'),
  			 	'transfer_type' 			=> $this->input->post('transfer_type'),
  			 	'product_id' 				=> $this->input->post('product_id'),			  	
@@ -110,7 +131,7 @@ class Stock_movement extends CI_Controller {
 			  	'last_id_1' 				=> $last_id_1,
 			  	'last_id_2' 				=> $last_id_2
 			);
-			$this->stock_movement_model->main_form_insert($main_movement_data);
+			$this->stock_movement_model->main_form_insert($main_movement_data);*/
 
 			$this->session->set_flashdata('response',"<div class='alert alert-success'><strong>Success!</strong>&nbsp;&nbsp;Your Tracking Slip No is - ".str_pad($this->input->post('tracking_slip_no'), 4, '0', STR_PAD_LEFT)."</div>");			
 			redirect(site_url('stock_movement/create_stock_movement'));	
@@ -351,6 +372,28 @@ class Stock_movement extends CI_Controller {
 				
 		$this->load->model('sub_storage_model'); 
         $arr['res']=$this->sub_storage_model->select_storage_location($palnt_id);
+		$i=0;
+        $array = array();
+		foreach( $arr['res'] as $row)  
+        { 	 
+	    	$array[$i]["storage_id"]	=$row->id;
+	    	$array[$i]["first_name"] 	=$row->first_name;	
+	    	$array[$i]["middle_name"] 	=$row->middle_name;	
+	    	$array[$i]["last_name"] 	=$row->last_name;	    	
+	    	$i++; 
+        }    
+        
+       	echo  json_encode($array);
+	}
+
+
+	public function ajax_product(){
+		$product_id	=$this->input->get('product_id');
+		$plant_id	=$this->input->get('plant_id');
+		$storage_id	=$this->input->get('storage_id');
+				
+		$this->load->model('sub_storage_model'); 
+        $arr['res']=$this->sub_storage_model->select_storage_location($product_id);
 		$i=0;
         $array = array();
 		foreach( $arr['res'] as $row)  

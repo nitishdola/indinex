@@ -8,11 +8,11 @@ class Stock_movement_model extends CI_Model
     $this->db->insert('stock_movement', $data);
   }
   function main_form_insert($data){  
-    $this->db->insert('stock_movement_main', $data);
+    $this->db->insert('stock_movement', $data);
   }
 
 
-  public function select($transfer_type=null)  
+  /*public function select($transfer_type=null)  
     {  
       if($transfer_type!=''){
         $transfer_type=$this->db->where('transfer_type',$transfer_type); 
@@ -73,7 +73,7 @@ class Stock_movement_model extends CI_Model
       $this->db->group_by('stock_movement.product_id');
       $query = $this->db->get();
       return $query->result();     
-    }
+    } */
 
     
 } 

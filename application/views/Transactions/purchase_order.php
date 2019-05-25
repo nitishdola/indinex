@@ -1,8 +1,11 @@
-<ol class="breadcrumb">
-  <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard'); ?>">Home</a></li>
-  <li class="breadcrumb-item"><a href="<?php echo site_url('transactions/pos_sub'); ?>">Purchase Order</a></li>
-  <li class="breadcrumb-item active">Create New Purchase Order</li>
-</ol>
+<?php $this->load->view('layout/admin/header'); ?>
+<body class="animsition app-projects">
+<?php $this->load->view('layout/admin/nav_menu'); ?>  
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard'); ?>">Home</a></li>
+    <li class="breadcrumb-item"><a href="<?php echo site_url('transactions/pos_sub'); ?>">Purchase Order</a></li>
+    <li class="breadcrumb-item active">Create New Purchase Order</li>
+  </ol>
 <div class="page-content">
    <div class="projects-wrap">
     <h4 class="example-title" style="text-align: center;">Add New Purchase Order</h4>
@@ -30,8 +33,7 @@
                   <div id="mainForm" class="row" style="border : 1px solid #444; margin-top: 20px; display: none;">
                     <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12" style="border : 1px dotted #444;">
                        <!-- Example Horizontal Form -->
-                       <div class="example-wrap">
-                          
+                       <div class="example-wrap">                          
                           <div class="example">
                            <?php echo $this->session->flashdata('response'); ?>
 

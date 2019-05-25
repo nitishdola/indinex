@@ -1,11 +1,5 @@
-<<<<<<< HEAD
-<style>
-
-
-</style>
 <?php $this->load->view('layout/admin/header'); ?>
-=======
->>>>>>> 572135731e7f7951a5d8cdc483a96d6ca9f6016a
+
 <body class="animsition app-projects">
    <?php $this->load->view('layout/admin/nav_menu'); ?>
 
