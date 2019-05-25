@@ -1,4 +1,7 @@
 <style>
+.pos_container, #pos_table{
+    font-family: 'Raleway', sans-serif !important;
+}
 .gallery .Portfolio {
     position: relative;
     margin: 5px;
@@ -182,5 +185,38 @@
     background-image:-o-linear-gradient(top, #3EACBA, #48C6D4);
     background-image:linear-gradient(top, #3EACBA, #48C6D4);
 }
+
+
+
+.green {
+    text-shadow:-1px -1px 0 #26810B;
+    background: #22E114;
+    border:1px solid #22E114;
+    
+    background-image:-webkit-linear-gradient(top, #6FB611, #22E114);
+    background-image:-moz-linear-gradient(top, #6FB611, #22E114);
+    background-image:-ms-linear-gradient(top, #6FB611, #22E114);
+    background-image:-o-linear-gradient(top, #6FB611, #22E114);
+    background-image:linear-gradient(to bottom, #6FB611, #22E114);
+    
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+    border-radius:5px;
+    
+    -webkit-box-shadow:0 1px 0 rgba(255, 255, 255, .5) inset, 0 -1px 0 rgba(255, 255, 255, .1) inset, 0 4px 0 #22E114, 0 4px 2px rgba(0, 0, 0, .5);
+    -moz-box-shadow:0 1px 0 rgba(255, 255, 255, .5) inset, 0 -1px 0 rgba(255, 255, 255, .1) inset, 0 4px 0 #22E114, 0 4px 2px rgba(0, 0, 0, .5);
+    box-shadow:0 1px 0 rgba(255, 255, 255, .5) inset, 0 -1px 0 rgba(255, 255, 255, .1) inset, 0 4px 0 #22E114, 0 4px 2px rgba(0, 0, 0, .5);
+}
+
+.green:hover {
+    background: #F66C7B;
+    background-image:-webkit-linear-gradient(top, #D25068, #F66C7B);
+    background-image:-moz-linear-gradient(top, #D25068, #F66C7B);
+    background-image:-ms-linear-gradient(top, #D25068, #F66C7B);
+    background-image:-o-linear-gradient(top, #D25068, #F66C7B);
+    background-image:linear-gradient(top, #D25068, #F66C7B);
+}
+
+.redtrash { color: red }
 </style>
 </head>

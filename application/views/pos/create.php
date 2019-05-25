@@ -1,11 +1,10 @@
-<<<<<<< HEAD
+
 <style>
 
 
 </style>
 <?php $this->load->view('layout/admin/header'); ?>
-=======
->>>>>>> 572135731e7f7951a5d8cdc483a96d6ca9f6016a
+
 <body class="animsition app-projects">
    <?php $this->load->view('layout/admin/nav_menu'); ?>
 
@@ -15,7 +14,7 @@
   <li class="breadcrumb-item active">Create New Sale</li>
 </ol>
 
-<div class="container">
+<div class="container pos_container">
   <div class="row">
     <div class="col-md-5">
         <?php echo form_open('pos/save_pos'); ?>
@@ -27,8 +26,8 @@
 
             <tfoot>
               <tr>
-                <td colspan="1"> Total Price </td>
-                <td id="totalPrice"></td>
+                <td colspan="1"> <p style="border-top: 1px solid #333"> Total Price </p> </td>
+                <td colspan="2"><p id="totalPrice" style="border-top: 1px solid #333"> </p></td>
               </tr>
               <tr>
                 <td colspan="3">
@@ -38,7 +37,7 @@
                         <td><button class="push_button blue" type="button" onclick="calculateMe(2)">2</button></td>
                         <td><button class="push_button blue" type="button" onclick="calculateMe(3)">3</button></td>
                         <td>
-                          <a href="javascript:void(0)" class="push_button red" id="calc_qty"> 
+                          <a href="javascript:void(0)" class="push_button green" id="calc_qty"> 
                             Qty
                           </a>
 
@@ -71,8 +70,8 @@
 
                       <tr>
                         <td><button class="push_button blue" type="button" onclick="calculateMe(0)">0</button></td>
-                        <td></td>
-                        <td></td>
+                       <td><button class="push_button blue" id="calc_minus" type="button">-</button></td>
+                        <td><button class="push_button blue" id="calc_plus" type="button">+</button></td>
                         <td>
                           <a id="calc_back" href="javascript:void(0)" class="push_button red">
                             <i class="fa fa-fast-backward" aria-hidden="true"></i>
@@ -83,6 +82,10 @@
                     </table>
                 </td>
               </tr>
+            </tfoot>
+            </table>
+
+            <table class="table table-condensed">
 
               <tr>
                 <td colspan="1">Select Customer</td>
@@ -180,6 +183,7 @@ var sl = 1;
 product_ids = [];
 
 active = '';
+active = 'quantity';
 
 discount = 0;
 
@@ -192,13 +196,17 @@ addProductToCart = function(product_id, product_description, product_price, prod
     var html = '';
     qty = 1;
 
+    //hide all active
+    $('.itemrow').removeClass('alert alert-info');
+
+
     total_price = parseFloat(total_price)+parseFloat(product_price);
 
     total_price = total_price.toFixed(2);
 
-    html += '<tr onclick="letsclicktr('+product_id+')" id="trid_'+product_id+'">';
+    html += '<tr class="alert alert-info itemrow" onclick="letsclicktr('+product_id+')" id="trid_'+product_id+'">';
 
-    html += '<td>'+product_description+'<input type="hidden" name="product_ids[]" value="'+product_id+'" />';
+    html += '<td width="80%">'+product_description+'<input type="hidden" name="product_ids[]" value="'+product_id+'" />';
 
     html += '<br><span id="qty_'+product_id+'">'+qty+'</span> Unit(s) @ ';
     html += '<span id="product_price_'+product_id+'"> INR '+product_price+'</span>';
@@ -211,7 +219,9 @@ addProductToCart = function(product_id, product_description, product_price, prod
     html += '<input type="hidden" id="valDiscount'+product_id+'" name="discounts[]" value="0" />';
     html += '</td>';
 
-    html += '<td class="ttlpriceunit" id="total_price_'+product_id+'">'+total_price+'</td>';
+    html += '<td  width="10%" class="ttlpriceunit" id="total_price_'+product_id+'">'+total_price+'</td>';
+
+    html += '<td  width="10%"><a href="javascript:void(0)" onclick="trashItem('+product_id+')" id="remove_'+product_id+'"> <i class="fa fa-trash fa-2x redtrash" aria-hidden="true"></i> </td>';
 
     html += '</tr>'
     $('#error').hide();
@@ -224,7 +234,14 @@ addProductToCart = function(product_id, product_description, product_price, prod
     });
 
     $('#totalPrice').text($mainTotal.toFixed(2));
-//console.log(html);
+
+
+    activepid = '';
+    activepid = product_id;
+
+    mainVal = 0;
+    clicked = false
+
     sl++;
   }else{
     //add to quantity
@@ -275,11 +292,13 @@ calculateTotalPrice = function(prd_id) {
 
 $('#calc_qty').click(function() {
 
-  $('#calc_disc').removeClass('btn-success');
-  $('#calc_price').removeClass('btn-success');
+  $('#calc_disc').removeClass('green');
+  $('#calc_disc').addClass('red');
+  $('#calc_price').removeClass('green');
+  $('#calc_price').addClass('red');
 
-  $(this).removeClass('btn-default');
-  $(this).addClass('btn-success');
+  $(this).removeClass('red');
+  $(this).addClass('green');
 
   active = '';
   active = 'quantity';
@@ -288,12 +307,14 @@ $('#calc_qty').click(function() {
 
 $('#calc_disc').click(function() {
 
-  $('#calc_qty').removeClass('btn-success');
-  $('#calc_price').removeClass('btn-success');
+  $('#calc_qty').removeClass('green');
+  $('#calc_qty').addClass('red');
+  $('#calc_price').removeClass('green');
+  $('#calc_price').addClass('red');
 
 
-  $(this).removeClass('btn-default');
-  $(this).addClass('btn-success');
+  $(this).removeClass('red');
+  $(this).addClass('green');
 
   active = '';
   active = 'discount';
@@ -301,11 +322,13 @@ $('#calc_disc').click(function() {
 
 $('#calc_price').click(function() {
 
-  $('#calc_disc').removeClass('btn-success');
-  $('#calc_qty').removeClass('btn-success');
+  $('#calc_disc').removeClass('green');
+  $('#calc_disc').addClass('red');
+  $('#calc_qty').removeClass('green');
+  $('#calc_qty').addClass('red');
 
-  $(this).removeClass('btn-default');
-  $(this).addClass('btn-success');
+  $(this).removeClass('red');
+  $(this).addClass('green');
 
   active = '';
   active = 'price';
@@ -321,6 +344,24 @@ $('#calc_back').click(function() {
     mainVal = newMainVal;
     clicked = false;
     calculateMe(newMainVal);
+});
+
+
+$('#calc_minus').click(function() {
+  mainVal = parseFloat(mainVal);
+  mainVal--;
+
+  clicked = false;
+  calculateMe(mainVal);
+});
+
+
+$('#calc_plus').click(function() {
+  mainVal = parseFloat(mainVal);
+  mainVal++;
+
+  clicked = false;
+  calculateMe(mainVal);
 });
 
 activerowid = '';
@@ -398,6 +439,14 @@ calculateMe = function(val) {
   }
   
 
+}
+
+trashItem = function(trashid) {
+  conf = confirm('Are you sure ?');
+  if(conf) {
+    $('#trid_'+trashid).remove();
+    totalPriceCalculator();
+  }
 }
 
 
