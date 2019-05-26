@@ -303,6 +303,8 @@ $('#calc_qty').click(function() {
   active = '';
   active = 'quantity';
 
+  clicked = false;
+
 });
 
 $('#calc_disc').click(function() {
@@ -318,6 +320,8 @@ $('#calc_disc').click(function() {
 
   active = '';
   active = 'discount';
+
+  clicked = false;
 });
 
 $('#calc_price').click(function() {
@@ -332,6 +336,8 @@ $('#calc_price').click(function() {
 
   active = '';
   active = 'price';
+
+  clicked = false;
 });
 
 $('#calc_back').click(function() {
