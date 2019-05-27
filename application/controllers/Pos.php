@@ -165,8 +165,8 @@ class Pos extends CI_Controller {
     } 
 
     public function view_receipt($sale_id) {
-        $this->load->view('layout/admin/header');           
-        $this->load->view('layout/admin/nav_menu'); 
+        /*$this->load->view('layout/admin/header');           
+        $this->load->view('layout/admin/nav_menu'); */
 
         $this->load->model('sales_model'); 
         $this->load->model('sales_items_model'); 
@@ -176,6 +176,6 @@ class Pos extends CI_Controller {
         //var_dump($data); exit;
         
         $this->load->view('pos/view_receipt',$data);
-        $this->load->view('layout/admin/footer');   
+        //$this->load->view('layout/admin/footer');   
     }
 }
