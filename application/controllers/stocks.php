@@ -25,10 +25,12 @@ class Stocks extends CI_Controller {
 
 		$this->load->model('product_master_model');
 		$data['results'] = $this->product_master_model->select()->result();
+		var_dump($data['results']);
 		$this->load->view('stock/current_stock', $data);
 
 		$this->load->view('layout/admin/footer');	
 	}
+	 
 	
 }
 

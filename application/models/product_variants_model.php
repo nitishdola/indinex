@@ -12,7 +12,7 @@ class Product_variants_model extends CI_Model
   public function select()  
     {  
       //$query = $this->db->get('product_variants');  
-      $this->db->select('*');
+      $this->db->select('product_variants.id as pid, product_variants.pvcode, product_variants.variants_type,product_variants.variants_name,product_variants_type.*');
       $this->db->from('product_variants');
       $this->db->join('product_variants_type','product_variants_type.id = product_variants.variants_type','left');
       $query = $this->db->get();
@@ -90,7 +90,24 @@ class Product_variants_model extends CI_Model
       echo json_encode($output);
      }
  
-    
+     public function variants_details($id) 
+  { 
+    //$query=$this->db->query("update business_type SET description='$description' where id='$id'"); 
+    $query = $this->db->get('product_variants'); 
+    $this->db->select('*'); 
+    $this->db->from('product_variants'); 
+    $this->db->where('product_variants.id',$id);   
+    $query = $this->db->get();       
+    return $query->result();  
+     $query = $this->db->get('variants_type');       
+    return $query->result(); 
+    } 
+
+  public function deleteRecord($id){ 
+    $this->db->where('product_variants.id', $id); 
+    $this->db->delete('product_variants'); 
+    return true; 
+  }
 
 } 
 

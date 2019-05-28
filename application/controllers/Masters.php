@@ -1044,7 +1044,41 @@ class Masters extends CI_Controller {
             }
         }
     }
-	
+	public function edit_product_variants($id=null) 
+    { 
+        $id = $this->input->get('id'); 
+        $this->load->model('product_variants_model'); 
+        $data['variants']=$this->product_variants_model->variants_details($id); 
+        //var_dump($data['business']=$this->Line_Of_Business_Model->business_details($id)); 
+        $this->load->view('Master/Product_variants/edit_product_variants',$data); 
+        $this->load->model('product_variants_model');  
+
+   
+        if($this->input->post('sub')) 
+        {                
+             
+            $varients_type  = $this->input->post('variants_type'); 
+            $id             = $this->input->post('variants_name'); 
+
+            //exit(); 
+            $this->product_varients_model->insert_update($variants_type,$variants_name); 
+            $this->session->set_flashdata('response',"Record Upadated Successfully"); 
+            redirect(site_url('Masters/edit_product_variants?id='.$id)); 
+
+        } 
+
+    }
+    public function ajax_delete_product_variants(){ 
+        $id=$this->input->get('id'); 
+        $this->load->model('product_variants_model');  
+        $arr['res']=$this->product_variants_model->deleteRecord($id); 
+                 
+        if(!empty($this->product_variants_model->deleteRecord($id))){ 
+            echo 1; 
+        }  else { 
+            echo 0; 
+        } 
+    }
     public function edit_product_category($id=null)
     {
         $id = $this->input->get('id');

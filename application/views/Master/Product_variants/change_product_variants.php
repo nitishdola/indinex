@@ -40,8 +40,8 @@
                       <td><?php echo  $row->pvcode;?></td> 
                       <td><?php echo  $row->variants_type;?></td> 
                       <td><?php echo  $row->variants_name;?></td>
-                      <td><a href="<?php echo site_url('Masters/edit_product_variants?id='.$row->id);?>" class="btn btn-info btn-sm"  style="margin: 5px">Edit</a></td> 
-                      <td><button id="del_<?php echo $row->id; ?>" class="btn btn-danger btn-sm del"  style="margin: 5px">Delete</button> </td>
+                      <td><a href="<?php echo site_url('Masters/edit_product_variants?id='.$row->pid);?>" class="btn btn-info btn-sm"  style="margin: 5px">Edit</a></td> 
+                      <td><button id="del_<?php echo $row->pid; ?>" class="btn btn-danger btn-sm del"  style="margin: 5px">Delete</button> </td>
                     </tr> 
                       </tr>  
                    <?php }  ?>

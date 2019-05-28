@@ -247,6 +247,36 @@ class Stock_movement extends CI_Controller {
  		$data['res'] = $this->stock_movement_model->select();
 
  		$data['res2'] = $this->stock_movement_model->plant_to_plant();
+
+ 		if($this->input->post('sub'))
+ 		{
+ 			//var_dump($_POST);
+ 			$stock_check 					= $this->input->post('check');
+ 			var_dump(count($stock_check));
+
+ 			for($i=0;$i<sizeof($stock_check);$i++)
+ 			{
+ 				//echo $stock_check[$i];
+ 				$stock_id=$stock_check[$i];
+
+ 				$this->stock_movement_model->change_stock_data($stock_id);
+ 			}
+ 			$this->session->set_flashdata('response',"<div class='alert alert-success'><strong>Success!</strong>&nbsp;&nbsp;Data Received</div>");
+		
+		redirect(site_url('Stock_movement/display_stock_movement'));
+
+ 			//$product_code 					= $this->input->post();		
+			
+			
+			/*$this->product_master_model->change_product_general_data($product_code,$product_category_id,$product_description,$product_group,$picture,$old_material_no,$size,$color,$conversion_factor_from,$factor_from_uom,$conversion_factor_to,$factor_to_uom);
+			$this->session->set_flashdata('response',"<div class='alert alert-success'><strong>Success!</strong>&nbsp;&nbsp;General Data Changed</div>");	
+			
+			$this->session->set_flashdata('response',"<div class='alert alert-success'><strong>Success!</strong>&nbsp;&nbsp;General Data inserted</div>");
+		
+		redirect(site_url('Product_masters/edit_product_master?product_code='.$product_code));*/
+
+
+		}
  		 		
 		$this->load->view('stock_movement/display_stock_movement',$data);
 	}
@@ -433,6 +463,17 @@ class Stock_movement extends CI_Controller {
         }    
         
        	echo  json_encode($array);
+	}
+
+	public function view_current_stock($product_id=null){
+    	$product_id 				= $this->input->get('product_general_data_id');
+
+    	$this->load->model('stock_movement_model');   
+    	$data['result']=$this->stock_movement_model->get_stock_details($product_id); 
+    	var_dump($data['result']);
+		$this->load->view('Stock_movement/view_current_stock');
+
+
 	}
 }
 

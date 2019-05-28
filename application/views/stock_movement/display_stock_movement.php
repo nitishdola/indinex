@@ -42,6 +42,7 @@
                         <div class="example-wrap">
                           <h4 class="example-title"></h4>                              
                             <div class="example">
+                      <?php echo form_open(); ?>
                               <table class="table table-hover data-table table-striped table-bordered w-full">
                               <thead>                               
                                 <tr>
@@ -57,6 +58,7 @@
                                   <th>Received by</th>
                                   <th>Picked By</th>
                                   <th>Issue Date</th> 
+                                  <th>Receive from SLOC to SLOC</th>
                                 </tr>
                               </thead>
                               <?php 
@@ -64,9 +66,11 @@
                                 foreach($res as $row)  
                                 { 
                                   $i++; 
+                                  //var_dump($row->sid);
                                  
                                 ?>
-                                <tr>  
+                                
+                                
                                   <td><?php echo  $i;?>  </td>                            
                                   <td><?php echo  $row->product_code;?>-<?php echo  ucwords($row->product_description);?></td>
                                   <td><?php echo  $row->first_name;?></td>  
@@ -85,10 +89,20 @@
                                   <td><?php echo  $row->received_by;?></td> 
                                   <td><?php echo  ucfirst($row->picked_by);?></td> 
                                   <td><?php echo  date('d-m-Y',strtotime($row->issue_date));?></td> 
-
+                                  <td><input type="checkbox" value="<?php echo  $row->sid;?>" name="check[]" checked></td>
                                   </tr>
                                <?php } ?>
-                              </table>                     
+                      
+                              </table> 
+                              <p class="text-center"><div class="form-group row">
+                      <div class="col-md-9">
+                       <input type="hidden" name="sub" value="1">
+                        <button type="submit" class="btn btn-primary">Submit </button>
+                        <button type="reset" class="btn btn-default btn-outline">Reset</button>
+                      </div>
+                    </div>
+              
+                  <?php echo form_close(); ?> </p>                    
                           </div>
                         </div>
                       </div>                                        
@@ -126,7 +140,7 @@
                         <tr>  
                           <td><?php echo  $i;?>  </td>  
                           <td><?php echo  $r2->tracking_slip_no;?></td> 
-                          <td><?php //echo  $r2->product_code;?>-<?php /*echo  ucwords($r2->product_description);*/?></td>                     
+                          <td><?php echo  $r2->product_code;?>-<?php echo  ucwords($r2->product_description);?></td>                     
                           <td><?php echo  $r2->first_name;?></td> 
                           <td><?php foreach($plant as $pl){
                                     if($pl->storage_id == $r2->plant_id){
@@ -146,6 +160,7 @@
 
                           </tr>
                        <?php }  ?>
+
                       </table>                         
                   </div>           
                 </div>             
