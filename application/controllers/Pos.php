@@ -172,10 +172,14 @@ class Pos extends CI_Controller {
         $this->load->model('sales_items_model'); 
         $data['sales_details'] = $this->sales_model->fetchSalesDetails($sale_id)[0];
         $data['sales_items']   = $this->sales_items_model->fetchSalesItems($sale_id);
+        //var_dump($data['sales_details']->payment_type); exit;
+        if($data['sales_details']->payment_type == 'order') {
+            $this->load->view('layout/admin/header');           
+            $this->load->view('layout/admin/nav_menu');
+            $this->load->view('pos/view_order_receipt',$data); 
+        }else{
+            $this->load->view('pos/view_receipt',$data); 
+        }
         
-        //var_dump($data); exit;
-        
-        $this->load->view('pos/view_receipt',$data);
-        //$this->load->view('layout/admin/footer');   
     }
 }

