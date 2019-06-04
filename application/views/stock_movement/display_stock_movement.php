@@ -1,122 +1,179 @@
 <?php $this->load->view('layout/admin/header'); ?>
 <body class="animsition app-projects">
    <?php $this->load->view('layout/admin/nav_menu'); ?>
-
+    
     <div class="page">
       <div class="page-header">
-      <?php 
-      $ch='';
-      if(isset($_GET['ch'])){
-      $ch=$_GET['ch'];
-      if($ch=='y'){ ?>
-        
-        <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard'); ?>">Home</a></li>
-        <li class="breadcrumb-item"><a href="<?php echo site_url('reports/reports_sub'); ?>"> Reports</a></li>
-        <li class="breadcrumb-item active">View Stock Movements </li>  
-        </ol>
-        <?php  } } else {  ?> 
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard');?>">Home</a></li>
-        <li class="breadcrumb-item"><a href="<?php echo site_url('stock_movement/stock_movement');?>">Stock Movement</a></li>
+         <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard');?>">Home</a></li>
+        <li class="breadcrumb-item"><a href="<?php echo site_url('stock_movement/stock_movement');?>">Stock Movement</a></li>        
         <li class="breadcrumb-item active">Display</li>
       </ol>
-      <?php }  ?>
       <div class="page-content">
         <div class="projects-wrap">
           <div class="panel">
             <div class="panel-body container-fluid">
-              <div class="row row-lg">
+             <div class="row row-lg">
               <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                 <!-- Example Horizontal Form -->
-                <div class="example-wrap">
-                  <h4 class="example-title">Display Stock Movement</h4>                  
-                  <div class="example"> 
-                 
-                  
-                       
+                <div class="example-wrap">                                   
+                  <div class="container tabs-wrap">
+                    <div id="tabs">
+                      <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"  id="general_li">
+                          <a class="nav-item nav-link active" href="#general" aria-controls="general" role="tab" data-toggle="tab" aria-expanded="true">Storage Location To Storage Location </a>
+                        </li>
+                        <li  id="purchase_li">
+                          <a class="nav-item nav-link" href="#shipping" aria-controls="shipping" role="tab" data-toggle="tab" aria-expanded="true">Plant To Plant</a>
+                        </li>                        
+                      </ul>
+                    </div>  
+                    <div class="tab-content">                    
+                    <div role="tabpanel" class="tab-pane active" id="general">
+                    <h3 class="">Storage Location To Storage Location</h3>
+                    <p>Storage Location To Storage Location</p>                       
+                    <?php echo form_open(); ?>
+                    <div class="row row-lg"> 
+                      <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                        <?php echo $this->session->flashdata('response'); ?> 
                       </div>   
-                                       
-                     <table class="table table-hover data-table table-striped table-bordered w-full">
-                    <thead>
-                     <tr>  
-                      <td colspan="3"></td>
-                      <td colspan="2" align="center">Transfer From</td>
-                      <td colspan="2" align="center">Transfer To</td>
-                      <td colspan="7"></td>
-                      </tr>
-                      <tr>
-                         <th>Sl</th>
-                         <th>Tracking No</th>
-                         <th>Transfer Type</th>
-                         <th>Plant</th>
-                         <th>Storage Location</th>
-                         <th>Plant</th>
-                         <th>Storage Location</th>
-                         <th>Qty</th> 
-                         <th>Batch</th>  
-                         <th>Requested By</th>
-                         <th>Requested Date</th>                         
-                         <th>Received by</th>
-                         <th>Picked By</th>
-                         <th>Issue Date</th> 
-                      </tr>
+                      <div class="col-md-1 col-lg-12 col-sm-12 col-xs-12">
+                        <!-- Example Horizontal Form -->
+                        <div class="example-wrap">
+                          <h4 class="example-title"></h4>                              
+                            <div class="example">
+                      <?php echo form_open(); ?>
+                              <table class="table table-hover data-table table-striped table-bordered w-full">
+                              <thead>                               
+                                <tr>
+                                  <th>Sl</th>
+                                  <th>Product</th>                                   
+                                  <th>Plant</th>
+                                  <th>Storage Location</th>                                   
+                                  <th>Transfer to</th>
+                                  <th>Qty</th> 
+                                  <th>Batch</th>  
+                                  <th>Requested By</th>
+                                  <th>Requested Date</th>                         
+                                  <th>Received by</th>
+                                  <th>Picked By</th>
+                                  <th>Issue Date</th> 
+                                  <th>Receive from SLOC to SLOC</th>
+                                </tr>
+                              </thead>
+                              <?php 
+                              $i=0;                           
+                                foreach($res as $row)  
+                                { 
+                                  $i++; 
+                                  //var_dump($row->sid);
+                                 
+                                ?>
+                                
+                                
+                                  <td><?php echo  $i;?>  </td>                            
+                                  <td><?php echo  $row->product_code;?>-<?php echo  ucwords($row->product_description);?></td>
+                                  <td><?php echo  $row->first_name;?></td>  
+                                  <td><?php echo  $row->fname;?></td>                                 
+                                  <td><?php foreach($storage->result() as $res){
+                                    if($res->id == $row->transfer_storage_id_1){
+                                      echo $res->first_name;
+                                    }
+                                  }
+                                 
+                                  ?></td>
+                                  <td><?php echo  $row->transfer_quantity." ".$row->qty_uom;?></td> 
+                                  <td><?php echo  $row->batch;?></td> 
+                                  <td><?php echo  ucfirst($row->requested_by);?></td> 
+                                  <td><?php echo  date('d-m-Y',strtotime($row->requested_date));?></td> 
+                                  <td><?php echo  $row->received_by;?></td> 
+                                  <td><?php echo  ucfirst($row->picked_by);?></td> 
+                                  <td><?php echo  date('d-m-Y',strtotime($row->issue_date));?></td> 
+                                  <td><input type="checkbox" value="<?php echo  $row->sid;?>" name="check[]" checked></td>
+                                  </tr>
+                               <?php } ?>
+                      
+                              </table> 
+                              <p class="text-center"><div class="form-group row">
+                      <div class="col-md-9">
+                       <input type="hidden" name="sub" value="1">
+                        <button type="submit" class="btn btn-primary">Submit </button>
+                        <button type="reset" class="btn btn-default btn-outline">Reset</button>
+                      </div>
+                    </div>
+              
+                  <?php echo form_close(); ?> </p>                    
+                          </div>
+                        </div>
+                      </div>                                        
+                    </div>                            
+                  </div>
+        
+
+                  <div role="tabpanel" class="tab-pane" id="shipping">              
+                    <h3 class="">Plant To Plant</h3> 
+                    <p>Plant To Plant</p>  
+                    <table class="table table-hover data-table table-striped table-bordered w-full">
+                      <thead>                               
+                        <tr>
+                          <th>Sl</th>  
+                          <th>Tracking No</th>                                            
+                          <th style="width:150px">Product</th>
+                          <th>Plant</th>
+                          <th>Transfer to</th>
+                          <th>Qty</th> 
+                          <th>Batch</th>  
+                          <th>Requested By</th>
+                          <th>Requested Date</th>                         
+                          <th>Received by</th>
+                          <th>Picked By</th>
+                          <th>Issue Date</th> 
+                        </tr>
                       </thead>
                       <?php 
                       $i=0;                           
-                      foreach($res as $row)  
-                      { 
-                        $i++; 
-                        $transfer_type=$row->transfer_type;
-                        //var_dump($row);
-                      ?>
-                      <tr>  
-                        <td><?php echo  $i;?>  </td>                         
-                        <td><?php $tracking_slip_no=$row->tracking_slip_no;
-                        echo str_pad($tracking_slip_no, 4, '0', STR_PAD_LEFT);
+                        foreach($res2 as $r2)  
+                        {  //var_dump($r2);
+                          $i++; 
+                         
+                        ?>
+                        <tr>  
+                          <td><?php echo  $i;?>  </td>  
+                          <td><?php echo  $r2->tracking_slip_no;?></td> 
+                          <td><?php echo  $r2->product_code;?>-<?php echo  ucwords($r2->product_description);?></td>                     
+                          <td><?php echo  $r2->first_name;?></td> 
+                          <td><?php foreach($plant as $pl){
+                                    if($pl->storage_id == $r2->plant_id){
+                                      echo $pl->first_name;
+                                    }
+                                  }
+                                 
+                          ?>                                 
+                          </td>
+                          <td><?php echo  $r2->transfer_quantity." ".$r2->qty_uom;?></td> 
+                          <td><?php echo  $r2->batch;?></td> 
+                          <td><?php echo  ucfirst($r2->requested_by);?></td> 
+                          <td><?php echo  date('d-m-Y',strtotime($r2->requested_date));?></td> 
+                          <td><?php echo  $r2->received_by;?></td> 
+                          <td><?php echo  ucfirst($r2->picked_by);?></td> 
+                          <td><?php echo  date('d-m-Y',strtotime($r2->issue_date));?></td> 
 
-                        ?></td> 
-                        <td><?php 
-                          if($transfer_type==1)
-                            { 
-                              echo "Storage Location To Storage Location" ;
-                            }  
-                          else if($transfer_type==2)
-                            { 
-                              echo "Plant To Plant"; 
-                            } ?>                          
-                        </td>
-                        <td><?php echo  $row->first_name;?></td> 
-                        <td><?php echo  $row->fname;?></td> 
-                        <td></td>
-                        <td></td>
-                        <td><?php echo  $row->transfer_quantity." ".$row->qty_uom;?></td> 
-                        <td><?php echo  $row->batch;?></td> 
-                        <td><?php echo  ucfirst($row->requested_by);?></td> 
-                        <td><?php echo  date('d-m-Y',strtotime($row->requested_date));?></td> 
-                        <td><?php echo  $row->received_by;?></td> 
-                        <td><?php echo  ucfirst($row->picked_by);?></td> 
-                         <td><?php echo  date('d-m-Y',strtotime($row->issue_date));?></td> 
+                          </tr>
+                       <?php }  ?>
 
-                        </tr>
-                     <?php } ?>
-                    </table>
-                    <div class="col-md-2 pull-right">
-                              <button type="button" class="btn btn-
-                              primary print" onclick="window.print();"> <i class="fa fa-print" aria-hidden="true"></i> PRINT </button>
-                          </div>
-                </div>
-              </div>
-              </div>        
-            </div>
-          </div>
-          </div>
-        <!-- End Panel Controls Sizing -->
+                      </table>                         
+                  </div>           
+                </div>             
+             </div>
+          </div>              
         </div>
       </div>
-    </div>
+    </div>    
   </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 <?php $this->load->view('layout/admin/footer'); ?>
-    
-
-    

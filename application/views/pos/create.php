@@ -1,8 +1,11 @@
+<<<<<<< HEAD
+=======
 
 <style>
 
 
 </style>
+>>>>>>> 5e02da384c4b48fdc3f098d5b6b657d1e1feaa71
 <?php $this->load->view('layout/admin/header'); ?>
 
 <body class="animsition app-projects">

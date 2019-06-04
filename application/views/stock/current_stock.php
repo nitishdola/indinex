@@ -31,6 +31,8 @@ if($ch=='y'){ ?>
                           <th>Product</th>
                           <th>Product Code</th>
                           <th>Product Group</th>
+                          <th>Plant </th>
+                          <th>Storage Location</th>
                           <th>Current Stock</th>
                           <th>Product Image</th>
                           <th>Product Ledger</th>
@@ -40,10 +42,13 @@ if($ch=='y'){ ?>
 
                       <?php foreach($results as $k => $v): ?>
                       <tr>
+                      <?php var_dump($v);?>
                         <td><?php echo $k+1; ?></td>
                         <td><?php echo $v->product_description; ?></td>
                         <td><?php echo $v->product_code; ?></td>
                         <td><?php echo $v->group_name; ?></td>
+                        <td><?php echo ucwords($v->first_name); ?></td>
+                        <td><?php ucwords($v->first_name)?></td>
                         <td><?php echo $v->current_stock; ?></td>
                         <td>
                           <?php if($v->picture != ''): ?>
@@ -53,7 +58,7 @@ if($ch=='y'){ ?>
                           <?php endif; ?>
                         </td>
                         <td>
-                          <a target="_blank" class="btn btn-sm btn-info" href="<?php echo site_url('Reports/ledger_report/?product_id='.$v->product_general_data_id); ?>"> <i class="fa fa-share" aria-hidden="true"></i> View Product Ledger</a>
+                          <a target="_blank" class="btn btn-sm btn-info" href="<?php echo site_url('Stock_movement/view_current_stock/?product_general_data_id='.$v->product_general_data_id); ?>"> <i class="fa fa-share" aria-hidden="true"></i> View Current Stock</a>
                         </td>
                         
                       </tr>

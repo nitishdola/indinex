@@ -41,11 +41,11 @@
                         </div>
                       </div>
                     </div>
-                    <a href="<?php echo site_url('stock_movement/change_stock_movement');?>" class="btn btn-inverse project-button">CHANGE</a>
+                    <a href="<?php echo site_url('stock_movement/#');?>" class="btn btn-inverse project-button">CHANGE</a>
                     
                   </figcaption>
                 </figure>
-                <div class="text-truncate"><a href="<?php echo site_url('stock_movement/change_stock_movement');?>" class="btn btn-inverse project-button">CHANGE</a></div>
+                <div class="text-truncate"><a href="<?php echo site_url('stock_movement/#');?>" class="btn btn-inverse project-button">CHANGE</a></div>
               </div>
             </li>
             <li>
